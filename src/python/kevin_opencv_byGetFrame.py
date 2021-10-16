@@ -581,6 +581,8 @@ def demo():
        # --- end if ---
 
         cv2.imshow('myWindow', cvImage)
+
+        # kevin ir track
         ir_track.ir_track(cvImage)
 
         gc.collect()
