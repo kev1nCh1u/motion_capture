@@ -456,8 +456,8 @@ def setROI(camera, OffsetX, OffsetY, nWidth, nHeight):
 def demo():    
 
     # kevin time
-    currTime = time.time()
-    pastTime = time.time()
+    beginTime = time.time()
+    endTime = time.time()
     avgFpsSize = 50
     hisFps = numpy.zeros(avgFpsSize)
 
@@ -474,8 +474,11 @@ def demo():
         print("vendor name   = " + str(camera.getVendorName(camera)))
         print("Model  name   = " + str(camera.getModelName(camera)))
         print("Serial number = " + str(camera.getSerialNumber(camera)))
-        
-    camera = cameraList[0]
+    
+    # kevin chose camera id
+    inputCameraId = input('Chose Camera Id: ')
+    # camera = cameraList[0]
+    camera = cameraList[int(inputCameraId)]
 
     # 打开相机
     nRet = openCamera(camera)
@@ -594,17 +597,17 @@ def demo():
         # ir_track.ir_track(cvImage, showFlag = 0)
 
         # kevin time
-        currTime = time.time()
-        totalTime = currTime - pastTime
-        currfps = int(1 / totalTime)
+        beginTime = time.time()
+        deltaTime = beginTime - endTime
+        currFps = int(1 / deltaTime)
         hisFps = numpy.roll(hisFps, 1)
-        hisFps[0] = currfps
+        hisFps[0] = currFps
         avgFps = numpy.sum(hisFps) / avgFpsSize
-        pastTime = currTime
+        endTime = beginTime
         cv2.putText(cvImage, f'FPS: {int(avgFps)}', (20,450), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0,255,0), 2)
-        print(avgFps, end='\r')
+        print('fps:', avgFps, end='\r')
 
-        # cv2.imshow('myWindow', cvImage)
+        cv2.imshow('myWindow', cvImage)
 
         # gc.collect()
 
