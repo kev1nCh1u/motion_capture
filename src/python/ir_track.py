@@ -10,8 +10,9 @@ capFlag = 1
 ###################################################################################
 # ir_track
 ###################################################################################
-def ir_track(frame, capFlag=1, waitFlag=0):
-	cv2.imshow('original frame',frame)
+def ir_track(frame, capFlag=1, showFlag=1):
+	if showFlag:
+		cv2.imshow('original frame',frame)
 	# cv2.waitKey(0)
 
 	###################################################################################
@@ -26,8 +27,9 @@ def ir_track(frame, capFlag=1, waitFlag=0):
 	ret,thresh = cv2.threshold(gray_image,80,255,0)
 	# ret,thresh = cv2.threshold(gray_image,24,255,0)
 
-	cv2.imshow('gray_image',gray_image)
-	cv2.imshow('thresh',thresh)
+	if showFlag:
+		cv2.imshow('gray_image',gray_image)
+		cv2.imshow('thresh',thresh)
 	# cv2.waitKey(0)
 	mask = thresh.copy()
 
@@ -38,7 +40,8 @@ def ir_track(frame, capFlag=1, waitFlag=0):
 	contours, hierarchy = cv2.findContours(mask,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
 	cv2.drawContours(imgResult,contours,-1,(0,0,255),1)  
 
-	cv2.imshow('imgResult',imgResult)
+	if showFlag:
+		cv2.imshow('imgResult',imgResult)
 	# cv2.waitKey(0)
 
 	###################################################################################
@@ -67,11 +70,13 @@ def ir_track(frame, capFlag=1, waitFlag=0):
 	if missCount == len(contours):
 		# print('miss point')
 		cv2.putText(imgResult, 'miss point' , (10,10),cv2.FONT_HERSHEY_SIMPLEX, 0.3, (255, 255, 255), 1)
-		cv2.imshow('imgResult xy',imgResult)
+		if showFlag:
+			cv2.imshow('imgResult xy',imgResult)
 		cv2.waitKey(1)
 		return points
 	else:
-		cv2.imshow('imgResult xy',imgResult)
+		if showFlag:
+			cv2.imshow('imgResult xy',imgResult)
 		if capFlag:
 			cv2.waitKey(1)
 		if not capFlag:

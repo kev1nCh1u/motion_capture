@@ -23,6 +23,7 @@ import gc
 
 # kevin import
 import ir_track
+import time
 
 g_cameraStatusUserInfo = b"statusInfo"
 
@@ -453,6 +454,13 @@ def setROI(camera, OffsetX, OffsetY, nWidth, nHeight):
     return 0
 
 def demo():    
+
+    # kevin time
+    currTime = time.time()
+    pastTime = time.time()
+    avgFpsSize = 50
+    hisFps = numpy.zeros(avgFpsSize)
+
     # 发现相机
     cameraCnt, cameraList = enumCameras()
     if cameraCnt is None:
@@ -469,14 +477,14 @@ def demo():
         
     camera = cameraList[0]
 
-    # kevin setting
-    setExposureTime(camera, 990)
-
     # 打开相机
     nRet = openCamera(camera)
     if ( nRet != 0 ):
         print("openCamera fail.")
         return -1;
+
+    # kevin setting camera
+    setExposureTime(camera, 990) # 990
         
     # 创建流对象
     streamSourceInfo = GENICAM_StreamSourceInfo()
@@ -534,7 +542,9 @@ def demo():
             streamSource.contents.release(streamSource)   
             return -1 
         else:
-            print("getFrame success BlockId = [" + str(frame.contents.getBlockId(frame)) + "], get frame time: " + str(datetime.datetime.now()))
+            # kevin print
+            # print("getFrame success BlockId = [" + str(frame.contents.getBlockId(frame)) + "], get frame time: " + str(datetime.datetime.now()))
+            pass
           
         nRet = frame.contents.valid(frame)
         if ( nRet != 0 ):
@@ -580,12 +590,23 @@ def demo():
             cvImage = numpy.array(colorByteArray).reshape(imageParams.height, imageParams.width, 3)
        # --- end if ---
 
-        cv2.imshow('myWindow', cvImage)
-
         # kevin ir track
-        ir_track.ir_track(cvImage)
+        # ir_track.ir_track(cvImage, showFlag = 0)
 
-        gc.collect()
+        # kevin time
+        currTime = time.time()
+        totalTime = currTime - pastTime
+        currfps = int(1 / totalTime)
+        hisFps = numpy.roll(hisFps, 1)
+        hisFps[0] = currfps
+        avgFps = numpy.sum(hisFps) / avgFpsSize
+        pastTime = currTime
+        cv2.putText(cvImage, f'FPS: {int(avgFps)}', (20,450), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0,255,0), 2)
+        print(avgFps, end='\r')
+
+        # cv2.imshow('myWindow', cvImage)
+
+        # gc.collect()
 
         if (cv2.waitKey(1) >= 0):
             isGrab = False
