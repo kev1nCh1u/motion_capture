@@ -28,9 +28,52 @@ bool StreamRetrieve::stop()
 	return destroyThread();
 }
 
+/****************************************************************
+ * print array
+ * **************************************************************/
+void printArr(int arrSize, float arr[])
+{
+    for(int i = 0; i < arrSize; i++)
+    {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << "\n";
+}
+
+/****************************************************************
+ * push new value in array, and rmove oldest
+ * **************************************************************/
+void pushNew(int arrSize, float arr[], float newVal)
+{
+    for(int i = 0; i < arrSize - 1; i++)
+    {
+        arr[i] = arr[i+1];
+    }
+    arr[arrSize - 1] = newVal;
+}
+
+/****************************************************************
+ * calculate array average
+ * **************************************************************/
+float avgArrFuc(int arrSize, float arr[])
+{
+    float sumArr = 0;
+    float avgArr = 0;
+
+    for(int i = 0; i < arrSize; i++)
+    {
+        sumArr += arr[i];
+    }
+    
+    avgArr = sumArr / arrSize;
+    return avgArr;
+}
+
 void StreamRetrieve::threadProc()
 {
-	
+	int avgFpsSize = 100;
+	float hisFps[avgFpsSize];
+
 	while (m_isLoop)
 	{
 		// kevin beginTime
@@ -70,12 +113,14 @@ void StreamRetrieve::threadProc()
 		// kevin endTime
 		clock_t endTime = clock();
         clock_t deltaTime = endTime - beginTime;
-		int currFps = 1.f / deltaTime * 1000;
+		float currFps = 1.f / deltaTime * 1000;
+		pushNew(avgFpsSize, hisFps, currFps);
+		float avgFps = avgArrFuc(avgFpsSize, hisFps);
 
 		// 打印FrameID
 		// print frame ID
 		// printf("get frame %lld successfully thread ID :%d\n", frame.getBlockId(), CThread::getCurrentThreadID());
-		printf("get frame %lld successfully thread ID :%d ,fps:%d \n", frame.getBlockId(), CThread::getCurrentThreadID(), currFps);
+		printf("get frame %lld successfully thread ID :%d ,fps:%3.2f, avg fps:%3.2f \n", frame.getBlockId(), CThread::getCurrentThreadID(), currFps, avgFps);
 	}
 
 }
