@@ -8,7 +8,7 @@ Created on 2017-10-26
 from ctypes import *
 
 # 加载ImageConvert库
-ImageConvertdll = cdll.LoadLibrary("../../lib/libImageConvert.so")
+ImageConvertdll = cdll.LoadLibrary("../../../lib/libImageConvert.so")
 
 #定义枚举类型
 def enum(**enums):

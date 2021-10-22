@@ -6,6 +6,7 @@ Created on 2017-10-25
 @author: 
 '''
 
+# kevin change path
 import os
 print('Current Directory:', os.path.abspath(os.getcwd()))
 print('file Directory:', os.path.dirname(os.path.abspath(__file__)))
@@ -594,7 +595,7 @@ def demo():
        # --- end if ---
 
         # kevin ir track
-        # ir_track.ir_track(cvImage, showFlag = 0)
+        ir_track.ir_track(cvImage, showFlag = 0)
 
         # kevin time
         beginTime = time.time()
