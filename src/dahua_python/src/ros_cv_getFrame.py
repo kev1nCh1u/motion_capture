@@ -25,6 +25,7 @@ import gc
 # kevin import
 import ir_track
 import time
+import argparse
 
 # kevin import ros
 import rospy
@@ -460,17 +461,23 @@ def setROI(camera, OffsetX, OffsetY, nWidth, nHeight):
     OffsetYNode.contents.release(OffsetYNode)   
     return 0
 
-def demo():    
+def demo():
+    # kevin args
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-c", "--camera_num", default=0, help="chose camera 0,1,2,")
+    args = parser.parse_args()
+
     # kevin ros
-    rospy.init_node('camera', anonymous=True)
-    pub = rospy.Publisher('image', Image)
+    rospy.init_node('camera_' + str(args.camera_num), anonymous=False)
+    print()
+    pub = rospy.Publisher(rospy.get_name()+'/image', Image)
     bridge = CvBridge()
 
     # kevin time
-    beginTime = time.time()
-    endTime = time.time()
-    avgFpsSize = 50
-    hisFps = numpy.zeros(avgFpsSize)
+    # beginTime = time.time()
+    # endTime = time.time()
+    # avgFpsSize = 50
+    # hisFps = numpy.zeros(avgFpsSize)
 
     # 发现相机
     cameraCnt, cameraList = enumCameras()
@@ -487,7 +494,8 @@ def demo():
         print("Serial number = " + str(camera.getSerialNumber(camera)))
     
     # kevin chose camera id
-    inputCameraId = input('Chose Camera Id: ')
+    # inputCameraId = input('Chose Camera Id: ')
+    inputCameraId = args.camera_num
     # camera = cameraList[0]
     camera = cameraList[int(inputCameraId)]
 
@@ -606,18 +614,18 @@ def demo():
        # --- end if ---
 
         # kevin ir track
-        ir_track.ir_track(cvImage, showFlag = 0)
+        # ir_track.ir_track(cvImage, showFlag = 0)
 
         # kevin time
-        beginTime = time.time()
-        deltaTime = beginTime - endTime
-        currFps = int(1 / deltaTime)
-        hisFps = numpy.roll(hisFps, 1)
-        hisFps[0] = currFps
-        avgFps = numpy.sum(hisFps) / avgFpsSize
-        endTime = beginTime
-        cv2.putText(cvImage, f'FPS: {int(avgFps)}', (20,450), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0,255,0), 2)
-        print('fps:', avgFps, end='\r')
+        # beginTime = time.time()
+        # deltaTime = beginTime - endTime
+        # currFps = int(1 / deltaTime)
+        # hisFps = numpy.roll(hisFps, 1)
+        # hisFps[0] = currFps
+        # avgFps = numpy.sum(hisFps) / avgFpsSize
+        # endTime = beginTime
+        # cv2.putText(cvImage, f'FPS: {int(avgFps)}', (20,450), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0,255,0), 2)
+        # print('fps:', avgFps, end='\r')
 
         # cv2.imshow('myWindow', cvImage)
 
