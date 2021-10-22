@@ -462,8 +462,8 @@ def setROI(camera, OffsetX, OffsetY, nWidth, nHeight):
 
 def demo():    
     # kevin ros
-    pub = rospy.Publisher('image', Image)
     rospy.init_node('camera', anonymous=True)
+    pub = rospy.Publisher('image', Image)
     bridge = CvBridge()
 
     # kevin time
