@@ -1,5 +1,8 @@
-import argparse
-parser = argparse.ArgumentParser()
-parser.add_argument("camera_num", help="chose camera 0,1,2,")
-args = parser.parse_args()
-print(args.camera_num)
+import numpy as np 
+import cv2
+
+yy = 1
+qq = np.zeros((3,480,640,3), np.uint8)
+print(qq)
+cv2.imshow('qq', qq[0])
+cv2.waitKey(0)

@@ -53,3 +53,9 @@ devel_isolated/
 .catkin_tools/
 time
 .vscode/
+
+*.jpg
+*.bmp
+*.png
+*.csv
+resources/

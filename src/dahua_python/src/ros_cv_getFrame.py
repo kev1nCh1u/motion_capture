@@ -470,7 +470,7 @@ def demo():
 
     # kevin ros
     rospy.init_node('camera_' + str(args.camera_id), anonymous=False)
-    print()
+    print(rospy.get_name())
     pub = rospy.Publisher(rospy.get_name()+'/image', Image)
     bridge = CvBridge()
 
