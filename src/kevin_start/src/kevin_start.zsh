@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/zsh
 # Program:
 #       This program start kevin_motion_capture
 # History:
-# 2020/11/12	kevin	First release
+# 2021/10/23	kevin	First release
 
 echo -e "\033[32m
 ##############################

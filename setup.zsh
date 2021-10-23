@@ -1,3 +1,8 @@
+#!/bin/zsh
+# Program:
+#       This program start kevin_motion_capture
+# History:
+# 2021/10/23	kevin	First release
 
 pathVar=$(pwd)
 echo "\nNow path:"
