@@ -464,11 +464,12 @@ def setROI(camera, OffsetX, OffsetY, nWidth, nHeight):
 def demo():
     # kevin args
     parser = argparse.ArgumentParser()
-    parser.add_argument("-c", "--camera_num", default=0, help="chose camera 0,1,2,")
+    parser.add_argument("-c", "--camera_id", default=0, help="0,1,2,...")
+    parser.add_argument("-et", "--exposure_time", default=990, help="990,20000...")
     args = parser.parse_args()
 
     # kevin ros
-    rospy.init_node('camera_' + str(args.camera_num), anonymous=False)
+    rospy.init_node('camera_' + str(args.camera_id), anonymous=False)
     print()
     pub = rospy.Publisher(rospy.get_name()+'/image', Image)
     bridge = CvBridge()
@@ -495,9 +496,10 @@ def demo():
     
     # kevin chose camera id
     # inputCameraId = input('Chose Camera Id: ')
-    inputCameraId = args.camera_num
+    inputCameraId = args.camera_id
     # camera = cameraList[0]
     camera = cameraList[int(inputCameraId)]
+    print("\nopenCamera Id = " + str(inputCameraId) + '\n')
 
     # 打开相机
     nRet = openCamera(camera)
@@ -506,7 +508,7 @@ def demo():
         return -1;
 
     # kevin setting camera
-    setExposureTime(camera, 990) # 990
+    setExposureTime(camera, int(args.exposure_time)) # 990
         
     # 创建流对象
     streamSourceInfo = GENICAM_StreamSourceInfo()

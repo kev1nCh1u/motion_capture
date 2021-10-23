@@ -23,9 +23,9 @@ cd $ws_path
 # gnome-terminal --tab -t "分頁名稱" -- bash -ic "指令"
 gnome-terminal --tab -t "roscore" -- sh -ic "roscore"
 sleep 0.2
-gnome-terminal --tab -t "camera_0" -- sh -ic "python src/dahua_python/src/ros_cv_getFrame.py"
+gnome-terminal --tab -t "camera_0" -- sh -ic "python src/dahua_python/src/ros_cv_getFrame.py -c 0 -et 20000"
 sleep 0.2
-gnome-terminal --tab -t "camera_1" -- sh -ic "python src/dahua_python/src/ros_cv_getFrame.py -c 1"
+gnome-terminal --tab -t "camera_1" -- sh -ic "python src/dahua_python/src/ros_cv_getFrame.py -c 1 -et 20000"
 sleep 0.2
 gnome-terminal --tab -t "rqt" -- sh -ic "rqt"
 sleep 0.2
