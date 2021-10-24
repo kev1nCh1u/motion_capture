@@ -19,60 +19,6 @@ from cv_bridge import CvBridge
 print('\n opencv version:', cv2.__version__)
 
 ########################################################################################
-# define
-########################################################################################
-save_path = 'img/stereo_calibration/new/'
-capture_num = 0
-camera_num = 0
-frame = np.zeros((camera_num,480,640,3), np.uint8)
-bridge = CvBridge()
-
-########################################################################################
-# getImage
-########################################################################################
-def getImage(data, arg=0):
-    img = bridge.imgmsg_to_cv2(data.data, desired_encoding='passthrough')
-    cv2.imshow('img', img)
-    cv2.waitKey(1)
-
-    # print(frame[arg])
-
-########################################################################################
-# saveImage
-########################################################################################
-def saveImage(data):
-    current_time = time.time()
-    
-    for i in range(camera_num):
-        cv2.imwrite(save_path + '1/' + "{0:0=2d}".format(capture_num)+ '.jpg', frame[i])
-
-    print('save:', save_path , str(int(current_time)), "{0:0=2d}".format(i))
-    capture_num += 1
-
-########################################################################################
-# main
-########################################################################################
-def main():
-    global frame
-
-    # kevin args
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-n", "--camera_num", default=2, help="1,2,...")
-    args = parser.parse_args()
-    camera_num = args.camera_num
-    frame = np.zeros((camera_num,480,640,3), np.uint8)
-
-    # kevin ros
-    rospy.init_node('multi_capture', anonymous=False)
-    print(rospy.get_name())
-    pub = rospy.Publisher(rospy.get_name()+'/image', Image)
-    for i in range(camera_num):
-        rospy.Subscriber('camera_'+ str(i) + '/image', Image, getImage, i)
-    rospy.Subscriber('/trigger', Bool, saveImage)
-
-    rospy.spin()
-
-########################################################################################
 # MultiCapture
 ########################################################################################
 class MultiCapture:
