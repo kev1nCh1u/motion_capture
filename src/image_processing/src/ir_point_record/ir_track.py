@@ -48,41 +48,43 @@ def ir_track(frame, capFlag=1, showFlag=0):
 	# find center
 	###################################################################################
 	missCount = 0
-	points = np.zeros((1, 1, 2), np.int32)
+	pointsNum = len(contours)
+	points = np.zeros((pointsNum, 1, 2), np.int32)
 
-	for c in contours:
+	for i in range(pointsNum):
 		# calculate moments for each contour
-		M = cv2.moments(c)
+		M = cv2.moments(contours[i])
 		if M["m00"] > 0:
 			cX = int(M["m10"] / M["m00"])
 			cY = int(M["m01"] / M["m00"])
 
 			# kevin save point
 			point = np.array([cX, cY], np.int32)
-			points[0][0] = point
+			points[i][0] = point
 
 			# calculate x,y coordinate of center
-			cv2.circle(imgResult, (cX, cY), 2, (0, 0, 255), -1)
-			cv2.putText(imgResult, 'x:'+str(cX)+' y:'+str(cY), (cX - 25, cY - 25),cv2.FONT_HERSHEY_SIMPLEX, 0.3, (255, 255, 255), 1)
+			if showFlag:
+				cv2.circle(imgResult, (cX, cY), 2, (0, 0, 255), -1)
+				cv2.putText(imgResult, 'x:'+str(cX)+' y:'+str(cY), (cX - 25, cY - 25),cv2.FONT_HERSHEY_SIMPLEX, 0.3, (255, 255, 255), 1)
 		else:
 			missCount = missCount + 1
 
 	if missCount == len(contours):
 		# print('miss point')
-		cv2.putText(imgResult, 'miss point' , (10,10),cv2.FONT_HERSHEY_SIMPLEX, 0.3, (255, 255, 255), 1)
 		if showFlag:
+			cv2.putText(imgResult, 'miss point' , (10,10),cv2.FONT_HERSHEY_SIMPLEX, 0.3, (255, 255, 255), 1)
 			cv2.imshow('imgResult xy',imgResult)
-		cv2.waitKey(1)
+			cv2.waitKey(1)
 		return points
 	else:
 		if showFlag:
 			cv2.imshow('imgResult xy',imgResult)
-		if capFlag:
-			cv2.waitKey(1)
-		if not capFlag:
-			cv2.waitKey(0)
-			cv2.destroyAllWindows()
-			exit()
+			if capFlag:
+				cv2.waitKey(1)
+			if not capFlag:
+				cv2.waitKey(0)
+				cv2.destroyAllWindows()
+				exit()
 		return points
 
 ###################################################################################
@@ -99,12 +101,13 @@ def main():
 			ret, frame = cap.read()
 
 		if not capFlag:
-			frame = cv2.imread("img/ir/Pic_2021_10_09_104654_1.bmp")
+			# frame = cv2.imread("img/ir/Pic_2021_10_09_104654_1.bmp")
+			frame = cv2.imread("img/ir/ir_led_4.bmp")
 			ret = True
 
 		if ret == True:
 			# print('cap get frame')
-			points = ir_track(frame, capFlag)
+			points = ir_track(frame, capFlag, showFlag=1)
 			print(points[0][0])
 		else:
 			print('error no cap frame')
