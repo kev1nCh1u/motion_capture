@@ -26,8 +26,9 @@ class PointPath:
 
     def __init__(self, fileName=0):
         self.fileName = fileName
-        self.minPoint = 120 # math.inf
-        self.maxPoint = 527 # 0
+        self.minPoint = (120, 0, 0) # math.inf
+        self.maxPoint = (527, 0, 0) # 0
+        self.min_max_axis = 0 # x:0 y:1 z:2
         self.points = np.zeros((10000, 1, 2), np.int32)
         self.num = 0
         self.saveFlag = False
@@ -38,15 +39,15 @@ class PointPath:
         self.savePlotPath = 'img/result/point_path_plot/point_path_plot_' + self.fileName + '.png'
 
     def findMinMax(self, point):
-        if point[0] < self.minPoint:
-            self.minPoint = point[0]
+        if point[self.min_max_axis] < self.minPoint[self.min_max_axis]:
+            self.minPoint[self.min_max_axis] = point[self.min_max_axis]
             self.minFlag = self.maxFlag = False
-        elif point[0] > self.maxPoint:
-            self.maxPoint = point[0]
+        elif point[self.min_max_axis] > self.maxPoint[self.min_max_axis]:
+            self.maxPoint[self.min_max_axis] = point[self.min_max_axis]
             self.minFlag = self.maxFlag = False
-        elif point[0] == self.minPoint:
+        elif point[self.min_max_axis] == self.minPoint[self.min_max_axis]:
             self.minFlag = True
-        elif point[0] == self.maxPoint:
+        elif point[self.min_max_axis] == self.maxPoint[self.min_max_axis]:
             self.maxFlag = True
         elif self.minFlag and self.maxFlag:
             return True
@@ -58,17 +59,17 @@ class PointPath:
         self.points[self.num][0] = point
 
         if self.findMinMaxFlag and not self.saveFlag:
-            if point[0] == self.minPoint:
+            if point[self.min_max_axis] == self.minPoint[self.min_max_axis]:
                 self.saveFlag = True
-                print('start save...', self.minPoint, '~', self.maxPoint)
+                print('start save...', self.minPoint[self.min_max_axis], '~', self.maxPoint[self.min_max_axis])
         
         if self.saveFlag == True:
             self.points[self.num][0] = point
             self.num = self.num + 1
-            if  point[0] == self.maxPoint:
+            if  point[self.min_max_axis] == self.maxPoint[self.min_max_axis]:
                 # print(self.points[:self.num])
                 print('\n\nNum of point', self.num)
-                print('MinMax', self.minPoint, self.maxPoint)
+                print('MinMax', self.minPoint[self.min_max_axis], self.maxPoint[self.min_max_axis])
 
                 pointsReshape = np.reshape(self.points[:self.num], (-1,2))
                 # np.savetxt(self.saveDataPath, pointsReshape, delimiter=",")
