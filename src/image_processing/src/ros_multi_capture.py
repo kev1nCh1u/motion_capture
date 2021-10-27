@@ -70,6 +70,9 @@ class MultiCapture:
             print('save:', self.save_path + str(i+1) , str(int(current_time)), "{0:0=2d}".format(self.save_num))
         self.save_num += 1
 
+        if(self.save_num > 21):
+            self.save_num = 1
+
 
 if __name__=="__main__": 
     multi_capture = MultiCapture()

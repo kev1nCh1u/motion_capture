@@ -148,9 +148,8 @@ class steroIrTrack:
                         cv2.putText(frame_left, text,
                                     (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
-                # print world point
-                # print('x:', x_world_point, 'y:', y_world_point, 'z:', depth)
-                print('world_points:', world_points.ravel())
+                    # print world point
+                    print('world_points%d:'%i, world_points[i].ravel())
 
                 if(self.showFlag):
                     # mix to show on one picture
