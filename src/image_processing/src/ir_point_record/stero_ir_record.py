@@ -59,7 +59,7 @@ class steroIrTrack:
         self.fileName = '1'
         self.minPoint = (120, 50, 0) # math.inf
         self.maxPoint = (527, 190, 0) # 0
-        self.min_max_axis = 1 # x:0 y:1 z:2
+        self.axis = 1 # x:0 y:1 z:2
         self.points = np.zeros((10000, 1, 3), np.int32)
         self.num = 0
         self.saveFlag = False
@@ -71,7 +71,7 @@ class steroIrTrack:
         self.finishFlag = False
 
         # kevin ros
-        rospy.init_node('stero_ir_record', anonymous=False)
+        rospy.init_node('stero_ir_record', anonymous=False, disable_signals=True)
         print(rospy.get_name())
         rospy.Subscriber('/stero_ir_track/point', Point32, self.getPoint)
         self.bridge = CvBridge()
@@ -95,6 +95,8 @@ class steroIrTrack:
             self.finishFlag = self.savePoint(point)
             if self.finishFlag:
                 print('Finish.......')
+                rospy.signal_shutdown('finish')
+                exit()
 
     ########################################################################################
     # savePoint
@@ -104,23 +106,24 @@ class steroIrTrack:
         self.points[self.num][0] = point
 
         if self.findMinMaxFlag and not self.saveFlag:
-            if point[self.min_max_axis] <= self.minPoint[self.min_max_axis]:
+            if point[self.axis] <= self.minPoint[self.axis]:
                 self.saveFlag = True
-                print('start save...', self.minPoint[self.min_max_axis], '~', self.maxPoint[self.min_max_axis])
+                print('start save...', self.minPoint[self.axis], '~', self.maxPoint[self.axis])
 
         if self.saveFlag == True:
             self.points[self.num][0] = point
             self.num = self.num + 1
-            if  point[self.min_max_axis] >= self.maxPoint[self.min_max_axis]:
+            if  point[self.axis] >= self.maxPoint[self.axis]:
                 # print(self.points[:self.num])
                 print('\n\nNum of point', self.num)
-                print('MinMax', self.minPoint[self.min_max_axis], self.maxPoint[self.min_max_axis])
+                print('MinMax', self.minPoint[self.axis], self.maxPoint[self.axis])
 
                 pointsReshape = np.reshape(self.points[:self.num], (-1,3))
                 # np.savetxt(self.saveDataPath, pointsReshape, delimiter=",")
                 pd.DataFrame(pointsReshape).to_csv(self.saveDataPath)
                 print('Save data file to:', self.saveDataPath)
                 
+                # show plot 2d
                 # plt.clf()
                 # plt.title('Points' + self.fileName)
                 # plt.xlabel('x axis')
@@ -134,6 +137,7 @@ class steroIrTrack:
                 # plt.pause(1)
                 # # plt.close()
 
+                # show plot 3d
                 fig = plt.figure()
                 ax = fig.gca(projection='3d')
                 ax.set_xlabel('X')
@@ -144,8 +148,7 @@ class steroIrTrack:
                 ax.set_xlim(0,640)
                 ax.set_ylim(480,0)
                 ax.set_zlim(0,2000)
-                ax.scatter(pointsReshape[:,0], pointsReshape[:,1], pointsReshape[:,2], c=pointsReshape[:,2], cmap='Reds', label='Point')
-
+                ax.scatter(pointsReshape[:,0], pointsReshape[:,1], pointsReshape[:,2], c=pointsReshape[:,self.axis], cmap='Reds', label='Point')
                 ax.legend()
                 plt.savefig(self.savePlotPath)
                 plt.show()
