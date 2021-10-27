@@ -40,6 +40,10 @@ while(1):
         frame_right = cap_right
         frame_left = cap_left
 
+    # draw green rectangle
+    cv2.rectangle(frame_left, (0, 0), (640, 480), (255, 0, 0), 2)
+    cv2.rectangle(frame_right, (0, 0), (640, 480), (255, 0, 0), 2)
+
     # Undistort and rectify images
     frame_right = cv2.remap(frame_right, stereoMapR_x, stereoMapR_y, cv2.INTER_LANCZOS4, cv2.BORDER_CONSTANT, 0)
     frame_left = cv2.remap(frame_left, stereoMapL_x, stereoMapL_y, cv2.INTER_LANCZOS4, cv2.BORDER_CONSTANT, 0)
