@@ -60,8 +60,18 @@ while(1):
 
 
     # Hit "q" to close the window
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    inputKey = cv2.waitKey(0) & 0xFF
+
+        # 若按下 q 鍵則離開迴圈
+    if inputKey == ord('q'):
         break
+
+    # if s save image
+    elif inputKey == ord('s'):
+        current_time = time.time() # catch time
+        filename = save_path + 'remap_vis_' + str(current_time) + '.jpg'
+        cv2.imwrite(filename, vis)
+        print('\nSave:' , filename, '\n')
 
 
 # Release and destroy all windows before termination

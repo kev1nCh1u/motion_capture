@@ -207,7 +207,7 @@ def main():
         # if s save image
         elif inputKey == ord('s'):
             current_time = time.time() # catch time
-            filename = save_path + 'vis_' + str(current_time) + '.jpg'
+            filename = save_path + 'chess_vis_' + str(current_time) + '.jpg'
             cv2.imwrite(filename, vis)
             print('\nSave:' , filename, '\n')
 
