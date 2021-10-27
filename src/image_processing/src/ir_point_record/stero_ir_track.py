@@ -11,6 +11,7 @@ import rospy
 from std_msgs.msg import String
 from std_msgs.msg import Bool
 from sensor_msgs.msg import Image
+from geometry_msgs.msg import Point32
 from cv_bridge import CvBridge
 
 import ir_track
@@ -37,7 +38,6 @@ class steroIrTrack:
         # define
         self.showFlag = args.cv_show
         self.frame = np.zeros((2,480,640,3), np.uint8)
-        self.bridge = CvBridge()
 
         # define camera
         fs = cv2.FileStorage("param/matlab_stereo_param.yaml", cv2.FILE_STORAGE_READ)
@@ -57,6 +57,9 @@ class steroIrTrack:
         print(rospy.get_name())
         rospy.Subscriber('camera_'+ str(args.camera_right) + '/image', Image, self.getImage, args.camera_right)
         rospy.Subscriber('camera_'+ str(args.camera_left) + '/image', Image, self.getImage, args.camera_left)
+        self.pub_cvimg = rospy.Publisher(rospy.get_name()+'/image', Image)
+        self.pub_point = rospy.Publisher(rospy.get_name()+'/point', Point32)
+        self.bridge = CvBridge()
         # rospy.Timer(rospy.Duration(2), self.timer_callback)
 
         # thread
@@ -117,9 +120,16 @@ class steroIrTrack:
     ########################################################################################
     def loop(self):
         while not rospy.is_shutdown():
+            frame_left = self.frame[0]
+            frame_right = self.frame[1]
+
+            # draw green rectangle
+            # cv2.rectangle(frame_left, (0, 0), (640, 480), (255, 0, 0), 2)
+            # cv2.rectangle(frame_right, (0, 0), (640, 480), (255, 0, 0), 2)
+
             # undistortRectify remap
             frame_left, frame_right  = self.undistortRectify(
-            self.stereoMapL_x, self.stereoMapL_y, self.stereoMapR_x, self.stereoMapR_y, self.frame[0], self.frame[1])
+            self.stereoMapL_x, self.stereoMapL_y, self.stereoMapR_x, self.stereoMapR_y, frame_left, frame_right)
 
             # ir track
             left_points = ir_track.ir_track(frame_left)
@@ -151,11 +161,27 @@ class steroIrTrack:
                     # print world point
                     print('world_points%d:'%i, world_points[i].ravel())
 
-                if(self.showFlag):
-                    # mix to show on one picture
-                    vis = np.concatenate((frame_left, frame_right), axis=1)
-                    cv2.imshow('vis', vis)
-                    # cv2.waitKey(100)
+                    # pub point
+                    rosPoint = Point32()
+                    rosPoint.x = world_points[0][0]
+                    rosPoint.y = world_points[0][1]
+                    rosPoint.z = world_points[0][2]
+                    self.pub_point.publish(rosPoint)
+
+            else:
+                print('!!!! Cant track ', 'left_num:', left_num, 'right_num:', right_num)
+
+            # mix to show on one picture
+            vis = np.concatenate((frame_left, frame_right), axis=1)
+            if(self.showFlag):
+                cv2.imshow('vis', vis)
+                # cv2.waitKey(100)
+
+            # kevin ros publish
+            # cvImage = bridge.cv2_to_imgmsg(cvImage, encoding='passthrough')
+            cvImage = self.bridge.cv2_to_imgmsg(vis, 'bgr8')
+            self.pub_cvimg.publish(cvImage)
+            
 
 if __name__=="__main__": 
     stero_ir_track = steroIrTrack()
