@@ -56,7 +56,7 @@ class steroIrTrack:
         self.stereoMapR_y = cv_file.getNode('stereoMapR_y').mat()
 
         # record define
-        self.fileName = '1'
+        self.fileName = '01' # 01 ~ 10
         self.minPoint = (120, 50, 0) # math.inf
         self.maxPoint = (527, 190, 0) # 0
         self.axis = 1 # x:0 y:1 z:2

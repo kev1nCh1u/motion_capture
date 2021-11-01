@@ -31,8 +31,8 @@ class steroIrTrack:
         # kevin args
         parser = argparse.ArgumentParser()
         parser.add_argument("-cs", "--cv_show", default=0, help="0,1")
-        parser.add_argument("-r", "--camera_right", default=0, help="0,1,2...")
-        parser.add_argument("-l", "--camera_left", default=1, help="0,1,2...")
+        parser.add_argument("-l", "--camera_left", default=0, help="0,1,2...")
+        parser.add_argument("-r", "--camera_right", default=1, help="0,1,2...")
         args = parser.parse_args()
 
         # define
@@ -55,8 +55,8 @@ class steroIrTrack:
         # kevin ros
         rospy.init_node('stero_ir_track', anonymous=False)
         print(rospy.get_name())
-        rospy.Subscriber('camera_'+ str(args.camera_right) + '/image', Image, self.getImage, args.camera_right)
         rospy.Subscriber('camera_'+ str(args.camera_left) + '/image', Image, self.getImage, args.camera_left)
+        rospy.Subscriber('camera_'+ str(args.camera_right) + '/image', Image, self.getImage, args.camera_right)
         self.pub_cvimg = rospy.Publisher(rospy.get_name()+'/image', Image)
         self.pub_point = rospy.Publisher(rospy.get_name()+'/point', Point32)
         self.bridge = CvBridge()

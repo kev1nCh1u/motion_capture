@@ -46,7 +46,7 @@ class MultiCapture:
         rospy.init_node('multi_capture', anonymous=False)
         print(rospy.get_name())
         for i in range(self.camera_num):
-            rospy.Subscriber('camera_'+ str(i) + '/image', Image, self.getImage, i)
+            rospy.Subscriber('camera_'+ str(i+1) + '/image', Image, self.getImage, i)
         rospy.Subscriber('/trigger', Bool, self.saveImage)
 
         rospy.spin()

@@ -464,12 +464,14 @@ def setROI(camera, OffsetX, OffsetY, nWidth, nHeight):
 def demo():
     # kevin args
     parser = argparse.ArgumentParser()
-    parser.add_argument("-c", "--camera_id", default=0, help="0,1,2,...")
+    parser.add_argument("-id", "--ros_id", default=1, help="1,2,...")
+    parser.add_argument("-cid", "--camera_id", default=0, help="0,1,2,...")
+    parser.add_argument("-ser", "--camera_serial", default=0, help="asfdasf, sdfsf,...")
     parser.add_argument("-et", "--exposure_time", default=990, help="990,20000...")
     args = parser.parse_args()
 
     # kevin ros
-    rospy.init_node('camera_' + str(args.camera_id), anonymous=False)
+    rospy.init_node('camera_' + str(args.ros_id), anonymous=False)
     print(rospy.get_name())
     pub = rospy.Publisher(rospy.get_name()+'/image', Image)
     bridge = CvBridge()
@@ -485,6 +487,7 @@ def demo():
     if cameraCnt is None:
         return -1
     
+    inputCameraId = 0
     # 显示相机信息
     for index in range(0, cameraCnt):
         camera = cameraList[index]
@@ -493,13 +496,23 @@ def demo():
         print("vendor name   = " + str(camera.getVendorName(camera)))
         print("Model  name   = " + str(camera.getModelName(camera)))
         print("Serial number = " + str(camera.getSerialNumber(camera)))
+
+        print('args.camera_serial', args.camera_serial)
+
+        if(str(camera.getSerialNumber(camera).decode("utf-8")) == args.camera_serial):
+            print('if SerialNumber == true')
+            inputCameraId = str(index)
+
+    print('\n inputCameraId', inputCameraId)
     
     # kevin chose camera id
     # inputCameraId = input('Chose Camera Id: ')
-    inputCameraId = args.camera_id
+    # inputCameraId = args.camera_id
     # camera = cameraList[0]
     camera = cameraList[int(inputCameraId)]
-    print("\nopenCamera Id = " + str(inputCameraId) + '\n')
+    print('\nOpen...')
+    print("Camera Id = " + str(index))
+    print("Serial number = " + str(camera.getSerialNumber(camera)) + '\n')
 
     # 打开相机
     nRet = openCamera(camera)

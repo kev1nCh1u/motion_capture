@@ -52,7 +52,7 @@ imageFileNames2 = {'/home/kevin/src/kevin_motion_capture/img/stereo_calibration/
 [imagePoints, boardSize, imagesUsed] = detectCheckerboardPoints(imageFileNames1, imageFileNames2);
 
 % Generate world coordinates of the checkerboard keypoints
-squareSize = 27;  % in units of 'millimeters'
+squareSize = 24;  % in units of 'millimeters'
 worldPoints = generateCheckerboardPoints(boardSize, squareSize);
 
 % Read one of the images from the first stereo pair

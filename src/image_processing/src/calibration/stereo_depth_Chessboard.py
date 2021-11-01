@@ -144,7 +144,7 @@ def main():
             depth = find_depth(center_point_left, center_point_right, baseline, focalLength)
             depth = round(depth, 1)
             print("Depth:", depth)
-            text = "Dis: " + str(round(depth, 1))
+            text = "Depth: " + str(round(depth, 1))
             cv2.putText(frame_left, text,
                         (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
@@ -152,12 +152,12 @@ def main():
             depth1 = find_depth(center_point_left1.ravel(), center_point_right1.ravel(), baseline, focalLength)
             depth1 = round(depth1, 1)
             print("Depth:", depth1)
-            text = "Dis: " + str(round(depth1, 1))
+            text = "Depth: " + str(round(depth1, 1))
             cv2.putText(frame_left, text,
                         (50, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
 
-            # find world point
             world_points = np.zeros((2,3), np.float)
+            # find world point
             world_points[0] = calcu_world_point(center_point_left, depth, focalLength)
             world_points[0,0] = round(world_points[0,0], 1)
             world_points[0,1] = round(world_points[0,1], 1)
@@ -167,7 +167,6 @@ def main():
                         (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
             # find world point1
-            world_points = np.zeros((2,3), np.float)
             world_points[1] = calcu_world_point(center_point_left1, depth1, focalLength)
             world_points[1,0] = round(world_points[1,0], 1)
             world_points[1,1] = round(world_points[1,1], 1)
@@ -175,6 +174,12 @@ def main():
             text = "X:" + str(round(world_points[1,0], 1)) + " Y:" + str(round(world_points[1,1], 1))
             cv2.putText(frame_left, text,
                         (50, 200), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+
+            # find distance
+            distance = ((world_points[0,0] - world_points[1,0])**2 + (world_points[0,1] - world_points[1,1])**2 + (world_points[0,2] - world_points[1,2])**2)**0.5
+            text = "Distance:" + str(round(distance, 1))
+            cv2.putText(frame_left, text,
+                        (50, 250), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 2)
 
         # If no point can be caught in one camera show text "TRACKING LOST"
         elif not ret_left or not ret_right:

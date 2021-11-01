@@ -80,7 +80,7 @@ print(Q)
 stereoMapL = cv.initUndistortRectifyMap(cameraMatrix1, distCoeffs1, rectL, projMatrixL,imageSize, cv.CV_16SC2)
 stereoMapR = cv.initUndistortRectifyMap(cameraMatrix2, distCoeffs2, rectR, projMatrixR,imageSize, cv.CV_16SC2)
 
-print("Saving parameters!")
+print("Saving parameters...")
 cv_file = cv.FileStorage('param/stereoMap.xml', cv.FILE_STORAGE_WRITE)
 
 stereoMapL_x = stereoMapL[0]
@@ -94,6 +94,7 @@ cv_file.write('stereoMapR_x',stereoMapR[0])
 cv_file.write('stereoMapR_y',stereoMapR[1])
 
 cv_file.release()
+print("Finish save parameters!")
 
 ############################### remap ##########################################################
 frame_left = cv.imread(path + '1/' + fname)

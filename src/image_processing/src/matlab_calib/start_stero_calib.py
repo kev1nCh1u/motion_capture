@@ -20,4 +20,5 @@ eng.stereo_calib(nargout=0) # stereo_calib.m
 time.sleep(5)
 print('\nRun matlabStereo2cvYaml.......')
 eng.matlabStereo2cvYaml(nargout=0) # matlabStereo2cvYaml.m
+print('\nFinish all !')
 eng.quit()
