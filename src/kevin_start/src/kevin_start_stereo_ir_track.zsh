@@ -29,5 +29,3 @@ gnome-terminal --tab -t "camera_1" -- sh -ic "python src/dahua_python/src/ros_cv
 sleep 0.2
 gnome-terminal --tab -t "stereo_ir_track" -- sh -ic "python src/image_processing/src/ir_point_record/stero_ir_track.py"
 sleep 0.2
-gnome-terminal --tab -t "rqt" -- sh -ic "rqt"
-sleep 0.2

@@ -5,6 +5,7 @@ import time
 import imutils
 from matplotlib import pyplot as plt
 import time
+import argparse
 
 ###############################################################################################
 # find_depth
@@ -49,6 +50,11 @@ def undistortRectify(stereoMapL_x, stereoMapL_y, stereoMapR_x, stereoMapR_y, fra
 # main
 ###################################################################################
 def main():
+    # kevin args
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-id", "--image_id", default='01', help="01~21")
+    args = parser.parse_args()
+
     while 1:
         capFlag = 0
         save_path = 'img/result/'
@@ -85,7 +91,7 @@ def main():
         # open both picture
         if not capFlag:
             path = "img/stereo_calibration/new/"
-            fname = "06.jpg"  # 5 6
+            fname = args.image_id + ".jpg"
             frame_left = cv2.imread(path + '1/' + fname)
             frame_right = cv2.imread(path + '2/' + fname)
         # cv2.imshow('frame_left',frame_left)
@@ -129,7 +135,7 @@ def main():
             print('No Chessboard !!!')
 
         # if find point, show x y on image
-        if ret_left or ret_right:
+        if ret_left and ret_right:
             cv2.circle(frame_left, center_point_left.astype(
                 np.int32), 10, (0, 0, 255), -1)
             cv2.circle(frame_right, center_point_right.astype(

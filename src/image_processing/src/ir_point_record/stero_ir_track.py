@@ -159,7 +159,7 @@ class steroIrTrack:
                                     (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
                     # print world point
-                    print('world_points%d:'%i, world_points[i].ravel())
+                    # print('world_points%d:'%i, world_points[i].ravel())
 
                     # pub point
                     rosPoint = Point32()

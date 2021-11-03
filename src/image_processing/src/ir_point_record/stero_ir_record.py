@@ -57,9 +57,9 @@ class steroIrTrack:
 
         # record define
         self.fileName = '01' # 01 ~ 10
-        self.minPoint = (120, 50, 0) # math.inf
-        self.maxPoint = (527, 190, 0) # 0
-        self.axis = 1 # x:0 y:1 z:2
+        self.minPoint = (217, 50, 0) # math.inf
+        self.maxPoint = (515, 190, 0) # 0
+        self.axis = 0 # x:0 y:1 z:2
         self.points = np.zeros((10000, 1, 3), np.int32)
         self.num = 0
         self.saveFlag = False
@@ -122,20 +122,6 @@ class steroIrTrack:
                 # np.savetxt(self.saveDataPath, pointsReshape, delimiter=",")
                 pd.DataFrame(pointsReshape).to_csv(self.saveDataPath)
                 print('Save data file to:', self.saveDataPath)
-                
-                # show plot 2d
-                # plt.clf()
-                # plt.title('Points' + self.fileName)
-                # plt.xlabel('x axis')
-                # plt.ylabel('y axis')
-                # plt.plot(pointsReshape[:,0],pointsReshape[:,1], 'o', markersize=1)
-                # plt.xlim([0, 640])
-                # plt.ylim([480, 0])
-                # plt.savefig(self.savePlotPath)
-                # print('Save plot image to:', self.savePlotPath)
-                # plt.show(False)
-                # plt.pause(1)
-                # # plt.close()
 
                 # show plot 3d
                 fig = plt.figure()

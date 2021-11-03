@@ -46,7 +46,7 @@ class MultiCapture:
         rospy.init_node('multi_capture', anonymous=False)
         print(rospy.get_name())
         for i in range(self.camera_num):
-            rospy.Subscriber('camera_'+ str(i+1) + '/image', Image, self.getImage, i)
+            rospy.Subscriber('camera_'+ str(i) + '/image', Image, self.getImage, i)
         rospy.Subscriber('/trigger', Bool, self.saveImage)
 
         rospy.spin()
@@ -67,11 +67,14 @@ class MultiCapture:
         
         for i in range(self.camera_num):
             cv2.imwrite(self.save_path + str(i+1) + '/' + "{0:0=2d}".format(self.save_num)+ '.jpg', self.frame[i])
-            print('save:', self.save_path + str(i+1) , str(int(current_time)), "{0:0=2d}".format(self.save_num))
         self.save_num += 1
+        print('save:', self.save_path , str(int(current_time)), "{0:0=2d}".format(self.save_num))
 
         if(self.save_num > 21):
             self.save_num = 1
+            print('===========================================')
+            print('Finish!!!')
+            print('===========================================')
 
 
 if __name__=="__main__": 
