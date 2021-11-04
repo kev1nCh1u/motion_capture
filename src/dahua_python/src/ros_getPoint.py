@@ -30,8 +30,9 @@ import argparse
 # kevin import ros
 import rospy
 from std_msgs.msg import String
-from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
+from sensor_msgs.msg import PointCloud
+from geometry_msgs.msg import Point32
 
 g_cameraStatusUserInfo = b"statusInfo"
 
@@ -466,14 +467,14 @@ def demo():
     parser = argparse.ArgumentParser()
     parser.add_argument("-id", "--ros_id", default=1, help="1,2,...")
     parser.add_argument("-cid", "--camera_id", default=0, help="0,1,2,...")
-    parser.add_argument("-ser", "--camera_serial", default=0, help="asfdasf, sdfsf,...")
+    parser.add_argument("-ser", "--camera_serial", default='4H05A85PAK641B0', help="4H05A85PAK641B0...")
     parser.add_argument("-et", "--exposure_time", default=990, help="990,20000...")
     args = parser.parse_args()
 
     # kevin ros
     rospy.init_node('camera_' + str(args.ros_id), anonymous=False)
     print(rospy.get_name())
-    pub = rospy.Publisher(rospy.get_name()+'/image', Image)
+    pub = rospy.Publisher(rospy.get_name()+'/pointcloud', PointCloud)
     bridge = CvBridge()
 
     # kevin time
@@ -629,7 +630,8 @@ def demo():
        # --- end if ---
 
         # kevin ir track
-        ir_points = ir_track.ir_track(cvImage, showFlag = 0)
+        # ir_points = ir_track.ir_track(cvImage, showFlag = 0)
+        # print(ir_points)
 
         # kevin time
         # beginTime = time.time()
@@ -645,9 +647,17 @@ def demo():
         # cv2.imshow('myWindow', cvImage)
 
         # kevin ros publish
-        # cvImage = bridge.cv2_to_imgmsg(cvImage, encoding='passthrough')
-        cvImage = bridge.cv2_to_imgmsg(cvImage, 'bgr8')
-        pub.publish(cvImage)
+        pointcloud = PointCloud()
+        pointVal = Point32()
+        pointVal.x = 3
+        pointVal.y = 4
+        pointVal.z = 5
+
+        pointcloud.header.frame_id = 'pointcloud'
+        pointcloud.points = [pointVal,pointVal]
+        pub.publish(pointcloud)
+        # print('pub sucess')
+        # exit()
 
         # gc.collect()
 
