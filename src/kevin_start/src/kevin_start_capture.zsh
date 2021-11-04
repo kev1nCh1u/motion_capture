@@ -27,7 +27,7 @@ gnome-terminal --tab -t "camera_0" -- sh -ic "python src/dahua_python/src/ros_cv
 sleep 0.2
 gnome-terminal --tab -t "camera_1" -- sh -ic "python src/dahua_python/src/ros_cv_getFrame.py -id 1 -ser 4H05A85PAK7178C -et 20000"
 sleep 0.2
-gnome-terminal --tab -t "multi_capture" -- sh -ic "python src/image_processing/src/calibration/ros_multi_capture.py"
+gnome-terminal --tab -t "multi_capture" -- sh -ic "python src/image_processing/calibration/ros_multi_capture.py"
 sleep 0.2
 gnome-terminal --tab -t "rqt" -- sh -ic "rqt"
 sleep 0.2

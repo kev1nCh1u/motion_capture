@@ -16,5 +16,5 @@ echo -e "ws_path:" $ws_path "\n" # 列印路徑
 cd $ws_path
 # source devel/setup.bash
 
-python src/image_processing/src/matlab_calib/start_stero_calib.py
-python src/image_processing/src/calibration/stereo_rectify_matlab.py
+python src/image_processing/matlab_calib/start_stero_calib.py
+python src/image_processing/calibration/stereo_rectify_matlab.py
