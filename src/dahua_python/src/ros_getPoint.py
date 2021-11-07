@@ -6,6 +6,11 @@ Created on 2017-10-25
 @author: 
 '''
 
+# kevin import outside path
+import sys, os
+sys.path.append(os.getcwd())
+from src.image_processing.ir_track.src.ir_track import ir_track
+
 # kevin change path
 import os
 print('Current Directory:', os.path.abspath(os.getcwd()))
@@ -23,7 +28,6 @@ import cv2
 import gc
 
 # kevin import
-import ir_track
 import time
 import argparse
 
@@ -630,7 +634,7 @@ def demo():
        # --- end if ---
 
         # kevin ir track
-        # ir_points = ir_track.ir_track(cvImage, showFlag = 0)
+        ir_points = ir_track(cvImage, showFlag = 0)
         # print(ir_points)
 
         # kevin time

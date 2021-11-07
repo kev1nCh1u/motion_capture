@@ -1,9 +1,10 @@
-#ifndef _IR_TRACK_
-#define _IR_TRACK_
+
 
 #include <stdio.h>
 #include <iostream>
 #include <opencv2/opencv.hpp>
+
+#include <boost/python.hpp>
 
 /**************************************************************************
  * ir_track
@@ -59,13 +60,22 @@ std::vector<cv::Point> ir_track(cv::Mat image, bool capFlag=1, bool showFlag=0)
 
 		}
     }
+
 	return points;
+	
+	
+}
+
+BOOST_PYTHON_MODULE(ir_track_boostpy)
+{
+  using namespace boost::python;
+  def("ir_track", ir_track);
 }
 
 /**************************************************************************
  * main
  * ************************************************************************/
-#ifndef _MAIN_
+#ifdef _MAIN_
 #define _MAIN_
 int main(int argc, char *argv[])
 {
@@ -96,7 +106,8 @@ int main(int argc, char *argv[])
 	while(1)
 	{
 		std::vector<cv::Point> points;
-		points = ir_track(image, 1, 0);
+		np::ndarray image_np = ConvertMatToNDArray(image);
+		points = ir_track(image_np, 1, 0);
 		for(int i=0; i<points.size(); i++)
 		{
 			std::cout << points[i] << "\n";
@@ -105,6 +116,4 @@ int main(int argc, char *argv[])
 
 	return 0;
 }
-#endif
-
 #endif

@@ -23,7 +23,6 @@ import cv2
 import gc
 
 # kevin import
-import ir_track
 import time
 
 g_cameraStatusUserInfo = b"statusInfo"

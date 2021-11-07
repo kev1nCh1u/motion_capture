@@ -23,9 +23,9 @@ import pandas as pd
 print('\n opencv version:', cv2.__version__)
 
 ########################################################################################
-# steroIrTrack
+# pointRecord
 ########################################################################################
-class steroIrTrack:
+class pointRecord:
 
     ########################################################################################
     # __init__
@@ -144,4 +144,4 @@ class steroIrTrack:
             
 
 if __name__=="__main__": 
-    stero_ir_track = steroIrTrack()
+    stero_ir_track = pointRecord()
