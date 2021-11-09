@@ -169,6 +169,9 @@ class steroIrTrack:
                     self.pub_point.publish(rosPoint)
 
             else:
+                # pub point
+                rosPoint = Point32()
+                self.pub_point.publish(rosPoint)
                 print('!!!! Cant track ', 'left_num:', left_num, 'right_num:', right_num)
 
             # mix to show on one picture
