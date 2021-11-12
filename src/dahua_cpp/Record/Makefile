@@ -22,6 +22,10 @@ LINKLIBS += -L../../../lib -lMVSDK -lRecordVideo -lavcodec -lavfilter -lavformat
 SOURCES = $(wildcard *.cpp)
 OBJECTS = $(patsubst %.cpp, %.o, $(SOURCES))
 
+# OPENCV = `pkg-config opencv2 --cflags --libs`
+OPENCV = `pkg-config opencv4 --cflags --libs`
+LIBS = $(OPENCV)
+
 $(TARGET):$(OBJECTS)
 	$(CXX) $(INCLUDES) $(CPPFLAGS) $(OBJECTS) $(LINKLIBS) -o $(TARGET)
 	rm -f $(OBJECTS)

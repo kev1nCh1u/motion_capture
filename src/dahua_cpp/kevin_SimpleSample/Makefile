@@ -17,13 +17,22 @@ endif
 TARGET = sample
 
 INCLUDES = -I./include
-LINKLIBS = -L./depends/$(SDK_LIB_SUBDIR) -lMVSDK -lrt -lpthread
-LINKLIBS += -L../../../lib -lMVSDK
+LINKLIBS = -L./depends/$(SDK_LIB_SUBDIR) -lMVSDK -lRecordVideo -lavcodec -lavfilter -lavformat -lavutil -lpostproc -lswresample -lswscale -lx264 -lImageConvert -lrt -lpthread
+LINKLIBS += -L../../../lib -lMVSDK -lRecordVideo -lavcodec -lavfilter -lavformat -lavutil -lpostproc -lswresample -lswscale -lx264 -lImageConvert
 SOURCES = $(wildcard *.cpp)
 OBJECTS = $(patsubst %.cpp, %.o, $(SOURCES))
 
+# opencv
+# OPENCV = `pkg-config opencv2 --cflags --libs`
+OPENCV = `pkg-config opencv4 --cflags --libs`
+LIBS = $(OPENCV)
+
+# flag
+# CFLAGS = $(INCS) -dDEBUG
+CFLAGS = $(INCS) -dNDEBUG
+
 $(TARGET):$(OBJECTS)
-	$(CXX) $(INCLUDES) $(CPPFLAGS) $(OBJECTS) $(LINKLIBS) -o $(TARGET)
+	$(CXX) $(INCLUDES) $(CPPFLAGS) $(OBJECTS) $(LINKLIBS) $(LIBS) $(CFLAGS) -o $(TARGET)
 	rm -f $(OBJECTS)
 	
 .cpp.o:

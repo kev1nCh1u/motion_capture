@@ -1561,6 +1561,12 @@ int main()
 	// 设置相机为连续取流模式 
 	// set camera to continue grab mode
 	setGrabMode(cameraSptr, true);
+
+    // kevin set
+    setExposureTime(cameraSptr, 4240, false);
+    double dExposureTime = 0;
+    getExposureTime(cameraSptr, dExposureTime);
+    printf("ExposureTime:%f\n", dExposureTime);
     
 #if 0
     setGrabMode(cameraSptr, true);
@@ -1672,18 +1678,14 @@ int main()
 
 	 // 取图2秒
 	 // get frame 2 seconds
-    // CThread::sleep(2000);
+    // CThread::sleep(1000);
 
-    // kevin quit
-    bool inputFlag = false;
-    std::cout << "Enter q to quit:" << std::endl;
-    do
+    // kevin while loop
+    while (1)
     {
-        char input;
-        std::cin >> input;
-        inputFlag = input == 'q' || input == 'Q';
+        continue;
+    }
 
-    } while (!inputFlag);
 
 	// 停止拉流线程
 	// Stop streaming thread

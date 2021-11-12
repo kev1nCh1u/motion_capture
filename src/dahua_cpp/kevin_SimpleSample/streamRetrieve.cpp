@@ -6,6 +6,13 @@
 #endif
 #include "StreamRetrieve.h"
 #include "GenICam/Frame.h"
+#include "Media/ImageConvert.h"
+
+#include <opencv2/opencv.hpp>
+#include "ir_track.cpp"
+#include <chrono>
+
+extern IMGCNV_HANDLE g_handle;
 
 StreamRetrieve::StreamRetrieve(IStreamSourcePtr& streamSptr)
 	: CThread("streamRetrieve")
@@ -69,15 +76,25 @@ float avgArrFuc(int arrSize, float arr[])
     return avgArr;
 }
 
+/****************************************************************
+ * threadProc
+ * **************************************************************/
 void StreamRetrieve::threadProc()
 {
 	int avgFpsSize = 100;
 	float hisFps[avgFpsSize];
 
+	// kevin define
+	cv::Mat image;
+	image = cv::imread("../../../img/ir/Pic_2021_10_09_104654_1.bmp", 1); // 讀取影像檔案
+	unsigned int frameCount = 0;
+
+
 	while (m_isLoop)
 	{
-		// kevin beginTime
-		clock_t beginTime = clock();
+		// kevin define
+		printf("=============================================================\n");
+		auto start = std::chrono::high_resolution_clock::now();
 
 		// 此frame对象必须为临时变量，对象的生命周期与驱动帧缓存相关。
 		// 此对象生命周期结束意味着:驱动可以回收此帧缓存并用于存放后续获取到的帧。
@@ -110,17 +127,58 @@ void StreamRetrieve::threadProc()
 			continue;
 		}
 
-		// kevin endTime
-		clock_t endTime = clock();
-        clock_t deltaTime = endTime - beginTime;
-		float currFps = 1.f / deltaTime * 1000;
+		/******************************************************************
+		 *  kevin get frame
+		 * ****************************************************************/
+#ifdef DEBUG
+		frameCount++;
+		printf("get frame %d...\n", frameCount);
+#endif
+
+		// get source buffer
+		unsigned char* pSrcbuffer = NULL;
+		pSrcbuffer = (unsigned char*)malloc(frame.getImageSize());
+		// pSrcbuffer = (unsigned char*)frame.getImage();
+		memmove(pSrcbuffer, frame.getImage(), frame.getImageSize());
+		cv::Mat bayerMat(frame.getImageHeight(), frame.getImageWidth(), CV_8UC1, pSrcbuffer);
+
+		// opencv show
+		// cv::imshow("bayerMat", bayerMat);
+		// cv::waitKey(1);
+
+		/******************************************************************
+		 *  kevin track
+		 * ****************************************************************/
+		// opencv Convert the Bayer data to 8-bit RGB
+		cv::Mat rgbMat(frame.getImageHeight(), frame.getImageWidth(), CV_8UC3);
+		cv::cvtColor(bayerMat, rgbMat, cv::COLOR_BayerGR2RGB);
+
+		std::vector<cv::Point> points;
+		// points = ir_track(image, 1, 0);
+		points = ir_track(rgbMat, 1, 0);
+		std::cout << "points:" << "\n";
+		for(size_t i=0; i<points.size(); i++)
+		{
+			std::cout << points[i] << "\n";
+		}
+		// cv::imshow("get_frame", image);
+		// cv::waitKey(1);
+
+		free(pSrcbuffer);
+
+		/******************************************************************
+		 *  kevin endTime
+		 * ****************************************************************/
+		auto stop = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+		float currFps = 1. / duration.count() * 1000000;
 		pushNew(avgFpsSize, hisFps, currFps);
 		float avgFps = avgArrFuc(avgFpsSize, hisFps);
 
 		// 打印FrameID
 		// print frame ID
 		// printf("get frame %lld successfully thread ID :%d\n", frame.getBlockId(), CThread::getCurrentThreadID());
-		printf("get frame %lld successfully thread ID :%d ,fps:%3.2f, avg fps:%3.2f \n", frame.getBlockId(), CThread::getCurrentThreadID(), currFps, avgFps);
+		printf("get frame %ld successfully thread ID :%d ,fps:%3.2f, avg_fps:%3.2f \n", frame.getBlockId(), CThread::getCurrentThreadID(), currFps, avgFps);
 	}
 
 }

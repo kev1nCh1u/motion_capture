@@ -465,7 +465,7 @@ def demo():
     parser = argparse.ArgumentParser()
     parser.add_argument("-id", "--ros_id", default=1, help="1,2,...")
     parser.add_argument("-cid", "--camera_id", default=0, help="0,1,2,...")
-    parser.add_argument("-ser", "--camera_serial", default=0, help="asfdasf, sdfsf,...")
+    parser.add_argument("-ser", "--camera_serial", default="4H05A85PAK7178C", help="4H05A85PAK7178C, 4H05A85PAK641B0,...")
     parser.add_argument("-et", "--exposure_time", default=990, help="990,20000...")
     args = parser.parse_args()
 

@@ -7,6 +7,9 @@
 #include "StreamRetrieve.h"
 #include "GenICam/Frame.h"
 #include "Media/RecordVideo.h"
+#include "Media/ImageConvert.h"
+
+#include <opencv2/opencv.hpp>
 
 extern HANDLE g_hHandle;
 
@@ -92,6 +95,49 @@ void StreamRetrieve::threadProc()
 		        printf("record frame %d successfully thread ID :%d\n", frameCount, CThread::getCurrentThreadID());
 		    }
 		}
+
+
+		/*****************************************************************************************************************
+		 *  kevin catch frame
+		 * **************************************************************************************************************/
+		std::cout << frame.getImagePixelFormat() << "\n";
+		/* 转码 */
+		uint8_t *pRGBbuffer = NULL;
+		int nRgbBufferSize = 0;
+		nRgbBufferSize = frame.getImageWidth() * frame.getImageHeight() * 3;
+		pRGBbuffer = (uint8_t *)malloc(nRgbBufferSize);
+		if (pRGBbuffer == NULL)
+		{
+			/* 释放内存 */
+			printf("RGBbuffer malloc failed.\n");
+			continue;
+		}
+
+		IMGCNV_SOpenParam openParam;
+		openParam.width = frame.getImageWidth();
+		openParam.height = frame.getImageHeight();
+		openParam.paddingX = frame.getImagePadddingX();
+		openParam.paddingY = frame.getImagePadddingY();
+		openParam.dataSize = frame.getImageSize();
+		openParam.pixelForamt = frame.getImagePixelFormat();
+
+		uint8_t *pSrcbuffer = NULL;
+		pSrcbuffer = (uint8_t *)malloc(nRgbBufferSize);
+
+		IMGCNV_EErr status = IMGCNV_ConvertToBGR24(pSrcbuffer, &openParam, pRGBbuffer, &nRgbBufferSize);
+		if (IMGCNV_SUCCESS != status)
+		{
+			/* 释放内存 */
+			printf("IMGCNV_Convert failed.\n");
+			free(pRGBbuffer);
+			return;
+		}
+		printf(" kevin catch frame finish ...\n");
+
+		cv::imshow("get_frame", image);
+		cv::waitKey(1);
+		/************************************************************************************************************************/
+
 	}
 
 	m_bThreadFinished = true;
