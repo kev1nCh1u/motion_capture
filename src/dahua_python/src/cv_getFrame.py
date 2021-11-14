@@ -476,7 +476,7 @@ def demo():
         print("Serial number = " + str(camera.getSerialNumber(camera)))
     
     # kevin chose camera id
-    inputCameraId = input('Chose Camera Id: ')
+    inputCameraId = input('\nChose Camera Id: ')
     # camera = cameraList[0]
     camera = cameraList[int(inputCameraId)]
 
@@ -593,9 +593,6 @@ def demo():
             cvImage = numpy.array(colorByteArray).reshape(imageParams.height, imageParams.width, 3)
        # --- end if ---
 
-        # kevin ir track
-        ir_track.ir_track(cvImage, showFlag = 0)
-
         # kevin time
         beginTime = time.time()
         deltaTime = beginTime - endTime
@@ -607,7 +604,7 @@ def demo():
         cv2.putText(cvImage, f'FPS: {int(avgFps)}', (20,450), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0,255,0), 2)
         print('fps:', avgFps, end='\r')
 
-        cv2.imshow('myWindow', cvImage)
+        # cv2.imshow('myWindow', cvImage)
 
         # gc.collect()
 
