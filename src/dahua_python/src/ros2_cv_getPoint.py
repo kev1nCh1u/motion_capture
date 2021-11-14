@@ -32,7 +32,8 @@ import time
 import argparse
 
 # kevin import ros
-import rospy
+import rclpy
+from rclpy.node import Node
 from sensor_msgs.msg import PointCloud
 from geometry_msgs.msg import Point32
 
@@ -474,9 +475,11 @@ def demo():
     args = parser.parse_args()
 
     # kevin ros
-    rospy.init_node('camera_' + str(args.ros_id), anonymous=False)
-    print(rospy.get_name())
-    pub = rospy.Publisher(rospy.get_name()+'/pointcloud', PointCloud)
+    rclpy.init(args=None)
+    node_name  = 'camera_' + str(args.ros_id)
+    node = Node(node_name) # anonymous=False
+    print(node_name)
+    pub = node.create_publisher(PointCloud, node_name+'/pointcloud', 10)
 
     # 发现相机
     cameraCnt, cameraList = enumCameras()
@@ -568,7 +571,7 @@ def demo():
     print('Start get frame...')
 
     # while isGrab :
-    while isGrab and not rospy.is_shutdown():
+    while isGrab and rclpy.ok():
         # 主动取图
         frame = pointer(GENICAM_Frame())
         nRet = streamSource.contents.getFrame(streamSource, byref(frame), c_uint(1000))
@@ -633,9 +636,9 @@ def demo():
         # kevin ros publish
         pointcloud = PointCloud()
         pointVal = Point32()
-        pointVal.x = 3
-        pointVal.y = 4
-        pointVal.z = 5
+        pointVal.x = 3.
+        pointVal.y = 4.
+        pointVal.z = 5.
 
         pointcloud.header.frame_id = 'pointcloud'
         pointcloud.points = [pointVal,pointVal]

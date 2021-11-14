@@ -28,7 +28,6 @@ import argparse
 
 # kevin import ros
 import rospy
-from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 
@@ -475,12 +474,6 @@ def demo():
     pub = rospy.Publisher(rospy.get_name()+'/image', Image)
     bridge = CvBridge()
 
-    # kevin time
-    # beginTime = time.time()
-    # endTime = time.time()
-    # avgFpsSize = 50
-    # hisFps = numpy.zeros(avgFpsSize)
-
     # 发现相机
     cameraCnt, cameraList = enumCameras()
     if cameraCnt is None:
@@ -568,6 +561,8 @@ def demo():
 
     isGrab = True
 
+    print('Start get frame...')
+
     # while isGrab :
     while isGrab and not rospy.is_shutdown():
         # 主动取图
@@ -626,22 +621,6 @@ def demo():
             colorByteArray = bytearray(rgbBuff)
             cvImage = numpy.array(colorByteArray).reshape(imageParams.height, imageParams.width, 3)
        # --- end if ---
-
-        # kevin ir track
-        # ir_track.ir_track(cvImage, showFlag = 0)
-
-        # kevin time
-        # beginTime = time.time()
-        # deltaTime = beginTime - endTime
-        # currFps = int(1 / deltaTime)
-        # hisFps = numpy.roll(hisFps, 1)
-        # hisFps[0] = currFps
-        # avgFps = numpy.sum(hisFps) / avgFpsSize
-        # endTime = beginTime
-        # cv2.putText(cvImage, f'FPS: {int(avgFps)}', (20,450), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0,255,0), 2)
-        # print('fps:', avgFps, end='\r')
-
-        # cv2.imshow('myWindow', cvImage)
 
         # kevin ros publish
         # cvImage = bridge.cv2_to_imgmsg(cvImage, encoding='passthrough')

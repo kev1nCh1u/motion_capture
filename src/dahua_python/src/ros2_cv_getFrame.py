@@ -6,11 +6,6 @@ Created on 2017-10-25
 @author: 
 '''
 
-# kevin import outside path
-import sys, os
-sys.path.append(os.getcwd())
-from src.image_processing.ir_track.src.ir_track import ir_track
-
 # kevin change path
 import os
 print('Current Directory:', os.path.abspath(os.getcwd()))
@@ -32,9 +27,10 @@ import time
 import argparse
 
 # kevin import ros
-import rospy
-from sensor_msgs.msg import PointCloud
-from geometry_msgs.msg import Point32
+from cv_bridge import CvBridge
+import rclpy
+from rclpy.node import Node
+from sensor_msgs.msg import Image
 
 g_cameraStatusUserInfo = b"statusInfo"
 
@@ -464,19 +460,22 @@ def setROI(camera, OffsetX, OffsetY, nWidth, nHeight):
     OffsetYNode.contents.release(OffsetYNode)   
     return 0
 
-def demo():
+def demo(args=None):
     # kevin args
     parser = argparse.ArgumentParser()
     parser.add_argument("-id", "--ros_id", default=1, help="1,2,...")
     parser.add_argument("-cid", "--camera_id", default=0, help="0,1,2,...")
-    parser.add_argument("-ser", "--camera_serial", default='4H05A85PAK641B0', help="4H05A85PAK641B0...")
+    parser.add_argument("-ser", "--camera_serial", default="4H05A85PAK7178C", help="4H05A85PAK7178C, 4H05A85PAK641B0,...")
     parser.add_argument("-et", "--exposure_time", default=990, help="990,20000...")
     args = parser.parse_args()
 
     # kevin ros
-    rospy.init_node('camera_' + str(args.ros_id), anonymous=False)
-    print(rospy.get_name())
-    pub = rospy.Publisher(rospy.get_name()+'/pointcloud', PointCloud)
+    rclpy.init(args=None)
+    node_name  = 'camera_' + str(args.ros_id)
+    node = Node(node_name) # anonymous=False
+    print(node_name)
+    pub = node.create_publisher(Image, node_name+'/image', 10)
+    bridge = CvBridge()
 
     # 发现相机
     cameraCnt, cameraList = enumCameras()
@@ -568,7 +567,7 @@ def demo():
     print('Start get frame...')
 
     # while isGrab :
-    while isGrab and not rospy.is_shutdown():
+    while isGrab and rclpy.ok():
         # 主动取图
         frame = pointer(GENICAM_Frame())
         nRet = streamSource.contents.getFrame(streamSource, byref(frame), c_uint(1000))
@@ -626,22 +625,10 @@ def demo():
             cvImage = numpy.array(colorByteArray).reshape(imageParams.height, imageParams.width, 3)
        # --- end if ---
 
-        # kevin ir track
-        ir_points = ir_track(cvImage, showFlag = 0)
-        # print(ir_points)
-
         # kevin ros publish
-        pointcloud = PointCloud()
-        pointVal = Point32()
-        pointVal.x = 3
-        pointVal.y = 4
-        pointVal.z = 5
-
-        pointcloud.header.frame_id = 'pointcloud'
-        pointcloud.points = [pointVal,pointVal]
-        pub.publish(pointcloud)
-        # print('pub sucess')
-        # exit()
+        # cvImage = bridge.cv2_to_imgmsg(cvImage, encoding='passthrough')
+        cvImage = bridge.cv2_to_imgmsg(cvImage, 'bgr8')
+        pub.publish(cvImage)
 
         # gc.collect()
 
