@@ -14,7 +14,7 @@ ws_path="/home/kevin/src/motion_capture/" # 路徑
 # ws_path=$(pwd) # 自動路徑
 echo -e "ws_path:" $ws_path "\n" # 列印路徑
 cd $ws_path
-source devel/setup.zsh
+# source devel/setup.bash
 
 
 ###########
@@ -22,12 +22,8 @@ source devel/setup.zsh
 ###########
 # gnome-terminal --tab -t "分頁名稱" -- bash -ic "指令"
 gnome-terminal --tab -t "roscore" -- bash -ic "roscore"
-sleep 0.5
-gnome-terminal --tab -t "camera_0" -- bash -ic "python src/image_processing/dahua_python/src/ros2_cv_getFrame.py -id 0 -ser 4H05A85PAK641B0 -et 20000"
 sleep 0.2
-gnome-terminal --tab -t "camera_1" -- bash -ic "python src/image_processing/dahua_python/src/ros2_cv_getFrame.py -id 1 -ser 4H05A85PAK7178C -et 20000"
+gnome-terminal --tab -t "camera_0" -- bash -ic "python src/image_processing/dahua_python/src/ros2_cv_getPoint.py -id 0 -ser 4H05A85PAK641B0 -et 990"
 sleep 0.2
-gnome-terminal --tab -t "multi_capture" -- bash -ic "python src/image_processing/calibration/ros_multi_capture.py"
-sleep 0.2
-gnome-terminal --tab -t "rqt" -- bash -ic "rqt"
+gnome-terminal --tab -t "camera_1" -- bash -ic "python src/image_processing/dahua_python/src/ros2_cv_getPoint.py -id 1 -ser 4H05A85PAK7178C -et 990"
 sleep 0.2
