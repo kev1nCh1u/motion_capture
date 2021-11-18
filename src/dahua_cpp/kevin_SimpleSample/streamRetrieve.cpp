@@ -12,6 +12,12 @@
 #include "ir_track.cpp"
 #include <chrono>
 
+#include <iostream>
+#include <sys/ipc.h>
+#include <sys/shm.h>
+#include <stdio.h>
+using namespace std;
+
 extern IMGCNV_HANDLE g_handle;
 
 StreamRetrieve::StreamRetrieve(IStreamSourcePtr& streamSptr)
@@ -89,6 +95,9 @@ void StreamRetrieve::threadProc()
 	image = cv::imread("../../../img/ir/Pic_2021_10_09_104654_1.bmp", 1); // 讀取影像檔案
 	unsigned int frameCount = 0;
 
+	// kevin shared memory
+	key_t key = 0x888;
+	int shmid_point = shmget(key,1024,0666|IPC_CREAT);
 
 	while (m_isLoop)
 	{
@@ -157,12 +166,17 @@ void StreamRetrieve::threadProc()
 		// points = ir_track(image, 1, 0);
 		points = ir_track(rgbMat, 1, 0);
 		std::cout << "points:" << "\n";
+		cv::Point *shm_point = (cv::Point*) shmat(shmid_point,(void*)0,0);
 		for(size_t i=0; i<points.size(); i++)
 		{
 			std::cout << points[i] << "\n";
+			shm_point[i] = points[i];
 		}
 		// cv::imshow("get_frame", image);
 		// cv::waitKey(1);
+
+		// shm detach from shared memory 
+    	shmdt(shm_point);
 
 		free(pSrcbuffer);
 

@@ -1563,7 +1563,7 @@ int main()
 	setGrabMode(cameraSptr, true);
 
     // kevin set
-    setExposureTime(cameraSptr, 4240, false);
+    setExposureTime(cameraSptr, 990, false); // 990 4240
     double dExposureTime = 0;
     getExposureTime(cameraSptr, dExposureTime);
     printf("ExposureTime:%f\n", dExposureTime);

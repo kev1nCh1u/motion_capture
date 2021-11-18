@@ -23,6 +23,7 @@ int main()
     for(int i=0; i<1024; i++)
     {
         qq[i] = i+1;
+        cout << i << " ";
     }
       
     //detach from shared memory 
