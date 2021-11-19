@@ -16,9 +16,10 @@ endif
 
 TARGET = sample
 
-INCLUDES = -I./include
+INCLUDES = -I./include/kevin
+INCLUDES += -I./include/dahua
 LINKLIBS = -L./depends/$(SDK_LIB_SUBDIR) -lMVSDK -lRecordVideo -lavcodec -lavfilter -lavformat -lavutil -lpostproc -lswresample -lswscale -lx264 -lImageConvert -lrt -lpthread
-LINKLIBS += -L../../../lib -lMVSDK -lRecordVideo -lavcodec -lavfilter -lavformat -lavutil -lpostproc -lswresample -lswscale -lx264 -lImageConvert
+LINKLIBS += -L../../../lib/dahua -lMVSDK -lRecordVideo -lavcodec -lavfilter -lavformat -lavutil -lpostproc -lswresample -lswscale -lx264 -lImageConvert
 SOURCES = $(wildcard *.cpp)
 OBJECTS = $(patsubst %.cpp, %.o, $(SOURCES))
 

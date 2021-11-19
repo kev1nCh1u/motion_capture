@@ -12,7 +12,7 @@ def enum(**enums):
     return type('Enum', (), enums)
 
 #加载SDK动态库
-MVSDKdll = cdll.LoadLibrary("../../../../lib/libMVSDK.so")
+MVSDKdll = cdll.LoadLibrary("../../../../lib/dahua/libMVSDK.so")
 
 #SDK.h => define 宏定义
 MAX_PARAM_CNT        = 1000
