@@ -16,9 +16,14 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <stdio.h>
+
+#include <signal.h> // signal functions
+
 using namespace std;
 
 extern IMGCNV_HANDLE g_handle;
+
+int shmid_point;
 
 StreamRetrieve::StreamRetrieve(IStreamSourcePtr& streamSptr)
 	: CThread("streamRetrieve")
@@ -39,6 +44,21 @@ bool StreamRetrieve::stop()
 	m_isLoop = false;
 	m_streamSptr.reset();
 	return destroyThread();
+}
+
+/****************************************************************
+ * exit
+ * **************************************************************/
+static void my_handler(int sig) // can be called asynchronously
+{
+    cout << "\n";
+    cout << "shmid_point: " << shmid_point << "\n";
+    
+    // destroy the shared memory
+    shmctl(shmid_point,IPC_RMID,NULL);
+
+    cout << "Exit\n";
+    exit(0);
 }
 
 /****************************************************************
@@ -87,6 +107,8 @@ float avgArrFuc(int arrSize, float arr[])
  * **************************************************************/
 void StreamRetrieve::threadProc()
 {
+	signal(SIGINT, my_handler); 
+
 	int avgFpsSize = 100;
 	float hisFps[avgFpsSize];
 
@@ -96,8 +118,9 @@ void StreamRetrieve::threadProc()
 	unsigned int frameCount = 0;
 
 	// kevin shared memory
-	key_t key = 0x888;
-	int shmid_point = shmget(key,1024,0666|IPC_CREAT);
+	key_t key = 0x888; // ftok to generate unique key
+	shmid_point = shmget(key,1024,0666|IPC_CREAT); // shmget returns an identifier in shmid
+	cv::Point *shm_point = (cv::Point*) shmat(shmid_point,(void*)0,0); // shmat to attach to shared memory
 
 	while (m_isLoop)
 	{
@@ -166,17 +189,16 @@ void StreamRetrieve::threadProc()
 		// points = ir_track(image, 1, 0);
 		points = ir_track(rgbMat, 1, 0);
 		std::cout << "points:" << "\n";
-		cv::Point *shm_point = (cv::Point*) shmat(shmid_point,(void*)0,0);
+
+		// pub point
 		for(size_t i=0; i<points.size(); i++)
 		{
 			std::cout << points[i] << "\n";
 			shm_point[i] = points[i];
 		}
+
 		// cv::imshow("get_frame", image);
 		// cv::waitKey(1);
-
-		// shm detach from shared memory 
-    	shmdt(shm_point);
 
 		free(pSrcbuffer);
 
@@ -194,6 +216,10 @@ void StreamRetrieve::threadProc()
 		// printf("get frame %lld successfully thread ID :%d\n", frame.getBlockId(), CThread::getCurrentThreadID());
 		printf("get frame %ld successfully thread ID :%d ,fps:%3.2f, avg_fps:%3.2f \n", frame.getBlockId(), CThread::getCurrentThreadID(), currFps, avgFps);
 	}
+
+	// kevin shm
+    shmdt(shm_point); // shm detach from shared memory 
+    shmctl(shmid_point,IPC_RMID,NULL); // destroy the shared memory
 
 }
 
