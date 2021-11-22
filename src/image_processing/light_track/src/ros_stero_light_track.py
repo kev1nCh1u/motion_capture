@@ -53,7 +53,7 @@ class steroIrTrack:
         self.stereoMapR_y = cv_file.getNode('stereoMapR_y').mat()
 
         # kevin ros
-        rospy.init_node('stero_ir_track', anonymous=False)
+        rospy.init_node('ros_stero_light_track', anonymous=False)
         print(rospy.get_name())
         rospy.Subscriber('camera_'+ str(args.camera_left) + '/image', Image, self.getImage, args.camera_left)
         rospy.Subscriber('camera_'+ str(args.camera_right) + '/image', Image, self.getImage, args.camera_right)
@@ -187,4 +187,4 @@ class steroIrTrack:
             
 
 if __name__=="__main__": 
-    stero_ir_track = steroIrTrack()
+    ros_stero_light_track = steroIrTrack()

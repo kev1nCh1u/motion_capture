@@ -7,7 +7,7 @@
 ## run code
     python /home/kevin/src/motion_capture/src/dahua_python/src/ros_cv_getFrame.py
 
-    python /home/kevin/src/motion_capture/src/image_processing/ir_track/src/stero_ir_track.py
+    python /home/kevin/src/motion_capture/src/image_processing/ir_track/src/ros_stero_light_track.py
 
 
 ## mission 1
@@ -17,4 +17,4 @@
     python /home/kevin/src/motion_capture/src/image_processing/calibration/stereo_depth_Chessboard.py
 
     kevin_start_stereo_ir_track.zsh
-    python /home/kevin/src/motion_capture/src/image_processing/ir_track/src/point_record.py
+    python /home/kevin/src/motion_capture/src/image_processing/ir_track/src/ros_point_record.py

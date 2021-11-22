@@ -21,9 +21,9 @@ cd $ws_path
 # 分頁視窗 #
 ###########
 # gnome-terminal --tab -t "分頁名稱" -- bash -ic "指令"
-gnome-terminal --tab -t "camera_0" -- bash -ic "python src/image_processing/dahua_python/src/ros2_cv_getFrame.py -id 0 -ser 4H05A85PAK641B0 -et 4240"
+gnome-terminal --tab -t "roscore" -- bash -ic "roscore"
 sleep 0.2
-gnome-terminal --tab -t "camera_1" -- bash -ic "python src/image_processing/dahua_python/src/ros2_cv_getFrame.py -id 1 -ser 4H05A85PAK7178C -et 4240"
+gnome-terminal --tab -t "camera_0" -- bash -ic "src/image_processing/dahua_cpp/sample 4H05A85PAK641B0 881"
 sleep 0.2
-gnome-terminal --tab -t "stereo_light_track" -- bash -ic "python src/image_processing/light_track/src/ros_stero_light_track.py"
+gnome-terminal --tab -t "camera_1" -- bash -ic "src/image_processing/dahua_cpp/sample 4H05A85PAK7178C 882"
 sleep 0.2

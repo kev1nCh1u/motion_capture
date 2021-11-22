@@ -73,7 +73,7 @@ class pointRecord:
         # kevin ros
         rospy.init_node('stero_ir_record', anonymous=False, disable_signals=True)
         print(rospy.get_name())
-        rospy.Subscriber('/stero_ir_track/point', Point32, self.getPoint)
+        rospy.Subscriber('/ros_stero_light_track/point', Point32, self.getPoint)
         self.bridge = CvBridge()
         # rospy.Timer(rospy.Duration(2), self.timer_callback)
 
@@ -144,4 +144,4 @@ class pointRecord:
             
 
 if __name__=="__main__": 
-    stero_ir_track = pointRecord()
+    ros_stero_light_track = pointRecord()
