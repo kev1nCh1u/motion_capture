@@ -4,7 +4,7 @@
 using namespace Dahua::GenICam;
 using namespace Dahua::Infra;
 
-
+extern int shmid_point_id_input;
 class StreamRetrieve : public CThread
 {
 public:

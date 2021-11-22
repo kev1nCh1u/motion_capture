@@ -14,8 +14,12 @@
 #include "StreamRetrieve.h"
 #include "Memory/SharedPtr.h"
 
+#include <string>
+
 using namespace Dahua::GenICam;
 using namespace Dahua::Infra;
+
+int shmid_point_id_input;
 
 // 设置相机采图模式（连续采图、触发采图）
 // Set camera acquisition mode (continuous acquisition, triggered acquisition) 
@@ -1505,8 +1509,18 @@ static int selectDevice(int cameraCnt)
 
 // ********************** 这部分处理与SDK操作相机无关，用于显示设备列表 end*****************************
 // *** This part of the processing is independent of the SDK operation camera and is used to display the device list**
-int main()
+int main(int argc, char *argv[])
 {
+    if (argc < 3) 
+    {
+        std::cerr << "Usage: " << argv[0] << " camera_number" << " shmid_point_id" << std::endl;
+        return 1;
+    }
+    printf("camera_number: %s\n", argv[1]);
+    printf("shmid_point_id: %s\n\n", argv[2]);
+
+    shmid_point_id_input = (int)strtol(argv[2], NULL, 16);
+
  #if 0
     PrintOptions printOptions = {0};
     printOptions.color = 1;
@@ -1536,9 +1550,28 @@ int main()
 	// 打印相机基本信息（序号,类型,制造商信息,型号,序列号,用户自定义ID,IP地址）
 	// print camera info (index,Type,vendor name, model,serial number,DeviceUserID,IP Address)
 	displayDeviceInfo(vCameraPtrList);
-	int cameraIndex = selectDevice(vCameraPtrList.size());
-	cameraSptr = vCameraPtrList[cameraIndex];
+	// int cameraIndex = selectDevice(vCameraPtrList.size());
+	// cameraSptr = vCameraPtrList[cameraIndex];
 
+    // kevin set camera
+    const char *camera_input_num = argv[1];
+    for (int cameraIndex = 0; cameraIndex < vCameraPtrList.size(); cameraIndex++)
+    {        
+        const char *camera_get = vCameraPtrList[cameraIndex]->getSerialNumber();
+        // const char *camera_get = vCameraPtrList[cameraIndex]->getName();
+        if(strcmp(camera_input_num, camera_get) == 0)
+        {
+            std::cout << "\nOpen camera: " << camera_get << "\n";
+            cameraSptr = vCameraPtrList[cameraIndex];
+            break;
+        }
+
+        if(cameraIndex == (vCameraPtrList.size() - 1))
+        {
+            std::cout << "\nInput camera not match: " << camera_input_num << "\n";
+            return 1;
+        }
+    }
 	
 	// GigE相机时，连接前设置相机Ip与网卡处于同一网段上
 	// When a GigE camera is connected, set the camera IP to be on the same network segment as the network card

@@ -118,8 +118,11 @@ void StreamRetrieve::threadProc()
 	unsigned int frameCount = 0;
 
 	// kevin shared memory
-	key_t key = 0x888; // ftok to generate unique key
+	// key_t key = 0x888;
+	key_t key = shmid_point_id_input;
+	cout << "key: " << key << "\n";
 	shmid_point = shmget(key,1024,0666|IPC_CREAT); // shmget returns an identifier in shmid
+	cout << "shmid: " << shmid_point << "\n";
 	cv::Point *shm_point = (cv::Point*) shmat(shmid_point,(void*)0,0); // shmat to attach to shared memory
 
 	while (m_isLoop)
