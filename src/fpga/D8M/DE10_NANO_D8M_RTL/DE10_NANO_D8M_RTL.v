@@ -57,6 +57,8 @@ wire 	[7:0] BLUE;
 wire 	[7:0] GREEN;
 wire 	[7:0] RED;
 
+wire 	[23:0] VGA_GRAY;
+
 wire 	[7:0] VGA_R;
 wire 	[7:0] VGA_G;
 wire 	[7:0] VGA_B;
@@ -251,8 +253,14 @@ HDMI_TX_AD7513 hdmi (
  );
  
 
-//---kevin  ----  
+//---kevin cvt rgb to gray ----  
+always@(posedge FPGA_CLK1_50)begin
+  if(VGA_R > 100)begin
+	  VGA_GRAY = 255
 
+  end
+
+end
 
 //---VGA TIMG TO HDMI  ----  
 assign HDMI_TX_CLK =   VGA_CLK;
