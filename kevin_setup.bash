@@ -9,7 +9,7 @@ pathVar=$(pwd)
 # echo $pathVar
 
 # startPath="${pathVar}/src/kevin_start/src"
-startPath="/home/kevin/src/motion_capture/src/kevin_start/src"
+startPath="/home/kevin/src/motion_capture/src/kevin_start"
 # echo "\nStart path:"
 # echo $startPath
 
