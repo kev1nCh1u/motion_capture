@@ -60,3 +60,6 @@ time
 *.csv
 resources/
 *.pyc
+
+
+db/
