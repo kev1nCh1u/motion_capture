@@ -254,17 +254,20 @@ HDMI_TX_AD7513 hdmi (
  
 
 //---kevin cvt rgb to gray ----  
-always@(posedge FPGA_CLK1_50)begin
-  if(VGA_R > 100)begin
-	  VGA_GRAY = 255
+// always@(posedge FPGA_CLK1_50)begin
+//   if(VGA_R > 100)begin
 
-  end
+// 	  VGA_GRAY <= 24'hFFFFFF;
 
-end
+//   end
+
+// end
+assign VGA_GRAY = (VGA_R > 200) ? 24'hFFFFFF : 0;
 
 //---VGA TIMG TO HDMI  ----  
 assign HDMI_TX_CLK =   VGA_CLK;
-assign HDMI_TX_D   = TX_DE? { VGA_R, VGA_G, VGA_B  }  :0 ;  
+// assign HDMI_TX_D   = TX_DE? { VGA_R, VGA_G, VGA_B  }  :0 ;  
+assign HDMI_TX_D   = TX_DE? VGA_GRAY  :0 ;  
 assign HDMI_TX_DE  = READ_Request;           
 assign HDMI_TX_HS  = VGA_HS                 ;
 assign HDMI_TX_VS  = VGA_VS                 ;
