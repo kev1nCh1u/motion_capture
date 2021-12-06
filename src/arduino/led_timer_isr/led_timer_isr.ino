@@ -4,7 +4,8 @@
  */
 
 void setup() {
-
+    // https://playground.arduino.cc/Main/TimerPWMCheatsheet/
+    TCCR0B = TCCR0B & 0xF8 | 0x01;
   
 }
 
