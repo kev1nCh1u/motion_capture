@@ -30,6 +30,9 @@ module  DE10_NANO_D8M_RTL(
 	//////////// LED //////////
 	output		     [7:0]		LED,
 
+	//////////// TEST_IO //////////
+	output		     [7:0]		TEST_IO,
+
 	//////////// SW //////////
 	input 		     [3:0]		SW,
 
@@ -57,7 +60,11 @@ wire 	[7:0] BLUE;
 wire 	[7:0] GREEN;
 wire 	[7:0] RED;
 
-wire 	[23:0] VGA_GRAY;
+// kevin
+reg 	[7:0] VGA_GRAY;
+wire 	[23:0] VGA_BINARY;
+wire [23:0] VGA_GRAY_3;
+wire BINARY_FLAG;
 
 wire 	[7:0] VGA_R;
 wire 	[7:0] VGA_G;
@@ -234,6 +241,9 @@ CLOCKMEM  ck3 ( .CLK(MIPI_PIXEL_CLK ),.CLK_FREQ  (25000000 ),.CK_1HZ (D8M_CK_HZ 
 //--LED STATUS-----
 assign LED = {D8M_CK_HZ   , HDMI_TX_INT , CAMERA_MIPI_RELAESE ,MIPI_BRIDGE_RELEASE  } ; 
 
+//--TEST_IO STATUS-----
+assign TEST_IO = {BINARY_FLAG, HDMI_TX_VS, HDMI_TX_HS, HDMI_TX_DE, HDMI_TX_CLK, FPGA_CLK1_50} ; 
+
 
 
 //---HDMI TX RECONFIG ---- 
@@ -254,20 +264,19 @@ HDMI_TX_AD7513 hdmi (
  
 
 //---kevin cvt rgb to gray ----  
-// always@(posedge FPGA_CLK1_50)begin
-//   if(VGA_R > 100)begin
-
-// 	  VGA_GRAY <= 24'hFFFFFF;
-
-//   end
-
-// end
-assign VGA_GRAY = (VGA_R > 200) ? 24'hFFFFFF : 0;
+always@(posedge FPGA_CLK1_50)begin
+//   VGA_GRAY = (VGA_R * 299 + VGA_G * 587 + VGA_B * 114) / 1000;
+  VGA_GRAY = VGA_R;
+end
+// assign VGA_GRAY_3 = { VGA_GRAY, VGA_GRAY, VGA_GRAY  };
+assign VGA_BINARY = (VGA_GRAY > 230) ? 24'hFFFFFF : 0;
+assign BINARY_FLAG = (VGA_GRAY > 230) ? 1 : 0;
 
 //---VGA TIMG TO HDMI  ----  
 assign HDMI_TX_CLK =   VGA_CLK;
 // assign HDMI_TX_D   = TX_DE? { VGA_R, VGA_G, VGA_B  }  :0 ;  
-assign HDMI_TX_D   = TX_DE? VGA_GRAY  :0 ;  
+// assign HDMI_TX_D   = TX_DE? VGA_GRAY_3  :0 ;  
+assign HDMI_TX_D   = TX_DE? VGA_BINARY  :0 ;  
 assign HDMI_TX_DE  = READ_Request;           
 assign HDMI_TX_HS  = VGA_HS                 ;
 assign HDMI_TX_VS  = VGA_VS                 ;
