@@ -96,7 +96,7 @@ resources/
 */db/
 */incremental_db/
 */simulation/
-*/timing/
+timing/
 */testbench/
 */*_sim/
 incremental_db/

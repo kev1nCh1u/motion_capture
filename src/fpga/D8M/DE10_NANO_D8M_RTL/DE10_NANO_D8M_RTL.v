@@ -246,7 +246,8 @@ CLOCKMEM  ck3 ( .CLK(MIPI_PIXEL_CLK ),.CLK_FREQ  (25000000 ),.CK_1HZ (D8M_CK_HZ 
 assign LED = {D8M_CK_HZ   , HDMI_TX_INT , CAMERA_MIPI_RELAESE ,MIPI_BRIDGE_RELEASE  } ; 
 
 //--TEST_IO STATUS-----
-assign TEST_IO = {BINARY_FLAG, VGA_VS, VGA_HS, READ_Request, VGA_CLK, MIPI_PIXEL_VS, MIPI_PIXEL_HS, MIPI_PIXEL_CLK} ; 
+assign TEST_IO = {BINARY_FLAG, VGA_VS, VGA_HS, VGA_CLK, MIPI_PIXEL_VS, MIPI_PIXEL_HS, MIPI_PIXEL_CLK, FPGA_CLK1_50} ; 
+// assign TEST_IO = {BINARY_FLAG, VGA_CLK, HDMI_TX_CLK, HDMI_SCLK, HDMI_MCLK, HDMI_LRCLK, MIPI_PIXEL_CLK, FPGA_CLK2_50} ; 
 
 
 
@@ -298,9 +299,9 @@ assign BINARY_POINTS_ISSP = BINARY_POINTS[BINARY_POINTS_NUM];
 
 //---VGA TIMG TO HDMI  ----  
 assign HDMI_TX_CLK =   VGA_CLK;
-// assign HDMI_TX_D   = TX_DE? { VGA_R, VGA_G, VGA_B  }  :0 ;  
+assign HDMI_TX_D   = TX_DE? { VGA_R, VGA_G, VGA_B  }  :0 ;  
 // assign HDMI_TX_D   = TX_DE? VGA_GRAY_3  :0 ;  
-assign HDMI_TX_D   = TX_DE? VGA_BINARY  :0 ;  
+// assign HDMI_TX_D   = TX_DE? VGA_BINARY  :0 ;  
 assign HDMI_TX_DE  = READ_Request;           
 assign HDMI_TX_HS  = VGA_HS                 ;
 assign HDMI_TX_VS  = VGA_VS                 ;
