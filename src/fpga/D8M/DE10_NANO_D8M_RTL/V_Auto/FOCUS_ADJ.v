@@ -23,7 +23,10 @@ output  reg [7:0] oB ,
 output            READY ,
 output            SCL , 
 inout             SDA , 
-output [9:0]      STATUS 
+output [9:0]      STATUS ,
+
+output [15:0]  H_CNT ,
+output [15:0]  V_CNT 
 
 );
 //=============================================================================

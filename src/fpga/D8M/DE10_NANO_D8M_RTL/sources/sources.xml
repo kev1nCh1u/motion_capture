@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <deploy
- date="2021.12.10.19:58:22"
+ date="2021.12.15.21:45:31"
  outputDirectory="/home/kevin/src/motion_capture/src/fpga/D8M/DE10_NANO_D8M_RTL/sources/">
  <perimeter>
   <parameter
@@ -36,17 +36,17 @@
   <interface name="probes" kind="conduit" start="0">
    <property name="associatedClock" value="" />
    <property name="associatedReset" value="" />
-   <port name="probe" direction="input" role="probe" width="100" />
+   <port name="probe" direction="input" role="probe" width="32" />
   </interface>
  </perimeter>
  <entity
    path=""
-   parameterizationKey="sources:1.0:AUTO_DEVICE=5CSEBA6U23I7,AUTO_DEVICE_FAMILY=Cyclone V,AUTO_DEVICE_SPEEDGRADE=7,AUTO_GENERATION_ID=1639137502,AUTO_UNIQUE_ID=(altera_in_system_sources_probes:21.1:create_source_clock=false,create_source_clock_enable=false,device_family=Cyclone V,enable_metastability=NO,gui_use_auto_index=true,instance_id=SOPR,probe_width=100,sld_auto_instance_index=YES,sld_instance_index=0,source_initial_value=0,source_width=0)"
+   parameterizationKey="sources:1.0:AUTO_DEVICE=5CSEBA6U23I7,AUTO_DEVICE_FAMILY=Cyclone V,AUTO_DEVICE_SPEEDGRADE=7,AUTO_GENERATION_ID=1639575931,AUTO_UNIQUE_ID=(altera_in_system_sources_probes:21.1:create_source_clock=false,create_source_clock_enable=false,device_family=Cyclone V,enable_metastability=NO,gui_use_auto_index=true,instance_id=SOPR,probe_width=32,sld_auto_instance_index=YES,sld_instance_index=0,source_initial_value=0,source_width=0)"
    instancePathKey="sources"
    kind="sources"
    version="1.0"
    name="sources">
-  <parameter name="AUTO_GENERATION_ID" value="1639137502" />
+  <parameter name="AUTO_GENERATION_ID" value="1639575931" />
   <parameter name="AUTO_DEVICE" value="5CSEBA6U23I7" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="AUTO_UNIQUE_ID" value="" />
@@ -91,7 +91,7 @@
  </entity>
  <entity
    path="submodules/"
-   parameterizationKey="altera_in_system_sources_probes:21.1:create_source_clock=false,create_source_clock_enable=false,device_family=Cyclone V,enable_metastability=NO,gui_use_auto_index=true,instance_id=SOPR,probe_width=100,sld_auto_instance_index=YES,sld_instance_index=0,source_initial_value=0,source_width=0"
+   parameterizationKey="altera_in_system_sources_probes:21.1:create_source_clock=false,create_source_clock_enable=false,device_family=Cyclone V,enable_metastability=NO,gui_use_auto_index=true,instance_id=SOPR,probe_width=32,sld_auto_instance_index=YES,sld_instance_index=0,source_initial_value=0,source_width=0"
    instancePathKey="sources:.:in_system_sources_probes_0"
    kind="altera_in_system_sources_probes"
    version="21.1"
@@ -101,7 +101,7 @@
   <parameter name="source_initial_value" value="0" />
   <parameter name="sld_auto_instance_index" value="YES" />
   <parameter name="sld_instance_index" value="0" />
-  <parameter name="probe_width" value="100" />
+  <parameter name="probe_width" value="32" />
   <parameter name="source_width" value="0" />
   <parameter name="create_source_clock_enable" value="false" />
   <parameter name="device_family" value="Cyclone V" />

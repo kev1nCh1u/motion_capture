@@ -771,7 +771,7 @@
 								<delegate id="delegate_CommonDockStationFactory">
 									<root>true</root>
 									<content delegate="flap dock">
-										<window auto="true" direction="NORTH"/>
+										<window auto="true" direction="SOUTH"/>
 										<placeholders>
 											<version>0</version>
 											<format>dock.PlaceholderList</format>
@@ -958,7 +958,7 @@
 													</leaf>
 												</node>
 												<node nodeId="1375899673461" orientation="VERTICAL" divider="0.49909584086799275">
-													<leaf id="2" nodeId="1372710005741">
+													<leaf id="1" nodeId="1372710005741">
 														<placeholders>
 															<placeholder>dock.single.Element\ Docs</placeholder>
 															<placeholder>dock.single.Details</placeholder>
@@ -979,7 +979,7 @@
 															</entry>
 														</placeholder-map>
 													</leaf>
-													<leaf id="1" nodeId="1372710005743">
+													<leaf id="2" nodeId="1372710005743">
 														<placeholders>
 															<placeholder>dock.single.Presets</placeholder>
 															<placeholder>dock.single.Device\ Family</placeholder>
@@ -1022,20 +1022,20 @@
 									<children ignore="false"/>
 								</child>
 								<child>
-									<layout factory="predefined" placeholder="dock.single.Presets">
-										<replacement id="dockablesingle Presets"/>
+									<layout factory="predefined" placeholder="dock.single.Block\ Symbol">
+										<replacement id="dockablesingle Block Symbol"/>
 										<delegate id="delegate_ccontrol backup factory id">
-											<id>Presets</id>
+											<id>Block Symbol</id>
 											<area/>
 										</delegate>
 									</layout>
 									<children ignore="false"/>
 								</child>
 								<child>
-									<layout factory="predefined" placeholder="dock.single.Block\ Symbol">
-										<replacement id="dockablesingle Block Symbol"/>
+									<layout factory="predefined" placeholder="dock.single.Presets">
+										<replacement id="dockablesingle Presets"/>
 										<delegate id="delegate_ccontrol backup factory id">
-											<id>Block Symbol</id>
+											<id>Presets</id>
 											<area/>
 										</delegate>
 									</layout>

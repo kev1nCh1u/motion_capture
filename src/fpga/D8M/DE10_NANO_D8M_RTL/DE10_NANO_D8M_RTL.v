@@ -32,6 +32,7 @@ module  DE10_NANO_D8M_RTL(
 
 	//////////// TEST_IO //////////
 	output		     [7:0]		TEST_IO,
+	output		     [15:0]		TEST_IO_2,
 
 	//////////// SW //////////
 	input 		     [3:0]		SW,
@@ -61,13 +62,16 @@ wire 	[7:0] GREEN;
 wire 	[7:0] RED;
 
 // kevin
+wire 	[15:0] H_CNT;
+wire 	[15:0] V_CNT;
 reg 	[7:0] VGA_GRAY;
+wire 	BINARY_FLAG;
 wire 	[23:0] VGA_BINARY;
-wire [23:0] VGA_GRAY_3;
-wire BINARY_FLAG;
-reg 	[15:0] BINARY_POINTS[99:0];
-reg		[99:0] BINARY_POINTS_NUM;
-reg 	[15:0] PIXEL_COUNTER;
+reg 	[15:0] BINARY_POINTS_H;
+reg 	[15:0] BINARY_POINTS_H_ARR[15:0];
+reg 	[15:0] BINARY_POINTS_V;
+reg 	[15:0] BINARY_POINTS_V_ARR[15:0];
+reg		[15:0] BINARY_POINTS_NUM;
 wire 	[15:0] BINARY_POINTS_ISSP;
 
 wire 	[7:0] VGA_R;
@@ -224,8 +228,10 @@ FOCUS_ADJ adl(
           .oB            ( VGA_B[7:0]),    
           .READY         ( READY),
           .SCL           ( CAMERA_I2C_SCL_AF ), 
-          .SDA           ( CAMERA_I2C_SDA )
-   
+          .SDA           ( CAMERA_I2C_SDA ) ,
+
+		  .H_CNT		 ( H_CNT[15:0] ) ,
+		  .V_CNT		 ( V_CNT[15:0] )
 );  
 
     
@@ -244,12 +250,6 @@ CLOCKMEM  ck3 ( .CLK(MIPI_PIXEL_CLK ),.CLK_FREQ  (25000000 ),.CK_1HZ (D8M_CK_HZ 
 
 //--LED STATUS-----
 assign LED = {D8M_CK_HZ   , HDMI_TX_INT , CAMERA_MIPI_RELAESE ,MIPI_BRIDGE_RELEASE  } ; 
-
-//--TEST_IO STATUS-----
-assign TEST_IO = {BINARY_FLAG, VGA_VS, VGA_HS, VGA_CLK, MIPI_PIXEL_VS, MIPI_PIXEL_HS, MIPI_PIXEL_CLK, FPGA_CLK1_50} ; 
-// assign TEST_IO = {BINARY_FLAG, VGA_CLK, HDMI_TX_CLK, HDMI_SCLK, HDMI_MCLK, HDMI_LRCLK, MIPI_PIXEL_CLK, FPGA_CLK2_50} ; 
-
-
 
 //---HDMI TX RECONFIG ---- 
 HDMI_TX_AD7513 hdmi (
@@ -270,38 +270,32 @@ HDMI_TX_AD7513 hdmi (
 
 //---kevin cvt rgb to gray binary ----  
 always@(posedge FPGA_CLK1_50)begin
-	// cvt rgb to gray
+	//---cvt rgb to gray
 //   VGA_GRAY = (VGA_R * 299 + VGA_G * 587 + VGA_B * 114) / 1000;
   VGA_GRAY = VGA_R;
 end
-// assign VGA_GRAY_3 = { VGA_GRAY, VGA_GRAY, VGA_GRAY  };
-assign VGA_BINARY = (VGA_GRAY > 230) ? 24'hFFFFFF : 0;
-assign BINARY_FLAG = (VGA_GRAY > 230) ? 1 : 0;
+assign BINARY_FLAG = (VGA_GRAY > 240) ? 1 : 0;
+assign VGA_BINARY = (BINARY_FLAG == 1) ? 24'hFFFFFF : 0;
 
-//---kevin point ----  
-always@(posedge READ_Request)begin
-  if(READ_Request == 1) PIXEL_COUNTER = PIXEL_COUNTER + 1; // kevin count
-
-  if(BINARY_FLAG == 1) // point 
+//---kevin find point ----  
+always@(posedge FPGA_CLK1_50)begin
+  if(BINARY_FLAG == 1) // find point 
   begin
-		BINARY_POINTS[BINARY_POINTS_NUM] = PIXEL_COUNTER;
-		BINARY_POINTS_NUM = BINARY_POINTS_NUM + 1;
+		BINARY_POINTS_H = H_CNT; // save h
+		BINARY_POINTS_NUM = BINARY_POINTS_NUM + 1; // point count
   end
 
-  if(VGA_VS == 0)// point reset
+  if(VGA_VS == 0) // point reset
   begin
-		PIXEL_COUNTER = 0;
 		BINARY_POINTS_NUM = 0;
   end
 end
 
-assign BINARY_POINTS_ISSP = BINARY_POINTS[BINARY_POINTS_NUM];
-
 //---VGA TIMG TO HDMI  ----  
 assign HDMI_TX_CLK =   VGA_CLK;
-assign HDMI_TX_D   = TX_DE? { VGA_R, VGA_G, VGA_B  }  :0 ;  
-// assign HDMI_TX_D   = TX_DE? VGA_GRAY_3  :0 ;  
-// assign HDMI_TX_D   = TX_DE? VGA_BINARY  :0 ;  
+// assign HDMI_TX_D   = TX_DE? { VGA_R, VGA_G, VGA_B  }  :0 ;  
+// assign HDMI_TX_D   = TX_DE? { VGA_GRAY, VGA_GRAY, VGA_GRAY  }  :0 ;  
+assign HDMI_TX_D   = TX_DE? VGA_BINARY  :0 ;  
 assign HDMI_TX_DE  = READ_Request;           
 assign HDMI_TX_HS  = VGA_HS                 ;
 assign HDMI_TX_VS  = VGA_VS                 ;
@@ -309,9 +303,14 @@ assign HDMI_TX_VS  = VGA_VS                 ;
 //-- HDMI SOUND ON -OFF
 assign HDMI_I2S=SW[0]?HDMI_I2S_:0;
 	
-//-- kevin debug
+//-- kevin debug TEST_IO STATUS-----
+assign TEST_IO = {BINARY_FLAG, VGA_VS, VGA_HS, READ_Request, VGA_CLK, FPGA_CLK1_50} ; 
+assign TEST_IO_2 = BINARY_POINTS_NUM ; 
+
+//-- kevin debug issp
+assign BINARY_POINTS_ISSP = BINARY_POINTS_H;
 sources source1 (
-	.probe  (PIXEL_COUNTER)   //  probes.probe
+	.probe  (BINARY_POINTS_H)   //  probes.probe
 );
 
 endmodule
