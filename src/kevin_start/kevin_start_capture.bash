@@ -23,9 +23,9 @@ source devel/setup.zsh
 # gnome-terminal --tab -t "分頁名稱" -- bash -ic "指令"
 gnome-terminal --tab -t "roscore" -- bash -ic "roscore"
 sleep 0.5
-gnome-terminal --tab -t "camera_0" -- bash -ic "python src/image_processing/dahua_python/src/ros2_cv_getFrame.py -id 0 -ser 4H05A85PAK641B0 -et 20000"
+gnome-terminal --tab -t "camera_0" -- bash -ic "python src/image_processing/dahua_python/src/ros_cv_getFrame.py -id 0 -ser 4H05A85PAK641B0 -et 20000"
 sleep 0.2
-gnome-terminal --tab -t "camera_1" -- bash -ic "python src/image_processing/dahua_python/src/ros2_cv_getFrame.py -id 1 -ser 4H05A85PAK7178C -et 20000"
+gnome-terminal --tab -t "camera_1" -- bash -ic "python src/image_processing/dahua_python/src/ros_cv_getFrame.py -id 1 -ser 4H05A85PAK7178C -et 20000"
 sleep 0.2
 gnome-terminal --tab -t "multi_capture" -- bash -ic "python src/image_processing/calibration/ros_multi_capture.py"
 sleep 0.2

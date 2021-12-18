@@ -23,7 +23,7 @@ cd $ws_path
 # gnome-terminal --tab -t "分頁名稱" -- bash -ic "指令"
 gnome-terminal --tab -t "roscore" -- bash -ic "roscore"
 sleep 0.2
-gnome-terminal --tab -t "camera_0" -- bash -ic "python src/image_processing/dahua_python/src/ros2_cv_getPoint.py -id 0 -ser 4H05A85PAK641B0 -et 990"
+gnome-terminal --tab -t "camera_0" -- bash -ic "python src/image_processing/dahua_python/src/ros_cv_getPoint.py -id 0 -ser 4H05A85PAK641B0 -et 990"
 sleep 0.2
-gnome-terminal --tab -t "camera_1" -- bash -ic "python src/image_processing/dahua_python/src/ros2_cv_getPoint.py -id 1 -ser 4H05A85PAK7178C -et 990"
+gnome-terminal --tab -t "camera_1" -- bash -ic "python src/image_processing/dahua_python/src/ros_cv_getPoint.py -id 1 -ser 4H05A85PAK7178C -et 990"
 sleep 0.2
