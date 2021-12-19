@@ -44,51 +44,6 @@ set_global_assignment -name ORIGINAL_QUARTUS_VERSION 16.0.2
 set_global_assignment -name LAST_QUARTUS_VERSION "21.1.0 Standard Edition"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "13:10:34 DECEMBER 19,2016"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
-set_global_assignment -name QIP_FILE sources/synthesis/sources.qip
-set_global_assignment -name VERILOG_FILE V/D8M_LUT.v
-set_global_assignment -name VERILOG_FILE V_D8M/R_GAIN.v
-set_global_assignment -name VERILOG_FILE V_D8M/G_GAIN.v
-set_global_assignment -name SDC_FILE DE10_NANO_D8M_RTL.SDC
-set_global_assignment -name VERILOG_FILE V/I2C_READ_DATA.v
-set_global_assignment -name VERILOG_FILE V/I2C_RESET_DELAY.v
-set_global_assignment -name VERILOG_FILE V/I2C_WRITE_PTR.v
-set_global_assignment -name VERILOG_FILE V/I2C_WRITE_WDATA.v
-set_global_assignment -name VERILOG_FILE V_HDMI/I2C_HDMI_Config.v
-set_global_assignment -name VERILOG_FILE V_HDMI/I2C_Controller.v
-set_global_assignment -name VERILOG_FILE V_HDMI/HDMI_TX_AD7513.v
-set_global_assignment -name VERILOG_FILE V_HDMI/HDMI_I2C_WRITE_WDATA.v
-set_global_assignment -name VERILOG_FILE V_HDMI/AUDIO_IF.v
-set_global_assignment -name QSYS_FILE V_D8M/FRAM_BUFF.qsys
-set_global_assignment -name VERILOG_FILE V_D8M/int_line.v
-set_global_assignment -name VERILOG_FILE V_D8M/RAW2RGB_J.v
-set_global_assignment -name VERILOG_FILE V_D8M/RAW_RGB_BIN.v
-set_global_assignment -name VERILOG_FILE V_D8M/RAM_READ_COUNTER.v
-set_global_assignment -name VERILOG_FILE V_D8M/ON_CHIP_FRAM.v
-set_global_assignment -name VERILOG_FILE V_D8M/MIPI_CAMERA_CONFIG.v
-set_global_assignment -name VERILOG_FILE V_D8M/MIPI_BRIDGE_CONFIG.v
-set_global_assignment -name VERILOG_FILE V_D8M/MIPI_BRIDGE_CAMERA_Config.v
-set_global_assignment -name VERILOG_FILE V_D8M/Line_Buffer_J.v
-set_global_assignment -name VERILOG_FILE V_D8M/FRM_COUNTER.v
-set_global_assignment -name VERILOG_FILE V_D8M/B_GAIN.v
-set_global_assignment -name QIP_FILE V_D8M/FRAM_BUFF.qip
-set_global_assignment -name VERILOG_FILE V_Auto/VCM_STEP.v
-set_global_assignment -name VERILOG_FILE V_Auto/VCM_I2C.v
-set_global_assignment -name VERILOG_FILE V_Auto/VCM_CTRL_P.v
-set_global_assignment -name VERILOG_FILE V_Auto/RESET_DELAY.v
-set_global_assignment -name VERILOG_FILE V_Auto/MODIFY_SYNC.v
-set_global_assignment -name VERILOG_FILE V_Auto/LCD_COUNTER.v
-set_global_assignment -name VERILOG_FILE V_Auto/I2C_DELAY.v
-set_global_assignment -name VERILOG_FILE V_Auto/FOCUS_ADJ.v
-set_global_assignment -name VERILOG_FILE V_Auto/F_VCM.v
-set_global_assignment -name VERILOG_FILE V_Auto/CLOCKMEM.v
-set_global_assignment -name VERILOG_FILE V_Auto/AUTO_SYNC_MODIFY.v
-set_global_assignment -name VERILOG_FILE V_Auto/AUTO_FOCUS_ON.v
-set_global_assignment -name QIP_FILE V/VIDEO_PLL.qip
-set_global_assignment -name SIP_FILE V/VIDEO_PLL.sip
-set_global_assignment -name QIP_FILE V/AUDIO_PLL.qip
-set_global_assignment -name SIP_FILE V/AUDIO_PLL.sip
-set_global_assignment -name VERILOG_FILE VGA_Controller/VGA_Controller.v
-set_global_assignment -name SIGNALTAP_FILE stp1.stp
 
 # Pin & Location Assignments
 # ==========================
@@ -411,5 +366,52 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to TEST_IO_2[2]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to TEST_IO_2[1]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to TEST_IO_2[0]
 set_global_assignment -name OPTIMIZATION_MODE BALANCED
+set_global_assignment -name QIP_FILE sources/synthesis/sources.qip
+set_global_assignment -name VERILOG_FILE V/D8M_LUT.v
+set_global_assignment -name VERILOG_FILE V_D8M/R_GAIN.v
+set_global_assignment -name VERILOG_FILE V_D8M/G_GAIN.v
+set_global_assignment -name SDC_FILE DE10_NANO_D8M_RTL.SDC
+set_global_assignment -name VERILOG_FILE V/I2C_READ_DATA.v
+set_global_assignment -name VERILOG_FILE V/I2C_RESET_DELAY.v
+set_global_assignment -name VERILOG_FILE V/I2C_WRITE_PTR.v
+set_global_assignment -name VERILOG_FILE V/I2C_WRITE_WDATA.v
+set_global_assignment -name VERILOG_FILE V_HDMI/I2C_HDMI_Config.v
+set_global_assignment -name VERILOG_FILE V_HDMI/I2C_Controller.v
+set_global_assignment -name VERILOG_FILE V_HDMI/HDMI_TX_AD7513.v
+set_global_assignment -name VERILOG_FILE V_HDMI/HDMI_I2C_WRITE_WDATA.v
+set_global_assignment -name VERILOG_FILE V_HDMI/AUDIO_IF.v
+set_global_assignment -name QSYS_FILE V_D8M/FRAM_BUFF.qsys
+set_global_assignment -name VERILOG_FILE V_D8M/int_line.v
+set_global_assignment -name VERILOG_FILE V_D8M/RAW2RGB_J.v
+set_global_assignment -name VERILOG_FILE V_D8M/RAW_RGB_BIN.v
+set_global_assignment -name VERILOG_FILE V_D8M/RAM_READ_COUNTER.v
+set_global_assignment -name VERILOG_FILE V_D8M/ON_CHIP_FRAM.v
+set_global_assignment -name VERILOG_FILE V_D8M/MIPI_CAMERA_CONFIG.v
+set_global_assignment -name VERILOG_FILE V_D8M/MIPI_BRIDGE_CONFIG.v
+set_global_assignment -name VERILOG_FILE V_D8M/MIPI_BRIDGE_CAMERA_Config.v
+set_global_assignment -name VERILOG_FILE V_D8M/Line_Buffer_J.v
+set_global_assignment -name VERILOG_FILE V_D8M/FRM_COUNTER.v
+set_global_assignment -name VERILOG_FILE V_D8M/B_GAIN.v
+set_global_assignment -name QIP_FILE V_D8M/FRAM_BUFF.qip
+set_global_assignment -name VERILOG_FILE V_Auto/VCM_STEP.v
+set_global_assignment -name VERILOG_FILE V_Auto/VCM_I2C.v
+set_global_assignment -name VERILOG_FILE V_Auto/VCM_CTRL_P.v
+set_global_assignment -name VERILOG_FILE V_Auto/RESET_DELAY.v
+set_global_assignment -name VERILOG_FILE V_Auto/MODIFY_SYNC.v
+set_global_assignment -name VERILOG_FILE V_Auto/LCD_COUNTER.v
+set_global_assignment -name VERILOG_FILE V_Auto/I2C_DELAY.v
+set_global_assignment -name VERILOG_FILE V_Auto/FOCUS_ADJ.v
+set_global_assignment -name VERILOG_FILE V_Auto/F_VCM.v
+set_global_assignment -name VERILOG_FILE V_Auto/CLOCKMEM.v
+set_global_assignment -name VERILOG_FILE V_Auto/AUTO_SYNC_MODIFY.v
+set_global_assignment -name VERILOG_FILE V_Auto/AUTO_FOCUS_ON.v
+set_global_assignment -name QIP_FILE V/VIDEO_PLL.qip
+set_global_assignment -name SIP_FILE V/VIDEO_PLL.sip
+set_global_assignment -name QIP_FILE V/AUDIO_PLL.qip
+set_global_assignment -name SIP_FILE V/AUDIO_PLL.sip
+set_global_assignment -name VERILOG_FILE VGA_Controller/VGA_Controller.v
+set_global_assignment -name SIGNALTAP_FILE stp1.stp
+set_global_assignment -name VERILOG_FILE kevin/RGB2BINARY.v
+set_global_assignment -name VERILOG_FILE kevin/MONO2BINARY.v
 set_global_assignment -name VERILOG_FILE kevin/FIND_POINT.v
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

@@ -62,17 +62,16 @@ wire 	[7:0] GREEN;
 wire 	[7:0] RED;
 
 // kevin
-wire 	[15:0] H_CNT;
-wire 	[15:0] V_CNT;
 reg 	[7:0] VGA_GRAY;
 wire 	BINARY_FLAG;
 wire 	[23:0] VGA_BINARY;
-reg 	[15:0] BINARY_POINTS_H;
+wire 	[15:0] H_CNT;
+wire 	[15:0] V_CNT;
+wire 	[15:0] BINARY_POINTS_H;
 reg 	[15:0] BINARY_POINTS_H_ARR[15:0];
-reg 	[15:0] BINARY_POINTS_V;
+wire 	[15:0] BINARY_POINTS_V;
 reg 	[15:0] BINARY_POINTS_V_ARR[15:0];
 reg		[15:0] BINARY_POINTS_NUM;
-wire 	[15:0] BINARY_POINTS_ISSP;
 reg 	rVGA_VS;
 
 wire 	[7:0] VGA_R;
@@ -270,43 +269,60 @@ HDMI_TX_AD7513 hdmi (
  
 
 //---kevin cvt rgb to gray binary ----  
-always@(posedge FPGA_CLK1_50)begin
-	//---cvt rgb to gray
-//   VGA_GRAY = (VGA_R * 299 + VGA_G * 587 + VGA_B * 114) / 1000;
-  VGA_GRAY = VGA_R;
-end
-assign BINARY_FLAG = (VGA_GRAY > 240) ? 1 : 0;
-assign VGA_BINARY = (BINARY_FLAG == 1) ? 24'hFFFFFF : 0;
+// always@(posedge FPGA_CLK1_50)begin
+// 	//---cvt rgb to gray
+// //   VGA_GRAY = (VGA_R * 299 + VGA_G * 587 + VGA_B * 114) / 1000;
+//   VGA_GRAY = VGA_R;
+// end
+// assign BINARY_FLAG = (VGA_GRAY > 240) ? 1 : 0;
+// assign VGA_BINARY = (BINARY_FLAG == 1) ? 24'hFFFFFF : 0;
+
+MONO2BINARY m2b1(.CLK			(FPGA_CLK1_50),
+                 .VGA_MONO		(VGA_R),
+                 .THRESHOLD		(240),
+                 .BINARY_FLAG	(BINARY_FLAG),
+                 .VGA_BINARY	(VGA_BINARY)
+				 );
 
 //---kevin find point ----  
-always@(posedge FPGA_CLK1_50)begin
-  if(BINARY_FLAG == 1) // find point 
-  begin
-		BINARY_POINTS_H_ARR[BINARY_POINTS_NUM] = H_CNT; // save h
-		BINARY_POINTS_V_ARR[BINARY_POINTS_NUM] = V_CNT; // save v
+// always@(posedge FPGA_CLK1_50)begin
+//   if(BINARY_FLAG == 1) // find point 
+//   begin
+// 		BINARY_POINTS_H_ARR[BINARY_POINTS_NUM] = H_CNT; // save h
+// 		BINARY_POINTS_V_ARR[BINARY_POINTS_NUM] = V_CNT; // save v
 
-		BINARY_POINTS_NUM = BINARY_POINTS_NUM + 1; // point count
-  end
+// 		BINARY_POINTS_NUM = BINARY_POINTS_NUM + 1; // point count
+//   end
 
-  rVGA_VS <= VGA_VS;
-  if(!rVGA_VS && VGA_VS) // point reset
-  begin
-	  	if(BINARY_POINTS_NUM > 0)
-		begin
-			BINARY_POINTS_NUM = BINARY_POINTS_NUM / 2;
+//   rVGA_VS <= VGA_VS;
+//   if(!rVGA_VS && VGA_VS) // point reset
+//   begin
+// 	  	if(BINARY_POINTS_NUM > 0)
+// 		begin
+// 			BINARY_POINTS_NUM = BINARY_POINTS_NUM / 2;
 			
-			BINARY_POINTS_H = BINARY_POINTS_H_ARR[BINARY_POINTS_NUM];
-			BINARY_POINTS_V = BINARY_POINTS_V_ARR[BINARY_POINTS_NUM];
+// 			BINARY_POINTS_H = BINARY_POINTS_H_ARR[BINARY_POINTS_NUM];
+// 			BINARY_POINTS_V = BINARY_POINTS_V_ARR[BINARY_POINTS_NUM];
 
-			BINARY_POINTS_NUM = 0;
-		end
-		else
-		begin
-			BINARY_POINTS_H = 0;
-			BINARY_POINTS_V = 0;
-		end
-  end
-end
+// 			BINARY_POINTS_NUM = 0;
+// 		end
+// 		else
+// 		begin
+// 			BINARY_POINTS_H = 0;
+// 			BINARY_POINTS_V = 0;
+// 		end
+//   end
+// end
+
+FIND_POINT fp1 (
+	.CLK				(FPGA_CLK1_50),
+    .VGA_VS				(VGA_VS),
+    .BINARY_FLAG		(BINARY_FLAG),
+    .H_CNT				(H_CNT),
+    .V_CNT				(V_CNT),
+    .BINARY_POINTS_H	(BINARY_POINTS_H[15:0]),
+    .BINARY_POINTS_V	(BINARY_POINTS_V[15:0])
+);
 
 //---VGA TIMG TO HDMI  ----  
 assign HDMI_TX_CLK =   VGA_CLK;
@@ -325,7 +341,6 @@ assign TEST_IO = {BINARY_FLAG, VGA_VS, VGA_HS, READ_Request, VGA_CLK, FPGA_CLK1_
 assign TEST_IO_2 = BINARY_POINTS_NUM ; 
 
 //-- kevin debug issp
-// assign BINARY_POINTS_ISSP = BINARY_POINTS_H;
 sources source1 (
 	.probe  (BINARY_POINTS_H)   //  probes.probe
 );
