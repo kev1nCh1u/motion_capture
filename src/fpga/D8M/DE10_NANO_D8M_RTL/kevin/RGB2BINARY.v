@@ -1,8 +1,8 @@
 module RGB2BINARY (input CLK,
-                 input VGA_R,
-                 input VGA_G,
-                 input VGA_B,
-                 input THRESHOLD,
+                 input [7:0] VGA_R,
+                 input [7:0] VGA_G,
+                 input [7:0] VGA_B,
+                 input [7:0] THRESHOLD,
                  output reg [23:0] VGA_GRAY,
                  output BINARY_FLAG,
                  output [23:0] VGA_BINARY);

@@ -1,6 +1,6 @@
 module MONO2BINARY (input CLK,
-                 input VGA_MONO,
-                 input THRESHOLD,
+                 input [7:0] VGA_MONO,
+                 input [7:0] THRESHOLD,
                  output BINARY_FLAG,
                  output [23:0] VGA_BINARY);
     

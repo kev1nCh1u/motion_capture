@@ -62,17 +62,13 @@ wire 	[7:0] GREEN;
 wire 	[7:0] RED;
 
 // kevin
-reg 	[7:0] VGA_GRAY;
+// wire 	[7:0]  VGA_GRAY;
 wire 	BINARY_FLAG;
 wire 	[23:0] VGA_BINARY;
 wire 	[15:0] H_CNT;
 wire 	[15:0] V_CNT;
 wire 	[15:0] BINARY_POINTS_H;
-reg 	[15:0] BINARY_POINTS_H_ARR[15:0];
 wire 	[15:0] BINARY_POINTS_V;
-reg 	[15:0] BINARY_POINTS_V_ARR[15:0];
-reg		[15:0] BINARY_POINTS_NUM;
-reg 	rVGA_VS;
 
 wire 	[7:0] VGA_R;
 wire 	[7:0] VGA_G;
@@ -266,53 +262,13 @@ HDMI_TX_AD7513 hdmi (
          .HDMI_TX_INT     ( HDMI_TX_INT),
 			.READY           ( HDMI_READY )
  );
- 
-
-//---kevin cvt rgb to gray binary ----  
-// always@(posedge FPGA_CLK1_50)begin
-// 	//---cvt rgb to gray
-// //   VGA_GRAY = (VGA_R * 299 + VGA_G * 587 + VGA_B * 114) / 1000;
-//   VGA_GRAY = VGA_R;
-// end
-// assign BINARY_FLAG = (VGA_GRAY > 240) ? 1 : 0;
-// assign VGA_BINARY = (BINARY_FLAG == 1) ? 24'hFFFFFF : 0;
 
 MONO2BINARY m2b1(.CLK			(FPGA_CLK1_50),
-                 .VGA_MONO		(VGA_R),
+                 .VGA_MONO		(VGA_R[7:0]),
                  .THRESHOLD		(240),
                  .BINARY_FLAG	(BINARY_FLAG),
-                 .VGA_BINARY	(VGA_BINARY)
+                 .VGA_BINARY	(VGA_BINARY[23:0])
 				 );
-
-//---kevin find point ----  
-// always@(posedge FPGA_CLK1_50)begin
-//   if(BINARY_FLAG == 1) // find point 
-//   begin
-// 		BINARY_POINTS_H_ARR[BINARY_POINTS_NUM] = H_CNT; // save h
-// 		BINARY_POINTS_V_ARR[BINARY_POINTS_NUM] = V_CNT; // save v
-
-// 		BINARY_POINTS_NUM = BINARY_POINTS_NUM + 1; // point count
-//   end
-
-//   rVGA_VS <= VGA_VS;
-//   if(!rVGA_VS && VGA_VS) // point reset
-//   begin
-// 	  	if(BINARY_POINTS_NUM > 0)
-// 		begin
-// 			BINARY_POINTS_NUM = BINARY_POINTS_NUM / 2;
-			
-// 			BINARY_POINTS_H = BINARY_POINTS_H_ARR[BINARY_POINTS_NUM];
-// 			BINARY_POINTS_V = BINARY_POINTS_V_ARR[BINARY_POINTS_NUM];
-
-// 			BINARY_POINTS_NUM = 0;
-// 		end
-// 		else
-// 		begin
-// 			BINARY_POINTS_H = 0;
-// 			BINARY_POINTS_V = 0;
-// 		end
-//   end
-// end
 
 FIND_POINT fp1 (
 	.CLK				(FPGA_CLK1_50),
@@ -338,7 +294,7 @@ assign HDMI_I2S=SW[0]?HDMI_I2S_:0;
 	
 //-- kevin debug TEST_IO STATUS-----
 assign TEST_IO = {BINARY_FLAG, VGA_VS, VGA_HS, READ_Request, VGA_CLK, FPGA_CLK1_50} ; 
-assign TEST_IO_2 = BINARY_POINTS_NUM ; 
+assign TEST_IO_2 = {BINARY_FLAG, VGA_VS, VGA_HS, READ_Request, VGA_CLK, FPGA_CLK1_50} ; 
 
 //-- kevin debug issp
 sources source1 (
