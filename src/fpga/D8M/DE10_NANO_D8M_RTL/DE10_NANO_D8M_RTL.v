@@ -30,10 +30,6 @@ module  DE10_NANO_D8M_RTL(
 	//////////// LED //////////
 	output		     [7:0]		LED,
 
-	//////////// TEST_IO //////////
-	output		     [7:0]		TEST_IO,
-	output		     [15:0]		TEST_IO_2,
-
 	//////////// SW //////////
 	input 		     [3:0]		SW,
 
@@ -50,25 +46,27 @@ module  DE10_NANO_D8M_RTL(
 	input 		          		MIPI_PIXEL_HS,
 	input 		          		MIPI_PIXEL_VS,
 	output		          		MIPI_REFCLK,
-	output		          		MIPI_RESET_n
+	output		          		MIPI_RESET_n,
+
+	//////////// kevin TEST_IO //////////
+	output		     [7:0]		TEST_IO,
+	output		     [15:0]		TEST_IO_2,
+
+	//////////// kevin uart //////////
+	input UART_RX,
+	output UART_TX
 );
 
 //=======================================================
 //  REG/WIRE declarations
 //=======================================================
+// 50,000,000 / 115,200 = 434...
+localparam BAUD_RATE = 435;
+
 wire        READ_Request ;
 wire 	[7:0] BLUE;
 wire 	[7:0] GREEN;
 wire 	[7:0] RED;
-
-// kevin
-// wire 	[7:0]  VGA_GRAY;
-wire 	BINARY_FLAG;
-wire 	[23:0] VGA_BINARY;
-wire 	[15:0] H_CNT;
-wire 	[15:0] V_CNT;
-wire 	[15:0] BINARY_POINTS_H;
-wire 	[15:0] BINARY_POINTS_V;
 
 wire 	[7:0] VGA_R;
 wire 	[7:0] VGA_G;
@@ -104,9 +102,55 @@ wire        HDMI_I2S_;
 wire        LUT_MIPI_PIXEL_HS;
 wire        LUT_MIPI_PIXEL_VS;
 wire [9:0]  LUT_MIPI_PIXEL_D  ;
+
+//////////////// kevin find point /////////////////
+// wire 	[7:0]  VGA_GRAY;
+wire 	BINARY_FLAG;
+wire 	[23:0] VGA_BINARY;
+wire 	[15:0] H_CNT;
+wire 	[15:0] V_CNT;
+wire 	[15:0] BINARY_POINTS_H; // point_x
+wire 	[15:0] BINARY_POINTS_V; // point_y
+
+////////////////// kevin tx ////////////////////////
+reg [7:0] TX_BYTE;
+reg r_TX_DV;
+wire TX_ACTIVE;
+wire TX_DONE;
+wire [2:0] TX_STATE;
+
+/////////////////// kevin rx ///////////////////
+wire [7:0] RX_BYTE;
+wire r_RX_DV;
+reg r_RX_FLAG;
+wire [2:0] RX_STATE;
+
+////////////////////// kevin point data /////////////
+reg [7:0] DATA[10:0];
+reg [3:0] DATA_CNT;
+reg [15:0] r_BINARY_POINTS_H; // point_x
+reg [15:0] r_BINARY_POINTS_V; // point_y
+
 //=======================================================
 // Structural coding
 //=======================================================
+
+//-----------set tx data
+initial begin
+	DATA[0] = 8'h53; //S
+	DATA[1] = 8'h54; //T
+
+	r_BINARY_POINTS_H = 16'd640; // point_x
+	r_BINARY_POINTS_V = 16'd480; // point_y
+	DATA[2] = r_BINARY_POINTS_H[15:8]; // point_x H
+	DATA[3] = r_BINARY_POINTS_H[7:0]; // point_x L
+	DATA[4] = r_BINARY_POINTS_V[15:8];  // point_y H
+	DATA[5] = r_BINARY_POINTS_V[7:0];  // point_y L
+
+	DATA[6] = 8'h45; //E
+	DATA[7] = 8'h4E; //N
+	DATA[8] = 8'h44; //D
+end
 
 //--D8M INPUT Gamma Correction 
  D8M_LUT  g_lut(
@@ -265,7 +309,7 @@ HDMI_TX_AD7513 hdmi (
 
 MONO2BINARY m2b1(.CLK			(FPGA_CLK1_50),
                  .VGA_MONO		(VGA_R[7:0]),
-                 .THRESHOLD		(240),
+                 .THRESHOLD		(250),
                  .BINARY_FLAG	(BINARY_FLAG),
                  .VGA_BINARY	(VGA_BINARY[23:0])
 				 );
@@ -280,11 +324,52 @@ FIND_POINT fp1 (
     .BINARY_POINTS_V	(BINARY_POINTS_V[15:0])
 );
 
+uart_tx #(.CLKS_PER_BIT(BAUD_RATE)) ut0 (
+.i_Clock(FPGA_CLK1_50),
+.i_Tx_DV(r_TX_DV),
+.i_Tx_Byte(TX_BYTE),
+.o_Tx_Active(TX_ACTIVE),
+.o_Tx_Serial(UART_TX),
+.o_Tx_Done(TX_DONE),
+.o_Tx_State(TX_STATE)
+);
+
+uart_rx #(.CLKS_PER_BIT(BAUD_RATE)) ur0 (
+.i_Clock(FPGA_CLK1_50),
+.i_Rx_Serial(UART_RX),
+.o_Rx_DV(r_RX_DV),
+.o_Rx_Byte(RX_BYTE),
+.o_Rx_State(RX_STATE)
+);
+
+always @(posedge TX_DONE) begin
+	TX_BYTE <= DATA[DATA_CNT];
+	if (DATA_CNT < 8)
+	begin
+		DATA_CNT <= DATA_CNT + 1;
+	end
+	else
+	begin
+		DATA_CNT <= 0;
+	end
+end
+
+always @(posedge r_RX_DV) begin
+	if (RX_BYTE == 8'h01)
+	begin
+		r_RX_FLAG <= 1;
+	end
+	else if(RX_BYTE == 8'h00)
+	begin
+		r_RX_FLAG <= 0;
+	end
+end
+
 //---VGA TIMG TO HDMI  ----  
 assign HDMI_TX_CLK =   VGA_CLK;
 // assign HDMI_TX_D   = TX_DE? { VGA_R, VGA_G, VGA_B  }  :0 ;  
 // assign HDMI_TX_D   = TX_DE? { VGA_GRAY, VGA_GRAY, VGA_GRAY  }  :0 ;  
-assign HDMI_TX_D   = TX_DE? VGA_BINARY  :0 ;  
+assign HDMI_TX_D   = TX_DE? r_RX_FLAG? VGA_BINARY: { VGA_R, VGA_G, VGA_B  }  :0 ;  
 assign HDMI_TX_DE  = READ_Request;           
 assign HDMI_TX_HS  = VGA_HS                 ;
 assign HDMI_TX_VS  = VGA_VS                 ;
@@ -293,8 +378,8 @@ assign HDMI_TX_VS  = VGA_VS                 ;
 assign HDMI_I2S=SW[0]?HDMI_I2S_:0;
 	
 //-- kevin debug TEST_IO STATUS-----
-assign TEST_IO = {BINARY_FLAG, VGA_VS, VGA_HS, READ_Request, VGA_CLK, FPGA_CLK1_50} ; 
-assign TEST_IO_2 = {BINARY_FLAG, VGA_VS, VGA_HS, READ_Request, VGA_CLK, FPGA_CLK1_50} ; 
+assign TEST_IO = {MIPI_PIXEL_VS, MIPI_PIXEL_HS, MIPI_PIXEL_CLK, BINARY_FLAG, VGA_VS, VGA_HS, VGA_CLK} ; 
+assign TEST_IO_2 = {UART_RX, UART_TX} ; 
 
 //-- kevin debug issp
 sources source1 (
