@@ -37,11 +37,11 @@ class UartControl():
                     case 2:
                         self.data[1] = self.ser.read(1)
                         self.data[2] = self.ser.read(1)
-                        self.point_x_bytes = self.data[2] + self.data[1]
+                        self.point_x_bytes = self.data[1] + self.data[2]
 
                         self.data[3] = self.ser.read(1)
                         self.data[4] = self.ser.read(1)
-                        self.point_y_bytes = self.data[4] + self.data[3]
+                        self.point_y_bytes = self.data[3] + self.data[4]
 
                         self.status += 1
                     case 3:

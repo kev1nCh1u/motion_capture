@@ -113,7 +113,7 @@ wire 	[15:0] BINARY_POINTS_H; // point_x
 wire 	[15:0] BINARY_POINTS_V; // point_y
 
 ////////////////// kevin tx ////////////////////////
-reg [7:0] TX_BYTE;
+wire [7:0] TX_BYTE;
 reg r_TX_DV;
 wire TX_ACTIVE;
 wire TX_DONE;
@@ -122,35 +122,12 @@ wire [2:0] TX_STATE;
 /////////////////// kevin rx ///////////////////
 wire [7:0] RX_BYTE;
 wire r_RX_DV;
-reg r_RX_FLAG;
+wire r_RX_FLAG;
 wire [2:0] RX_STATE;
-
-////////////////////// kevin point data /////////////
-reg [7:0] DATA[10:0];
-reg [3:0] DATA_CNT;
-reg [15:0] r_BINARY_POINTS_H; // point_x
-reg [15:0] r_BINARY_POINTS_V; // point_y
 
 //=======================================================
 // Structural coding
 //=======================================================
-
-//-----------set tx data
-initial begin
-	DATA[0] = 8'h53; //S
-	DATA[1] = 8'h54; //T
-
-	r_BINARY_POINTS_H = 16'd640; // point_x
-	r_BINARY_POINTS_V = 16'd480; // point_y
-	DATA[2] = r_BINARY_POINTS_H[15:8]; // point_x H
-	DATA[3] = r_BINARY_POINTS_H[7:0]; // point_x L
-	DATA[4] = r_BINARY_POINTS_V[15:8];  // point_y H
-	DATA[5] = r_BINARY_POINTS_V[7:0];  // point_y L
-
-	DATA[6] = 8'h45; //E
-	DATA[7] = 8'h4E; //N
-	DATA[8] = 8'h44; //D
-end
 
 //--D8M INPUT Gamma Correction 
  D8M_LUT  g_lut(
@@ -307,6 +284,7 @@ HDMI_TX_AD7513 hdmi (
 			.READY           ( HDMI_READY )
  );
 
+//-----------MONO2BINARY
 MONO2BINARY m2b1(.CLK			(FPGA_CLK1_50),
                  .VGA_MONO		(VGA_R[7:0]),
                  .THRESHOLD		(250),
@@ -314,6 +292,7 @@ MONO2BINARY m2b1(.CLK			(FPGA_CLK1_50),
                  .VGA_BINARY	(VGA_BINARY[23:0])
 				 );
 
+//-----------FIND_POINT
 FIND_POINT fp1 (
 	.CLK				(FPGA_CLK1_50),
     .VGA_VS				(VGA_VS),
@@ -324,6 +303,7 @@ FIND_POINT fp1 (
     .BINARY_POINTS_V	(BINARY_POINTS_V[15:0])
 );
 
+//-----------uart_tx
 uart_tx #(.CLKS_PER_BIT(BAUD_RATE)) ut0 (
 .i_Clock(FPGA_CLK1_50),
 .i_Tx_DV(r_TX_DV),
@@ -334,6 +314,7 @@ uart_tx #(.CLKS_PER_BIT(BAUD_RATE)) ut0 (
 .o_Tx_State(TX_STATE)
 );
 
+//-----------uart_rx
 uart_rx #(.CLKS_PER_BIT(BAUD_RATE)) ur0 (
 .i_Clock(FPGA_CLK1_50),
 .i_Rx_Serial(UART_RX),
@@ -342,27 +323,25 @@ uart_rx #(.CLKS_PER_BIT(BAUD_RATE)) ur0 (
 .o_Rx_State(RX_STATE)
 );
 
-always @(posedge TX_DONE) begin
-	TX_BYTE <= DATA[DATA_CNT];
-	if (DATA_CNT < 8)
-	begin
-		DATA_CNT <= DATA_CNT + 1;
-	end
-	else
-	begin
-		DATA_CNT <= 0;
-	end
-end
+//-----------uart_tx_data
+uart_tx_data utd (
+	.RX_BYTE			(RX_BYTE),
+	.TX_DONE			(TX_DONE),
+	.BINARY_POINTS_H	(BINARY_POINTS_H),
+	.BINARY_POINTS_V	(BINARY_POINTS_V),
+	.TX_BYTE			(TX_BYTE)
+);
 
-always @(posedge r_RX_DV) begin
-	if (RX_BYTE == 8'h01)
-	begin
-		r_RX_FLAG <= 1;
-	end
-	else if(RX_BYTE == 8'h00)
-	begin
-		r_RX_FLAG <= 0;
-	end
+//-----------uart_rx_data
+uart_rx_data urd (
+	.r_RX_DV		(r_RX_DV),
+	.RX_BYTE		(RX_BYTE),
+	.r_RX_FLAG		(r_RX_FLAG)
+);
+
+//-----------setting
+always @(posedge FPGA_CLK1_50) begin
+	r_TX_DV = 1'b1;
 end
 
 //---VGA TIMG TO HDMI  ----  
