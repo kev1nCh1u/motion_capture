@@ -23,45 +23,44 @@ class UartControl():
     def uart_ser(self):
         try:
             while self.ser.in_waiting:
-                match self.status:
-                    case 0:
-                        if(self.ser.read(1) ==  b'S'):
-                            self.status += 1
-                        else:
-                            self.status = 0
-                    case 1:
-                        if(self.ser.read(1) ==  b'T'):
-                            self.status += 1
-                        else:
-                            self.status = 0
-                    case 2:
-                        self.data[1] = self.ser.read(1)
-                        self.data[2] = self.ser.read(1)
-                        self.point_x_bytes = self.data[1] + self.data[2]
-
-                        self.data[3] = self.ser.read(1)
-                        self.data[4] = self.ser.read(1)
-                        self.point_y_bytes = self.data[3] + self.data[4]
-
+                if(self.status == 0):
+                    if(self.ser.read(1) ==  b'S'):
                         self.status += 1
-                    case 3:
-                        if(self.ser.read(1) ==  b'E'):
-                            self.status += 1
-                        else:
-                            self.status = 0
-                    case 4:
-                        if(self.ser.read(1) ==  b'N'):
-                            self.status += 1
-                        else:
-                            self.status = 0
-                    case 5:
-                        if(self.ser.read(1) ==  b'D'):
-                            self.status = 0
-                            self.point_x = int.from_bytes(self.point_x_bytes, "big")
-                            self.point_y = int.from_bytes(self.point_y_bytes, "big")
-                            print(self.point_x, self.point_y)
-                        else:
-                            self.status = 0
+                    else:
+                        self.status = 0
+                elif(self.status == 1):
+                    if(self.ser.read(1) ==  b'T'):
+                        self.status += 1
+                    else:
+                        self.status = 0
+                elif(self.status == 2):
+                    self.data[1] = self.ser.read(1)
+                    self.data[2] = self.ser.read(1)
+                    self.point_x_bytes = self.data[1] + self.data[2]
+
+                    self.data[3] = self.ser.read(1)
+                    self.data[4] = self.ser.read(1)
+                    self.point_y_bytes = self.data[3] + self.data[4]
+
+                    self.status += 1
+                elif(self.status == 3):
+                    if(self.ser.read(1) ==  b'E'):
+                        self.status += 1
+                    else:
+                        self.status = 0
+                elif(self.status == 4):
+                    if(self.ser.read(1) ==  b'N'):
+                        self.status += 1
+                    else:
+                        self.status = 0
+                elif(self.status == 5):
+                    if(self.ser.read(1) ==  b'D'):
+                        self.status = 0
+                        self.point_x = int.from_bytes(self.point_x_bytes, "big")
+                        self.point_y = int.from_bytes(self.point_y_bytes, "big")
+                        # print(self.point_x, self.point_y)
+                    else:
+                        self.status = 0
                 # self.ser_write()
 
         except KeyboardInterrupt:
