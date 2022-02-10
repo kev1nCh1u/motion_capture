@@ -1,5 +1,7 @@
+import imp
 import numpy as np
 import cv2
+import time
 
 
 # Camera parameters to undistort and rectify images
@@ -13,6 +15,7 @@ stereoMapR_y = cv_file.getNode('stereoMapR_y').mat()
 
 imageSize = (np.shape(stereoMapL_x)[1], np.shape(stereoMapL_x)[0])
 capFlag = 0
+save_path = 'img/result/'
 
 # Open both cameras
 if capFlag:
@@ -40,7 +43,7 @@ while(1):
         frame_right = cap_right
         frame_left = cap_left
 
-    # draw green rectangle
+    # draw blue rectangle
     cv2.rectangle(frame_left, (0, 0), (640, 480), (255, 0, 0), 2)
     cv2.rectangle(frame_right, (0, 0), (640, 480), (255, 0, 0), 2)
 

@@ -1,5 +1,12 @@
 # motion_capture
 
+## install matlab engine
+https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html
+```
+cd "matlabroot\extern\engines\python"
+python setup.py install
+```
+
 ## run start
     source setup.zsh
     kevin_start.zsh
