@@ -77,8 +77,8 @@ rectL, rectR, projMatrixL, projMatrixR, Q, roi_L, roi_R= cv.stereoRectify(camera
 
 print(Q)
 
-stereoMapL = cv.initUndistortRectifyMap(cameraMatrix1, distCoeffs1, rectL, projMatrixL,imageSize, cv.CV_16SC2)
-stereoMapR = cv.initUndistortRectifyMap(cameraMatrix2, distCoeffs2, rectR, projMatrixR,imageSize, cv.CV_16SC2)
+stereoMapL = cv.initUndistortRectifyMap(cameraMatrix1, distCoeffs1, rectL, projMatrixL,imageSize, cv.CV_32F)
+stereoMapR = cv.initUndistortRectifyMap(cameraMatrix2, distCoeffs2, rectR, projMatrixR,imageSize, cv.CV_32F)
 
 print("Saving parameters...")
 cv_file = cv.FileStorage('param/stereoMap.xml', cv.FILE_STORAGE_WRITE)

@@ -18,5 +18,7 @@ matlab2opencv(fileName, stereoParams.TranslationOfCamera2, "TranslationOfCamera2
 
 matlab2opencv(fileName, stereoParams.CameraParameters1.FocalLength, "FocalLength", "a")
 
+matlab2opencv(fileName, stereoParams.EssentialMatrix, "EssentialMatrix", "a")
+matlab2opencv(fileName, stereoParams.FundamentalMatrix, "FundamentalMatrix", "a")
 
 fprintf('Finish...\n')

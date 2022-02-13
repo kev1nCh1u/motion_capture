@@ -24,7 +24,7 @@ def find_depth(left_point, right_point, baseline, focal):
 # calcu_world_point
 ###############################################################################################
 def calcu_world_point(point, z_depth, focal):
-    world_points = np.zeros((3), np.float)
+    world_points = np.zeros((3), np.float64)
     x_cam = point[0]
     y_cam = point[1]
     world_points[0] = (x_cam * z_depth) / focal
@@ -134,7 +134,67 @@ def main():
         # cv2.imshow('frame_right',frame_right)
         # cv2.waitKey(0)
 
-        # calibration
+        ########################### point depth
+        print("calibration point ========================================")
+
+        # Convert the BGR image to gray
+        gray_left = cv2.cvtColor(frame_left, cv2.COLOR_BGR2GRAY)
+        gray_right = cv2.cvtColor(frame_right, cv2.COLOR_BGR2GRAY)
+
+        # Find the chess board corners
+        ret_left, corners_left = cv2.findChessboardCorners(gray_left, (9, 6), None)
+        ret_right, corners_right = cv2.findChessboardCorners(
+            gray_right, (9, 6), None)
+
+        # subpix
+        corners_left = cv2.cornerSubPix(gray_left,corners_left,(11,11),(-1,-1),criteria)
+        corners_right = cv2.cornerSubPix(gray_right,corners_right,(11,11),(-1,-1),criteria)
+
+        # select point
+        conerNum = 0
+        center_point_left = corners_left[conerNum].ravel().round()
+        center_point_right = corners_right[conerNum].ravel().round()
+        print("center_point", center_point_left, center_point_right)
+
+        # stero map
+        print("stereoMapL_x shape:",stereoMapL_x.shape)
+        test_center_point_left = np.zeros(2)
+        stero_map_x = stereoMapL_x[int(center_point_left[1]),int(center_point_left[0])]
+        stero_map_y = stereoMapL_y[int(center_point_left[1]),int(center_point_left[0])]
+        print("stero_map:",stero_map_x,stero_map_y)
+        test_center_point_left[0] = stero_map_x
+        test_center_point_left[1] = stero_map_y
+        print("test_center_point_left:", test_center_point_left)
+
+        test_center_point_right = np.zeros(2)
+        stero_map_x = stereoMapR_x[int(center_point_right[1]),int(center_point_right[0])]
+        stero_map_y = stereoMapR_y[int(center_point_right[1]),int(center_point_right[0])]
+        print("stero_map:",stero_map_x,stero_map_y)
+        test_center_point_right[0] = stero_map_x
+        test_center_point_right[1] = stero_map_y
+        print("test_center_point_right:", test_center_point_right)
+
+        # depth
+        test_depth = find_depth(test_center_point_left, test_center_point_right, baseline, focalLength)
+        print("test_depth", test_depth)
+        
+        # draw
+        test_frame_left = frame_left.copy()
+        cv2.circle(test_frame_left, center_point_left.astype(
+                np.int32), 10, (0, 0, 255), -1)
+        cv2.imshow("test_frame_left", test_frame_left)
+
+        # draw
+        test_remap = cv2.remap(
+            frame_left, stereoMapL_x, stereoMapL_y, cv2.INTER_LANCZOS4, cv2.BORDER_CONSTANT, 0)
+        cv2.circle(test_remap, test_center_point_left.astype(
+                np.int32), 10, (0, 0, 255), -1)
+        cv2.imshow("test_remap", test_remap)
+
+        print()
+
+        ############################# calibration
+        print("calibration frame ======================================================")
         frame_left, frame_right = undistortRectify(
             stereoMapL_x, stereoMapL_y, stereoMapR_x, stereoMapR_y, frame_left, frame_right)
         # cv2.imshow('frame_left',frame_left)
@@ -149,6 +209,7 @@ def main():
         ret_left, corners_left = cv2.findChessboardCorners(gray_left, (9, 6), None)
         ret_right, corners_right = cv2.findChessboardCorners(
             gray_right, (9, 6), None)
+
 
         # if find point
         if ret_left and ret_right:
@@ -169,9 +230,11 @@ def main():
             center_point_left = None
             center_point_right = None
             print('No Chessboard !!!')
+        print()
 
-        # if find point, show x y on image
-        if ret_left and ret_right:
+        #################################### find depth
+        if ret_left and ret_right: # if find point, show x y on image
+            print("find depth ============================================")
             cv2.circle(frame_left, center_point_left.astype(
                 np.int32), 10, (0, 0, 255), -1)
             cv2.circle(frame_right, center_point_right.astype(
@@ -183,26 +246,28 @@ def main():
                 np.int32), 10, (255, 0, 0), -1)
 
             # find depth
+            print("find_depth:", center_point_left, center_point_right, baseline, focalLength)
             depth = find_depth(center_point_left, center_point_right, baseline, focalLength)
             depth = round(depth, 1)
             print("Depth:", depth)
-            text = "Depth: " + str(round(depth, 1))
+            text = "Depth: " + str(depth)
             cv2.putText(frame_left, text,
                         (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
             # find depth1
             depth1 = find_depth(center_point_left1.ravel(), center_point_right1.ravel(), baseline, focalLength)
             depth1 = round(depth1, 1)
-            print("Depth:", depth1)
-            text = "Depth: " + str(round(depth1, 1))
+            print("Depth1:", depth1)
+            text = "Depth1: " + str(depth1)
             cv2.putText(frame_left, text,
                         (50, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
 
-            world_points = np.zeros((2,3), np.float)
+            world_points = np.zeros((2,3), np.float64)
             # find world point
             world_points[0] = calcu_world_point(center_point_left, depth, focalLength)
             world_points[0,0] = round(world_points[0,0], 1)
             world_points[0,1] = round(world_points[0,1], 1)
+            world_points[0,2] = round(world_points[0,2], 1)
             print('x_world, y_world :' , world_points[0])
             text = "X:" + str(round(world_points[0,0], 1)) + " Y:" + str(round(world_points[0,1], 1))
             cv2.putText(frame_left, text,
@@ -212,7 +277,8 @@ def main():
             world_points[1] = calcu_world_point(center_point_left1, depth1, focalLength)
             world_points[1,0] = round(world_points[1,0], 1)
             world_points[1,1] = round(world_points[1,1], 1)
-            print('x_world, y_world :' , world_points[1])
+            world_points[1,2] = round(world_points[1,2], 1)
+            print('x_world1, y_world1 :' , world_points[1])
             text = "X:" + str(round(world_points[1,0], 1)) + " Y:" + str(round(world_points[1,1], 1))
             cv2.putText(frame_left, text,
                         (50, 200), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
@@ -222,25 +288,7 @@ def main():
             text = "Distance:" + str(round(distance, 1))
             cv2.putText(frame_left, text,
                         (50, 250), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 2)
-
-            ############################ point depth
-            print(center_point_left)
-            
-            center_point_left = np.reshape(center_point_left, (1,1,2))
-            print(center_point_left)
-            center_point_right = np.reshape(center_point_right, (1,1,2))
-            print(center_point_left)
-
-            newPoint_L = cv2.undistortPoints(center_point_left, cameraMatrix1, distCoeffs1)
-            newPoint_R = cv2.undistortPoints(center_point_right, stereoR, stereoT)
-
-            print(newPoint_L[0,0])
-            print(newPoint_R[0,0])
-
-            cv2.circle(frame_left, newPoint_L[0,0].astype(
-                np.int32), 10, (0, 255, 0), -1)
-            cv2.circle(frame_right, newPoint_R[0,0].astype(
-                np.int32), 10, (0, 255, 0), -1)
+            print()
 
 
         # If no point can be caught in one camera show text "TRACKING LOST"

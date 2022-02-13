@@ -56,3 +56,17 @@ FocalLength: !!opencv-matrix
     cols: 2
     dt: f
     data: [ 1710.257510, 1709.068128]
+EssentialMatrix: !!opencv-matrix
+    rows: 3
+    cols: 3
+    dt: f
+    data: [ -0.205759, -5.312530, 3.647548, 
+            -11.172138, 1.008065, 214.659875, -0.687928, 
+            -214.914442, 0.883356]
+FundamentalMatrix: !!opencv-matrix
+    rows: 3
+    cols: 3
+    dt: f
+    data: [ -0.000000, -0.000002, 0.003468, 
+            -0.000005, 0.000000, 0.166626, 0.000907, 
+            -0.125020, -9.086207]
