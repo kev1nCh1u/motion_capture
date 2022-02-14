@@ -134,6 +134,92 @@ def main():
         # cv2.imshow('frame_right',frame_right)
         # cv2.waitKey(0)
 
+        ########################### triangulation depth
+        print("triangulation_depth ========================================")
+
+        # Convert the BGR image to gray
+        gray_left = cv2.cvtColor(frame_left, cv2.COLOR_BGR2GRAY)
+        gray_right = cv2.cvtColor(frame_right, cv2.COLOR_BGR2GRAY)
+
+        # Find the chess board corners
+        ret_left, corners_left = cv2.findChessboardCorners(gray_left, (9, 6), None)
+        ret_right, corners_right = cv2.findChessboardCorners(
+            gray_right, (9, 6), None)
+
+        # subpix
+        corners_left = cv2.cornerSubPix(gray_left,corners_left,(11,11),(-1,-1),criteria)
+        corners_right = cv2.cornerSubPix(gray_right,corners_right,(11,11),(-1,-1),criteria)
+
+        # select point
+        conerNum = 0
+        center_point_left = corners_left[conerNum].ravel()
+        center_point_right = corners_right[conerNum].ravel()
+        print("center_point:", center_point_left, center_point_right)
+        conerNum = 1
+        center_point_left1 = corners_left[conerNum].ravel()
+        center_point_right1 = corners_right[conerNum].ravel()
+        print("center_point1:", center_point_left1, center_point_right1)
+        
+        # tri p1
+        tri_k1 = cameraMatrix1
+        tri_rt1 = np.array([[1.0, 0.0, 0.0, 0.0],
+                    [0.0, 1.0, 0.0, 0.0],
+                    [0.0, 0.0, 1.0, 0.0]])
+        tri_p1 = np.dot(tri_k1, tri_rt1)
+        
+        # tri p2
+        tri_k2 = cameraMatrix2
+        tri_rt2 = np.concatenate((stereoR, stereoT), axis=1)
+        tri_p2 = np.dot(tri_k2, tri_rt2)
+
+        # point0
+        u1 = center_point_left[0]
+        v1 = center_point_left[1]
+        u2 = center_point_right[0]
+        v2 = center_point_right[1]
+        print("uv:", u1, v1, u2, v2)
+
+        A = np.array([u1*tri_p1[2]-tri_p1[0],
+                    v1*tri_p1[2]-tri_p1[1],
+                    u2*tri_p2[2]-tri_p2[0],
+                    v2*tri_p2[2]-tri_p2[1]], dtype='float64')
+
+        U, sigma, VT = np.linalg.svd(A)
+        V = VT.transpose()
+        X = V[:, -1]
+        X = X / X[3]
+        print("world_point:", X)
+        world_points = np.zeros((2,3), np.float64)
+        world_points[0] = X[0:3]
+
+        # point1
+        u1_1 = center_point_left1[0]
+        v1_1 = center_point_left1[1]
+        u2_1 = center_point_right1[0]
+        v2_1 = center_point_right1[1]
+        print("uv1", u1_1, v1_1, u2_1, v2_1)
+
+        A = np.array([u1_1*tri_p1[2]-tri_p1[0],
+                    v1_1*tri_p1[2]-tri_p1[1],
+                    u2_1*tri_p2[2]-tri_p2[0],
+                    v2_1*tri_p2[2]-tri_p2[1]], dtype='float64')
+
+        U, sigma, VT = np.linalg.svd(A)
+        V = VT.transpose()
+        X = V[:, -1]
+        X = X / X[3]
+        print("world_point1:", X)
+        world_points[1] = X[0:3]
+        
+
+        # find distance
+        print("world_points:", world_points)
+        distance = ((world_points[0,0] - world_points[1,0])**2 + (world_points[0,1] - world_points[1,1])**2 + (world_points[0,2] - world_points[1,2])**2)**0.5
+        print("distance:", distance)
+
+        print()
+
+
         ########################### point depth
         print("calibration point ========================================")
 
