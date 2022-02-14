@@ -40,13 +40,13 @@ class steroIrTrack:
         self.frame = np.zeros((2,480,640,3), np.uint8)
 
         # define camera
-        fs = cv2.FileStorage("param/matlab_stereo_param.yaml", cv2.FILE_STORAGE_READ)
+        fs = cv2.FileStorage("data/param/matlab_stereo_param.yaml", cv2.FILE_STORAGE_READ)
         self.baseline = abs(fs.getNode("TranslationOfCamera2").mat().ravel()[0])
         self.focalLength = fs.getNode("FocalLength").mat().ravel()[0]
 
         # Camera parameters to undistort and rectify images
         cv_file = cv2.FileStorage()
-        cv_file.open('param/stereoMap.xml', cv2.FileStorage_READ)
+        cv_file.open('data/param/stereoMap.xml', cv2.FileStorage_READ)
         self.stereoMapL_x = cv_file.getNode('stereoMapL_x').mat()
         self.stereoMapL_y = cv_file.getNode('stereoMapL_y').mat()
         self.stereoMapR_x = cv_file.getNode('stereoMapR_x').mat()

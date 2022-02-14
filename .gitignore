@@ -54,10 +54,6 @@ devel_isolated/
 time
 .vscode/
 
-*.jpg
-*.bmp
-*.png
-*.csv
 resources/
 *.pyc
 
@@ -72,7 +68,6 @@ resources/
 *.hex
 *.html
 *.jdi
-*.jpg
 # *.mif
 *.pin
 *.pof

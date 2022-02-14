@@ -10,6 +10,8 @@ import argparse
 ###############################################################################################
 # find_depth
 ###############################################################################################
+
+
 def find_depth(left_point, right_point, baseline, focal):
     x_right = right_point[0]
     x_left = left_point[0]
@@ -23,6 +25,8 @@ def find_depth(left_point, right_point, baseline, focal):
 ###############################################################################################
 # calcu_world_point
 ###############################################################################################
+
+
 def calcu_world_point(point, z_depth, focal):
     world_points = np.zeros((3), np.float)
     x_cam = point[0]
@@ -35,6 +39,8 @@ def calcu_world_point(point, z_depth, focal):
 ###############################################################################################
 # undistortRectify remap
 ###############################################################################################
+
+
 def undistortRectify(stereoMapL_x, stereoMapL_y, stereoMapR_x, stereoMapR_y, frameL, frameR):
 
     # Undistort and rectify images
@@ -61,19 +67,21 @@ def main():
 
         # Camera parameters to undistort and rectify images
         cv_file = cv2.FileStorage()
-        cv_file.open('param/stereoMap.xml', cv2.FileStorage_READ)
+        cv_file.open('data/param/stereoMap.xml', cv2.FileStorage_READ)
         stereoMapL_x = cv_file.getNode('stereoMapL_x').mat()
         stereoMapL_y = cv_file.getNode('stereoMapL_y').mat()
         stereoMapR_x = cv_file.getNode('stereoMapR_x').mat()
         stereoMapR_y = cv_file.getNode('stereoMapR_y').mat()
 
         # Stereo vision setup parameters
-        fs = cv2.FileStorage("param/matlab_stereo_param.yaml", cv2.FILE_STORAGE_READ)
+        fs = cv2.FileStorage(
+            "data/param/matlab_stereo_param.yaml", cv2.FILE_STORAGE_READ)
         baseline = abs(fs.getNode("TranslationOfCamera2").mat().ravel()[0])
         focalLength = fs.getNode("FocalLength").mat().ravel()[0]
 
         # termination criteria for cornerSubPix
-        criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
+        criteria = (cv2.TERM_CRITERIA_EPS +
+                    cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 
         # Open both cameras
         if capFlag:
@@ -110,14 +118,17 @@ def main():
         gray_right = cv2.cvtColor(frame_right, cv2.COLOR_BGR2GRAY)
 
         # Find the chess board corners
-        ret_left, corners_left = cv2.findChessboardCorners(gray_left, (9, 6), None)
+        ret_left, corners_left = cv2.findChessboardCorners(
+            gray_left, (9, 6), None)
         ret_right, corners_right = cv2.findChessboardCorners(
             gray_right, (9, 6), None)
 
         # if find point
         if ret_left and ret_right:
-            corners_left = cv2.cornerSubPix(gray_left,corners_left,(11,11),(-1,-1),criteria)
-            corners_right = cv2.cornerSubPix(gray_right,corners_right,(11,11),(-1,-1),criteria)
+            corners_left = cv2.cornerSubPix(
+                gray_left, corners_left, (11, 11), (-1, -1), criteria)
+            corners_right = cv2.cornerSubPix(
+                gray_right, corners_right, (11, 11), (-1, -1), criteria)
 
             conerNum = 0
             center_point_left = corners_left[conerNum].ravel()
@@ -147,7 +158,8 @@ def main():
                 np.int32), 10, (255, 0, 0), -1)
 
             # find depth
-            depth = find_depth(center_point_left, center_point_right, baseline, focalLength)
+            depth = find_depth(center_point_left,
+                               center_point_right, baseline, focalLength)
             depth = round(depth, 1)
             print("Depth:", depth)
             text = "Depth: " + str(round(depth, 1))
@@ -155,34 +167,42 @@ def main():
                         (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
             # find depth1
-            depth1 = find_depth(center_point_left1.ravel(), center_point_right1.ravel(), baseline, focalLength)
+            depth1 = find_depth(center_point_left1.ravel(
+            ), center_point_right1.ravel(), baseline, focalLength)
             depth1 = round(depth1, 1)
             print("Depth:", depth1)
             text = "Depth: " + str(round(depth1, 1))
             cv2.putText(frame_left, text,
                         (50, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
 
-            world_points = np.zeros((2,3), np.float)
+            world_points = np.zeros((2, 3), np.float)
             # find world point
-            world_points[0] = calcu_world_point(center_point_left, depth, focalLength)
-            world_points[0,0] = round(world_points[0,0], 1)
-            world_points[0,1] = round(world_points[0,1], 1)
-            print('x_world, y_world :' , world_points[0])
-            text = "X:" + str(round(world_points[0,0], 1)) + " Y:" + str(round(world_points[0,1], 1))
+            world_points[0] = calcu_world_point(
+                center_point_left, depth, focalLength)
+            world_points[0, 0] = round(world_points[0, 0], 1)
+            world_points[0, 1] = round(world_points[0, 1], 1)
+            print('x_world, y_world :', world_points[0])
+            text = "X:" + \
+                str(round(world_points[0, 0], 1)) + \
+                " Y:" + str(round(world_points[0, 1], 1))
             cv2.putText(frame_left, text,
                         (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
             # find world point1
-            world_points[1] = calcu_world_point(center_point_left1, depth1, focalLength)
-            world_points[1,0] = round(world_points[1,0], 1)
-            world_points[1,1] = round(world_points[1,1], 1)
-            print('x_world, y_world :' , world_points[1])
-            text = "X:" + str(round(world_points[1,0], 1)) + " Y:" + str(round(world_points[1,1], 1))
+            world_points[1] = calcu_world_point(
+                center_point_left1, depth1, focalLength)
+            world_points[1, 0] = round(world_points[1, 0], 1)
+            world_points[1, 1] = round(world_points[1, 1], 1)
+            print('x_world, y_world :', world_points[1])
+            text = "X:" + \
+                str(round(world_points[1, 0], 1)) + \
+                " Y:" + str(round(world_points[1, 1], 1))
             cv2.putText(frame_left, text,
                         (50, 200), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
 
             # find distance
-            distance = ((world_points[0,0] - world_points[1,0])**2 + (world_points[0,1] - world_points[1,1])**2 + (world_points[0,2] - world_points[1,2])**2)**0.5
+            distance = ((world_points[0, 0] - world_points[1, 0])**2 + (world_points[0, 1] -
+                        world_points[1, 1])**2 + (world_points[0, 2] - world_points[1, 2])**2)**0.5
             text = "Distance:" + str(round(distance, 1))
             cv2.putText(frame_left, text,
                         (50, 250), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 2)
@@ -217,16 +237,17 @@ def main():
 
         # if s save image
         elif inputKey == ord('s'):
-            current_time = time.time() # catch time
+            current_time = time.time()  # catch time
             filename = save_path + 'chess_vis_' + str(current_time) + '.jpg'
             cv2.imwrite(filename, vis)
-            print('\nSave:' , filename, '\n')
+            print('\nSave:', filename, '\n')
 
     # Release and destroy all windows before termination
     cap_right.release()
     cap_left.release()
 
     cv2.destroyAllWindows()
+
 
 # if main
 if __name__ == '__main__':

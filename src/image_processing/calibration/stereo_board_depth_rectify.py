@@ -10,6 +10,8 @@ import argparse
 ###############################################################################################
 # find_depth
 ###############################################################################################
+
+
 def find_depth(left_point, right_point, baseline, focal):
     x_right = right_point[0]
     x_left = left_point[0]
@@ -23,6 +25,8 @@ def find_depth(left_point, right_point, baseline, focal):
 ###############################################################################################
 # calcu_world_point
 ###############################################################################################
+
+
 def calcu_world_point(point, z_depth, focal):
     world_points = np.zeros((3), np.float64)
     x_cam = point[0]
@@ -35,6 +39,8 @@ def calcu_world_point(point, z_depth, focal):
 ###############################################################################################
 # undistortRectify remap
 ###############################################################################################
+
+
 def undistortRectify(stereoMapL_x, stereoMapL_y, stereoMapR_x, stereoMapR_y, frameL, frameR):
 
     # Undistort and rectify images
@@ -55,8 +61,9 @@ def main():
     parser.add_argument("-id", "--image_id", default='04', help="01~21")
     args = parser.parse_args()
 
-    ###################### load yaml param
-    fs = cv2.FileStorage("param/matlab_stereo_param.yaml", cv2.FILE_STORAGE_READ)
+    # load yaml param
+    fs = cv2.FileStorage(
+        "data/param/matlab_stereo_param.yaml", cv2.FILE_STORAGE_READ)
 
     IntrinsicMatrix1 = fs.getNode("IntrinsicMatrix1").mat()
     RadialDistortion1 = fs.getNode("RadialDistortion1").mat()
@@ -71,14 +78,16 @@ def main():
     TranslationOfCamera2 = fs.getNode("TranslationOfCamera2").mat()
 
     cameraMatrix1 = np.transpose(IntrinsicMatrix1).astype('float64')
-    distCoeffs1 = np.concatenate((RadialDistortion1, TangentialDistortion1), axis=1).astype('float64')
+    distCoeffs1 = np.concatenate(
+        (RadialDistortion1, TangentialDistortion1), axis=1).astype('float64')
     cameraMatrix2 = np.transpose(IntrinsicMatrix2).astype('float64')
-    distCoeffs2 = np.concatenate((RadialDistortion2, TangentialDistortion2), axis=1).astype('float64')
+    distCoeffs2 = np.concatenate(
+        (RadialDistortion2, TangentialDistortion2), axis=1).astype('float64')
     imageSize = ImageSize.ravel()[::-1].astype('int64')
     stereoR = np.transpose(RotationOfCamera2).astype('float64')
     stereoT = np.transpose(TranslationOfCamera2).astype('float64')
 
-    print('\n cameraMatrix1\n',cameraMatrix1)
+    print('\n cameraMatrix1\n', cameraMatrix1)
     print('\n distCoeffs1\n', distCoeffs1)
     print('\n cameraMatrix2\n', cameraMatrix2)
     print('\n distCoeffs2\n', distCoeffs2)
@@ -88,8 +97,8 @@ def main():
     print()
 
     ########## Stereo Rectification #################################################
-    rectL, rectR, projMatrixL, projMatrixR, Q, roi_L, roi_R= cv2.stereoRectify(cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, imageSize, stereoR, stereoT)
-    
+    rectL, rectR, projMatrixL, projMatrixR, Q, roi_L, roi_R = cv2.stereoRectify(
+        cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, imageSize, stereoR, stereoT)
 
     while 1:
         capFlag = 0
@@ -97,19 +106,21 @@ def main():
 
         # Camera parameters to undistort and rectify images
         cv_file = cv2.FileStorage()
-        cv_file.open('param/stereoMap.xml', cv2.FileStorage_READ)
+        cv_file.open('data/param/stereoMap.xml', cv2.FileStorage_READ)
         stereoMapL_x = cv_file.getNode('stereoMapL_x').mat()
         stereoMapL_y = cv_file.getNode('stereoMapL_y').mat()
         stereoMapR_x = cv_file.getNode('stereoMapR_x').mat()
         stereoMapR_y = cv_file.getNode('stereoMapR_y').mat()
 
         # Stereo vision setup parameters
-        fs = cv2.FileStorage("param/matlab_stereo_param.yaml", cv2.FILE_STORAGE_READ)
+        fs = cv2.FileStorage(
+            "data/param/matlab_stereo_param.yaml", cv2.FILE_STORAGE_READ)
         baseline = abs(fs.getNode("TranslationOfCamera2").mat().ravel()[0])
         focalLength = fs.getNode("FocalLength").mat().ravel()[0]
 
         # termination criteria for cornerSubPix
-        criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
+        criteria = (cv2.TERM_CRITERIA_EPS +
+                    cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 
         # Open both cameras
         if capFlag:
@@ -134,7 +145,7 @@ def main():
         # cv2.imshow('frame_right',frame_right)
         # cv2.waitKey(0)
 
-        ########################### triangulation depth
+        # triangulation depth
         print("triangulation_depth ========================================")
 
         # Convert the BGR image to gray
@@ -142,13 +153,16 @@ def main():
         gray_right = cv2.cvtColor(frame_right, cv2.COLOR_BGR2GRAY)
 
         # Find the chess board corners
-        ret_left, corners_left = cv2.findChessboardCorners(gray_left, (9, 6), None)
+        ret_left, corners_left = cv2.findChessboardCorners(
+            gray_left, (9, 6), None)
         ret_right, corners_right = cv2.findChessboardCorners(
             gray_right, (9, 6), None)
 
         # subpix
-        corners_left = cv2.cornerSubPix(gray_left,corners_left,(11,11),(-1,-1),criteria)
-        corners_right = cv2.cornerSubPix(gray_right,corners_right,(11,11),(-1,-1),criteria)
+        corners_left = cv2.cornerSubPix(
+            gray_left, corners_left, (11, 11), (-1, -1), criteria)
+        corners_right = cv2.cornerSubPix(
+            gray_right, corners_right, (11, 11), (-1, -1), criteria)
 
         # select point
         conerNum = 0
@@ -159,14 +173,14 @@ def main():
         center_point_left1 = corners_left[conerNum].ravel()
         center_point_right1 = corners_right[conerNum].ravel()
         print("center_point1:", center_point_left1, center_point_right1)
-        
+
         # tri p1
         tri_k1 = cameraMatrix1
         tri_rt1 = np.array([[1.0, 0.0, 0.0, 0.0],
-                    [0.0, 1.0, 0.0, 0.0],
-                    [0.0, 0.0, 1.0, 0.0]])
+                            [0.0, 1.0, 0.0, 0.0],
+                            [0.0, 0.0, 1.0, 0.0]])
         tri_p1 = np.dot(tri_k1, tri_rt1)
-        
+
         # tri p2
         tri_k2 = cameraMatrix2
         tri_rt2 = np.concatenate((stereoR, stereoT), axis=1)
@@ -180,16 +194,16 @@ def main():
         print("uv:", u1, v1, u2, v2)
 
         A = np.array([u1*tri_p1[2]-tri_p1[0],
-                    v1*tri_p1[2]-tri_p1[1],
-                    u2*tri_p2[2]-tri_p2[0],
-                    v2*tri_p2[2]-tri_p2[1]], dtype='float64')
+                      v1*tri_p1[2]-tri_p1[1],
+                      u2*tri_p2[2]-tri_p2[0],
+                      v2*tri_p2[2]-tri_p2[1]], dtype='float64')
 
         U, sigma, VT = np.linalg.svd(A)
         V = VT.transpose()
         X = V[:, -1]
         X = X / X[3]
         print("world_point:", X)
-        world_points = np.zeros((2,3), np.float64)
+        world_points = np.zeros((2, 3), np.float64)
         world_points[0] = X[0:3]
 
         # point1
@@ -200,9 +214,9 @@ def main():
         print("uv1", u1_1, v1_1, u2_1, v2_1)
 
         A = np.array([u1_1*tri_p1[2]-tri_p1[0],
-                    v1_1*tri_p1[2]-tri_p1[1],
-                    u2_1*tri_p2[2]-tri_p2[0],
-                    v2_1*tri_p2[2]-tri_p2[1]], dtype='float64')
+                      v1_1*tri_p1[2]-tri_p1[1],
+                      u2_1*tri_p2[2]-tri_p2[0],
+                      v2_1*tri_p2[2]-tri_p2[1]], dtype='float64')
 
         U, sigma, VT = np.linalg.svd(A)
         V = VT.transpose()
@@ -210,17 +224,16 @@ def main():
         X = X / X[3]
         print("world_point1:", X)
         world_points[1] = X[0:3]
-        
 
         # find distance
         print("world_points:", world_points)
-        distance = ((world_points[0,0] - world_points[1,0])**2 + (world_points[0,1] - world_points[1,1])**2 + (world_points[0,2] - world_points[1,2])**2)**0.5
+        distance = ((world_points[0, 0] - world_points[1, 0])**2 + (world_points[0, 1] -
+                    world_points[1, 1])**2 + (world_points[0, 2] - world_points[1, 2])**2)**0.5
         print("distance:", distance)
 
         print()
 
-
-        ########################### point depth
+        # point depth
         print("calibration point ========================================")
 
         # Convert the BGR image to gray
@@ -228,13 +241,16 @@ def main():
         gray_right = cv2.cvtColor(frame_right, cv2.COLOR_BGR2GRAY)
 
         # Find the chess board corners
-        ret_left, corners_left = cv2.findChessboardCorners(gray_left, (9, 6), None)
+        ret_left, corners_left = cv2.findChessboardCorners(
+            gray_left, (9, 6), None)
         ret_right, corners_right = cv2.findChessboardCorners(
             gray_right, (9, 6), None)
 
         # subpix
-        corners_left = cv2.cornerSubPix(gray_left,corners_left,(11,11),(-1,-1),criteria)
-        corners_right = cv2.cornerSubPix(gray_right,corners_right,(11,11),(-1,-1),criteria)
+        corners_left = cv2.cornerSubPix(
+            gray_left, corners_left, (11, 11), (-1, -1), criteria)
+        corners_right = cv2.cornerSubPix(
+            gray_right, corners_right, (11, 11), (-1, -1), criteria)
 
         # select point
         conerNum = 0
@@ -243,145 +259,44 @@ def main():
         print("center_point", center_point_left, center_point_right)
 
         # stero map
-        print("stereoMapL_x shape:",stereoMapL_x.shape)
+        print("stereoMapL_x shape:", stereoMapL_x.shape)
         test_center_point_left = np.zeros(2)
-        stero_map_x = stereoMapL_x[int(center_point_left[1]),int(center_point_left[0])]
-        stero_map_y = stereoMapL_y[int(center_point_left[1]),int(center_point_left[0])]
-        print("stero_map:",stero_map_x,stero_map_y)
+        stero_map_x = stereoMapL_x[int(
+            center_point_left[1]), int(center_point_left[0])]
+        stero_map_y = stereoMapL_y[int(
+            center_point_left[1]), int(center_point_left[0])]
+        print("stero_map:", stero_map_x, stero_map_y)
         test_center_point_left[0] = stero_map_x
         test_center_point_left[1] = stero_map_y
         print("test_center_point_left:", test_center_point_left)
 
         test_center_point_right = np.zeros(2)
-        stero_map_x = stereoMapR_x[int(center_point_right[1]),int(center_point_right[0])]
-        stero_map_y = stereoMapR_y[int(center_point_right[1]),int(center_point_right[0])]
-        print("stero_map:",stero_map_x,stero_map_y)
+        stero_map_x = stereoMapR_x[int(
+            center_point_right[1]), int(center_point_right[0])]
+        stero_map_y = stereoMapR_y[int(
+            center_point_right[1]), int(center_point_right[0])]
+        print("stero_map:", stero_map_x, stero_map_y)
         test_center_point_right[0] = stero_map_x
         test_center_point_right[1] = stero_map_y
         print("test_center_point_right:", test_center_point_right)
 
         # depth
-        test_depth = find_depth(test_center_point_left, test_center_point_right, baseline, focalLength)
+        test_depth = find_depth(test_center_point_left,
+                                test_center_point_right, baseline, focalLength)
         print("test_depth", test_depth)
-        
-        # draw
-        test_frame_left = frame_left.copy()
-        cv2.circle(test_frame_left, center_point_left.astype(
-                np.int32), 10, (0, 0, 255), -1)
-        cv2.imshow("test_frame_left", test_frame_left)
 
         # draw
-        test_remap = cv2.remap(
+        cv2.circle(frame_left, center_point_left.astype(
+            np.int32), 10, (0, 0, 255), -1)
+
+        # draw
+        frame_left = cv2.remap(
             frame_left, stereoMapL_x, stereoMapL_y, cv2.INTER_LANCZOS4, cv2.BORDER_CONSTANT, 0)
-        cv2.circle(test_remap, test_center_point_left.astype(
-                np.int32), 10, (0, 0, 255), -1)
-        cv2.imshow("test_remap", test_remap)
-
+        cv2.circle(frame_left, test_center_point_left.astype(
+            np.int32), 10, (0, 0, 255), -1)
         print()
 
-        ############################# calibration
-        print("calibration frame ======================================================")
-        frame_left, frame_right = undistortRectify(
-            stereoMapL_x, stereoMapL_y, stereoMapR_x, stereoMapR_y, frame_left, frame_right)
-        # cv2.imshow('frame_left',frame_left)
-        # cv2.imshow('frame_right',frame_right)
-        # cv2.waitKey(0)
-
-        # Convert the BGR image to gray
-        gray_left = cv2.cvtColor(frame_left, cv2.COLOR_BGR2GRAY)
-        gray_right = cv2.cvtColor(frame_right, cv2.COLOR_BGR2GRAY)
-
-        # Find the chess board corners
-        ret_left, corners_left = cv2.findChessboardCorners(gray_left, (9, 6), None)
-        ret_right, corners_right = cv2.findChessboardCorners(
-            gray_right, (9, 6), None)
-
-
-        # if find point
-        if ret_left and ret_right:
-            corners_left = cv2.cornerSubPix(gray_left,corners_left,(11,11),(-1,-1),criteria)
-            corners_right = cv2.cornerSubPix(gray_right,corners_right,(11,11),(-1,-1),criteria)
-
-            conerNum = 0
-            center_point_left = corners_left[conerNum].ravel()
-            center_point_right = corners_right[conerNum].ravel()
-
-            center_point_left1 = corners_left[1].ravel()
-            center_point_right1 = corners_right[1].ravel()
-
-            print('center_point_left', center_point_left)
-            print('center_point_right', center_point_right)
-
-        else:
-            center_point_left = None
-            center_point_right = None
-            print('No Chessboard !!!')
-        print()
-
-        #################################### find depth
-        if ret_left and ret_right: # if find point, show x y on image
-            print("find depth ============================================")
-            cv2.circle(frame_left, center_point_left.astype(
-                np.int32), 10, (0, 0, 255), -1)
-            cv2.circle(frame_right, center_point_right.astype(
-                np.int32), 10, (0, 0, 255), -1)
-
-            cv2.circle(frame_left, center_point_left1.astype(
-                np.int32), 10, (255, 0, 0), -1)
-            cv2.circle(frame_right, center_point_right1.astype(
-                np.int32), 10, (255, 0, 0), -1)
-
-            # find depth
-            print("find_depth:", center_point_left, center_point_right, baseline, focalLength)
-            depth = find_depth(center_point_left, center_point_right, baseline, focalLength)
-            depth = round(depth, 1)
-            print("Depth:", depth)
-            text = "Depth: " + str(depth)
-            cv2.putText(frame_left, text,
-                        (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-
-            # find depth1
-            depth1 = find_depth(center_point_left1.ravel(), center_point_right1.ravel(), baseline, focalLength)
-            depth1 = round(depth1, 1)
-            print("Depth1:", depth1)
-            text = "Depth1: " + str(depth1)
-            cv2.putText(frame_left, text,
-                        (50, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
-
-            world_points = np.zeros((2,3), np.float64)
-            # find world point
-            world_points[0] = calcu_world_point(center_point_left, depth, focalLength)
-            world_points[0,0] = round(world_points[0,0], 1)
-            world_points[0,1] = round(world_points[0,1], 1)
-            world_points[0,2] = round(world_points[0,2], 1)
-            print('x_world, y_world :' , world_points[0])
-            text = "X:" + str(round(world_points[0,0], 1)) + " Y:" + str(round(world_points[0,1], 1))
-            cv2.putText(frame_left, text,
-                        (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-
-            # find world point1
-            world_points[1] = calcu_world_point(center_point_left1, depth1, focalLength)
-            world_points[1,0] = round(world_points[1,0], 1)
-            world_points[1,1] = round(world_points[1,1], 1)
-            world_points[1,2] = round(world_points[1,2], 1)
-            print('x_world1, y_world1 :' , world_points[1])
-            text = "X:" + str(round(world_points[1,0], 1)) + " Y:" + str(round(world_points[1,1], 1))
-            cv2.putText(frame_left, text,
-                        (50, 200), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
-
-            # find distance
-            distance = ((world_points[0,0] - world_points[1,0])**2 + (world_points[0,1] - world_points[1,1])**2 + (world_points[0,2] - world_points[1,2])**2)**0.5
-            text = "Distance:" + str(round(distance, 1))
-            cv2.putText(frame_left, text,
-                        (50, 250), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 2)
-            print()
-
-
-        # If no point can be caught in one camera show text "TRACKING LOST"
-        elif not ret_left or not ret_right:
-            cv2.putText(frame_left, "Lost !!!", (75, 50),
-                        cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-
+        ###########################
         # draw green line
         imageSize = (np.shape(stereoMapL_x)[1], np.shape(stereoMapL_x)[0])
         gap = 27
@@ -407,16 +322,17 @@ def main():
 
         # if s save image
         elif inputKey == ord('s'):
-            current_time = time.time() # catch time
+            current_time = time.time()  # catch time
             filename = save_path + 'chess_vis_' + str(current_time) + '.jpg'
             cv2.imwrite(filename, vis)
-            print('\nSave:' , filename, '\n')
+            print('\nSave:', filename, '\n')
 
     # Release and destroy all windows before termination
     cap_right.release()
     cap_left.release()
 
     cv2.destroyAllWindows()
+
 
 # if main
 if __name__ == '__main__':
