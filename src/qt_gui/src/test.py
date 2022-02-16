@@ -1,3 +1,4 @@
+import imp
 import sys
 import cv2
 import numpy as np
@@ -6,9 +7,11 @@ import imutils
 from matplotlib import pyplot as plt
 import time
 import argparse
+import os
 
-from kevin_cv import  *
-
+import importlib
+sys.path.append(os.getcwd())
+from src.image_processing.calibration.kevin_cv import *
 
 ###################################################################################
 # main
@@ -183,4 +186,5 @@ def main():
 
 # if main
 if __name__ == '__main__':
+    pass
     main()
