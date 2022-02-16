@@ -9,7 +9,14 @@ class Ui(QtWidgets.QMainWindow):
         super(Ui, self).__init__()
         uic.loadUi('src/qt_gui/ui/uart_gui.ui', self)
 
-        self.uc = uart.UartControl() # kevin uart
+        try:
+            self.uc = uart.UartControl('/dev/ttyUSB0') # kevin uart
+            self.uc = uart.UartControl('/dev/ttyUSB1') # kevin uart
+            print("Connect port success...")
+        except:
+            print("Error cannot connect port!")
+        
+
         self.timer = QTimer() # call QTimer 
         self.timer.timeout.connect(self.timer_callback) # if time run
         self.timer.start(10) # start Timer ms

@@ -5,7 +5,7 @@ import numpy as np
 class UartControl():
     point_x = 0
     point_y = 0
-    def __init__(self) -> None:
+    def __init__(self, port='/dev/ttyUSB0', rate=115200) -> None:
         pass
         print("Start UartControl...")
 
@@ -15,8 +15,8 @@ class UartControl():
         self.point_x_bytes = b''
         self.point_y_bytes = b''
         
-        COM_PORT = '/dev/ttyUSB0'
-        BAUD_RATES = 115200
+        COM_PORT = port
+        BAUD_RATES = rate
         self.ser = serial.Serial(COM_PORT, BAUD_RATES, bytesize=8,
                             stopbits=1, timeout=0.01)
 
