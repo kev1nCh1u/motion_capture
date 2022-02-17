@@ -44,6 +44,16 @@ def triangulate(cameraMatrix1, cameraMatrix2, RotationOfCamera2, TranslationOfCa
     print("world_point:", X)
     return X[0:3]
 
+###################################################################################
+# euclideanDistances3d
+###################################################################################
+def euclideanDistances3d(world_points):
+    distance = ((world_points[0, 0] - world_points[1, 0])**2 # x
+        + (world_points[0, 1] - world_points[1, 1])**2 # y
+        + (world_points[0, 2] - world_points[1, 2])**2)**0.5 #z
+    return distance
+
+
 
 
 # if main

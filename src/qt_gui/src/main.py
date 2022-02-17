@@ -1,17 +1,20 @@
+import imp
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtCore import QTimer
 import sys
+
 import uart
 
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
 
         super(Ui, self).__init__()
-        uic.loadUi('src/qt_gui/ui/uart_gui.ui', self)
+        uic.loadUi('src/qt_gui/ui/main.ui', self)
 
+        ############################ uart
         try:
             self.uc = uart.UartControl('/dev/ttyUSB0') # kevin uart
-            self.uc = uart.UartControl('/dev/ttyUSB1') # kevin uart
+            # self.uc = uart.UartControl('/dev/ttyUSB1') # kevin uart
             print("Connect port success...")
         except:
             print("Error cannot connect port!")
@@ -25,6 +28,7 @@ class Ui(QtWidgets.QMainWindow):
 
         self.pushButton.clicked.connect(self.btn_callback)
         self.pushButton_2.clicked.connect(self.btn2_callback)
+        # self.pushButton_3.clicked.connect(self.btn3_callback)
 
     def timer_callback(self):
         # print("timer_callback")

@@ -7,7 +7,10 @@ from matplotlib import pyplot as plt
 import time
 import argparse
 
-from kevin_cv import  *
+import os
+import importlib
+sys.path.append(os.getcwd())
+from include.kevin.kevincv import  *
 
 
 ###################################################################################
@@ -74,7 +77,7 @@ def main():
 
         # open both picture
         if not capFlag:
-            path = "img/stereo_calibration/new/"
+            path = "img/stereo_calibration/dahua/"
             fname = args.image_id + ".jpg"
             frame_left = cv2.imread(path + '1/' + fname)
             frame_right = cv2.imread(path + '2/' + fname)
@@ -121,9 +124,7 @@ def main():
 
         # find distance
         print("world_points:", world_points)
-        distance = ((world_points[0, 0] - world_points[1, 0])**2 
-                + (world_points[0, 1] - world_points[1, 1])**2 
-                + (world_points[0, 2] - world_points[1, 2])**2)**0.5
+        distance = euclideanDistances3d(world_points[0:2])
         print("distance:", distance)
         print()
 
