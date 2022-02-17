@@ -80,3 +80,4 @@ if __name__ == "__main__":
     uc = UartControl()
     while 1:
         uc.uart_ser()
+        print(uc.point_x,uc.point_y)

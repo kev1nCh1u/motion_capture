@@ -3,7 +3,10 @@ from PyQt5 import QtWidgets, uic
 from PyQt5.QtCore import QTimer
 import sys
 
-import uart
+import os
+import importlib
+sys.path.append(os.getcwd())
+from include.kevin import kevinuart
 
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
@@ -13,8 +16,8 @@ class Ui(QtWidgets.QMainWindow):
 
         ############################ uart
         try:
-            self.uc = uart.UartControl('/dev/ttyUSB0') # kevin uart
-            # self.uc = uart.UartControl('/dev/ttyUSB1') # kevin uart
+            self.uc = kevinuart.UartControl('/dev/ttyUSB0') # kevin uart
+            # self.uc = kevinuart.UartControl('/dev/ttyUSB1') # kevin uart
             print("Connect port success...")
         except:
             print("Error cannot connect port!")

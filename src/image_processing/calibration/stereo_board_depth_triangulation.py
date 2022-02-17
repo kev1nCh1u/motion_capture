@@ -19,7 +19,7 @@ from include.kevin.kevincv import  *
 def main():
     ######################################## kevin args
     parser = argparse.ArgumentParser()
-    parser.add_argument("-id", "--image_id", default='04', help="01~21")
+    parser.add_argument("-id", "--image_id", default='17', help="01~21")
     args = parser.parse_args()
 
     ########################################## load yaml param
@@ -77,7 +77,7 @@ def main():
 
         # open both picture
         if not capFlag:
-            path = "img/stereo_calibration/dahua/"
+            path = "img/stereo_calibration/new/"
             fname = args.image_id + ".jpg"
             frame_left = cv2.imread(path + '1/' + fname)
             frame_right = cv2.imread(path + '2/' + fname)
@@ -92,17 +92,17 @@ def main():
 
         # Find the chess board corners
         ret_left, corners_left = cv2.findChessboardCorners(
-            gray_left, (9, 6), None)
+            gray_left, (11, 8), None)
         ret_right, corners_right = cv2.findChessboardCorners(
-            gray_right, (9, 6), None)
+            gray_right, (11, 8), None)
 
         # subpix
         criteria = (cv2.TERM_CRITERIA_EPS +
                     cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001) # termination criteria for cornerSubPix
         corners_left = cv2.cornerSubPix(
-            gray_left, corners_left, (11, 11), (-1, -1), criteria)
+            gray_left, corners_left, (8, 8), (-1, -1), criteria)
         corners_right = cv2.cornerSubPix(
-            gray_right, corners_right, (11, 11), (-1, -1), criteria)
+            gray_right, corners_right, (8, 8), (-1, -1), criteria)
 
         # select point
         conerNum = 0
