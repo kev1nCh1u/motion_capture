@@ -1,3 +1,4 @@
+from itertools import count
 import sys
 import cv2
 from cv2 import split
@@ -55,20 +56,18 @@ def main():
     print()
 
     ########################################### uart
-    kuc = kevinuart.UartControl('/dev/ttyUSB0')
-    kuc1 = kevinuart.UartControl('/dev/ttyUSB1')
+    kuc = kevinuart.UartControl('/dev/ttyUSB0') # right camera
+    kuc1 = kevinuart.UartControl('/dev/ttyUSB1') # left camera
 
     ########################################### file
-    data_path = "data/point_data.csv"
-    data_file = open(data_path, "w")
-
-    ########################################## set
-    save_path = 'img/result/'
+    data_path = "data/result/point_data.csv" # file path
+    data_file = open(data_path, "w") # open file
+    count = 0
 
     while 1:
         ########################################## read_uart
-        kuc.uart_ser()
-        kuc1.uart_ser()
+        kuc.uart_ser() # right camera
+        kuc1.uart_ser() # left camera
 
         ########################################### get_point 
         center_point_left = [kuc.point_x, kuc.point_y]
@@ -81,13 +80,9 @@ def main():
         world_points[0] = triangulate(cameraMatrix1, cameraMatrix2, RotationOfCamera2, TranslationOfCamera2, center_point_left, center_point_right)
 
         #################################### cv draw picture
-        # create image
-        blank_image = np.zeros((480,640,3), np.uint8)
+        blank_image = np.zeros((480,640,3), np.uint8) # create image
 
         # draw text
-        text = "press s to save point"
-        cv2.putText(blank_image, text,
-                    (10, 160), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
         text = "X: " + str(round(world_points[0, 0], 2))
         cv2.putText(blank_image, text,
                     (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
@@ -97,6 +92,12 @@ def main():
         text = "Depth: " + str(round(world_points[0, 2], 2))
         cv2.putText(blank_image, text,
                     (10, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+        text = "press s to save point"
+        cv2.putText(blank_image, text,
+                    (10, 160), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+        text = "Save point: " + str(count)
+        cv2.putText(blank_image, text,
+                    (10, 200), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
         
 
         # Show the frames
@@ -105,15 +106,16 @@ def main():
         # Hit "q" to close the window
         inputKey = cv2.waitKey(1) & 0xFF
 
-        # 若按下 q 鍵則離開迴圈
+        # if q exit
         if inputKey == ord('q'):
             break
 
-        # if s save image
+        # if s save
         elif inputKey == ord('s'):
             text = str(world_points[0, 0]) + ', ' + str(world_points[0, 1]) + ', ' + str(world_points[0, 2]) + '\n'
             data_file.write(text) # write data
-            print('\nSave', '\n')
+            print('\nSave...', '\n')
+            count += 1
 
     cv2.destroyAllWindows()
     data_file.close()

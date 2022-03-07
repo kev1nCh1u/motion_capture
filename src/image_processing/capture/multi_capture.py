@@ -20,8 +20,8 @@ class MultiCapture():
         pass
         ############################# Capture img
         print('videoCapture....')
-        self.cap = cv2.VideoCapture(2) # left
-        self.cap2 = cv2.VideoCapture(4) # right
+        self.cap = cv2.VideoCapture(4) # left
+        self.cap2 = cv2.VideoCapture(2) # right
         # self.cap = cv2.VideoCapture(2, cv2.CAP_DSHOW)
         # self.cap2 = cv2.VideoCapture(4, cv2.CAP_DSHOW)
         print('finish...\n')

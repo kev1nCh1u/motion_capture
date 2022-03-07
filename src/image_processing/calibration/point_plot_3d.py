@@ -3,8 +3,8 @@ from mpl_toolkits.mplot3d import Axes3D
 import pandas as pd
 
 
-path = "data/point_data_02171745.csv"
-savePlotPath = 'img/result/point_path_plot/point_path_plot_' + '02171745' + '.png'
+path = "data/point_data.csv"
+savePlotPath = 'img/result/point_path_plot/point_path_plot' + '.png'
 
 df = pd.read_csv(path, header=None)
 world_points = df.to_numpy()

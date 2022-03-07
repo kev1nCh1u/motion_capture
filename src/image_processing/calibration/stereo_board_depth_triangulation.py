@@ -19,7 +19,7 @@ from include.kevin.kevincv import  *
 def main():
     ######################################## kevin args
     parser = argparse.ArgumentParser()
-    parser.add_argument("-id", "--image_id", default='17', help="01~21")
+    parser.add_argument("-id", "--image_id", default='14', help="01~21")
     args = parser.parse_args()
 
     ########################################## load yaml param
@@ -60,7 +60,7 @@ def main():
     while 1:
         ########################################## get frame
         capFlag = 0
-        save_path = 'img/result/'
+        save_path = 'img/result/chessboard/'
 
         # Open both cameras
         if capFlag:
@@ -164,15 +164,15 @@ def main():
         # Hit "q" to close the window
         inputKey = cv2.waitKey(0) & 0xFF
 
-        # 若按下 q 鍵則離開迴圈
+        # if q exit
         if inputKey == ord('q'):
             break
 
         # if s save image
         elif inputKey == ord('s'):
             current_time = time.time()  # catch time
-            filename = save_path + 'chess_vis_tri_' + str(current_time) + '.jpg'
-            cv2.imwrite(filename, vis)
+            filename = save_path + 'chess_vis_tri_' + str(current_time) + '.jpg' # file path and name
+            cv2.imwrite(filename, vis) # save image
             print('\nSave:', filename, '\n')
 
     # Release and destroy all windows before termination
