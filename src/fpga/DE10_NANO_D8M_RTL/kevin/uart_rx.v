@@ -146,6 +146,6 @@ module uart_rx
    
   assign o_Rx_DV   = r_Rx_DV;
   assign o_Rx_Byte = r_Rx_Byte;
-  assign o_Tx_State = r_SM_Main; // kevin
+  assign o_Rx_State = r_SM_Main; // kevin
    
 endmodule // uart_rx

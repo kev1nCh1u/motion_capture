@@ -69,10 +69,17 @@ class UartControl():
 
 
     def ser_write(self, flag=0):
+        self.ser.write(b'\x53') #S
+        self.ser.write(b'\x54') #T
+
         if(flag == 1):
             self.ser.write(b'\x01')
         elif(flag == 0):
             self.ser.write(b'\x00')
+
+        self.ser.write(b'\x45') #E
+        self.ser.write(b'\x4E') #N
+        self.ser.write(b'\x44') #D
 
 
 
@@ -81,3 +88,5 @@ if __name__ == "__main__":
     while 1:
         uc.uart_ser()
         print(uc.point_x,uc.point_y)
+        uc.ser_write(1)
+        exit()

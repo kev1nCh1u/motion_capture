@@ -314,6 +314,14 @@ uart_tx #(.CLKS_PER_BIT(BAUD_RATE)) ut0 (
 .o_Tx_State(TX_STATE)
 );
 
+// -----------uart_tx_data
+uart_tx_data utd (
+	.TX_DONE			(TX_DONE),
+	.BINARY_POINTS_H	(BINARY_POINTS_H),
+	.BINARY_POINTS_V	(BINARY_POINTS_V),
+	.TX_BYTE			(TX_BYTE)
+);
+
 //-----------uart_rx
 uart_rx #(.CLKS_PER_BIT(BAUD_RATE)) ur0 (
 .i_Clock(FPGA_CLK1_50),
@@ -323,20 +331,12 @@ uart_rx #(.CLKS_PER_BIT(BAUD_RATE)) ur0 (
 .o_Rx_State(RX_STATE)
 );
 
-//-----------uart_tx_data
-uart_tx_data utd (
-	.RX_BYTE			(RX_BYTE),
-	.TX_DONE			(TX_DONE),
-	.BINARY_POINTS_H	(BINARY_POINTS_H),
-	.BINARY_POINTS_V	(BINARY_POINTS_V),
-	.TX_BYTE			(TX_BYTE)
-);
-
 //-----------uart_rx_data
 uart_rx_data urd (
 	.r_RX_DV		(r_RX_DV),
 	.RX_BYTE		(RX_BYTE),
-	.r_RX_FLAG		(r_RX_FLAG)
+	.r_RX_FLAG		(r_RX_FLAG),
+	.o_State 		()
 );
 
 //-----------setting

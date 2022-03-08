@@ -1,7 +1,6 @@
 
 
-module uart_tx_data (input [7:0] RX_BYTE,
-                     input TX_DONE,
+module uart_tx_data (input TX_DONE,
                      input [15:0] BINARY_POINTS_H,
                      input [15:0] BINARY_POINTS_V,
                      output [7:0] TX_BYTE);
