@@ -36,3 +36,5 @@ python setup.py install
 
     python3.8 /home/kevin/src/motion_capture/src/image_processing/calibration/get_data.py
     python3.8 /home/kevin/src/motion_capture/src/image_processing/calibration/point_plot_3d.py
+
+    python3.8 src/gui/qt_gui/src/main.py

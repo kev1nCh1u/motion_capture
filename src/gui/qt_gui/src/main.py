@@ -12,12 +12,12 @@ class Ui(QtWidgets.QMainWindow):
     def __init__(self):
 
         super(Ui, self).__init__()
-        uic.loadUi('src/qt_gui/ui/main.ui', self)
+        uic.loadUi('src/gui/qt_gui/ui/main.ui', self)
 
         ############################ uart
         try:
             self.uc = kevinuart.UartControl('/dev/ttyUSB0') # kevin uart
-            # self.uc = kevinuart.UartControl('/dev/ttyUSB1') # kevin uart
+            self.uc1 = kevinuart.UartControl('/dev/ttyUSB1') # kevin uart
             print("Connect port success...")
         except:
             print("Error cannot connect port!")
@@ -36,7 +36,9 @@ class Ui(QtWidgets.QMainWindow):
     def timer_callback(self):
         # print("timer_callback")
         self.uc.uart_ser()
+        self.uc1.uart_ser()
         strVal = "x:" + str(self.uc.point_x) + " y:" + str(self.uc.point_y)
+        strVal = "x:" + str(self.uc1.point_x) + " y:" + str(self.uc1.point_y)
         self.label.setText(str(strVal))
 
     def btn_callback(self):
@@ -44,11 +46,13 @@ class Ui(QtWidgets.QMainWindow):
         print(strVal)
         self.label_2.setText(str(strVal))
         self.uc.ser_write(0)
+        self.uc1.ser_write(0)
     def btn2_callback(self):
         strVal = "binary"
         print(strVal)
         self.label_2.setText(str(strVal))
         self.uc.ser_write(1)
+        self.uc1.ser_write(1)
 
 
 app = QtWidgets.QApplication(sys.argv)

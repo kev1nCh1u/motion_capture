@@ -88,5 +88,5 @@ if __name__ == "__main__":
     while 1:
         uc.uart_ser()
         print(uc.point_x,uc.point_y)
-        uc.ser_write(1)
+        uc.ser_write(0)
         exit()
