@@ -218,17 +218,17 @@ RAW2RGB_J				u4	(
 	      .oDVAL        ( )
 			);
 //------AOTO FOCUS ENABLE  --
-AUTO_FOCUS_ON  u9( 
-          .CLK_50      ( FPGA_CLK1_50 ), 
-          .I2C_RELEASE ( I2C_RELEASE ), 
-          .AUTO_FOC    ( AUTO_FOC )
-               ) ; 
+// AUTO_FOCUS_ON  u9( 
+//           .CLK_50      ( FPGA_CLK1_50 ), 
+//           .I2C_RELEASE ( I2C_RELEASE ), 
+//           .AUTO_FOC    ( AUTO_FOC )
+//                ) ; 
 //------AOTO FOCUS ADJ  --
 FOCUS_ADJ adl(
           .CLK_50        ( FPGA_CLK1_50) , 
           .RESET_N       ( I2C_RELEASE ), 
           .RESET_SUB_N   ( I2C_RELEASE ), 
-          .AUTO_FOC      ( KEY[1] & AUTO_FOC ),
+        //   .AUTO_FOC      ( KEY[1] & AUTO_FOC ),
           .SW_Y          ( 0 ),
           .SW_H_FREQ     ( 0 ),   
           .SW_FUC_LINE   ( SW[3] ),   
