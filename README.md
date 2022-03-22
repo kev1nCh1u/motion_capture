@@ -29,12 +29,16 @@ python setup.py install
     python /home/kevin/src/motion_capture/src/image_processing/ir_track/src/ros_point_record.py
 
 ## fpga track point
-    python3.8 /home/kevin/src/motion_capture/src/image_processing/capture/multi_capture.py
+### calibration
+    python3.8 /home/kevin/src/motion_capture/src/image_processing/capture/double_capture.py
     python3.8 /home/kevin/src/motion_capture/src/matlab/start_stero_calib.py
-    
-    python3.8 /home/kevin/src/motion_capture/src/image_processing/calibration/stereo_board_depth_triangulation.py
+### verification
+    python3.8 /home/kevin/src/motion_capture/src/image_processing/calibration/stereo_board_depth_triangulation.py -id 14
 
     python3.8 /home/kevin/src/motion_capture/src/image_processing/calibration/get_data.py
     python3.8 /home/kevin/src/motion_capture/src/image_processing/calibration/point_plot_3d.py
 
+### GUI
     python3.8 src/gui/qt_gui/src/main.py
+
+    python3.8 src/image_processing/capture/single_capture.py
