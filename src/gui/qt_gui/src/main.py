@@ -20,7 +20,7 @@ class Ui(QtWidgets.QMainWindow):
             self.uc1 = kevinuart.UartControl('/dev/ttyUSB1') # kevin uart
             print("Connect port success...")
         except:
-            print("Error cannot connect port!")
+            print('\033[91m'+"Error cannot connect port!!!"+'\033[0m')
         
 
         self.timer = QTimer() # call QTimer 
