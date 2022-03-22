@@ -303,6 +303,17 @@ FIND_POINT fp1 (
     .BINARY_POINTS_V	(BINARY_POINTS_V[15:0])
 );
 
+// FIND_MULTI_POINTS fmp1 (
+// 	.CLK				(FPGA_CLK1_50),
+// 	.VGA_HS				(VGA_HS),
+//     .VGA_VS				(VGA_VS),
+//     .BINARY_FLAG		(BINARY_FLAG),
+//     .H_CNT				(H_CNT),
+//     .V_CNT				(V_CNT),
+//     .BINARY_POINTS_H	(BINARY_POINTS_H[15:0]),
+//     .BINARY_POINTS_V	(BINARY_POINTS_V[15:0])
+// );
+
 //-----------uart_tx
 uart_tx #(.CLKS_PER_BIT(BAUD_RATE)) ut0 (
 .i_Clock(FPGA_CLK1_50),

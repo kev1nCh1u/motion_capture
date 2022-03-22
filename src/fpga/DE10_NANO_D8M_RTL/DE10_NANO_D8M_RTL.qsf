@@ -371,6 +371,7 @@ set_location_assignment PIN_AH19 -to UART_RX
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to UART_RX
 set_location_assignment PIN_AG19 -to UART_TX
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to UART_TX
+set_global_assignment -name VERILOG_FILE kevin/FIND_MULTI_POINTS.v
 set_global_assignment -name VERILOG_FILE kevin/uart_tx_data.v
 set_global_assignment -name VERILOG_FILE kevin/uart_rx_data.v
 set_global_assignment -name VERILOG_FILE kevin/uart_rx.v
