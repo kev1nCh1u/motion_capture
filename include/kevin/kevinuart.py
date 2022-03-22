@@ -68,14 +68,16 @@ class UartControl():
             print('close...')
 
 
-    def ser_write(self, flag=0):
+    def ser_write(self, colorFlag=0, binaryThreshold=150):
         self.ser.write(b'\x53') #S
         self.ser.write(b'\x54') #T
 
-        if(flag == 1):
+        if(colorFlag == 1):
             self.ser.write(b'\x01')
-        elif(flag == 0):
+        elif(colorFlag == 0):
             self.ser.write(b'\x00')
+
+        self.ser.write(b'\x64') #binaryThreshold
 
         self.ser.write(b'\x45') #E
         self.ser.write(b'\x4E') #N

@@ -122,7 +122,8 @@ wire [2:0] TX_STATE;
 /////////////////// kevin rx ///////////////////
 wire [7:0] RX_BYTE;
 wire r_RX_DV;
-wire r_RX_FLAG;
+wire COLOR_FLAG;
+wire BINARY_THRESHOLD;
 wire [2:0] RX_STATE;
 
 //=======================================================
@@ -287,7 +288,7 @@ HDMI_TX_AD7513 hdmi (
 //-----------MONO2BINARY
 MONO2BINARY m2b1(.CLK			(FPGA_CLK1_50),
                  .VGA_MONO		(VGA_R[7:0]),
-                 .THRESHOLD		(250),
+                 .THRESHOLD		(BINARY_THRESHOLD),
                  .BINARY_FLAG	(BINARY_FLAG),
                  .VGA_BINARY	(VGA_BINARY[23:0])
 				 );
@@ -346,7 +347,8 @@ uart_rx #(.CLKS_PER_BIT(BAUD_RATE)) ur0 (
 uart_rx_data urd (
 	.r_RX_DV		(r_RX_DV),
 	.RX_BYTE		(RX_BYTE),
-	.r_RX_FLAG		(r_RX_FLAG),
+	.or_COLOR_FLAG	(COLOR_FLAG),
+	.o_THRESHOLD	(BINARY_THRESHOLD),
 	.o_State 		()
 );
 
@@ -359,7 +361,7 @@ end
 assign HDMI_TX_CLK =   VGA_CLK;
 // assign HDMI_TX_D   = TX_DE? { VGA_R, VGA_G, VGA_B  }  :0 ;  
 // assign HDMI_TX_D   = TX_DE? { VGA_GRAY, VGA_GRAY, VGA_GRAY  }  :0 ;  
-assign HDMI_TX_D   = TX_DE? r_RX_FLAG? VGA_BINARY: { VGA_R, VGA_G, VGA_B  }  :0 ;  
+assign HDMI_TX_D   = TX_DE? COLOR_FLAG? VGA_BINARY: { VGA_R, VGA_G, VGA_B  }  :0 ;  
 assign HDMI_TX_DE  = READ_Request;           
 assign HDMI_TX_HS  = VGA_HS                 ;
 assign HDMI_TX_VS  = VGA_VS                 ;

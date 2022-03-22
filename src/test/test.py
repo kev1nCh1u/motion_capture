@@ -1,11 +1,6 @@
 
-
-path = "data/point_data"
-
-
-f = open(path, "w")
-f.write("Woops! I have deleted the content!\n")
-f.write("Woops! I have deleted the content!\n")
-
-
-f.close()
+x = 10
+hex_x = hex(x)
+print(hex_x)
+print((x).to_bytes(1, byteorder='little'))
+print(bytes([100]))
