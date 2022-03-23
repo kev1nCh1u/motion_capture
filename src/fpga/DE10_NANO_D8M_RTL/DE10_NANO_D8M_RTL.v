@@ -123,7 +123,7 @@ wire [2:0] TX_STATE;
 wire [7:0] RX_BYTE;
 wire r_RX_DV;
 wire COLOR_FLAG;
-wire BINARY_THRESHOLD;
+wire [7:0] BINARY_THRESHOLD;
 wire [2:0] RX_STATE;
 
 //=======================================================
@@ -288,7 +288,7 @@ HDMI_TX_AD7513 hdmi (
 //-----------MONO2BINARY
 MONO2BINARY m2b1(.CLK			(FPGA_CLK1_50),
                  .VGA_MONO		(VGA_R[7:0]),
-                 .THRESHOLD		(BINARY_THRESHOLD),
+                 .THRESHOLD		(BINARY_THRESHOLD[7:0]),
                  .BINARY_FLAG	(BINARY_FLAG),
                  .VGA_BINARY	(VGA_BINARY[23:0])
 				 );

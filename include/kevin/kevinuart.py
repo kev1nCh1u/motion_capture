@@ -77,7 +77,7 @@ class UartControl():
         elif(colorFlag == 0):
             self.ser.write(b'\x00')
 
-        self.ser.write(b'\x64') #binaryThreshold
+        self.ser.write((binaryThreshold).to_bytes(1, byteorder='little')) #binaryThreshold
 
         self.ser.write(b'\x45') #E
         self.ser.write(b'\x4E') #N

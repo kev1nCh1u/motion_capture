@@ -8,6 +8,8 @@ import importlib
 sys.path.append(os.getcwd())
 from include.kevin import kevinuart
 
+from time import sleep
+
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
 
@@ -27,6 +29,8 @@ class Ui(QtWidgets.QMainWindow):
         self.timer.timeout.connect(self.timer_callback) # if time run
         self.timer.start(10) # start Timer ms
 
+        # sleep(3)
+
         self.show()
 
         self.pushButton.clicked.connect(self.btn_callback)
@@ -40,6 +44,10 @@ class Ui(QtWidgets.QMainWindow):
         strVal = "x:" + str(self.uc.point_x) + " y:" + str(self.uc.point_y)
         strVal = "x:" + str(self.uc1.point_x) + " y:" + str(self.uc1.point_y)
         self.label.setText(str(strVal))
+        self.label_4.setText(str(self.horizontalSlider.value()))
+
+        self.graphicsView = QtWidgets.QGraphicsView()
+        
 
     def btn_callback(self):
         strVal = "color"
@@ -51,8 +59,9 @@ class Ui(QtWidgets.QMainWindow):
         strVal = "binary"
         print(strVal)
         self.label_2.setText(str(strVal))
-        self.uc.ser_write(1)
-        self.uc1.ser_write(1)
+        binaryThreshold = self.horizontalSlider.value()
+        self.uc.ser_write(1, binaryThreshold)
+        self.uc1.ser_write(1, binaryThreshold)
 
 
 app = QtWidgets.QApplication(sys.argv)

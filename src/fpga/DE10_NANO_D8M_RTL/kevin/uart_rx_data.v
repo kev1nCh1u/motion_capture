@@ -8,7 +8,7 @@ module uart_rx_data (input r_RX_DV,
     
     reg [3:0] STATE = 4'd0;
     reg RX_BINARY_FLAG = 0;
-    reg r_THRESHOLD = 100;
+    reg [7:0] r_THRESHOLD = 100;
     
     always @(posedge r_RX_DV) begin
         
