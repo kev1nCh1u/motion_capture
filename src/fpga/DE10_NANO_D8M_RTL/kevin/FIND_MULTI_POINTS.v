@@ -12,24 +12,25 @@ module FIND_MULTI_POINTS (
                    output reg		[15:0] POINTS_H_2,
                    output reg		[15:0] POINTS_V_2,
                    output reg		[15:0] POINTS_H_3,
-                   output reg		[15:0] POINTS_V_3
+                   output reg		[15:0] POINTS_V_3,
+
+                   output reg       [15:0] test
                    );
 
 integer i, j, k;
 
-reg     rVGA_HS;
-reg		rVGA_VS;
+reg     rVGA_HS = 0;
+reg		rVGA_VS = 0;
 reg		rBINARY_FLAG;
 
-reg		[15:0] POINTS_H_ARR[0:10][0:50];
-reg		[15:0] POINTS_V_ARR[0:10][0:50];
 reg		[15:0] POINTS_GROUP;
 reg		[15:0] POINTS_NUM;
+reg		[15:0] POINTS_H_ARR[0:10][0:50]; //[POINTS_GROUP][POINTS_NUM]
+reg		[15:0] POINTS_V_ARR[0:10][0:50];
 
 reg		[15:0] o_POINT_COUNT;
-reg		[15:0] o_POINT_H[0:3];
+reg		[15:0] o_POINT_H[0:3]; //[o_POINT_COUNT]
 reg		[15:0] o_POINT_V[0:3];
-
 
 reg		[15:0] BUFF;
 
@@ -39,6 +40,8 @@ always@(posedge CLK)begin
     // if(POINTS_NUM == 0)
     //     POINTS_NUM = 1;
 
+    // test = 1;
+
     // ==============================================
     rBINARY_FLAG <= BINARY_FLAG;
     if (!rBINARY_FLAG && BINARY_FLAG) // new point
@@ -46,8 +49,12 @@ always@(posedge CLK)begin
         POINTS_NUM = POINTS_NUM / 2;
         POINTS_H_ARR[POINTS_GROUP][0] = POINTS_H_ARR[POINTS_GROUP][POINTS_NUM];
 
+        test = POINTS_H_ARR[POINTS_GROUP][0];
+
         POINTS_GROUP = POINTS_GROUP + 1;
         POINTS_NUM = 0;
+
+        
     end
 
     // ============================================
@@ -56,12 +63,16 @@ always@(posedge CLK)begin
         POINTS_H_ARR[POINTS_GROUP][POINTS_NUM] = H_CNT; // save h
         POINTS_V_ARR[POINTS_GROUP][POINTS_NUM] = V_CNT; // save v
 
+        // test = POINTS_H_ARR[POINTS_GROUP][POINTS_NUM];
+
         POINTS_NUM = POINTS_NUM + 1;
     end
+
+    // test = H_CNT;
     
     // =============================================
     rVGA_HS <= VGA_HS;
-    if (rVGA_HS && !VGA_HS) // new line
+    if (!rVGA_HS && VGA_HS) // new line
     begin
 
     end
@@ -83,7 +94,7 @@ always@(posedge CLK)begin
                         BUFF = ~BUFF[15:0]+1;
                     if(BUFF < 10)
                     begin
-                        POINTS_NUM++;
+                        POINTS_NUM = POINTS_NUM + 1;
                         POINTS_H_ARR[i][0] = POINTS_H_ARR[i][0] + POINTS_H_ARR[j][0];
                         POINTS_V_ARR[i][0] = POINTS_V_ARR[i][0] + POINTS_V_ARR[j][0];
                         POINTS_H_ARR[j][0] = 0;
@@ -98,7 +109,7 @@ always@(posedge CLK)begin
             o_POINT_H[o_POINT_COUNT] = POINTS_H_ARR[i][0];
             o_POINT_V[o_POINT_COUNT] = POINTS_V_ARR[i][0];
 
-            o_POINT_COUNT++;
+            o_POINT_COUNT = o_POINT_COUNT + 1;
         end
         
         // output
@@ -110,6 +121,9 @@ always@(posedge CLK)begin
         POINTS_V_2 = o_POINT_V[2];
         POINTS_H_3 = o_POINT_H[3];
         POINTS_V_3 = o_POINT_V[3];
+
+        POINTS_GROUP = 0;
+        POINTS_NUM = 0;
     end
 
     

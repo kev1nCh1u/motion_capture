@@ -1,0 +1,59 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+d/home/kevin/src/fpga_practice/src/full_adder
+vFIND_MULTI_POINTS
+!s110 1649336459
+!i10b 1
+!s100 AEcMNU7jYSbBaP?7PTC<V2
+Z0 !s11b Dg1SIo80bB@j0V0VzS_@n1
+Ikcocb[E9]PjLMKEGnL0FV3
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+Z2 d/home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin
+w1649336440
+8/home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/FIND_MULTI_POINTS.v
+F/home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/FIND_MULTI_POINTS.v
+!i122 54
+L0 1 132
+Z3 OV;L;2020.1;71
+r1
+!s85 0
+31
+!s108 1649336458.000000
+!s107 /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/FIND_MULTI_POINTS.v|
+!s90 -reportprogress|300|-work|work|-stats=none|/home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/FIND_MULTI_POINTS.v|
+!i113 1
+Z4 o-work work
+Z5 tCvgOpt 0
+n@f@i@n@d_@m@u@l@t@i_@p@o@i@n@t@s
+vT
+!s110 1649336109
+!i10b 1
+!s100 XoYz_JZP@z]0l[Dd>AL^Q2
+R0
+IX0@?6^gdREX@hUMbkImB32
+R1
+R2
+w1649335241
+8/home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v
+F/home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v
+!i122 50
+L0 5 79
+R3
+r1
+!s85 0
+31
+!s108 1649336109.000000
+!s107 /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v|
+!s90 -reportprogress|300|-work|work|-stats=none|/home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v|
+!i113 1
+R4
+R5
+n@t
