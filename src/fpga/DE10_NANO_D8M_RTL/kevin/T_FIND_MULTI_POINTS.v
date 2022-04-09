@@ -19,12 +19,13 @@ module T;
     wire [15:0] POINTS_H_3;
     wire [15:0] POINTS_V_3;
 
+    wire [15:0] POINTS_GROUP;
+    wire [15:0] POINTS_NUM;
     wire [15:0] test;
 
     reg BINARY_FRAME[0:9][0:9];
 
-    integer i, j, k;
-    integer x, y, z;
+    integer i, j;
 
     FIND_MULTI_POINTS UUT (
         .CLK            (CLK),
@@ -33,14 +34,16 @@ module T;
         .BINARY_FLAG    (BINARY_FLAG),
         .H_CNT          (H_CNT),
         .V_CNT          (V_CNT),
-        .POINTS_H_0     (POINTS_H_0),
-        .POINTS_V_0     (POINTS_V_0),
-        .POINTS_H_1     (POINTS_H_1),
-        .POINTS_V_1     (POINTS_V_1),
-        .POINTS_H_2     (POINTS_H_2),
-        .POINTS_V_2     (POINTS_V_2),
-        .POINTS_H_3     (POINTS_H_3),
-        .POINTS_V_3     (POINTS_V_3),
+        .o_POINTS_H_0     (POINTS_H_0),
+        .o_POINTS_V_0     (POINTS_V_0),
+        .o_POINTS_H_1     (POINTS_H_1),
+        .o_POINTS_V_1     (POINTS_V_1),
+        .o_POINTS_H_2     (POINTS_H_2),
+        .o_POINTS_V_2     (POINTS_V_2),
+        .o_POINTS_H_3     (POINTS_H_3),
+        .o_POINTS_V_3     (POINTS_V_3),
+        .o_POINTS_GROUP   (POINTS_GROUP),
+        .o_POINTS_NUM     (POINTS_NUM),
         .test           (test)
     );
 

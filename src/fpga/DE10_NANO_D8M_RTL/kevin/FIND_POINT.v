@@ -22,16 +22,16 @@ always@(posedge CLK)begin
     end
     
     rVGA_VS <= VGA_VS;
-    if (!rVGA_VS && VGA_VS) // point reset
+    if (!rVGA_VS && VGA_VS) // upper edge, point reset
     begin
         BINARY_POINTS_H = 0;
         BINARY_POINTS_V = 0;
         if (BINARY_POINTS_NUM > 0)
         begin
-            BINARY_POINTS_NUM = BINARY_POINTS_NUM / 2;
+            BINARY_POINTS_NUM = BINARY_POINTS_NUM / 2; // median num
             
-            BINARY_POINTS_H = BINARY_POINTS_H_ARR[BINARY_POINTS_NUM];
-            BINARY_POINTS_V = BINARY_POINTS_V_ARR[BINARY_POINTS_NUM];
+            BINARY_POINTS_H = BINARY_POINTS_H_ARR[BINARY_POINTS_NUM]; // median point H
+            BINARY_POINTS_V = BINARY_POINTS_V_ARR[BINARY_POINTS_NUM]; // median point V
             
             BINARY_POINTS_NUM = 0;
         end
