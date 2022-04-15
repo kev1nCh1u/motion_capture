@@ -19,18 +19,20 @@ module FIND_MULTI_POINTS (
                    output reg       [15:0] test
                    );
 
-integer i, j, k;
+reg [5:0]i;
+reg [5:0]j; 
+reg [5:0]k;
 
 reg     rVGA_HS = 0;
 reg		rVGA_VS = 0;
 reg		rBINARY_FLAG = 0;
 
-reg		[15:0] POINTS_GROUP = 0;
-reg		[15:0] POINTS_NUM = 0;
-reg		[15:0] POINTS_H_ARR[0:10][0:50]; //[POINTS_GROUP][POINTS_NUM]
-reg		[15:0] POINTS_V_ARR[0:10][0:50];
+reg		[3:0] POINTS_GROUP = 0;
+reg		[3:0] POINTS_NUM = 0;
+reg		[15:0] POINTS_H_ARR[0:100][0:50]; //[POINTS_GROUP][POINTS_NUM]
+reg		[15:0] POINTS_V_ARR[0:100][0:50];
 
-reg		[15:0] POINT_COUNT;
+reg		[2:0] POINT_COUNT;
 reg		[15:0] POINT_H[0:3]; //[POINT_COUNT]
 reg		[15:0] POINT_V[0:3];
 
@@ -81,12 +83,13 @@ always@(posedge CLK)begin
             POINT_V[POINT_COUNT] = 0;
             if(POINTS_H_ARR[i][0] != ~16'd0) // have value
             begin
+                $display("========== GROUP:%3d ====================", i);
                 for(j=i+1; j<POINTS_GROUP; j=j+1)
                 begin
                     if(POINTS_H_ARR[j][0] != ~16'd0) // have value
                     begin
-                        $display("G:%3d    N:%3d    SX:%3d    SY:%3d    DX:%3d    DY:%3d",
-                         i, j, POINTS_H_ARR[i][0], POINTS_V_ARR[i][0], POINTS_H_ARR[j][0], POINTS_V_ARR[j][0]);
+                        $display("N:%3d    SX:%3d    SY:%3d    DX:%3d    DY:%3d",
+                         j, POINTS_H_ARR[i][0], POINTS_V_ARR[i][0], POINTS_H_ARR[j][0], POINTS_V_ARR[j][0]);
                         BUFF = POINTS_H_ARR[i][0] - POINTS_H_ARR[j][0]; // find two point distance
                         if(BUFF[15]) // if negative
                             BUFF = ~BUFF[15:0]+1; // abs
@@ -99,7 +102,6 @@ always@(posedge CLK)begin
                             POINTS_H_ARR[j][0] = -1; // clean V
                             POINTS_NUM = POINTS_NUM + 1; // count sum
                         end
-
                     end
                 end
 
@@ -113,6 +115,7 @@ always@(posedge CLK)begin
         end
         
         // output
+        $display("============= result =================");
         for(i=0; i<POINT_COUNT; i=i+1)
         begin
             $display("p:%3d    X:%3d    Y:%3d", i, POINT_H[i], POINT_V[i]);

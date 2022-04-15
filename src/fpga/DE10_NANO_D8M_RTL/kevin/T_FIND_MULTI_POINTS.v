@@ -23,7 +23,7 @@ module T;
     wire [15:0] POINTS_NUM;
     wire [15:0] test;
 
-    reg BINARY_FRAME[0:9][0:9];
+    reg BINARY_FRAME[0:99][0:199]; // [y][x]
 
     integer i, j;
 
@@ -58,11 +58,11 @@ module T;
         #100;
 
         VGA_VS = 1;
-        for(i=0; i<10; i=i+1)
+        for(i=0; i<100; i=i+1) // y
         begin
             VGA_HS = 1;
             V_CNT = i;
-            for(j=0; j<10; j=j+1)
+            for(j=0; j<200; j=j+1) // x
             begin
                 H_CNT = j;
                 BINARY_FLAG = BINARY_FRAME[i][j];

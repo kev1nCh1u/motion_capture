@@ -1,29 +1,50 @@
 
 
 module uart_tx_data (input TX_DONE,
-                     input [15:0] BINARY_POINTS_H,
-                     input [15:0] BINARY_POINTS_V,
+                     input [15:0] POINTS_H_0,
+                     input [15:0] POINTS_V_0,
+                     input [15:0] POINTS_H_1,
+                     input [15:0] POINTS_V_1,
+                     input [15:0] POINTS_H_2,
+                     input [15:0] POINTS_V_2,
+                     input [15:0] POINTS_H_3,
+                     input [15:0] POINTS_V_3,
                      output [7:0] TX_BYTE);
 
-reg [3:0] DATA_CNT;
-reg [7:0] DATA[10:0];
+reg [7:0] DATA_CNT;
+reg [7:0] DATA[0:20];
 reg [7:0] r_TX_BYTE;
     
 always @(posedge TX_DONE) begin
     DATA[0] = 8'h53; //S
     DATA[1] = 8'h54; //T
     
-    DATA[2]           = BINARY_POINTS_H[15:8]; // point_x H
-    DATA[3]           = BINARY_POINTS_H[7:0]; // point_x L
-    DATA[4]           = BINARY_POINTS_V[15:8];  // point_y H
-    DATA[5]           = BINARY_POINTS_V[7:0];  // point_y L
+    DATA[2] = POINTS_H_0[15:8];   // point_x H
+    DATA[3] = POINTS_H_0[7:0];    // point_x L
+    DATA[4] = POINTS_V_0[15:8];   // point_y H
+    DATA[5] = POINTS_V_0[7:0];    // point_y L
+
+    DATA[6] = POINTS_H_0[15:8];   // point_x H
+    DATA[7] = POINTS_H_0[7:0];    // point_x L
+    DATA[8] = POINTS_V_0[15:8];   // point_y H
+    DATA[9] = POINTS_V_0[7:0];    // point_y L
+
+    DATA[10] = POINTS_H_0[15:8];   // point_x H
+    DATA[11] = POINTS_H_0[7:0];    // point_x L
+    DATA[12] = POINTS_V_0[15:8];   // point_y H
+    DATA[13] = POINTS_V_0[7:0];    // point_y L
+
+    DATA[14] = POINTS_H_0[15:8];   // point_x H
+    DATA[15] = POINTS_H_0[7:0];    // point_x L
+    DATA[16] = POINTS_V_0[15:8];   // point_y H
+    DATA[17] = POINTS_V_0[7:0];    // point_y L
     
-    DATA[6] = 8'h45; //E
-    DATA[7] = 8'h4E; //N
-    DATA[8] = 8'h44; //D
+    DATA[18] = 8'h45; //E
+    DATA[19] = 8'h4E; //N
+    DATA[20] = 8'h44; //D
 
     r_TX_BYTE <= DATA[DATA_CNT];
-    if (DATA_CNT < 8)
+    if (DATA_CNT < 20)
     begin
         DATA_CNT <= DATA_CNT + 1;
     end

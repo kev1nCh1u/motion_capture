@@ -109,8 +109,15 @@ wire 	BINARY_FLAG;
 wire 	[23:0] VGA_BINARY;
 wire 	[15:0] H_CNT;
 wire 	[15:0] V_CNT;
-wire 	[15:0] BINARY_POINTS_H; // point_x
-wire 	[15:0] BINARY_POINTS_V; // point_y
+
+wire 	[15:0] POINTS_H_0; // point_x_0
+wire 	[15:0] POINTS_V_0; // point_y_0
+wire 	[15:0] POINTS_H_1; // point_x_1
+wire 	[15:0] POINTS_V_1; // point_y_1
+wire 	[15:0] POINTS_H_2; // point_x_2
+wire 	[15:0] POINTS_V_2; // point_y_2
+wire 	[15:0] POINTS_H_3; // point_x_3
+wire 	[15:0] POINTS_V_3; // point_y_3
 
 ////////////////// kevin tx ////////////////////////
 wire [7:0] TX_BYTE;
@@ -294,26 +301,32 @@ MONO2BINARY m2b1(.CLK			(FPGA_CLK1_50),
 				 );
 
 //-----------FIND_POINT
-FIND_POINT fp1 (
-	.CLK				(FPGA_CLK1_50),
-    .VGA_VS				(VGA_VS),
-    .BINARY_FLAG		(BINARY_FLAG),
-    .H_CNT				(H_CNT),
-    .V_CNT				(V_CNT),
-    .BINARY_POINTS_H	(BINARY_POINTS_H[15:0]),
-    .BINARY_POINTS_V	(BINARY_POINTS_V[15:0])
-);
-
-// FIND_MULTI_POINTS fmp1 (
+// FIND_POINT fp1 (
 // 	.CLK				(FPGA_CLK1_50),
-// 	.VGA_HS				(VGA_HS),
 //     .VGA_VS				(VGA_VS),
 //     .BINARY_FLAG		(BINARY_FLAG),
 //     .H_CNT				(H_CNT),
 //     .V_CNT				(V_CNT),
-//     .BINARY_POINTS_H	(BINARY_POINTS_H[15:0]),
-//     .BINARY_POINTS_V	(BINARY_POINTS_V[15:0])
+//     .BINARY_POINTS_H	(POINTS_H_0[15:0]),
+//     .BINARY_POINTS_V	(POINTS_V_0[15:0])
 // );
+
+FIND_MULTI_POINTS fmp1 (
+	.CLK				(FPGA_CLK1_50),
+	.VGA_HS				(VGA_HS),
+    .VGA_VS				(VGA_VS),
+    .BINARY_FLAG		(BINARY_FLAG),
+    .H_CNT				(H_CNT),
+    .V_CNT				(V_CNT),
+	.o_POINTS_H_0		(POINTS_H_0[15:0]),
+	.o_POINTS_V_0		(POINTS_V_0[15:0]),
+	.o_POINTS_H_1		(POINTS_H_1[15:0]),
+	.o_POINTS_V_1		(POINTS_V_1[15:0]),
+	.o_POINTS_H_2		(POINTS_H_2[15:0]),
+	.o_POINTS_V_2		(POINTS_V_2[15:0]),
+	.o_POINTS_H_3		(POINTS_H_3[15:0]),
+	.o_POINTS_V_3		(POINTS_V_3[15:0])
+);
 
 //-----------uart_tx
 uart_tx #(.CLKS_PER_BIT(BAUD_RATE)) ut0 (
@@ -329,8 +342,14 @@ uart_tx #(.CLKS_PER_BIT(BAUD_RATE)) ut0 (
 // -----------uart_tx_data
 uart_tx_data utd (
 	.TX_DONE			(TX_DONE),
-	.BINARY_POINTS_H	(BINARY_POINTS_H),
-	.BINARY_POINTS_V	(BINARY_POINTS_V),
+	.POINTS_H_0			(POINTS_H_0[15:0]),
+	.POINTS_V_0			(POINTS_V_0[15:0]),
+	.POINTS_H_1			(POINTS_H_1[15:0]),
+	.POINTS_V_1			(POINTS_V_1[15:0]),
+	.POINTS_H_2			(POINTS_H_2[15:0]),
+	.POINTS_V_2			(POINTS_V_2[15:0]),
+	.POINTS_H_3			(POINTS_H_3[15:0]),
+	.POINTS_V_3			(POINTS_V_3[15:0]),
 	.TX_BYTE			(TX_BYTE)
 );
 
@@ -375,10 +394,10 @@ assign TEST_IO_2 = {UART_RX, UART_TX} ;
 
 //-- kevin debug issp
 sources source1 (
-	.probe  (BINARY_POINTS_H)   //  probes.probe
+	.probe  (POINTS_H_0[15:0])   //  probes.probe
 );
 sources source2 (
-	.probe  (BINARY_POINTS_V)   //  probes.probe
+	.probe  (POINTS_V_0[15:0])   //  probes.probe
 );
 
 endmodule
