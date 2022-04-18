@@ -1,429 +1,16 @@
 # Loading project motion_capture_kevin
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
 vsim work.T
 # vsim work.T 
-# Start time: 09:56:02 on Apr 15,2022
+# Start time: 09:43:25 on Apr 18,2022
 # Loading work.T
 # Loading work.FIND_MULTI_POINTS
-run -all
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 11200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
 restart
 # ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
 run -all
-# G:  0    N:  1    SX:327    SY:  6    DX:  5    DY:  8
-# G:  0    N:  2    SX:327    SY:  6    DX:164    DY:  9
-# G:  0    N:  3    SX:327    SY:  6    DX:299    DY: 38
-# G:  0    N:  4    SX:327    SY:  6    DX:324    DY: 38
-# G:  0    N:  5    SX:327    SY:  6    DX:  1    DY: 40
-# G:  1    N:  2    SX:  5    SY:  8    DX:164    DY:  9
-# G:  1    N:  3    SX:  5    SY:  8    DX:299    DY: 38
-# G:  1    N:  4    SX:  5    SY:  8    DX:324    DY: 38
-# G:  1    N:  5    SX:  5    SY:  8    DX:  1    DY: 40
-# G:  2    N:  3    SX:164    SY:  9    DX:299    DY: 38
-# G:  2    N:  4    SX:164    SY:  9    DX:324    DY: 38
-# G:  2    N:  5    SX:164    SY:  9    DX:  1    DY: 40
-# G:  3    N:  4    SX:299    SY: 38    DX:324    DY: 38
-# G:  3    N:  5    SX:299    SY: 38    DX:  1    DY: 40
-# G:  4    N:  5    SX:324    SY: 38    DX:  1    DY: 40
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 30784200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-restart
-run -all
-# G:  0    N:  1    SX:327    SY:  6    DX:  5    DY:  8
-# G:  0    N:  2    SX:327    SY:  6    DX:164    DY:  9
-# G:  0    N:  3    SX:327    SY:  6    DX:299    DY: 38
-# G:  0    N:  4    SX:327    SY:  6    DX:324    DY: 38
-# G:  0    N:  5    SX:327    SY:  6    DX:  1    DY: 40
-# G:  1    N:  2    SX:  5    SY:  8    DX:164    DY:  9
-# G:  1    N:  3    SX:  5    SY:  8    DX:299    DY: 38
-# G:  1    N:  4    SX:  5    SY:  8    DX:324    DY: 38
-# G:  1    N:  5    SX:  5    SY:  8    DX:  1    DY: 40
-# G:  2    N:  3    SX:164    SY:  9    DX:299    DY: 38
-# G:  2    N:  4    SX:164    SY:  9    DX:324    DY: 38
-# G:  2    N:  5    SX:164    SY:  9    DX:  1    DY: 40
-# G:  3    N:  4    SX:299    SY: 38    DX:324    DY: 38
-# G:  3    N:  5    SX:299    SY: 38    DX:  1    DY: 40
-# G:  4    N:  5    SX:324    SY: 38    DX:  1    DY: 40
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 30784200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-restart
-run -all
-# G:  0    N:  1    SX:327    SY:  6    DX:  5    DY:  8
-# G:  0    N:  2    SX:327    SY:  6    DX:164    DY:  9
-# G:  0    N:  3    SX:327    SY:  6    DX:299    DY: 38
-# G:  0    N:  4    SX:327    SY:  6    DX:324    DY: 38
-# G:  0    N:  5    SX:327    SY:  6    DX:  1    DY: 40
-# G:  1    N:  2    SX:  5    SY:  8    DX:164    DY:  9
-# G:  1    N:  3    SX:  5    SY:  8    DX:299    DY: 38
-# G:  1    N:  4    SX:  5    SY:  8    DX:324    DY: 38
-# G:  1    N:  5    SX:  5    SY:  8    DX:  1    DY: 40
-# G:  2    N:  3    SX:164    SY:  9    DX:299    DY: 38
-# G:  2    N:  4    SX:164    SY:  9    DX:324    DY: 38
-# G:  2    N:  5    SX:164    SY:  9    DX:  1    DY: 40
-# G:  3    N:  4    SX:299    SY: 38    DX:324    DY: 38
-# G:  3    N:  5    SX:299    SY: 38    DX:  1    DY: 40
-# G:  4    N:  5    SX:324    SY: 38    DX:  1    DY: 40
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 30784200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# G:  0    N:  1    SX:327    SY:  6    DX:  5    DY:  8
-# G:  0    N:  2    SX:327    SY:  6    DX:164    DY:  9
-# G:  0    N:  3    SX:327    SY:  6    DX:299    DY: 38
-# G:  0    N:  4    SX:327    SY:  6    DX:324    DY: 38
-# G:  0    N:  5    SX:327    SY:  6    DX:  1    DY: 40
-# G:  1    N:  2    SX:  5    SY:  8    DX:164    DY:  9
-# G:  1    N:  3    SX:  5    SY:  8    DX:299    DY: 38
-# G:  1    N:  4    SX:  5    SY:  8    DX:324    DY: 38
-# G:  1    N:  5    SX:  5    SY:  8    DX:  1    DY: 40
-# G:  2    N:  3    SX:164    SY:  9    DX:299    DY: 38
-# G:  2    N:  4    SX:164    SY:  9    DX:324    DY: 38
-# G:  2    N:  5    SX:164    SY:  9    DX:  1    DY: 40
-# G:  3    N:  4    SX:299    SY: 38    DX:324    DY: 38
-# G:  3    N:  5    SX:299    SY: 38    DX:  1    DY: 40
-# G:  4    N:  5    SX:324    SY: 38    DX:  1    DY: 40
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 30768200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-restart
-run -all
-# G:  0    N:  1    SX:327    SY:  6    DX:  5    DY:  8
-# G:  0    N:  2    SX:327    SY:  6    DX:164    DY:  9
-# G:  0    N:  3    SX:327    SY:  6    DX:299    DY: 38
-# G:  0    N:  4    SX:327    SY:  6    DX:324    DY: 38
-# G:  0    N:  5    SX:327    SY:  6    DX:  1    DY: 40
-# G:  1    N:  2    SX:  5    SY:  8    DX:164    DY:  9
-# G:  1    N:  3    SX:  5    SY:  8    DX:299    DY: 38
-# G:  1    N:  4    SX:  5    SY:  8    DX:324    DY: 38
-# G:  1    N:  5    SX:  5    SY:  8    DX:  1    DY: 40
-# G:  2    N:  3    SX:164    SY:  9    DX:299    DY: 38
-# G:  2    N:  4    SX:164    SY:  9    DX:324    DY: 38
-# G:  2    N:  5    SX:164    SY:  9    DX:  1    DY: 40
-# G:  3    N:  4    SX:299    SY: 38    DX:324    DY: 38
-# G:  3    N:  5    SX:299    SY: 38    DX:  1    DY: 40
-# G:  4    N:  5    SX:324    SY: 38    DX:  1    DY: 40
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 30768200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# G:  0    N:  1    SX:327    SY:  6    DX:  5    DY:  8
-# G:  0    N:  2    SX:327    SY:  6    DX:164    DY:  9
-# G:  0    N:  3    SX:327    SY:  6    DX:299    DY: 38
-# G:  0    N:  4    SX:327    SY:  6    DX:324    DY: 38
-# G:  0    N:  5    SX:327    SY:  6    DX:  1    DY: 40
-# G:  0    N:  6    SX:327    SY:  6    DX:322    DY:634
-# G:  0    N:  7    SX:327    SY:  6    DX:  1    DY:636
-# G:  0    N:  8    SX:327    SY:  6    DX:161    DY:637
-# G:  1    N:  2    SX:  5    SY:  8    DX:164    DY:  9
-# G:  1    N:  3    SX:  5    SY:  8    DX:299    DY: 38
-# G:  1    N:  4    SX:  5    SY:  8    DX:324    DY: 38
-# G:  1    N:  5    SX:  5    SY:  8    DX:  1    DY: 40
-# G:  1    N:  6    SX:  5    SY:  8    DX:322    DY:634
-# G:  1    N:  7    SX:  5    SY:  8    DX:  1    DY:636
-# G:  1    N:  8    SX:  5    SY:  8    DX:161    DY:637
-# G:  2    N:  3    SX:164    SY:  9    DX:299    DY: 38
-# G:  2    N:  4    SX:164    SY:  9    DX:324    DY: 38
-# G:  2    N:  5    SX:164    SY:  9    DX:  1    DY: 40
-# G:  2    N:  6    SX:164    SY:  9    DX:322    DY:634
-# G:  2    N:  7    SX:164    SY:  9    DX:  1    DY:636
-# G:  2    N:  8    SX:164    SY:  9    DX:161    DY:637
-# G:  3    N:  4    SX:299    SY: 38    DX:324    DY: 38
-# G:  3    N:  5    SX:299    SY: 38    DX:  1    DY: 40
-# G:  3    N:  6    SX:299    SY: 38    DX:322    DY:634
-# G:  3    N:  7    SX:299    SY: 38    DX:  1    DY:636
-# G:  3    N:  8    SX:299    SY: 38    DX:161    DY:637
-# G:  4    N:  5    SX:324    SY: 38    DX:  1    DY: 40
-# G:  4    N:  6    SX:324    SY: 38    DX:322    DY:634
-# G:  4    N:  7    SX:324    SY: 38    DX:  1    DY:636
-# G:  4    N:  8    SX:324    SY: 38    DX:161    DY:637
-# G:  5    N:  6    SX:  1    SY: 40    DX:322    DY:634
-# G:  5    N:  7    SX:  1    SY: 40    DX:  1    DY:636
-# G:  5    N:  8    SX:  1    SY: 40    DX:161    DY:637
-# G:  6    N:  7    SX:322    SY:634    DX:  1    DY:636
-# G:  6    N:  8    SX:322    SY:634    DX:161    DY:637
-# G:  7    N:  8    SX:  1    SY:636    DX:161    DY:637
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 30784200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# G:  0    N:  1    SX:  8    SY:  5    DX:  7    DY:  6
-# merge
-# G:  0    N:  2    SX:  8    SY:  5    DX:  6    DY:  7
-# merge
-# G:  0    N:  3    SX:  8    SY:  5    DX:629    DY: 28
-# G:  0    N:  4    SX:  8    SY:  5    DX: 13    DY: 29
-# G:  0    N:  5    SX:  8    SY:  5    DX: 11    DY: 30
-# G:  0    N:  6    SX:  8    SY:  5    DX:160    DY:476
-# G:  0    N:  7    SX:  8    SY:  5    DX:160    DY:477
-# G:  0    N:  8    SX:  8    SY:  5    DX:160    DY:478
-# G:  3    N:  4    SX:629    SY: 28    DX: 13    DY: 29
-# G:  3    N:  5    SX:629    SY: 28    DX: 11    DY: 30
-# G:  3    N:  6    SX:629    SY: 28    DX:160    DY:476
-# G:  3    N:  7    SX:629    SY: 28    DX:160    DY:477
-# G:  3    N:  8    SX:629    SY: 28    DX:160    DY:478
-# G:  4    N:  5    SX: 13    SY: 29    DX: 11    DY: 30
-# merge
-# G:  4    N:  6    SX: 13    SY: 29    DX:160    DY:476
-# G:  4    N:  7    SX: 13    SY: 29    DX:160    DY:477
-# G:  4    N:  8    SX: 13    SY: 29    DX:160    DY:478
-# G:  6    N:  7    SX:160    SY:476    DX:160    DY:477
-# merge
-# G:  6    N:  8    SX:160    SY:476    DX:160    DY:478
-# merge
-# p:  0    X:  6    Y:  6
-# p:  1    X: 11    Y: 30
-# p:  2    X:160    Y:477
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 30768200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-restart
-run -all
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 30768200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 11200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-run -all
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# G:  0    N:  1    SX:  5    SY:  0    DX:  5    DY:  1
-# merge
-# G:  0    N:  2    SX:  5    SY:  0    DX:  5    DY:  2
-# merge
-# G:  0    N:  3    SX:  5    SY:  0    DX:  5    DY:  3
-# G:  0    N:  4    SX:  5    SY:  0    DX:  5    DY:  4
-# G:  0    N:  5    SX:  5    SY:  0    DX:  5    DY:  5
-# G:  0    N:  6    SX:  5    SY:  0    DX:  5    DY:  6
-# G:  0    N:  7    SX:  5    SY:  0    DX:  5    DY:  7
-# G:  0    N:  8    SX:  5    SY:  0    DX:  5    DY:  8
-# G:  3    N:  4    SX:  5    SY:  3    DX:  5    DY:  4
-# merge
-# G:  3    N:  5    SX:  5    SY:  3    DX:  5    DY:  5
-# merge
-# G:  3    N:  6    SX:  5    SY:  3    DX:  5    DY:  6
-# G:  3    N:  7    SX:  5    SY:  3    DX:  5    DY:  7
-# G:  3    N:  8    SX:  5    SY:  3    DX:  5    DY:  8
-# G:  6    N:  7    SX:  5    SY:  6    DX:  5    DY:  7
-# merge
-# G:  6    N:  8    SX:  5    SY:  6    DX:  5    DY:  8
-# merge
-# p:  0    X:  5    Y:  1
-# p:  1    X:  5    Y:  4
-# p:  2    X:  5    Y:  7
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 11200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-restart
-run -all
-# G:  0    N:  1    SX:  7    SY:  0    DX:  0    DY:  1
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 11200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-restart
-run -all
-# G:  0    N:  1    SX:  7    SY:  0    DX:  0    DY:  1
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 11200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 6200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-run -all
-restart
-run -all
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 6200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# G:  0    N:  1    SX:  7    SY:  0    DX:  0    DY:  1
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 5700 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v failed with 2 errors.
-# 2 compiles, 1 failed with 2 errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.FIND_MULTI_POINTS
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v failed with 2 errors.
-# 2 compiles, 1 failed with 2 errors.
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# G:  0    N:  1    SX:  7    SY:  0    DX:  1    DY:  1
-# G:  0    N:  2    SX:  7    SY:  0    DX:  9    DY:  4
-# G:  1    N:  2    SX:  1    SY:  1    DX:  9    DY:  4
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 5700 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# G:  0    N:  1    SX:  2    SY:  1    DX:  1    DY:  2
-# merge
-# G:  0    N:  2    SX:  2    SY:  1    DX:  4    DY:  9
-# p:  0    X:  1    Y:  2
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 6200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-restart
-run -all
-# G:  0    N:  1    SX:  2    SY:  1    DX:  4    DY:  9
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 6200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# G:  0    N:  1    SX:  5    SY:  1    DX:  5    DY:  2
-# merge
-# G:  0    N:  2    SX:  5    SY:  1    DX:  5    DY:  3
-# merge
-# G:  0    N:  3    SX:  5    SY:  1    DX: 23    DY:  9
-# G:  0    N:  4    SX:  5    SY:  1    DX: 23    DY: 10
-# G:  3    N:  4    SX: 23    SY:  9    DX: 23    DY: 10
-# merge
-# p:  0    X:  5    Y:  2
-# p:  1    X: 23    Y: 10
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 2010200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-restart
-run -all
-# G:  0    N:  1    SX:  5    SY:  1    DX:  5    DY:  2
-# merge
-# G:  0    N:  2    SX:  5    SY:  1    DX:  5    DY:  3
-# merge
-# G:  0    N:  3    SX:  5    SY:  1    DX: 23    DY:  9
-# G:  0    N:  4    SX:  5    SY:  1    DX: 23    DY: 10
-# G:  3    N:  4    SX: 23    SY:  9    DX: 23    DY: 10
-# merge
-# p:  0    X:  5    Y:  2
-# p:  1    X: 23    Y: 10
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 2010200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# ==============================
-# G:  0    N:  1    SX:  5    SY:  1    DX:  5    DY:  2
-# merge
-# G:  0    N:  2    SX:  5    SY:  1    DX:  5    DY:  3
-# merge
-# G:  0    N:  3    SX:  5    SY:  1    DX: 23    DY:  9
-# G:  0    N:  4    SX:  5    SY:  1    DX: 23    DY: 10
-# ==============================
-# ==============================
-# ==============================
-# G:  3    N:  4    SX: 23    SY:  9    DX: 23    DY: 10
-# merge
-# ==============================
-# p:  0    X:  5    Y:  2
-# p:  1    X: 23    Y: 10
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 2010200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# ==============================
-# G:  0    N:  1    SX:  5    SY:  1    DX:  5    DY:  2
-# merge
-# G:  0    N:  2    SX:  5    SY:  1    DX:  5    DY:  3
-# merge
-# G:  0    N:  3    SX:  5    SY:  1    DX: 23    DY:  9
-# G:  0    N:  4    SX:  5    SY:  1    DX: 23    DY: 10
-# ==============================
-# G:  3    N:  4    SX: 23    SY:  9    DX: 23    DY: 10
-# merge
-# p:  0    X:  5    Y:  2
-# p:  1    X: 23    Y: 10
+# ============= result =================
 # ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
 #    Time: 2010200 ns  Iteration: 0  Instance: /T
 # Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
@@ -436,18 +23,209 @@ restart
 # Loading work.FIND_MULTI_POINTS
 run -all
 # ========== GROUP:  0 ====================
-# N:  1    SX:  5    SY:  1    DX:  5    DY:  2
+# N:  1    SX: 19    SY:  2    DX: 19    DY:  3
 # merge
-# N:  2    SX:  5    SY:  1    DX:  5    DY:  3
+# N:  2    SX: 19    SY:  2    DX: 19    DY:  4
 # merge
-# N:  3    SX:  5    SY:  1    DX: 23    DY:  9
-# N:  4    SX:  5    SY:  1    DX: 23    DY: 10
+# N:  3    SX: 19    SY:  2    DX: 17    DY:  5
+# N:  4    SX: 19    SY:  2    DX: 17    DY:  6
+# N:  5    SX: 19    SY:  2    DX: 17    DY:  7
+# N:  6    SX: 19    SY:  2    DX: 17    DY:  8
+# N:  7    SX: 19    SY:  2    DX: 17    DY:  9
+# N:  8    SX: 19    SY:  2    DX: 17    DY: 10
+# N:  9    SX: 19    SY:  2    DX: 17    DY: 11
+# N: 10    SX: 19    SY:  2    DX: 17    DY: 12
+# N: 11    SX: 19    SY:  2    DX: 17    DY: 13
+# N: 12    SX: 19    SY:  2    DX: 19    DY: 14
+# N: 13    SX: 19    SY:  2    DX: 19    DY: 15
+# N: 14    SX: 19    SY:  2    DX: 19    DY: 16
+# N: 15    SX: 19    SY:  2    DX: 19    DY: 17
 # ========== GROUP:  3 ====================
-# N:  4    SX: 23    SY:  9    DX: 23    DY: 10
+# N:  4    SX: 17    SY:  5    DX: 17    DY:  6
+# merge
+# N:  5    SX: 17    SY:  5    DX: 17    DY:  7
+# merge
+# N:  6    SX: 17    SY:  5    DX: 17    DY:  8
+# N:  7    SX: 17    SY:  5    DX: 17    DY:  9
+# N:  8    SX: 17    SY:  5    DX: 17    DY: 10
+# N:  9    SX: 17    SY:  5    DX: 17    DY: 11
+# N: 10    SX: 17    SY:  5    DX: 17    DY: 12
+# N: 11    SX: 17    SY:  5    DX: 17    DY: 13
+# N: 12    SX: 17    SY:  5    DX: 19    DY: 14
+# N: 13    SX: 17    SY:  5    DX: 19    DY: 15
+# N: 14    SX: 17    SY:  5    DX: 19    DY: 16
+# N: 15    SX: 17    SY:  5    DX: 19    DY: 17
+# ========== GROUP:  6 ====================
+# N:  7    SX: 17    SY:  8    DX: 17    DY:  9
+# merge
+# N:  8    SX: 17    SY:  8    DX: 17    DY: 10
+# merge
+# N:  9    SX: 17    SY:  8    DX: 17    DY: 11
+# N: 10    SX: 17    SY:  8    DX: 17    DY: 12
+# N: 11    SX: 17    SY:  8    DX: 17    DY: 13
+# N: 12    SX: 17    SY:  8    DX: 19    DY: 14
+# N: 13    SX: 17    SY:  8    DX: 19    DY: 15
+# N: 14    SX: 17    SY:  8    DX: 19    DY: 16
+# N: 15    SX: 17    SY:  8    DX: 19    DY: 17
+# ========== GROUP:  9 ====================
+# N: 10    SX: 17    SY: 11    DX: 17    DY: 12
+# merge
+# N: 11    SX: 17    SY: 11    DX: 17    DY: 13
+# merge
+# N: 12    SX: 17    SY: 11    DX: 19    DY: 14
+# N: 13    SX: 17    SY: 11    DX: 19    DY: 15
+# N: 14    SX: 17    SY: 11    DX: 19    DY: 16
+# N: 15    SX: 17    SY: 11    DX: 19    DY: 17
+# ========== GROUP: 12 ====================
+# N: 13    SX: 19    SY: 14    DX: 19    DY: 15
+# merge
+# N: 14    SX: 19    SY: 14    DX: 19    DY: 16
+# merge
+# N: 15    SX: 19    SY: 14    DX: 19    DY: 17
+# ========== GROUP: 15 ====================
+# ============= result =================
+# p:  0    X: 19    Y:  3
+# p:  1    X: 17    Y:  6
+# p:  2    X: 17    Y:  9
+# p:  3    X: 17    Y: 12
+# p:  4    X: 19    Y: 15
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
+#    Time: 2010200 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
+run -all
+# ========== GROUP:  0 ====================
+# N:  1    SX: 19    SY:  2    DX: 19    DY:  3
+# merge
+# N:  2    SX: 19    SY:  2    DX: 19    DY:  4
+# N:  3    SX: 19    SY:  2    DX: 17    DY:  5
+# N:  4    SX: 19    SY:  2    DX: 17    DY:  6
+# N:  5    SX: 19    SY:  2    DX: 17    DY:  7
+# N:  6    SX: 19    SY:  2    DX: 17    DY:  8
+# N:  7    SX: 19    SY:  2    DX: 17    DY:  9
+# N:  8    SX: 19    SY:  2    DX: 17    DY: 10
+# N:  9    SX: 19    SY:  2    DX: 17    DY: 11
+# N: 10    SX: 19    SY:  2    DX: 17    DY: 12
+# N: 11    SX: 19    SY:  2    DX: 17    DY: 13
+# N: 12    SX: 19    SY:  2    DX: 19    DY: 14
+# N: 13    SX: 19    SY:  2    DX: 19    DY: 15
+# N: 14    SX: 19    SY:  2    DX: 19    DY: 16
+# N: 15    SX: 19    SY:  2    DX: 19    DY: 17
+# ========== GROUP:  2 ====================
+# N:  3    SX: 19    SY:  4    DX: 17    DY:  5
+# merge
+# N:  4    SX: 19    SY:  4    DX: 17    DY:  6
+# N:  5    SX: 19    SY:  4    DX: 17    DY:  7
+# N:  6    SX: 19    SY:  4    DX: 17    DY:  8
+# N:  7    SX: 19    SY:  4    DX: 17    DY:  9
+# N:  8    SX: 19    SY:  4    DX: 17    DY: 10
+# N:  9    SX: 19    SY:  4    DX: 17    DY: 11
+# N: 10    SX: 19    SY:  4    DX: 17    DY: 12
+# N: 11    SX: 19    SY:  4    DX: 17    DY: 13
+# N: 12    SX: 19    SY:  4    DX: 19    DY: 14
+# N: 13    SX: 19    SY:  4    DX: 19    DY: 15
+# N: 14    SX: 19    SY:  4    DX: 19    DY: 16
+# N: 15    SX: 19    SY:  4    DX: 19    DY: 17
+# ========== GROUP:  4 ====================
+# N:  5    SX: 17    SY:  6    DX: 17    DY:  7
+# merge
+# N:  6    SX: 17    SY:  6    DX: 17    DY:  8
+# N:  7    SX: 17    SY:  6    DX: 17    DY:  9
+# N:  8    SX: 17    SY:  6    DX: 17    DY: 10
+# N:  9    SX: 17    SY:  6    DX: 17    DY: 11
+# N: 10    SX: 17    SY:  6    DX: 17    DY: 12
+# N: 11    SX: 17    SY:  6    DX: 17    DY: 13
+# N: 12    SX: 17    SY:  6    DX: 19    DY: 14
+# N: 13    SX: 17    SY:  6    DX: 19    DY: 15
+# N: 14    SX: 17    SY:  6    DX: 19    DY: 16
+# N: 15    SX: 17    SY:  6    DX: 19    DY: 17
+# ========== GROUP:  6 ====================
+# N:  7    SX: 17    SY:  8    DX: 17    DY:  9
+# merge
+# N:  8    SX: 17    SY:  8    DX: 17    DY: 10
+# N:  9    SX: 17    SY:  8    DX: 17    DY: 11
+# N: 10    SX: 17    SY:  8    DX: 17    DY: 12
+# N: 11    SX: 17    SY:  8    DX: 17    DY: 13
+# N: 12    SX: 17    SY:  8    DX: 19    DY: 14
+# N: 13    SX: 17    SY:  8    DX: 19    DY: 15
+# N: 14    SX: 17    SY:  8    DX: 19    DY: 16
+# N: 15    SX: 17    SY:  8    DX: 19    DY: 17
+# ========== GROUP:  8 ====================
+# N:  9    SX: 17    SY: 10    DX: 17    DY: 11
+# merge
+# N: 10    SX: 17    SY: 10    DX: 17    DY: 12
+# N: 11    SX: 17    SY: 10    DX: 17    DY: 13
+# N: 12    SX: 17    SY: 10    DX: 19    DY: 14
+# N: 13    SX: 17    SY: 10    DX: 19    DY: 15
+# N: 14    SX: 17    SY: 10    DX: 19    DY: 16
+# N: 15    SX: 17    SY: 10    DX: 19    DY: 17
+# ========== GROUP: 10 ====================
+# N: 11    SX: 17    SY: 12    DX: 17    DY: 13
+# merge
+# N: 12    SX: 17    SY: 12    DX: 19    DY: 14
+# N: 13    SX: 17    SY: 12    DX: 19    DY: 15
+# N: 14    SX: 17    SY: 12    DX: 19    DY: 16
+# N: 15    SX: 17    SY: 12    DX: 19    DY: 17
+# ========== GROUP: 12 ====================
+# N: 13    SX: 19    SY: 14    DX: 19    DY: 15
+# merge
+# N: 14    SX: 19    SY: 14    DX: 19    DY: 16
+# N: 15    SX: 19    SY: 14    DX: 19    DY: 17
+# ========== GROUP: 14 ====================
+# N: 15    SX: 19    SY: 16    DX: 19    DY: 17
 # merge
 # ============= result =================
-# p:  0    X:  5    Y:  2
-# p:  1    X: 23    Y: 10
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
+#    Time: 2010200 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
+restart
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
+run -all
+# ========== GROUP:  0 ====================
+# N:  1    SX: 19    SY:  2    DX: 19    DY:  3
+# merge
+# N:  2    SX: 19    SY:  3    DX: 19    DY:  4
+# merge
+# N:  3    SX: 19    SY:  4    DX: 17    DY:  5
+# merge
+# N:  4    SX: 19    SY:  5    DX: 17    DY:  6
+# merge
+# N:  5    SX: 19    SY:  6    DX: 17    DY:  7
+# merge
+# N:  6    SX: 19    SY:  7    DX: 17    DY:  8
+# merge
+# N:  7    SX: 19    SY:  8    DX: 17    DY:  9
+# merge
+# N:  8    SX: 19    SY:  9    DX: 17    DY: 10
+# merge
+# N:  9    SX: 19    SY: 10    DX: 17    DY: 11
+# merge
+# N: 10    SX: 19    SY: 11    DX: 17    DY: 12
+# merge
+# N: 11    SX: 19    SY: 12    DX: 17    DY: 13
+# merge
+# N: 12    SX: 19    SY: 13    DX: 19    DY: 14
+# merge
+# N: 13    SX: 19    SY: 14    DX: 19    DY: 15
+# merge
+# N: 14    SX: 19    SY: 15    DX: 19    DY: 16
+# merge
+# N: 15    SX: 19    SY: 16    DX: 19    DY: 17
+# merge
+# ============= result =================
+# p:  0    X: 17    Y: 10
 # ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
 #    Time: 2010200 ns  Iteration: 0  Instance: /T
 # Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80

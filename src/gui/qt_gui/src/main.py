@@ -41,8 +41,8 @@ class Ui(QtWidgets.QMainWindow):
         # print("timer_callback")
         self.uc.uart_ser()
         self.uc1.uart_ser()
-        strVal = "x:" + str(self.uc.point_x) + " y:" + str(self.uc.point_y)
-        strVal = "x:" + str(self.uc1.point_x) + " y:" + str(self.uc1.point_y)
+        strVal = "x:" + str(self.uc.point_x_0) + " y:" + str(self.uc.point_y_0)
+        strVal = "x:" + str(self.uc1.point_x_0) + " y:" + str(self.uc1.point_y_0)
         self.label.setText(str(strVal))
         self.label_4.setText(str(self.horizontalSlider.value()))
 
