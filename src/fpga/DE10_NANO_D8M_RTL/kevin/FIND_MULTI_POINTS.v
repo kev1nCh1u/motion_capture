@@ -35,7 +35,7 @@ reg		rBINARY_FLAG = 0;
 
 reg		[7:0] POINTS_GROUP = 0;
 reg		[7:0] POINTS_NUM = 0;
-reg		[15:0] POINTS_H_ARR[0:100][0:50]; //[POINTS_GROUP][POINTS_NUM]
+reg		[15:0] POINTS_H_ARR[0:100][0:50]; //[POINTS_GROUP][POINTS_NUM] {num,mid,min,max,...}
 reg		[15:0] POINTS_V_ARR[0:100][0:50];
 
 reg		[2:0] POINT_COUNT;
@@ -50,8 +50,17 @@ always@(posedge CLK)begin
     rBINARY_FLAG <= BINARY_FLAG;
     if (rBINARY_FLAG && !BINARY_FLAG) // lower edge, new point
     begin
-        POINTS_NUM = POINTS_NUM / 2; // median num
-        POINTS_H_ARR[POINTS_GROUP][0] = POINTS_H_ARR[POINTS_GROUP][POINTS_NUM]; // median point
+        POINTS_H_ARR[POINTS_GROUP][0] = POINTS_NUM + 4; // save POINTS_NUM
+        POINTS_V_ARR[POINTS_GROUP][0] = POINTS_NUM + 4; // save POINTS_NUM
+
+        POINTS_H_ARR[POINTS_GROUP][1] = POINTS_H_ARR[POINTS_GROUP][(POINTS_NUM >> 1) + 4]; // save MID
+        POINTS_V_ARR[POINTS_GROUP][1] = POINTS_V_ARR[POINTS_GROUP][(POINTS_NUM >> 1) + 4]; // save MID
+
+        POINTS_H_ARR[POINTS_GROUP][2] = POINTS_H_ARR[POINTS_GROUP][4]; // save MIN
+        POINTS_V_ARR[POINTS_GROUP][2] = POINTS_V_ARR[POINTS_GROUP][4]; // save MIN
+
+        POINTS_H_ARR[POINTS_GROUP][3] = POINTS_H_ARR[POINTS_GROUP][POINTS_NUM + 4]; // save MAX
+        POINTS_V_ARR[POINTS_GROUP][3] = POINTS_V_ARR[POINTS_GROUP][POINTS_NUM + 4]; // save MAX
 
         POINTS_GROUP = POINTS_GROUP + 1;
         POINTS_NUM = 0;
@@ -60,8 +69,8 @@ always@(posedge CLK)begin
     // ================== find point ==========================
     if (BINARY_FLAG == 1) // find point
     begin
-        POINTS_H_ARR[POINTS_GROUP][POINTS_NUM] = H_CNT; // save h
-        POINTS_V_ARR[POINTS_GROUP][POINTS_NUM] = V_CNT; // save v
+        POINTS_H_ARR[POINTS_GROUP][POINTS_NUM + 4] = H_CNT; // save h
+        POINTS_V_ARR[POINTS_GROUP][POINTS_NUM + 4] = V_CNT; // save v
 
         POINTS_NUM = POINTS_NUM + 1;
     end
@@ -91,19 +100,19 @@ always@(posedge CLK)begin
                     if(POINTS_H_ARR[j][0] != ~16'd0) // have value
                     begin
                         $display("N:%3d    SX:%3d    SY:%3d    DX:%3d    DY:%3d",
-                         j, POINTS_H_ARR[i][0], POINTS_V_ARR[i][0], POINTS_H_ARR[j][0], POINTS_V_ARR[j][0]);
-                        BUFF = POINTS_H_ARR[i][0] - POINTS_H_ARR[j][0]; // find two point distance
+                         j, POINTS_H_ARR[i][1], POINTS_V_ARR[i][1], POINTS_H_ARR[j][1], POINTS_V_ARR[j][1]);
+                        BUFF = POINTS_H_ARR[i][1] - POINTS_H_ARR[j][1]; // find two point distance
                         if(BUFF[15]) // if negative
                             BUFF = ~BUFF[15:0]+1; // abs
-                        if(BUFF <= 20 && ((POINTS_V_ARR[j][0]-POINTS_V_ARR[i][0]) <= 1)) // close enough
+                        if(BUFF <= 20 && ((POINTS_V_ARR[j][1]-POINTS_V_ARR[i][1]) <= 1)) // close enough
                         begin
                             $display("merge");
-                            POINT_H[POINT_COUNT] = POINT_H[POINT_COUNT] + POINTS_H_ARR[j][0]; // sum H
-                            POINT_V[POINT_COUNT] = POINT_V[POINT_COUNT] + POINTS_V_ARR[j][0]; // sum V
+                            POINT_H[POINT_COUNT] = POINT_H[POINT_COUNT] + POINTS_H_ARR[j][1]; // sum H
+                            POINT_V[POINT_COUNT] = POINT_V[POINT_COUNT] + POINTS_V_ARR[j][1]; // sum V
                             POINTS_H_ARR[j][0] = -1; // clean H
                             POINTS_H_ARR[j][0] = -1; // clean V
                             POINTS_NUM = POINTS_NUM + 1; // count sum
-                            POINTS_V_ARR[i][0] = POINTS_V_ARR[j][0]; // inherit V
+                            POINTS_V_ARR[i][1] = POINTS_V_ARR[j][1]; // inherit V
                         end
                     end
                 end
