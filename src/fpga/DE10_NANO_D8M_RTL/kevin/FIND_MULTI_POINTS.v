@@ -1,3 +1,9 @@
+/**************************************************************************************************
+* FIND_MULTI_POINTS 
+* search merge
+***************************************************************************************************/
+
+
 module FIND_MULTI_POINTS (
                    input        	CLK,
                    input            VGA_HS,
@@ -27,24 +33,20 @@ reg     rVGA_HS = 0;
 reg		rVGA_VS = 0;
 reg		rBINARY_FLAG = 0;
 
-reg		[3:0] POINTS_GROUP = 0;
-reg		[3:0] POINTS_NUM = 0;
+reg		[7:0] POINTS_GROUP = 0;
+reg		[7:0] POINTS_NUM = 0;
 reg		[15:0] POINTS_H_ARR[0:100][0:50]; //[POINTS_GROUP][POINTS_NUM]
 reg		[15:0] POINTS_V_ARR[0:100][0:50];
 
 reg		[2:0] POINT_COUNT;
-reg		[15:0] POINT_H[0:3]; //[POINT_COUNT]
-reg		[15:0] POINT_V[0:3];
+reg		[15:0] POINT_H[0:2]; //[POINT_COUNT]
+reg		[15:0] POINT_V[0:2];
 
 reg		[15:0] BUFF;
 
 //---kevin find multi points ----
 always@(posedge CLK)begin
-    // ===========================================
-    // if(POINTS_NUM == 0)
-    //     POINTS_NUM = 1;
-
-    // ==============================================
+    // ================= new point =============================
     rBINARY_FLAG <= BINARY_FLAG;
     if (rBINARY_FLAG && !BINARY_FLAG) // lower edge, new point
     begin
@@ -55,7 +57,7 @@ always@(posedge CLK)begin
         POINTS_NUM = 0;
     end
 
-    // ============================================
+    // ================== find point ==========================
     if (BINARY_FLAG == 1) // find point
     begin
         POINTS_H_ARR[POINTS_GROUP][POINTS_NUM] = H_CNT; // save h
@@ -64,14 +66,14 @@ always@(posedge CLK)begin
         POINTS_NUM = POINTS_NUM + 1;
     end
     
-    // =============================================
+    // ================= new line ============================
     rVGA_HS <= VGA_HS;
     if (rVGA_HS && !VGA_HS) // lower edge, new line
     begin
 
     end
     
-    // =============================================
+    // ================== new frame ===========================
     rVGA_VS <= VGA_VS;
     if (rVGA_VS && !VGA_VS) // lower edge, new frame
     begin
@@ -93,7 +95,7 @@ always@(posedge CLK)begin
                         BUFF = POINTS_H_ARR[i][0] - POINTS_H_ARR[j][0]; // find two point distance
                         if(BUFF[15]) // if negative
                             BUFF = ~BUFF[15:0]+1; // abs
-                        if(BUFF <= 2 && ((POINTS_V_ARR[j][0]-POINTS_V_ARR[i][0]) <= 2)) // close enough
+                        if(BUFF <= 20 && ((POINTS_V_ARR[j][0]-POINTS_V_ARR[i][0]) <= 1)) // close enough
                         begin
                             $display("merge");
                             POINT_H[POINT_COUNT] = POINT_H[POINT_COUNT] + POINTS_H_ARR[j][0]; // sum H
@@ -101,6 +103,7 @@ always@(posedge CLK)begin
                             POINTS_H_ARR[j][0] = -1; // clean H
                             POINTS_H_ARR[j][0] = -1; // clean V
                             POINTS_NUM = POINTS_NUM + 1; // count sum
+                            POINTS_V_ARR[i][0] = POINTS_V_ARR[j][0]; // inherit V
                         end
                     end
                 end
