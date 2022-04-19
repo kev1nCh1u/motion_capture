@@ -33,20 +33,23 @@ reg     rVGA_HS = 0;
 reg		rVGA_VS = 0;
 reg		rBINARY_FLAG = 0;
 
-reg		[6:0] POINTS_LIST = 0;
-reg		[6:0] POINTS_NUM = 0;
-reg     [3:0] POINTS_DATA = 5;
-reg		[15:0] POINTS_H_ARR[0:100][0:50]; //[POINTS_LIST][POINTS_NUM] {num,mid,min,max,group,...}
-reg		[15:0] POINTS_V_ARR[0:100][0:50];
+reg		[7:0] POINTS_LIST = 0;
+reg		[7:0] POINTS_NUM = 0;
+reg     [3:0] POINTS_DATA = 5; // define const data
+// reg		[9:0] POINTS_H_ARR[0:100][0:30]; //[POINTS_LIST][POINTS_NUM] {num,mid,min,max,group,...}
+// reg		[9:0] POINTS_V_ARR[0:100][0:30];
 
-reg		[2:0] POINT_COUNT = 0;
-reg		[15:0] POINT_H[0:3]; //[POINT_COUNT]
-reg		[15:0] POINT_V[0:3];
-reg		[2:0] POINT_GROUP = 0;
+reg		[9:0] POINTS_H_IN[0:30]; //{num,mid,min,max,group,...}
+reg		[9:0] POINTS_V_IN[0:30];
+
+reg		[1:0] POINT_GROUP = 0;
+reg		[9:0] POINT_RANGE[0:3][0:2]; // {h_min, h_max, v}
+reg		[15:0] POINT_H[0:3]; //[POINT_GROUP]
+reg		[15:0] POINT_V[0:3]; //[POINT_GROUP]
 reg		[7:0] POINT_GROUP_NUM[0:3];
-reg		[15:0] POINT_RANGE[0:3][0:2]; // {h_min, h_max, v}
+reg     LINK_FLAG;
 
-reg		[15:0] BUFF;
+// reg		[15:0] BUFF;
 
 //---kevin find multi points ----
 always@(posedge CLK)begin
@@ -54,47 +57,86 @@ always@(posedge CLK)begin
     rBINARY_FLAG <= BINARY_FLAG;
     if (rBINARY_FLAG && !BINARY_FLAG) // lower edge, new point
     begin
-        POINTS_H_ARR[POINTS_LIST][0] = POINTS_NUM+ POINTS_DATA; // save POINTS_NUM
-        POINTS_V_ARR[POINTS_LIST][0] = POINTS_NUM+ POINTS_DATA; // save POINTS_NUM
+        ///////////////////////// arr save point
+        // POINTS_H_ARR[POINTS_LIST][0] = POINTS_NUM+ POINTS_DATA; // save POINTS_NUM
+        // POINTS_V_ARR[POINTS_LIST][0] = POINTS_NUM+ POINTS_DATA; // save POINTS_NUM
 
-        POINTS_H_ARR[POINTS_LIST][1] = POINTS_H_ARR[POINTS_LIST][(POINTS_NUM >> 1)+ POINTS_DATA]; // save MID
-        POINTS_V_ARR[POINTS_LIST][1] = POINTS_V_ARR[POINTS_LIST][(POINTS_NUM >> 1)+ POINTS_DATA]; // save MID
+        // POINTS_H_ARR[POINTS_LIST][1] = POINTS_H_ARR[POINTS_LIST][(POINTS_NUM >> 1)+ POINTS_DATA]; // save MID
+        // POINTS_V_ARR[POINTS_LIST][1] = POINTS_V_ARR[POINTS_LIST][(POINTS_NUM >> 1)+ POINTS_DATA]; // save MID
 
-        POINTS_H_ARR[POINTS_LIST][2] = POINTS_H_ARR[POINTS_LIST][POINTS_DATA]; // save MIN
-        POINTS_V_ARR[POINTS_LIST][2] = POINTS_V_ARR[POINTS_LIST][POINTS_DATA]; // save MIN
+        // POINTS_H_ARR[POINTS_LIST][2] = POINTS_H_ARR[POINTS_LIST][POINTS_DATA]; // save MIN
+        // POINTS_V_ARR[POINTS_LIST][2] = POINTS_V_ARR[POINTS_LIST][POINTS_DATA]; // save MIN
 
-        POINTS_H_ARR[POINTS_LIST][3] = POINTS_H_ARR[POINTS_LIST][POINTS_NUM + POINTS_DATA - 1]; // save MAX
-        POINTS_V_ARR[POINTS_LIST][3] = POINTS_V_ARR[POINTS_LIST][POINTS_NUM + POINTS_DATA - 1]; // save MAX
-        
-        // find group
-        $display("================= new_point ====================");
-        for(i=0; i<=POINT_GROUP; i=i+1)
+        // POINTS_H_ARR[POINTS_LIST][3] = POINTS_H_ARR[POINTS_LIST][POINTS_NUM + POINTS_DATA - 1]; // save MAX
+        // POINTS_V_ARR[POINTS_LIST][3] = POINTS_V_ARR[POINTS_LIST][POINTS_NUM + POINTS_DATA - 1]; // save MAX
+
+        ///////////////////////// single save point
+        POINTS_H_IN[0] = POINTS_NUM+ POINTS_DATA; // save POINTS_NUM
+        POINTS_V_IN[0] = POINTS_NUM+ POINTS_DATA; // save POINTS_NUM
+
+        POINTS_H_IN[1] = POINTS_H_IN[(POINTS_NUM >> 1)+ POINTS_DATA]; // save MID
+        POINTS_V_IN[1] = POINTS_V_IN[(POINTS_NUM >> 1)+ POINTS_DATA]; // save MID
+
+        POINTS_H_IN[2] = POINTS_H_IN[POINTS_DATA]; // save MIN
+        POINTS_V_IN[2] = POINTS_V_IN[POINTS_DATA]; // save MIN
+
+        POINTS_H_IN[3] = POINTS_H_IN[POINTS_NUM + POINTS_DATA - 1]; // save MAX
+        POINTS_V_IN[3] = POINTS_V_IN[POINTS_NUM + POINTS_DATA - 1]; // save MAX
+
+        //////////////////////// find group
+        // $display("================= new_point ====================");
+        LINK_FLAG = 0;
+        for(i=0; i<=3; i=i+1)
         begin
-            $display("i:%3d  h_min:%3d  h_max:%3d  h_point:%3d  v:%3d  v_point:%3d ", 
-            i, POINT_RANGE[i][0], POINT_RANGE[i][1], POINTS_H_ARR[POINTS_LIST][1], POINT_RANGE[i][2], POINTS_V_ARR[POINTS_LIST][1]);
-            if((POINTS_H_ARR[POINTS_LIST][1] > POINT_RANGE[i][0] // in h min
-            && POINTS_H_ARR[POINTS_LIST][1] < POINT_RANGE[i][1] // in h max
-            && (POINTS_V_ARR[POINTS_LIST][1] - POINT_RANGE[i][2]) <= 1) // in v
-            || i == POINT_GROUP )
-            begin // in range
-                POINTS_H_ARR[POINTS_LIST][4] = i;
-                POINTS_V_ARR[POINTS_LIST][4] = i;
+            if(!LINK_FLAG)
+            begin
+                // $display("i:%3d  h_min:%3d  h_max:%3d  h_point:%3d  v:%3d  v_point:%3d ", 
+                // i, POINT_RANGE[i][0], POINT_RANGE[i][1], POINTS_H_ARR[POINTS_LIST][1], POINT_RANGE[i][2], POINTS_V_ARR[POINTS_LIST][1]);
+                
+                // if((POINTS_H_ARR[POINTS_LIST][1] > POINT_RANGE[i][0] // in h min
+                // && POINTS_H_ARR[POINTS_LIST][1] < POINT_RANGE[i][1] // in h max
+                // && (POINTS_V_ARR[POINTS_LIST][1] - POINT_RANGE[i][2]) <= 1) // in v
+                // || i == POINT_GROUP )
+                if((POINTS_H_IN[1] > POINT_RANGE[i][0] // in h min
+                && POINTS_H_IN[1] < POINT_RANGE[i][1] // in h max
+                && (POINTS_V_IN[1] - POINT_RANGE[i][2]) <= 1) // in v
+                || i == POINT_GROUP )
+                begin // in range
 
-                POINT_RANGE[i][0] = POINTS_H_ARR[POINTS_LIST][2]; // inherit h min
-                POINT_RANGE[i][1] = POINTS_H_ARR[POINTS_LIST][3]; // inherit h max
-                POINT_RANGE[i][2] = POINTS_V_ARR[POINTS_LIST][1]; // inherit v mid
+                    $display("link list:%d to group:%d", POINTS_LIST, i);
+                    if(i == POINT_GROUP)
+                    begin
+                        $display("new_group:%d POINT_GROUP:%d ", i, POINT_GROUP);
+                        POINT_GROUP = POINT_GROUP + 1;
+                    end
+                    
+                    /////////// arr point
+                    // POINTS_H_ARR[POINTS_LIST][4] = i;
+                    // POINTS_V_ARR[POINTS_LIST][4] = i;
 
-                POINT_H[POINTS_H_ARR[i][4]] = POINT_H[POINTS_H_ARR[i][4]] + POINTS_H_ARR[POINTS_LIST][1]; // h mid sum
-                POINT_V[POINTS_V_ARR[i][4]] = POINT_V[POINTS_V_ARR[i][4]] + POINTS_V_ARR[POINTS_LIST][1]; // v mid sum
-                POINT_GROUP_NUM[POINTS_H_ARR[i][4]] = POINT_GROUP_NUM[POINTS_H_ARR[i][4]] + 1; // count point group
+                    // POINT_RANGE[i][0] = POINTS_H_ARR[POINTS_LIST][2]; // inherit h min
+                    // POINT_RANGE[i][1] = POINTS_H_ARR[POINTS_LIST][3]; // inherit h max
+                    // POINT_RANGE[i][2] = POINTS_V_ARR[POINTS_LIST][1]; // inherit v mid
 
-                $display("link list:%d to group:%d", POINTS_LIST, i);
-                if(i == POINT_GROUP)
-                begin
-                    $display("new_group:%d POINT_GROUP:%d ", i, POINT_GROUP);
-                    POINT_GROUP = POINT_GROUP + 1;
+                    // POINT_H[POINTS_H_ARR[i][4]] = POINT_H[POINTS_H_ARR[i][4]] + POINTS_H_ARR[POINTS_LIST][1]; // h mid sum
+                    // POINT_V[POINTS_V_ARR[i][4]] = POINT_V[POINTS_V_ARR[i][4]] + POINTS_V_ARR[POINTS_LIST][1]; // v mid sum
+                    // POINT_GROUP_NUM[POINTS_H_ARR[i][4]] = POINT_GROUP_NUM[POINTS_H_ARR[i][4]] + 1; // count point group
+
+                    ///////////// single point
+                    POINTS_H_IN[4] = i;
+                    POINTS_V_IN[4] = i;
+
+                    POINT_RANGE[i][0] = POINTS_H_IN[2]; // inherit h min
+                    POINT_RANGE[i][1] = POINTS_H_IN[3]; // inherit h max
+                    POINT_RANGE[i][2] = POINTS_V_IN[1]; // inherit v mid
+
+                    POINT_H[POINTS_H_IN[4]] = POINT_H[POINTS_H_IN[4]] + POINTS_H_IN[1]; // h mid sum
+                    POINT_V[POINTS_V_IN[4]] = POINT_V[POINTS_V_IN[4]] + POINTS_V_IN[1]; // v mid sum
+                    POINT_GROUP_NUM[POINTS_H_IN[4]] = POINT_GROUP_NUM[POINTS_H_IN[4]] + 1; // count point group
+
+
+                    LINK_FLAG = 1; 
                 end
-                i = POINT_GROUP+1;  
             end
         end
 
@@ -105,25 +147,29 @@ always@(posedge CLK)begin
     // ================== find point ==========================
     if (BINARY_FLAG == 1) // find point
     begin
-        POINTS_H_ARR[POINTS_LIST][POINTS_NUM+ POINTS_DATA] = H_CNT; // save h
-        POINTS_V_ARR[POINTS_LIST][POINTS_NUM+ POINTS_DATA] = V_CNT; // save v
+        // POINTS_H_ARR[POINTS_LIST][POINTS_NUM+ POINTS_DATA] = H_CNT; // save h
+        // POINTS_V_ARR[POINTS_LIST][POINTS_NUM+ POINTS_DATA] = V_CNT; // save v
+
+        POINTS_H_IN[POINTS_NUM + POINTS_DATA] = H_CNT; // save h
+        POINTS_V_IN[POINTS_NUM + POINTS_DATA] = V_CNT; // save v
 
         POINTS_NUM = POINTS_NUM + 1;
     end
     
     // ================= new line ============================
-    rVGA_HS <= VGA_HS;
-    if (rVGA_HS && !VGA_HS) // lower edge, new line
-    begin
+    // rVGA_HS <= VGA_HS;
+    // if (rVGA_HS && !VGA_HS) // lower edge, new line
+    // begin
 
-    end
+    // end
     
     // ================== new frame ===========================
     rVGA_VS <= VGA_VS;
     if (!rVGA_VS && VGA_VS) // upper edge, new frame
     begin
+        $display("================== new frame ===========================");
         // reset
-        POINT_COUNT = 0;
+        POINT_GROUP = 0;
         for(i=0; i<=3; i=i+1)
         begin
             POINT_H[i] = 0;
@@ -137,7 +183,7 @@ always@(posedge CLK)begin
     if (rVGA_VS && !VGA_VS) // lower edge, new frame
     begin
         // reset
-        // POINT_COUNT = 0;
+        // POINT_GROUP = 0;
         // for(i=0; i<=3; i=i+1)
         // begin
         //     POINT_H[i] = 0;
@@ -164,8 +210,8 @@ always@(posedge CLK)begin
         //                 if(BUFF <= 20 && ((POINTS_V_ARR[j][1]-POINTS_V_ARR[i][1]) <= 1)) // close enough
         //                 begin
         //                     $display("merge");
-        //                     POINT_H[POINT_COUNT] = POINT_H[POINT_COUNT] + POINTS_H_ARR[j][1]; // sum H
-        //                     POINT_V[POINT_COUNT] = POINT_V[POINT_COUNT] + POINTS_V_ARR[j][1]; // sum V
+        //                     POINT_H[POINT_GROUP] = POINT_H[POINT_GROUP] + POINTS_H_ARR[j][1]; // sum H
+        //                     POINT_V[POINT_GROUP] = POINT_V[POINT_GROUP] + POINTS_V_ARR[j][1]; // sum V
         //                     POINTS_H_ARR[j][0] = -1; // clean H
         //                     POINTS_H_ARR[j][0] = -1; // clean V
         //                     POINTS_NUM = POINTS_NUM + 1; // count sum
@@ -176,26 +222,22 @@ always@(posedge CLK)begin
 
         //         if(POINTS_NUM > 0) // more than one point
         //         begin
-        //             POINT_H[POINT_COUNT] = POINT_H[POINT_COUNT] / POINTS_NUM; // average H
-        //             POINT_V[POINT_COUNT] = POINT_V[POINT_COUNT] / POINTS_NUM; // average V
-        //             POINT_COUNT = POINT_COUNT + 1; // count point
+        //             POINT_H[POINT_GROUP] = POINT_H[POINT_GROUP] / POINTS_NUM; // average H
+        //             POINT_V[POINT_GROUP] = POINT_V[POINT_GROUP] / POINTS_NUM; // average V
+        //             POINT_GROUP = POINT_GROUP + 1; // count point
         //         end
         //     end
 
         // end
 
-        // link
-        $display("POINT_GROUP: %d", POINT_GROUP);
+        // link output
+        $display("============= result =================");
         for(i=0; i<POINT_GROUP; i=i+1)
         begin
             POINT_H[i] = POINT_H[i] / POINT_GROUP_NUM[i]; // average H
             POINT_V[i] = POINT_V[i] / POINT_GROUP_NUM[i]; // average V
         end
-        POINT_COUNT = POINT_GROUP;
-
-        // output
-        $display("============= result =================");
-        for(i=0; i<POINT_COUNT; i=i+1)
+        for(i=0; i<=3; i=i+1)
         begin
             $display("p:%3d    X:%3d    Y:%3d", i, POINT_H[i], POINT_V[i]);
         end

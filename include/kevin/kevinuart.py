@@ -19,14 +19,14 @@ class UartControl():
         self.point_x_bytes_3 = b''
         self.point_y_bytes_3 = b''
 
-        self.point_x_0 = 0
-        self.point_y_0 = 0
-        self.point_x_1 = 0
-        self.point_y_1 = 0
-        self.point_x_2 = 0
-        self.point_y_2 = 0
-        self.point_x_3 = 0
-        self.point_y_3 = 0
+        self.point_x_0 = -1
+        self.point_y_0 = -1
+        self.point_x_1 = -1
+        self.point_y_1 = -1
+        self.point_x_2 = -1
+        self.point_y_2 = -1
+        self.point_x_3 = -1
+        self.point_y_3 = -1
         
         COM_PORT = port
         BAUD_RATES = rate
