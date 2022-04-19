@@ -19,7 +19,7 @@ module T;
     wire [15:0] POINTS_H_3;
     wire [15:0] POINTS_V_3;
 
-    wire [15:0] POINTS_GROUP;
+    wire [15:0] POINTS_LIST;
     wire [15:0] POINTS_NUM;
     wire [15:0] test;
 
@@ -42,7 +42,7 @@ module T;
         .o_POINTS_V_2     (POINTS_V_2),
         .o_POINTS_H_3     (POINTS_H_3),
         .o_POINTS_V_3     (POINTS_V_3),
-        .o_POINTS_GROUP   (POINTS_GROUP),
+        .o_POINTS_LIST    (POINTS_LIST),
         .o_POINTS_NUM     (POINTS_NUM),
         .test           (test)
     );
@@ -53,6 +53,32 @@ module T;
 
         $readmemb("BINARY_FRAME_DATA.txt", BINARY_FRAME);
 
+        ///////////////////// a frame
+        VGA_HS = 0;
+        VGA_VS = 0;
+        #100;
+
+        VGA_VS = 1;
+        for(i=0; i<100; i=i+1) // y
+        begin
+            VGA_HS = 1;
+            V_CNT = i;
+            for(j=0; j<200; j=j+1) // x
+            begin
+                H_CNT = j;
+                BINARY_FLAG = BINARY_FRAME[i][j];
+                #100;
+            end
+            VGA_HS = 0;
+            BINARY_FLAG = 0;
+            #100;
+        end
+
+        VGA_HS = 0;
+        VGA_VS = 0;
+        #100;
+
+        ////////////////////// a frame
         VGA_HS = 0;
         VGA_VS = 0;
         #100;

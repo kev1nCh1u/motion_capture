@@ -19,25 +19,25 @@ always @(posedge TX_DONE) begin
     DATA[0] = 8'h53; //S
     DATA[1] = 8'h54; //T
     
-    DATA[2] = POINTS_H_0[15:8];   // point_x H
-    DATA[3] = POINTS_H_0[7:0];    // point_x L
-    DATA[4] = POINTS_V_0[15:8];   // point_y H
-    DATA[5] = POINTS_V_0[7:0];    // point_y L
+    DATA[2] = POINTS_H_0[15:8];   // point_x H 0
+    DATA[3] = POINTS_H_0[7:0];    // point_x L 0
+    DATA[4] = POINTS_V_0[15:8];   // point_y H 0
+    DATA[5] = POINTS_V_0[7:0];    // point_y L 0
 
-    DATA[6] = POINTS_H_0[15:8];   // point_x H
-    DATA[7] = POINTS_H_0[7:0];    // point_x L
-    DATA[8] = POINTS_V_0[15:8];   // point_y H
-    DATA[9] = POINTS_V_0[7:0];    // point_y L
+    DATA[6] = POINTS_H_1[15:8];   // point_x H 1
+    DATA[7] = POINTS_H_1[7:0];    // point_x L 1
+    DATA[8] = POINTS_V_1[15:8];   // point_y H 1
+    DATA[9] = POINTS_V_1[7:0];    // point_y L 1
 
-    DATA[10] = POINTS_H_0[15:8];   // point_x H
-    DATA[11] = POINTS_H_0[7:0];    // point_x L
-    DATA[12] = POINTS_V_0[15:8];   // point_y H
-    DATA[13] = POINTS_V_0[7:0];    // point_y L
+    DATA[10] = POINTS_H_2[15:8];   // point_x H 2
+    DATA[11] = POINTS_H_2[7:0];    // point_x L 2
+    DATA[12] = POINTS_V_2[15:8];   // point_y H 2
+    DATA[13] = POINTS_V_2[7:0];    // point_y L 2
 
-    DATA[14] = POINTS_H_0[15:8];   // point_x H
-    DATA[15] = POINTS_H_0[7:0];    // point_x L
-    DATA[16] = POINTS_V_0[15:8];   // point_y H
-    DATA[17] = POINTS_V_0[7:0];    // point_y L
+    DATA[14] = POINTS_H_3[15:8];   // point_x H 3
+    DATA[15] = POINTS_H_3[7:0];    // point_x L 3
+    DATA[16] = POINTS_V_3[15:8];   // point_y H 3
+    DATA[17] = POINTS_V_3[7:0];    // point_y L 3
     
     DATA[18] = 8'h45; //E
     DATA[19] = 8'h4E; //N

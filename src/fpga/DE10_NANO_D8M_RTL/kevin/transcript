@@ -1,199 +1,28 @@
 # Loading project motion_capture_kevin
+vsim work.T
+# vsim work.T 
+# Start time: 10:55:24 on Apr 19,2022
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
+# ** Error: (vsim-3043) Unresolved reference to 'break'.
+#    Time: 0 ns  Iteration: 0  Instance: /T/UUT File: /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/FIND_MULTI_POINTS.v Line: 82
+# Error loading design
+# End time: 10:55:24 on Apr 19,2022, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 1
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
 # Compile of FIND_MULTI_POINTS.v was successful.
 # Compile of T_FIND_MULTI_POINTS.v was successful.
 # 2 compiles, 0 failed with no errors.
 vsim work.T
 # vsim work.T 
-# Start time: 09:43:25 on Apr 18,2022
+# Start time: 10:58:24 on Apr 19,2022
 # Loading work.T
 # Loading work.FIND_MULTI_POINTS
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+run
 run -all
-# ============= result =================
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 2010200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# ========== GROUP:  0 ====================
-# N:  1    SX: 19    SY:  2    DX: 19    DY:  3
-# merge
-# N:  2    SX: 19    SY:  2    DX: 19    DY:  4
-# merge
-# N:  3    SX: 19    SY:  2    DX: 17    DY:  5
-# N:  4    SX: 19    SY:  2    DX: 17    DY:  6
-# N:  5    SX: 19    SY:  2    DX: 17    DY:  7
-# N:  6    SX: 19    SY:  2    DX: 17    DY:  8
-# N:  7    SX: 19    SY:  2    DX: 17    DY:  9
-# N:  8    SX: 19    SY:  2    DX: 17    DY: 10
-# N:  9    SX: 19    SY:  2    DX: 17    DY: 11
-# N: 10    SX: 19    SY:  2    DX: 17    DY: 12
-# N: 11    SX: 19    SY:  2    DX: 17    DY: 13
-# N: 12    SX: 19    SY:  2    DX: 19    DY: 14
-# N: 13    SX: 19    SY:  2    DX: 19    DY: 15
-# N: 14    SX: 19    SY:  2    DX: 19    DY: 16
-# N: 15    SX: 19    SY:  2    DX: 19    DY: 17
-# ========== GROUP:  3 ====================
-# N:  4    SX: 17    SY:  5    DX: 17    DY:  6
-# merge
-# N:  5    SX: 17    SY:  5    DX: 17    DY:  7
-# merge
-# N:  6    SX: 17    SY:  5    DX: 17    DY:  8
-# N:  7    SX: 17    SY:  5    DX: 17    DY:  9
-# N:  8    SX: 17    SY:  5    DX: 17    DY: 10
-# N:  9    SX: 17    SY:  5    DX: 17    DY: 11
-# N: 10    SX: 17    SY:  5    DX: 17    DY: 12
-# N: 11    SX: 17    SY:  5    DX: 17    DY: 13
-# N: 12    SX: 17    SY:  5    DX: 19    DY: 14
-# N: 13    SX: 17    SY:  5    DX: 19    DY: 15
-# N: 14    SX: 17    SY:  5    DX: 19    DY: 16
-# N: 15    SX: 17    SY:  5    DX: 19    DY: 17
-# ========== GROUP:  6 ====================
-# N:  7    SX: 17    SY:  8    DX: 17    DY:  9
-# merge
-# N:  8    SX: 17    SY:  8    DX: 17    DY: 10
-# merge
-# N:  9    SX: 17    SY:  8    DX: 17    DY: 11
-# N: 10    SX: 17    SY:  8    DX: 17    DY: 12
-# N: 11    SX: 17    SY:  8    DX: 17    DY: 13
-# N: 12    SX: 17    SY:  8    DX: 19    DY: 14
-# N: 13    SX: 17    SY:  8    DX: 19    DY: 15
-# N: 14    SX: 17    SY:  8    DX: 19    DY: 16
-# N: 15    SX: 17    SY:  8    DX: 19    DY: 17
-# ========== GROUP:  9 ====================
-# N: 10    SX: 17    SY: 11    DX: 17    DY: 12
-# merge
-# N: 11    SX: 17    SY: 11    DX: 17    DY: 13
-# merge
-# N: 12    SX: 17    SY: 11    DX: 19    DY: 14
-# N: 13    SX: 17    SY: 11    DX: 19    DY: 15
-# N: 14    SX: 17    SY: 11    DX: 19    DY: 16
-# N: 15    SX: 17    SY: 11    DX: 19    DY: 17
-# ========== GROUP: 12 ====================
-# N: 13    SX: 19    SY: 14    DX: 19    DY: 15
-# merge
-# N: 14    SX: 19    SY: 14    DX: 19    DY: 16
-# merge
-# N: 15    SX: 19    SY: 14    DX: 19    DY: 17
-# ========== GROUP: 15 ====================
-# ============= result =================
-# p:  0    X: 19    Y:  3
-# p:  1    X: 17    Y:  6
-# p:  2    X: 17    Y:  9
-# p:  3    X: 17    Y: 12
-# p:  4    X: 19    Y: 15
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 2010200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# ========== GROUP:  0 ====================
-# N:  1    SX: 19    SY:  2    DX: 19    DY:  3
-# merge
-# N:  2    SX: 19    SY:  2    DX: 19    DY:  4
-# N:  3    SX: 19    SY:  2    DX: 17    DY:  5
-# N:  4    SX: 19    SY:  2    DX: 17    DY:  6
-# N:  5    SX: 19    SY:  2    DX: 17    DY:  7
-# N:  6    SX: 19    SY:  2    DX: 17    DY:  8
-# N:  7    SX: 19    SY:  2    DX: 17    DY:  9
-# N:  8    SX: 19    SY:  2    DX: 17    DY: 10
-# N:  9    SX: 19    SY:  2    DX: 17    DY: 11
-# N: 10    SX: 19    SY:  2    DX: 17    DY: 12
-# N: 11    SX: 19    SY:  2    DX: 17    DY: 13
-# N: 12    SX: 19    SY:  2    DX: 19    DY: 14
-# N: 13    SX: 19    SY:  2    DX: 19    DY: 15
-# N: 14    SX: 19    SY:  2    DX: 19    DY: 16
-# N: 15    SX: 19    SY:  2    DX: 19    DY: 17
-# ========== GROUP:  2 ====================
-# N:  3    SX: 19    SY:  4    DX: 17    DY:  5
-# merge
-# N:  4    SX: 19    SY:  4    DX: 17    DY:  6
-# N:  5    SX: 19    SY:  4    DX: 17    DY:  7
-# N:  6    SX: 19    SY:  4    DX: 17    DY:  8
-# N:  7    SX: 19    SY:  4    DX: 17    DY:  9
-# N:  8    SX: 19    SY:  4    DX: 17    DY: 10
-# N:  9    SX: 19    SY:  4    DX: 17    DY: 11
-# N: 10    SX: 19    SY:  4    DX: 17    DY: 12
-# N: 11    SX: 19    SY:  4    DX: 17    DY: 13
-# N: 12    SX: 19    SY:  4    DX: 19    DY: 14
-# N: 13    SX: 19    SY:  4    DX: 19    DY: 15
-# N: 14    SX: 19    SY:  4    DX: 19    DY: 16
-# N: 15    SX: 19    SY:  4    DX: 19    DY: 17
-# ========== GROUP:  4 ====================
-# N:  5    SX: 17    SY:  6    DX: 17    DY:  7
-# merge
-# N:  6    SX: 17    SY:  6    DX: 17    DY:  8
-# N:  7    SX: 17    SY:  6    DX: 17    DY:  9
-# N:  8    SX: 17    SY:  6    DX: 17    DY: 10
-# N:  9    SX: 17    SY:  6    DX: 17    DY: 11
-# N: 10    SX: 17    SY:  6    DX: 17    DY: 12
-# N: 11    SX: 17    SY:  6    DX: 17    DY: 13
-# N: 12    SX: 17    SY:  6    DX: 19    DY: 14
-# N: 13    SX: 17    SY:  6    DX: 19    DY: 15
-# N: 14    SX: 17    SY:  6    DX: 19    DY: 16
-# N: 15    SX: 17    SY:  6    DX: 19    DY: 17
-# ========== GROUP:  6 ====================
-# N:  7    SX: 17    SY:  8    DX: 17    DY:  9
-# merge
-# N:  8    SX: 17    SY:  8    DX: 17    DY: 10
-# N:  9    SX: 17    SY:  8    DX: 17    DY: 11
-# N: 10    SX: 17    SY:  8    DX: 17    DY: 12
-# N: 11    SX: 17    SY:  8    DX: 17    DY: 13
-# N: 12    SX: 17    SY:  8    DX: 19    DY: 14
-# N: 13    SX: 17    SY:  8    DX: 19    DY: 15
-# N: 14    SX: 17    SY:  8    DX: 19    DY: 16
-# N: 15    SX: 17    SY:  8    DX: 19    DY: 17
-# ========== GROUP:  8 ====================
-# N:  9    SX: 17    SY: 10    DX: 17    DY: 11
-# merge
-# N: 10    SX: 17    SY: 10    DX: 17    DY: 12
-# N: 11    SX: 17    SY: 10    DX: 17    DY: 13
-# N: 12    SX: 17    SY: 10    DX: 19    DY: 14
-# N: 13    SX: 17    SY: 10    DX: 19    DY: 15
-# N: 14    SX: 17    SY: 10    DX: 19    DY: 16
-# N: 15    SX: 17    SY: 10    DX: 19    DY: 17
-# ========== GROUP: 10 ====================
-# N: 11    SX: 17    SY: 12    DX: 17    DY: 13
-# merge
-# N: 12    SX: 17    SY: 12    DX: 19    DY: 14
-# N: 13    SX: 17    SY: 12    DX: 19    DY: 15
-# N: 14    SX: 17    SY: 12    DX: 19    DY: 16
-# N: 15    SX: 17    SY: 12    DX: 19    DY: 17
-# ========== GROUP: 12 ====================
-# N: 13    SX: 19    SY: 14    DX: 19    DY: 15
-# merge
-# N: 14    SX: 19    SY: 14    DX: 19    DY: 16
-# N: 15    SX: 19    SY: 14    DX: 19    DY: 17
-# ========== GROUP: 14 ====================
-# N: 15    SX: 19    SY: 16    DX: 19    DY: 17
-# merge
-# ============= result =================
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 2010200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-restart
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# ========== GROUP:  0 ====================
+# ========== LIST:  0 ====================
 # N:  1    SX: 19    SY:  2    DX: 19    DY:  3
 # merge
 # N:  2    SX: 19    SY:  3    DX: 19    DY:  4
@@ -232,12 +61,13 @@ run -all
 # Compile of FIND_MULTI_POINTS.v was successful.
 # Compile of T_FIND_MULTI_POINTS.v was successful.
 # 2 compiles, 0 failed with no errors.
+# Load canceled
 restart
 # ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
 # Loading work.T
 # Loading work.FIND_MULTI_POINTS
 run -all
-# ========== GROUP:  0 ====================
+# ========== LIST:  0 ====================
 # N:  1    SX: 19    SY:  2    DX: 19    DY:  3
 # merge
 # N:  2    SX: 19    SY:  3    DX: 19    DY:  4
@@ -273,9 +103,32 @@ run -all
 # ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
 #    Time: 2010200 ns  Iteration: 0  Instance: /T
 # Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
+# Load canceled
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
 restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
 run -all
-# ========== GROUP:  0 ====================
+# link  0 to  0
+# link  1 to  0
+# link  2 to  0
+# link  3 to  0
+# link  4 to  0
+# link  5 to  0
+# link  6 to  0
+# link  7 to  0
+# link  8 to  0
+# link  9 to  0
+# link 10 to  0
+# link 11 to  0
+# link 12 to  0
+# link 13 to  0
+# link 14 to  0
+# link 15 to  0
+# ========== LIST:  0 ====================
 # N:  1    SX: 19    SY:  2    DX: 19    DY:  3
 # merge
 # N:  2    SX: 19    SY:  3    DX: 19    DY:  4
@@ -320,7 +173,23 @@ restart
 # Loading work.T
 # Loading work.FIND_MULTI_POINTS
 run -all
-# ========== GROUP:  0 ====================
+# link  0 to  0
+# link  1 to  0
+# link  2 to  0
+# link  3 to  0
+# link  4 to  0
+# link  5 to  0
+# link  6 to  0
+# link  7 to  0
+# link  8 to  0
+# link  9 to  0
+# link 10 to  0
+# link 11 to  0
+# link 12 to  0
+# link 13 to  0
+# link 14 to  0
+# link 15 to  0
+# ========== LIST:  0 ====================
 # N:  1    SX: 19    SY:  2    DX: 19    DY:  3
 # merge
 # N:  2    SX: 19    SY:  3    DX: 19    DY:  4
@@ -364,753 +233,23 @@ restart
 # Loading work.T
 # Loading work.FIND_MULTI_POINTS
 run -all
-# ========== GROUP:  0 ====================
-# N:  1    SX: 17    SY: 17    DX: 17    DY: 17
-# merge
-# N:  2    SX: 17    SY: 17    DX: 17    DY: 17
-# N:  3    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  4    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  5    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  6    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  7    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  8    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  9    SX: 17    SY: 17    DX: 22    DY: 22
-# N: 10    SX: 17    SY: 17    DX: 22    DY: 22
-# N: 11    SX: 17    SY: 17    DX: 22    DY: 22
-# N: 12    SX: 17    SY: 17    DX: 17    DY: 17
-# N: 13    SX: 17    SY: 17    DX: 17    DY: 17
-# N: 14    SX: 17    SY: 17    DX: 17    DY: 17
-# N: 15    SX: 17    SY: 17    DX: 17    DY: 17
-# ========== GROUP:  2 ====================
-# N:  3    SX: 17    SY: 17    DX: 22    DY: 22
-# merge
-# N:  4    SX: 17    SY: 22    DX: 22    DY: 22
-# N:  5    SX: 17    SY: 22    DX: 22    DY: 22
-# N:  6    SX: 17    SY: 22    DX: 22    DY: 22
-# N:  7    SX: 17    SY: 22    DX: 22    DY: 22
-# N:  8    SX: 17    SY: 22    DX: 22    DY: 22
-# N:  9    SX: 17    SY: 22    DX: 22    DY: 22
-# N: 10    SX: 17    SY: 22    DX: 22    DY: 22
-# N: 11    SX: 17    SY: 22    DX: 22    DY: 22
-# N: 12    SX: 17    SY: 22    DX: 17    DY: 17
-# N: 13    SX: 17    SY: 22    DX: 17    DY: 17
-# N: 14    SX: 17    SY: 22    DX: 17    DY: 17
-# N: 15    SX: 17    SY: 22    DX: 17    DY: 17
-# ========== GROUP:  4 ====================
-# N:  5    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N:  6    SX: 22    SY: 22    DX: 22    DY: 22
-# N:  7    SX: 22    SY: 22    DX: 22    DY: 22
-# N:  8    SX: 22    SY: 22    DX: 22    DY: 22
-# N:  9    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 10    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 11    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 12    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 13    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 14    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 15    SX: 22    SY: 22    DX: 17    DY: 17
-# ========== GROUP:  6 ====================
-# N:  7    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N:  8    SX: 22    SY: 22    DX: 22    DY: 22
-# N:  9    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 10    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 11    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 12    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 13    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 14    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 15    SX: 22    SY: 22    DX: 17    DY: 17
-# ========== GROUP:  8 ====================
-# N:  9    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N: 10    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 11    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 12    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 13    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 14    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 15    SX: 22    SY: 22    DX: 17    DY: 17
-# ========== GROUP: 10 ====================
-# N: 11    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N: 12    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 13    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 14    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 15    SX: 22    SY: 22    DX: 17    DY: 17
-# ========== GROUP: 12 ====================
-# N: 13    SX: 17    SY: 17    DX: 17    DY: 17
-# merge
-# N: 14    SX: 17    SY: 17    DX: 17    DY: 17
-# N: 15    SX: 17    SY: 17    DX: 17    DY: 17
-# ========== GROUP: 14 ====================
-# N: 15    SX: 17    SY: 17    DX: 17    DY: 17
-# merge
-# ============= result =================
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 2010200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# ========== GROUP:  0 ====================
-# N:  1    SX: 17    SY: 17    DX: 17    DY: 17
-# merge
-# N:  2    SX: 17    SY: 17    DX: 17    DY: 17
-# N:  3    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  4    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  5    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  6    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  7    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  8    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  9    SX: 17    SY: 17    DX: 22    DY: 22
-# N: 10    SX: 17    SY: 17    DX: 22    DY: 22
-# N: 11    SX: 17    SY: 17    DX: 22    DY: 22
-# N: 12    SX: 17    SY: 17    DX: 17    DY: 17
-# N: 13    SX: 17    SY: 17    DX: 17    DY: 17
-# N: 14    SX: 17    SY: 17    DX: 17    DY: 17
-# N: 15    SX: 17    SY: 17    DX: 17    DY: 17
-# ========== GROUP:  2 ====================
-# N:  3    SX: 17    SY: 17    DX: 22    DY: 22
-# merge
-# N:  4    SX: 17    SY: 22    DX: 22    DY: 22
-# N:  5    SX: 17    SY: 22    DX: 22    DY: 22
-# N:  6    SX: 17    SY: 22    DX: 22    DY: 22
-# N:  7    SX: 17    SY: 22    DX: 22    DY: 22
-# N:  8    SX: 17    SY: 22    DX: 22    DY: 22
-# N:  9    SX: 17    SY: 22    DX: 22    DY: 22
-# N: 10    SX: 17    SY: 22    DX: 22    DY: 22
-# N: 11    SX: 17    SY: 22    DX: 22    DY: 22
-# N: 12    SX: 17    SY: 22    DX: 17    DY: 17
-# N: 13    SX: 17    SY: 22    DX: 17    DY: 17
-# N: 14    SX: 17    SY: 22    DX: 17    DY: 17
-# N: 15    SX: 17    SY: 22    DX: 17    DY: 17
-# ========== GROUP:  4 ====================
-# N:  5    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N:  6    SX: 22    SY: 22    DX: 22    DY: 22
-# N:  7    SX: 22    SY: 22    DX: 22    DY: 22
-# N:  8    SX: 22    SY: 22    DX: 22    DY: 22
-# N:  9    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 10    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 11    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 12    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 13    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 14    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 15    SX: 22    SY: 22    DX: 17    DY: 17
-# ========== GROUP:  6 ====================
-# N:  7    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N:  8    SX: 22    SY: 22    DX: 22    DY: 22
-# N:  9    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 10    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 11    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 12    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 13    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 14    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 15    SX: 22    SY: 22    DX: 17    DY: 17
-# ========== GROUP:  8 ====================
-# N:  9    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N: 10    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 11    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 12    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 13    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 14    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 15    SX: 22    SY: 22    DX: 17    DY: 17
-# ========== GROUP: 10 ====================
-# N: 11    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N: 12    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 13    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 14    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 15    SX: 22    SY: 22    DX: 17    DY: 17
-# ========== GROUP: 12 ====================
-# N: 13    SX: 17    SY: 17    DX: 17    DY: 17
-# merge
-# N: 14    SX: 17    SY: 17    DX: 17    DY: 17
-# N: 15    SX: 17    SY: 17    DX: 17    DY: 17
-# ========== GROUP: 14 ====================
-# N: 15    SX: 17    SY: 17    DX: 17    DY: 17
-# merge
-# ============= result =================
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 2010200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-restart
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# ========== GROUP:  0 ====================
-# N:  1    SX: 17    SY: 17    DX: 17    DY: 17
-# merge
-# N:  2    SX: 17    SY: 17    DX: 17    DY: 17
-# N:  3    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  4    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  5    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  6    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  7    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  8    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  9    SX: 17    SY: 17    DX: 22    DY: 22
-# N: 10    SX: 17    SY: 17    DX: 22    DY: 22
-# N: 11    SX: 17    SY: 17    DX: 22    DY: 22
-# N: 12    SX: 17    SY: 17    DX: 17    DY: 17
-# N: 13    SX: 17    SY: 17    DX: 17    DY: 17
-# N: 14    SX: 17    SY: 17    DX: 17    DY: 17
-# N: 15    SX: 17    SY: 17    DX: 17    DY: 17
-# ========== GROUP:  2 ====================
-# N:  3    SX: 17    SY: 17    DX: 22    DY: 22
-# merge
-# N:  4    SX: 17    SY: 22    DX: 22    DY: 22
-# N:  5    SX: 17    SY: 22    DX: 22    DY: 22
-# N:  6    SX: 17    SY: 22    DX: 22    DY: 22
-# N:  7    SX: 17    SY: 22    DX: 22    DY: 22
-# N:  8    SX: 17    SY: 22    DX: 22    DY: 22
-# N:  9    SX: 17    SY: 22    DX: 22    DY: 22
-# N: 10    SX: 17    SY: 22    DX: 22    DY: 22
-# N: 11    SX: 17    SY: 22    DX: 22    DY: 22
-# N: 12    SX: 17    SY: 22    DX: 17    DY: 17
-# N: 13    SX: 17    SY: 22    DX: 17    DY: 17
-# N: 14    SX: 17    SY: 22    DX: 17    DY: 17
-# N: 15    SX: 17    SY: 22    DX: 17    DY: 17
-# ========== GROUP:  4 ====================
-# N:  5    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N:  6    SX: 22    SY: 22    DX: 22    DY: 22
-# N:  7    SX: 22    SY: 22    DX: 22    DY: 22
-# N:  8    SX: 22    SY: 22    DX: 22    DY: 22
-# N:  9    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 10    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 11    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 12    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 13    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 14    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 15    SX: 22    SY: 22    DX: 17    DY: 17
-# ========== GROUP:  6 ====================
-# N:  7    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N:  8    SX: 22    SY: 22    DX: 22    DY: 22
-# N:  9    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 10    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 11    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 12    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 13    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 14    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 15    SX: 22    SY: 22    DX: 17    DY: 17
-# ========== GROUP:  8 ====================
-# N:  9    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N: 10    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 11    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 12    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 13    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 14    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 15    SX: 22    SY: 22    DX: 17    DY: 17
-# ========== GROUP: 10 ====================
-# N: 11    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N: 12    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 13    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 14    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 15    SX: 22    SY: 22    DX: 17    DY: 17
-# ========== GROUP: 12 ====================
-# N: 13    SX: 17    SY: 17    DX: 17    DY: 17
-# merge
-# N: 14    SX: 17    SY: 17    DX: 17    DY: 17
-# N: 15    SX: 17    SY: 17    DX: 17    DY: 17
-# ========== GROUP: 14 ====================
-# N: 15    SX: 17    SY: 17    DX: 17    DY: 17
-# merge
-# ============= result =================
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 2010200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# ========== GROUP:  0 ====================
-# N:  1    SX: 17    SY: 17    DX: 17    DY: 17
-# merge
-# N:  2    SX: 17    SY: 17    DX: 17    DY: 17
-# N:  3    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  4    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  5    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  6    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  7    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  8    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  9    SX: 17    SY: 17    DX: 22    DY: 22
-# N: 10    SX: 17    SY: 17    DX: 22    DY: 22
-# N: 11    SX: 17    SY: 17    DX: 22    DY: 22
-# N: 12    SX: 17    SY: 17    DX: 17    DY: 17
-# N: 13    SX: 17    SY: 17    DX: 17    DY: 17
-# N: 14    SX: 17    SY: 17    DX: 17    DY: 17
-# N: 15    SX: 17    SY: 17    DX: 17    DY: 17
-# ========== GROUP:  2 ====================
-# N:  3    SX: 17    SY: 17    DX: 22    DY: 22
-# merge
-# N:  4    SX: 17    SY: 22    DX: 22    DY: 22
-# N:  5    SX: 17    SY: 22    DX: 22    DY: 22
-# N:  6    SX: 17    SY: 22    DX: 22    DY: 22
-# N:  7    SX: 17    SY: 22    DX: 22    DY: 22
-# N:  8    SX: 17    SY: 22    DX: 22    DY: 22
-# N:  9    SX: 17    SY: 22    DX: 22    DY: 22
-# N: 10    SX: 17    SY: 22    DX: 22    DY: 22
-# N: 11    SX: 17    SY: 22    DX: 22    DY: 22
-# N: 12    SX: 17    SY: 22    DX: 17    DY: 17
-# N: 13    SX: 17    SY: 22    DX: 17    DY: 17
-# N: 14    SX: 17    SY: 22    DX: 17    DY: 17
-# N: 15    SX: 17    SY: 22    DX: 17    DY: 17
-# ========== GROUP:  4 ====================
-# N:  5    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N:  6    SX: 22    SY: 22    DX: 22    DY: 22
-# N:  7    SX: 22    SY: 22    DX: 22    DY: 22
-# N:  8    SX: 22    SY: 22    DX: 22    DY: 22
-# N:  9    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 10    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 11    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 12    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 13    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 14    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 15    SX: 22    SY: 22    DX: 17    DY: 17
-# ========== GROUP:  6 ====================
-# N:  7    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N:  8    SX: 22    SY: 22    DX: 22    DY: 22
-# N:  9    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 10    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 11    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 12    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 13    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 14    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 15    SX: 22    SY: 22    DX: 17    DY: 17
-# ========== GROUP:  8 ====================
-# N:  9    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N: 10    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 11    SX: 22    SY: 22    DX: 22    DY: 22
-# N: 12    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 13    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 14    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 15    SX: 22    SY: 22    DX: 17    DY: 17
-# ========== GROUP: 10 ====================
-# N: 11    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N: 12    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 13    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 14    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 15    SX: 22    SY: 22    DX: 17    DY: 17
-# ========== GROUP: 12 ====================
-# N: 13    SX: 17    SY: 17    DX: 17    DY: 17
-# merge
-# N: 14    SX: 17    SY: 17    DX: 17    DY: 17
-# N: 15    SX: 17    SY: 17    DX: 17    DY: 17
-# ========== GROUP: 14 ====================
-# N: 15    SX: 17    SY: 17    DX: 17    DY: 17
-# merge
-# ============= result =================
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 2010200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# ========== GROUP:  0 ====================
-# N:  1    SX: 17    SY: 17    DX: 17    DY: 17
-# merge
-# N:  2    SX: 17    SY: 17    DX: 17    DY: 17
-# merge
-# N:  3    SX: 17    SY: 17    DX: 22    DY: 22
-# merge
-# N:  4    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  5    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  6    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  7    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  8    SX: 17    SY: 17    DX: 22    DY: 22
-# N:  9    SX: 17    SY: 17    DX: 22    DY: 22
-# N: 10    SX: 17    SY: 17    DX: 22    DY: 22
-# N: 11    SX: 17    SY: 17    DX: 22    DY: 22
-# N: 12    SX: 17    SY: 17    DX: 17    DY: 17
-# N: 13    SX: 17    SY: 17    DX: 17    DY: 17
-# N: 14    SX: 17    SY: 17    DX: 17    DY: 17
-# N: 15    SX: 17    SY: 17    DX: 17    DY: 17
-# ========== GROUP:  4 ====================
-# N:  5    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N:  6    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N:  7    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N:  8    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N:  9    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N: 10    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N: 11    SX: 22    SY: 22    DX: 22    DY: 22
-# merge
-# N: 12    SX: 22    SY: 22    DX: 17    DY: 17
-# merge
-# N: 13    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 14    SX: 22    SY: 22    DX: 17    DY: 17
-# N: 15    SX: 22    SY: 22    DX: 17    DY: 17
-# ========== GROUP: 13 ====================
-# N: 14    SX: 17    SY: 17    DX: 17    DY: 17
-# merge
-# N: 15    SX: 17    SY: 17    DX: 17    DY: 17
-# merge
-# ============= result =================
-# p:  0    X: 17    Y:  4
-# p:  1    X: 16    Y: 10
-# p:  2    X: 18    Y: 16
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 2010200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-run -all
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# ========== GROUP:  0 ====================
-# N:  1    SX: 17    SY: 17    DX: 17    DY: 17
-# merge
-# N:  2    SX: 17    SY: 17    DX: 17    DY: 17
-# merge
-# N:  3    SX: 17    SY: 17    DX: 22    DY: 22
-# merge
-# N:  4    SX: 17    SY: 17    DX: 22    DY: 22
-# merge
-# N:  5    SX: 17    SY: 17    DX: 22    DY: 22
-# merge
-# N:  6    SX: 17    SY: 17    DX: 22    DY: 22
-# merge
-# N:  7    SX: 17    SY: 17    DX: 22    DY: 22
-# merge
-# N:  8    SX: 17    SY: 17    DX: 22    DY: 22
-# merge
-# N:  9    SX: 17    SY: 17    DX: 22    DY: 22
-# merge
-# N: 10    SX: 17    SY: 17    DX: 22    DY: 22
-# merge
-# N: 11    SX: 17    SY: 17    DX: 22    DY: 22
-# merge
-# N: 12    SX: 17    SY: 17    DX: 17    DY: 17
-# merge
-# N: 13    SX: 17    SY: 17    DX: 17    DY: 17
-# merge
-# N: 14    SX: 17    SY: 17    DX: 17    DY: 17
-# merge
-# N: 15    SX: 17    SY: 17    DX: 17    DY: 17
-# merge
-# ============= result =================
-# p:  0    X: 16    Y: 10
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 2010200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# ========== GROUP:  0 ====================
-# N:  1    SX: 18    SY: 18    DX: 18    DY: 18
-# merge
-# N:  2    SX: 18    SY: 18    DX: 18    DY: 18
-# merge
-# N:  3    SX: 18    SY: 18    DX: 23    DY: 23
-# merge
-# N:  4    SX: 18    SY: 18    DX: 23    DY: 23
-# merge
-# N:  5    SX: 18    SY: 18    DX: 23    DY: 23
-# merge
-# N:  6    SX: 18    SY: 18    DX: 23    DY: 23
-# merge
-# N:  7    SX: 18    SY: 18    DX: 23    DY: 23
-# merge
-# N:  8    SX: 18    SY: 18    DX: 23    DY: 23
-# merge
-# N:  9    SX: 18    SY: 18    DX: 23    DY: 23
-# merge
-# N: 10    SX: 18    SY: 18    DX: 23    DY: 23
-# merge
-# N: 11    SX: 18    SY: 18    DX: 23    DY: 23
-# merge
-# N: 12    SX: 18    SY: 18    DX: 18    DY: 18
-# merge
-# N: 13    SX: 18    SY: 18    DX: 18    DY: 18
-# merge
-# N: 14    SX: 18    SY: 18    DX: 18    DY: 18
-# merge
-# N: 15    SX: 18    SY: 18    DX: 18    DY: 18
-# merge
-# ============= result =================
-# p:  0    X: 17    Y: 10
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 2010200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# ========== GROUP:  0 ====================
-# N:  1    SX: 21    SY: 21    DX: 21    DY: 21
-# merge
-# N:  2    SX: 21    SY: 21    DX: 21    DY: 21
-# merge
-# N:  3    SX: 21    SY: 21    DX: 26    DY: 26
-# merge
-# N:  4    SX: 21    SY: 21    DX: 26    DY: 26
-# merge
-# N:  5    SX: 21    SY: 21    DX: 26    DY: 26
-# merge
-# N:  6    SX: 21    SY: 21    DX: 26    DY: 26
-# merge
-# N:  7    SX: 21    SY: 21    DX: 26    DY: 26
-# merge
-# N:  8    SX: 21    SY: 21    DX: 26    DY: 26
-# merge
-# N:  9    SX: 21    SY: 21    DX: 26    DY: 26
-# merge
-# N: 10    SX: 21    SY: 21    DX: 26    DY: 26
-# merge
-# N: 11    SX: 21    SY: 21    DX: 26    DY: 26
-# merge
-# N: 12    SX: 21    SY: 21    DX: 21    DY: 21
-# merge
-# N: 13    SX: 21    SY: 21    DX: 21    DY: 21
-# merge
-# N: 14    SX: 21    SY: 21    DX: 21    DY: 21
-# merge
-# N: 15    SX: 21    SY: 21    DX: 21    DY: 21
-# merge
-# ============= result =================
-# p:  0    X: 15    Y: 10
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 2010200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# ========== GROUP:  0 ====================
-# N:  1    SX: 21    SY: 21    DX: 21    DY: 21
-# merge
-# N:  2    SX: 21    SY: 21    DX: 21    DY: 21
-# merge
-# N:  3    SX: 21    SY: 21    DX: 26    DY: 26
-# merge
-# N:  4    SX: 21    SY: 21    DX: 26    DY: 26
-# merge
-# N:  5    SX: 21    SY: 21    DX: 26    DY: 26
-# merge
-# N:  6    SX: 21    SY: 21    DX: 26    DY: 26
-# merge
-# N:  7    SX: 21    SY: 21    DX: 26    DY: 26
-# merge
-# N:  8    SX: 21    SY: 21    DX: 26    DY: 26
-# merge
-# N:  9    SX: 21    SY: 21    DX: 26    DY: 26
-# merge
-# N: 10    SX: 21    SY: 21    DX: 26    DY: 26
-# merge
-# N: 11    SX: 21    SY: 21    DX: 26    DY: 26
-# merge
-# N: 12    SX: 21    SY: 21    DX: 21    DY: 21
-# merge
-# N: 13    SX: 21    SY: 21    DX: 21    DY: 21
-# merge
-# N: 14    SX: 21    SY: 21    DX: 21    DY: 21
-# merge
-# N: 15    SX: 21    SY: 21    DX: 21    DY: 21
-# merge
-# ============= result =================
-# p:  0    X: 15    Y: 10
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 2010200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# ========== GROUP:  0 ====================
-# N:  1    SX: 17    SY:  2    DX: 17    DY:  3
-# merge
-# N:  2    SX: 17    SY:  3    DX: 17    DY:  4
-# merge
-# N:  3    SX: 17    SY:  4    DX: 15    DY:  5
-# merge
-# N:  4    SX: 17    SY:  5    DX: 15    DY:  6
-# merge
-# N:  5    SX: 17    SY:  6    DX: 15    DY:  7
-# merge
-# N:  6    SX: 17    SY:  7    DX: 15    DY:  8
-# merge
-# N:  7    SX: 17    SY:  8    DX: 15    DY:  9
-# merge
-# N:  8    SX: 17    SY:  9    DX: 15    DY: 10
-# merge
-# N:  9    SX: 17    SY: 10    DX: 15    DY: 11
-# merge
-# N: 10    SX: 17    SY: 11    DX: 15    DY: 12
-# merge
-# N: 11    SX: 17    SY: 12    DX: 15    DY: 13
-# merge
-# N: 12    SX: 17    SY: 13    DX: 17    DY: 14
-# merge
-# N: 13    SX: 17    SY: 14    DX: 17    DY: 15
-# merge
-# N: 14    SX: 17    SY: 15    DX: 17    DY: 16
-# merge
-# N: 15    SX: 17    SY: 16    DX: 17    DY: 17
-# merge
-# ============= result =================
-# p:  0    X: 15    Y: 10
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 2010200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# ========== GROUP:  0 ====================
-# N:  1    SX: 18    SY:  2    DX: 18    DY:  3
-# merge
-# N:  2    SX: 18    SY:  3    DX: 18    DY:  4
-# merge
-# N:  3    SX: 18    SY:  4    DX: 15    DY:  5
-# merge
-# N:  4    SX: 18    SY:  5    DX: 15    DY:  6
-# merge
-# N:  5    SX: 18    SY:  6    DX: 15    DY:  7
-# merge
-# N:  6    SX: 18    SY:  7    DX: 15    DY:  8
-# merge
-# N:  7    SX: 18    SY:  8    DX: 15    DY:  9
-# merge
-# N:  8    SX: 18    SY:  9    DX: 15    DY: 10
-# merge
-# N:  9    SX: 18    SY: 10    DX: 15    DY: 11
-# merge
-# N: 10    SX: 18    SY: 11    DX: 15    DY: 12
-# merge
-# N: 11    SX: 18    SY: 12    DX: 15    DY: 13
-# merge
-# N: 12    SX: 18    SY: 13    DX: 18    DY: 14
-# merge
-# N: 13    SX: 18    SY: 14    DX: 18    DY: 15
-# merge
-# N: 14    SX: 18    SY: 15    DX: 18    DY: 16
-# merge
-# N: 15    SX: 18    SY: 16    DX: 18    DY: 17
-# merge
-# ============= result =================
-# p:  0    X: 16    Y: 10
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 2010200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# ========== GROUP:  0 ====================
-# N:  1    SX: 21    SY: 21    DX: 21    DY: 21
-# merge
-# N:  2    SX: 21    SY: 21    DX: 21    DY: 21
-# merge
-# N:  3    SX: 21    SY: 21    DX: 26    DY: 26
-# N:  4    SX: 21    SY: 21    DX: 26    DY: 26
-# N:  5    SX: 21    SY: 21    DX: 26    DY: 26
-# N:  6    SX: 21    SY: 21    DX: 26    DY: 26
-# N:  7    SX: 21    SY: 21    DX: 26    DY: 26
-# N:  8    SX: 21    SY: 21    DX: 26    DY: 26
-# N:  9    SX: 21    SY: 21    DX: 26    DY: 26
-# N: 10    SX: 21    SY: 21    DX: 26    DY: 26
-# N: 11    SX: 21    SY: 21    DX: 26    DY: 26
-# N: 12    SX: 21    SY: 21    DX: 21    DY: 21
-# merge
-# N: 13    SX: 21    SY: 21    DX: 21    DY: 21
-# merge
-# N: 14    SX: 21    SY: 21    DX: 21    DY: 21
-# merge
-# N: 15    SX: 21    SY: 21    DX: 21    DY: 21
-# merge
-# ========== GROUP:  3 ====================
-# N:  4    SX: 26    SY: 26    DX: 26    DY: 26
-# merge
-# N:  5    SX: 26    SY: 26    DX: 26    DY: 26
-# merge
-# N:  6    SX: 26    SY: 26    DX: 26    DY: 26
-# merge
-# N:  7    SX: 26    SY: 26    DX: 26    DY: 26
-# merge
-# N:  8    SX: 26    SY: 26    DX: 26    DY: 26
-# merge
-# N:  9    SX: 26    SY: 26    DX: 26    DY: 26
-# merge
-# N: 10    SX: 26    SY: 26    DX: 26    DY: 26
-# merge
-# N: 11    SX: 26    SY: 26    DX: 26    DY: 26
-# merge
-# ============= result =================
-# p:  0    X: 21    Y: 21
-# p:  1    X: 26    Y: 26
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
-#    Time: 2010200 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
-# Compile of FIND_MULTI_POINTS.v was successful.
-# Compile of T_FIND_MULTI_POINTS.v was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# Loading work.T
-# Loading work.FIND_MULTI_POINTS
-run -all
-# ========== GROUP:  0 ====================
+# link  0 to  0
+# link  1 to  0
+# link  2 to  0
+# link  3 to  0
+# link  4 to  0
+# link  5 to  0
+# link  6 to  0
+# link  7 to  0
+# link  8 to  0
+# link  9 to  0
+# link 10 to  0
+# link 11 to  0
+# link 12 to  0
+# link 13 to  0
+# link 14 to  0
+# link 15 to  0
+# ========== LIST:  0 ====================
 # N:  1    SX: 19    SY:  2    DX: 19    DY:  3
 # merge
 # N:  2    SX: 19    SY:  3    DX: 19    DY:  4
@@ -1146,3 +285,1464 @@ run -all
 # ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
 #    Time: 2010200 ns  Iteration: 0  Instance: /T
 # Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
+run -all
+# link list: 0 to group: 0
+# link list: 1 to group: 0
+# link list: 2 to group: 0
+# link list: 3 to group: 0
+# link list: 4 to group: 0
+# link list: 5 to group: 0
+# link list: 6 to group: 0
+# link list: 7 to group: 0
+# link list: 8 to group: 0
+# link list: 9 to group: 0
+# link list:10 to group: 0
+# link list:11 to group: 0
+# link list:12 to group: 0
+# link list:13 to group: 0
+# link list:14 to group: 0
+# link list:15 to group: 0
+# ============= result =================
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
+#    Time: 2010200 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
+run -all
+# link list: 0 to group: 0
+# link list: 1 to group: 1
+# link list: 2 to group: 2
+# link list: 3 to group: 3
+# link list: 4 to group: 4
+# link list: 5 to group: 5
+# link list: 6 to group: 6
+# link list: 7 to group: 7
+# link list: 8 to group: 0
+# link list: 9 to group: 1
+# link list:10 to group: 2
+# link list:11 to group: 3
+# link list:12 to group: 4
+# link list:13 to group: 5
+# link list:14 to group: 6
+# link list:15 to group: 7
+# ============= result =================
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
+#    Time: 2010200 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
+run -all
+# link list: 0 to group: 0
+# link list: 1 to group: 1
+# link list: 2 to group: 2
+# link list: 3 to group: 3
+# link list: 4 to group: 4
+# link list: 5 to group: 5
+# link list: 6 to group: 6
+# link list: 7 to group: 7
+# link list: 8 to group: 0
+# link list: 9 to group: 1
+# link list:10 to group: 2
+# link list:11 to group: 3
+# link list:12 to group: 4
+# link list:13 to group: 5
+# link list:14 to group: 6
+# link list:15 to group: 7
+# POINT_GROUP: 0
+# ============= result =================
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
+#    Time: 2010200 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
+run -all
+# link list: 0 to group: 0
+# link list: 1 to group: 0
+# link list: 2 to group: 0
+# link list: 3 to group: 0
+# link list: 4 to group: 0
+# link list: 5 to group: 0
+# link list: 6 to group: 0
+# link list: 7 to group: 0
+# link list: 8 to group: 0
+# link list: 9 to group: 0
+# link list:10 to group: 0
+# link list:11 to group: 0
+# link list:12 to group: 0
+# link list:13 to group: 0
+# link list:14 to group: 0
+# link list:15 to group: 0
+# POINT_GROUP: 0
+# ============= result =================
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
+#    Time: 2010200 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
+run -all
+# link list: 0 to group: 0
+# link list: 1 to group: 0
+# link list: 2 to group: 0
+# link list: 3 to group: 0
+# link list: 4 to group: 0
+# link list: 5 to group: 0
+# link list: 6 to group: 0
+# link list: 7 to group: 0
+# link list: 8 to group: 0
+# link list: 9 to group: 0
+# link list:10 to group: 0
+# link list:11 to group: 0
+# link list:12 to group: 0
+# link list:13 to group: 0
+# link list:14 to group: 0
+# link list:15 to group: 0
+# POINT_GROUP: 0
+# ============= result =================
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
+#    Time: 2010200 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
+run -all
+# link list: 0 to group: 0
+# new group:  0
+# link list: 1 to group: 1
+# new group:  1
+# link list: 2 to group: 2
+# new group:  2
+# link list: 3 to group: 3
+# new group:  3
+# link list: 4 to group: 4
+# new group:  4
+# link list: 5 to group: 5
+# new group:  5
+# link list: 6 to group: 6
+# new group:  6
+# link list: 7 to group: 7
+# new group:  7
+# link list: 8 to group: 0
+# new group:  0
+# link list: 9 to group: 1
+# new group:  1
+# link list:10 to group: 2
+# new group:  2
+# link list:11 to group: 3
+# new group:  3
+# link list:12 to group: 4
+# new group:  4
+# link list:13 to group: 5
+# new group:  5
+# link list:14 to group: 6
+# new group:  6
+# link list:15 to group: 7
+# new group:  7
+# POINT_GROUP: 0
+# ============= result =================
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
+#    Time: 2010200 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
+restart
+run -all
+# link list: 0 to group: 0
+# new group:  0
+# link list: 1 to group: 1
+# new group:  1
+# link list: 2 to group: 2
+# new group:  2
+# link list: 3 to group: 3
+# new group:  3
+# link list: 4 to group: 4
+# new group:  4
+# link list: 5 to group: 5
+# new group:  5
+# link list: 6 to group: 6
+# new group:  6
+# link list: 7 to group: 7
+# new group:  7
+# link list: 8 to group: 0
+# new group:  0
+# link list: 9 to group: 1
+# new group:  1
+# link list:10 to group: 2
+# new group:  2
+# link list:11 to group: 3
+# new group:  3
+# link list:12 to group: 4
+# new group:  4
+# link list:13 to group: 5
+# new group:  5
+# link list:14 to group: 6
+# new group:  6
+# link list:15 to group: 7
+# new group:  7
+# POINT_GROUP: 0
+# ============= result =================
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
+#    Time: 2010200 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
+run -all
+# link list: 0 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# link list: 1 to group: 1
+# new_group: 1 POINT_GROUP:1 
+# link list: 2 to group: 2
+# new_group: 2 POINT_GROUP:2 
+# link list: 3 to group: 3
+# new_group: 3 POINT_GROUP:3 
+# link list: 4 to group: 4
+# new_group: 4 POINT_GROUP:4 
+# link list: 5 to group: 5
+# new_group: 5 POINT_GROUP:5 
+# link list: 6 to group: 6
+# new_group: 6 POINT_GROUP:6 
+# link list: 7 to group: 7
+# new_group: 7 POINT_GROUP:7 
+# link list: 8 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# link list: 9 to group: 1
+# new_group: 1 POINT_GROUP:1 
+# link list:10 to group: 2
+# new_group: 2 POINT_GROUP:2 
+# link list:11 to group: 3
+# new_group: 3 POINT_GROUP:3 
+# link list:12 to group: 4
+# new_group: 4 POINT_GROUP:4 
+# link list:13 to group: 5
+# new_group: 5 POINT_GROUP:5 
+# link list:14 to group: 6
+# new_group: 6 POINT_GROUP:6 
+# link list:15 to group: 7
+# new_group: 7 POINT_GROUP:7 
+# POINT_GROUP: 0
+# ============= result =================
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
+#    Time: 2010200 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
+run -all
+# ================= find group ====================
+# link list: 0 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# ================= find group ====================
+# link list: 1 to group: 1
+# new_group: 1 POINT_GROUP:1 
+# ================= find group ====================
+# link list: 2 to group: 2
+# new_group: 2 POINT_GROUP:2 
+# ================= find group ====================
+# link list: 3 to group: 3
+# new_group: 3 POINT_GROUP:3 
+# ================= find group ====================
+# link list: 4 to group: 4
+# new_group: 4 POINT_GROUP:4 
+# ================= find group ====================
+# link list: 5 to group: 5
+# new_group: 5 POINT_GROUP:5 
+# ================= find group ====================
+# link list: 6 to group: 6
+# new_group: 6 POINT_GROUP:6 
+# ================= find group ====================
+# link list: 7 to group: 7
+# new_group: 7 POINT_GROUP:7 
+# ================= find group ====================
+# link list: 8 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# ================= find group ====================
+# link list: 9 to group: 1
+# new_group: 1 POINT_GROUP:1 
+# ================= find group ====================
+# link list:10 to group: 2
+# new_group: 2 POINT_GROUP:2 
+# ================= find group ====================
+# link list:11 to group: 3
+# new_group: 3 POINT_GROUP:3 
+# ================= find group ====================
+# link list:12 to group: 4
+# new_group: 4 POINT_GROUP:4 
+# ================= find group ====================
+# link list:13 to group: 5
+# new_group: 5 POINT_GROUP:5 
+# ================= find group ====================
+# link list:14 to group: 6
+# new_group: 6 POINT_GROUP:6 
+# ================= find group ====================
+# link list:15 to group: 7
+# new_group: 7 POINT_GROUP:7 
+# POINT_GROUP: 0
+# ============= result =================
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
+#    Time: 2010200 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
+run -all
+# ================= new_point ====================
+# h_min:    x h_max:    x h_point:   19 v_mid:    x v_point:    2
+# link list: 0 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# ================= new_point ====================
+# h_min:    x h_max:    x h_point:   19 v_mid:    2 v_point:    3
+# h_min:    x h_max:    x h_point:   19 v_mid:    x v_point:    3
+# link list: 1 to group: 1
+# new_group: 1 POINT_GROUP:1 
+# ================= new_point ====================
+# h_min:    x h_max:    x h_point:   19 v_mid:    2 v_point:    4
+# h_min:    x h_max:    x h_point:   19 v_mid:    3 v_point:    4
+# h_min:    x h_max:    x h_point:   19 v_mid:    x v_point:    4
+# link list: 2 to group: 2
+# new_group: 2 POINT_GROUP:2 
+# ================= new_point ====================
+# h_min:    x h_max:    x h_point:   17 v_mid:    2 v_point:    5
+# h_min:    x h_max:    x h_point:   17 v_mid:    3 v_point:    5
+# h_min:    x h_max:    x h_point:   17 v_mid:    4 v_point:    5
+# h_min:    x h_max:    x h_point:   17 v_mid:    x v_point:    5
+# link list: 3 to group: 3
+# new_group: 3 POINT_GROUP:3 
+# ================= new_point ====================
+# h_min:    x h_max:    x h_point:   17 v_mid:    2 v_point:    6
+# h_min:    x h_max:    x h_point:   17 v_mid:    3 v_point:    6
+# h_min:    x h_max:    x h_point:   17 v_mid:    4 v_point:    6
+# h_min:    x h_max:    x h_point:   17 v_mid:    5 v_point:    6
+# h_min:    x h_max:    x h_point:   17 v_mid:    x v_point:    6
+# link list: 4 to group: 4
+# new_group: 4 POINT_GROUP:4 
+# ================= new_point ====================
+# h_min:    x h_max:    x h_point:   17 v_mid:    2 v_point:    7
+# h_min:    x h_max:    x h_point:   17 v_mid:    3 v_point:    7
+# h_min:    x h_max:    x h_point:   17 v_mid:    4 v_point:    7
+# h_min:    x h_max:    x h_point:   17 v_mid:    5 v_point:    7
+# h_min:    x h_max:    x h_point:   17 v_mid:    x v_point:    7
+# h_min:    x h_max:    x h_point:   17 v_mid:    x v_point:    7
+# link list: 5 to group: 5
+# new_group: 5 POINT_GROUP:5 
+# ================= new_point ====================
+# h_min:    x h_max:    x h_point:   17 v_mid:    2 v_point:    8
+# h_min:    x h_max:    x h_point:   17 v_mid:    3 v_point:    8
+# h_min:    x h_max:    x h_point:   17 v_mid:    4 v_point:    8
+# h_min:    x h_max:    x h_point:   17 v_mid:    5 v_point:    8
+# h_min:    x h_max:    x h_point:   17 v_mid:    x v_point:    8
+# h_min:    x h_max:    x h_point:   17 v_mid:    x v_point:    8
+# h_min:    x h_max:    x h_point:   17 v_mid:    x v_point:    8
+# link list: 6 to group: 6
+# new_group: 6 POINT_GROUP:6 
+# ================= new_point ====================
+# h_min:    x h_max:    x h_point:   17 v_mid:    2 v_point:    9
+# h_min:    x h_max:    x h_point:   17 v_mid:    3 v_point:    9
+# h_min:    x h_max:    x h_point:   17 v_mid:    4 v_point:    9
+# h_min:    x h_max:    x h_point:   17 v_mid:    5 v_point:    9
+# h_min:    x h_max:    x h_point:   17 v_mid:    x v_point:    9
+# h_min:    x h_max:    x h_point:   17 v_mid:    x v_point:    9
+# h_min:    x h_max:    x h_point:   17 v_mid:    x v_point:    9
+# h_min:    x h_max:    x h_point:   17 v_mid:    x v_point:    9
+# link list: 7 to group: 7
+# new_group: 7 POINT_GROUP:7 
+# ================= new_point ====================
+# h_min:    x h_max:    x h_point:   17 v_mid:    2 v_point:   10
+# link list: 8 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# ================= new_point ====================
+# h_min:    x h_max:    x h_point:   17 v_mid:   10 v_point:   11
+# h_min:    x h_max:    x h_point:   17 v_mid:    3 v_point:   11
+# link list: 9 to group: 1
+# new_group: 1 POINT_GROUP:1 
+# ================= new_point ====================
+# h_min:    x h_max:    x h_point:   17 v_mid:   10 v_point:   12
+# h_min:    x h_max:    x h_point:   17 v_mid:   11 v_point:   12
+# h_min:    x h_max:    x h_point:   17 v_mid:    4 v_point:   12
+# link list:10 to group: 2
+# new_group: 2 POINT_GROUP:2 
+# ================= new_point ====================
+# h_min:    x h_max:    x h_point:   17 v_mid:   10 v_point:   13
+# h_min:    x h_max:    x h_point:   17 v_mid:   11 v_point:   13
+# h_min:    x h_max:    x h_point:   17 v_mid:   12 v_point:   13
+# h_min:    x h_max:    x h_point:   17 v_mid:    5 v_point:   13
+# link list:11 to group: 3
+# new_group: 3 POINT_GROUP:3 
+# ================= new_point ====================
+# h_min:    x h_max:    x h_point:   19 v_mid:   10 v_point:   14
+# h_min:    x h_max:    x h_point:   19 v_mid:   11 v_point:   14
+# h_min:    x h_max:    x h_point:   19 v_mid:   12 v_point:   14
+# h_min:    x h_max:    x h_point:   19 v_mid:   13 v_point:   14
+# h_min:    x h_max:    x h_point:   19 v_mid:    x v_point:   14
+# link list:12 to group: 4
+# new_group: 4 POINT_GROUP:4 
+# ================= new_point ====================
+# h_min:    x h_max:    x h_point:   19 v_mid:   10 v_point:   15
+# h_min:    x h_max:    x h_point:   19 v_mid:   11 v_point:   15
+# h_min:    x h_max:    x h_point:   19 v_mid:   12 v_point:   15
+# h_min:    x h_max:    x h_point:   19 v_mid:   13 v_point:   15
+# h_min:    x h_max:    x h_point:   19 v_mid:    x v_point:   15
+# h_min:    x h_max:    x h_point:   19 v_mid:    x v_point:   15
+# link list:13 to group: 5
+# new_group: 5 POINT_GROUP:5 
+# ================= new_point ====================
+# h_min:    x h_max:    x h_point:   19 v_mid:   10 v_point:   16
+# h_min:    x h_max:    x h_point:   19 v_mid:   11 v_point:   16
+# h_min:    x h_max:    x h_point:   19 v_mid:   12 v_point:   16
+# h_min:    x h_max:    x h_point:   19 v_mid:   13 v_point:   16
+# h_min:    x h_max:    x h_point:   19 v_mid:    x v_point:   16
+# h_min:    x h_max:    x h_point:   19 v_mid:    x v_point:   16
+# h_min:    x h_max:    x h_point:   19 v_mid:    x v_point:   16
+# link list:14 to group: 6
+# new_group: 6 POINT_GROUP:6 
+# ================= new_point ====================
+# h_min:    x h_max:    x h_point:   19 v_mid:   10 v_point:   17
+# h_min:    x h_max:    x h_point:   19 v_mid:   11 v_point:   17
+# h_min:    x h_max:    x h_point:   19 v_mid:   12 v_point:   17
+# h_min:    x h_max:    x h_point:   19 v_mid:   13 v_point:   17
+# h_min:    x h_max:    x h_point:   19 v_mid:    x v_point:   17
+# h_min:    x h_max:    x h_point:   19 v_mid:    x v_point:   17
+# h_min:    x h_max:    x h_point:   19 v_mid:    x v_point:   17
+# h_min:    x h_max:    x h_point:   19 v_mid:    x v_point:   17
+# link list:15 to group: 7
+# new_group: 7 POINT_GROUP:7 
+# POINT_GROUP: 0
+# ============= result =================
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
+#    Time: 2010200 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
+run -all
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 19  v:  x  v_point:  2 
+# link list: 0 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 19  v:  2  v_point:  3 
+# i:  1  h_min:  x  h_max:  x  h_point: 19  v:  x  v_point:  3 
+# link list: 1 to group: 1
+# new_group: 1 POINT_GROUP:1 
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 19  v:  2  v_point:  4 
+# i:  1  h_min:  x  h_max:  x  h_point: 19  v:  3  v_point:  4 
+# i:  2  h_min:  x  h_max:  x  h_point: 19  v:  x  v_point:  4 
+# link list: 2 to group: 2
+# new_group: 2 POINT_GROUP:2 
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 17  v:  2  v_point:  5 
+# i:  1  h_min:  x  h_max:  x  h_point: 17  v:  3  v_point:  5 
+# i:  2  h_min:  x  h_max:  x  h_point: 17  v:  4  v_point:  5 
+# i:  3  h_min:  x  h_max:  x  h_point: 17  v:  x  v_point:  5 
+# link list: 3 to group: 3
+# new_group: 3 POINT_GROUP:3 
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 17  v:  2  v_point:  6 
+# i:  1  h_min:  x  h_max:  x  h_point: 17  v:  3  v_point:  6 
+# i:  2  h_min:  x  h_max:  x  h_point: 17  v:  4  v_point:  6 
+# i:  3  h_min:  x  h_max:  x  h_point: 17  v:  5  v_point:  6 
+# i:  4  h_min:  x  h_max:  x  h_point: 17  v:  x  v_point:  6 
+# link list: 4 to group: 4
+# new_group: 4 POINT_GROUP:4 
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 17  v:  2  v_point:  7 
+# i:  1  h_min:  x  h_max:  x  h_point: 17  v:  3  v_point:  7 
+# i:  2  h_min:  x  h_max:  x  h_point: 17  v:  4  v_point:  7 
+# i:  3  h_min:  x  h_max:  x  h_point: 17  v:  5  v_point:  7 
+# i:  4  h_min:  x  h_max:  x  h_point: 17  v:  x  v_point:  7 
+# i:  5  h_min:  x  h_max:  x  h_point: 17  v:  x  v_point:  7 
+# link list: 5 to group: 5
+# new_group: 5 POINT_GROUP:5 
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 17  v:  2  v_point:  8 
+# i:  1  h_min:  x  h_max:  x  h_point: 17  v:  3  v_point:  8 
+# i:  2  h_min:  x  h_max:  x  h_point: 17  v:  4  v_point:  8 
+# i:  3  h_min:  x  h_max:  x  h_point: 17  v:  5  v_point:  8 
+# i:  4  h_min:  x  h_max:  x  h_point: 17  v:  x  v_point:  8 
+# i:  5  h_min:  x  h_max:  x  h_point: 17  v:  x  v_point:  8 
+# i:  6  h_min:  x  h_max:  x  h_point: 17  v:  x  v_point:  8 
+# link list: 6 to group: 6
+# new_group: 6 POINT_GROUP:6 
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 17  v:  2  v_point:  9 
+# i:  1  h_min:  x  h_max:  x  h_point: 17  v:  3  v_point:  9 
+# i:  2  h_min:  x  h_max:  x  h_point: 17  v:  4  v_point:  9 
+# i:  3  h_min:  x  h_max:  x  h_point: 17  v:  5  v_point:  9 
+# i:  4  h_min:  x  h_max:  x  h_point: 17  v:  x  v_point:  9 
+# i:  5  h_min:  x  h_max:  x  h_point: 17  v:  x  v_point:  9 
+# i:  6  h_min:  x  h_max:  x  h_point: 17  v:  x  v_point:  9 
+# i:  7  h_min:  x  h_max:  x  h_point: 17  v:  x  v_point:  9 
+# link list: 7 to group: 7
+# new_group: 7 POINT_GROUP:7 
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 17  v:  2  v_point: 10 
+# link list: 8 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 17  v: 10  v_point: 11 
+# i:  1  h_min:  x  h_max:  x  h_point: 17  v:  3  v_point: 11 
+# link list: 9 to group: 1
+# new_group: 1 POINT_GROUP:1 
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 17  v: 10  v_point: 12 
+# i:  1  h_min:  x  h_max:  x  h_point: 17  v: 11  v_point: 12 
+# i:  2  h_min:  x  h_max:  x  h_point: 17  v:  4  v_point: 12 
+# link list:10 to group: 2
+# new_group: 2 POINT_GROUP:2 
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 17  v: 10  v_point: 13 
+# i:  1  h_min:  x  h_max:  x  h_point: 17  v: 11  v_point: 13 
+# i:  2  h_min:  x  h_max:  x  h_point: 17  v: 12  v_point: 13 
+# i:  3  h_min:  x  h_max:  x  h_point: 17  v:  5  v_point: 13 
+# link list:11 to group: 3
+# new_group: 3 POINT_GROUP:3 
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 19  v: 10  v_point: 14 
+# i:  1  h_min:  x  h_max:  x  h_point: 19  v: 11  v_point: 14 
+# i:  2  h_min:  x  h_max:  x  h_point: 19  v: 12  v_point: 14 
+# i:  3  h_min:  x  h_max:  x  h_point: 19  v: 13  v_point: 14 
+# i:  4  h_min:  x  h_max:  x  h_point: 19  v:  x  v_point: 14 
+# link list:12 to group: 4
+# new_group: 4 POINT_GROUP:4 
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 19  v: 10  v_point: 15 
+# i:  1  h_min:  x  h_max:  x  h_point: 19  v: 11  v_point: 15 
+# i:  2  h_min:  x  h_max:  x  h_point: 19  v: 12  v_point: 15 
+# i:  3  h_min:  x  h_max:  x  h_point: 19  v: 13  v_point: 15 
+# i:  4  h_min:  x  h_max:  x  h_point: 19  v:  x  v_point: 15 
+# i:  5  h_min:  x  h_max:  x  h_point: 19  v:  x  v_point: 15 
+# link list:13 to group: 5
+# new_group: 5 POINT_GROUP:5 
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 19  v: 10  v_point: 16 
+# i:  1  h_min:  x  h_max:  x  h_point: 19  v: 11  v_point: 16 
+# i:  2  h_min:  x  h_max:  x  h_point: 19  v: 12  v_point: 16 
+# i:  3  h_min:  x  h_max:  x  h_point: 19  v: 13  v_point: 16 
+# i:  4  h_min:  x  h_max:  x  h_point: 19  v:  x  v_point: 16 
+# i:  5  h_min:  x  h_max:  x  h_point: 19  v:  x  v_point: 16 
+# i:  6  h_min:  x  h_max:  x  h_point: 19  v:  x  v_point: 16 
+# link list:14 to group: 6
+# new_group: 6 POINT_GROUP:6 
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 19  v: 10  v_point: 17 
+# i:  1  h_min:  x  h_max:  x  h_point: 19  v: 11  v_point: 17 
+# i:  2  h_min:  x  h_max:  x  h_point: 19  v: 12  v_point: 17 
+# i:  3  h_min:  x  h_max:  x  h_point: 19  v: 13  v_point: 17 
+# i:  4  h_min:  x  h_max:  x  h_point: 19  v:  x  v_point: 17 
+# i:  5  h_min:  x  h_max:  x  h_point: 19  v:  x  v_point: 17 
+# i:  6  h_min:  x  h_max:  x  h_point: 19  v:  x  v_point: 17 
+# i:  7  h_min:  x  h_max:  x  h_point: 19  v:  x  v_point: 17 
+# link list:15 to group: 7
+# new_group: 7 POINT_GROUP:7 
+# POINT_GROUP: 0
+# ============= result =================
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
+#    Time: 2010200 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
+run -all
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 19  v:  x  v_point:  2 
+# link list: 0 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  2  v_point:  3 
+# link list: 1 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  3  v_point:  4 
+# link list: 2 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 17  v:  4  v_point:  5 
+# link list: 3 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  5  v_point:  6 
+# link list: 4 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  6  v_point:  7 
+# link list: 5 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  7  v_point:  8 
+# link list: 6 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  8  v_point:  9 
+# link list: 7 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  9  v_point: 10 
+# link list: 8 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 10  v_point: 11 
+# link list: 9 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 11  v_point: 12 
+# link list:10 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 12  v_point: 13 
+# link list:11 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 19  v: 13  v_point: 14 
+# link list:12 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 14  v_point: 15 
+# link list:13 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 15  v_point: 16 
+# link list:14 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 16  v_point: 17 
+# link list:15 to group: 0
+# POINT_GROUP: 1
+# ============= result =================
+# p:  0    X: 17    Y:  9
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(80)
+#    Time: 2010200 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 80
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
+run -all
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 19  v:  x  v_point:  2 
+# link list: 0 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  2  v_point:  3 
+# link list: 1 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  3  v_point:  4 
+# link list: 2 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 17  v:  4  v_point:  5 
+# link list: 3 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  5  v_point:  6 
+# link list: 4 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  6  v_point:  7 
+# link list: 5 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  7  v_point:  8 
+# link list: 6 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  8  v_point:  9 
+# link list: 7 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  9  v_point: 10 
+# link list: 8 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 10  v_point: 11 
+# link list: 9 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 11  v_point: 12 
+# link list:10 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 12  v_point: 13 
+# link list:11 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 19  v: 13  v_point: 14 
+# link list:12 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 14  v_point: 15 
+# link list:13 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 15  v_point: 16 
+# link list:14 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 16  v_point: 17 
+# link list:15 to group: 0
+# POINT_GROUP: 1
+# ============= result =================
+# p:  0    X: 17    Y:  9
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 17  v_point:  2 
+# link list: 0 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  2  v_point:  3 
+# link list: 1 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  3  v_point:  4 
+# link list: 2 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 17  v:  4  v_point:  5 
+# link list: 3 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  5  v_point:  6 
+# link list: 4 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  6  v_point:  7 
+# link list: 5 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  7  v_point:  8 
+# link list: 6 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  8  v_point:  9 
+# link list: 7 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  9  v_point: 10 
+# link list: 8 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 10  v_point: 11 
+# link list: 9 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 11  v_point: 12 
+# link list:10 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 12  v_point: 13 
+# link list:11 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 19  v: 13  v_point: 14 
+# link list:12 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 14  v_point: 15 
+# link list:13 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 15  v_point: 16 
+# link list:14 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 16  v_point: 17 
+# link list:15 to group: 0
+# POINT_GROUP: 1
+# ============= result =================
+# p:  0    X: 17    Y:  9
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(106)
+#    Time: 4020400 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 106
+restart
+run -all
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 19  v:  x  v_point:  2 
+# link list: 0 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  2  v_point:  3 
+# link list: 1 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  3  v_point:  4 
+# link list: 2 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 17  v:  4  v_point:  5 
+# link list: 3 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  5  v_point:  6 
+# link list: 4 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  6  v_point:  7 
+# link list: 5 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  7  v_point:  8 
+# link list: 6 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  8  v_point:  9 
+# link list: 7 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  9  v_point: 10 
+# link list: 8 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 10  v_point: 11 
+# link list: 9 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 11  v_point: 12 
+# link list:10 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 12  v_point: 13 
+# link list:11 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 19  v: 13  v_point: 14 
+# link list:12 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 14  v_point: 15 
+# link list:13 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 15  v_point: 16 
+# link list:14 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 16  v_point: 17 
+# link list:15 to group: 0
+# POINT_GROUP: 1
+# ============= result =================
+# p:  0    X: 17    Y:  9
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 17  v_point:  2 
+# link list: 0 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  2  v_point:  3 
+# link list: 1 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  3  v_point:  4 
+# link list: 2 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 17  v:  4  v_point:  5 
+# link list: 3 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  5  v_point:  6 
+# link list: 4 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  6  v_point:  7 
+# link list: 5 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  7  v_point:  8 
+# link list: 6 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  8  v_point:  9 
+# link list: 7 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  9  v_point: 10 
+# link list: 8 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 10  v_point: 11 
+# link list: 9 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 11  v_point: 12 
+# link list:10 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 12  v_point: 13 
+# link list:11 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 19  v: 13  v_point: 14 
+# link list:12 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 14  v_point: 15 
+# link list:13 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 15  v_point: 16 
+# link list:14 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 16  v_point: 17 
+# link list:15 to group: 0
+# POINT_GROUP: 1
+# ============= result =================
+# p:  0    X: 17    Y:  9
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(106)
+#    Time: 4020400 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 106
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
+run -all
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 19  v:  x  v_point:  2 
+# link list: 0 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  2  v_point:  3 
+# link list: 1 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  3  v_point:  4 
+# link list: 2 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 17  v:  4  v_point:  5 
+# link list: 3 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  5  v_point:  6 
+# link list: 4 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  6  v_point:  7 
+# link list: 5 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  7  v_point:  8 
+# link list: 6 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  8  v_point:  9 
+# link list: 7 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  9  v_point: 10 
+# link list: 8 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 10  v_point: 11 
+# link list: 9 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 11  v_point: 12 
+# link list:10 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 12  v_point: 13 
+# link list:11 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 19  v: 13  v_point: 14 
+# link list:12 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 14  v_point: 15 
+# link list:13 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 15  v_point: 16 
+# link list:14 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 16  v_point: 17 
+# link list:15 to group: 0
+# POINT_GROUP: 1
+# ============= result =================
+# p:  0    X: 17    Y:  9
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 17  v_point:  2 
+# link list: 0 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  2  v_point:  3 
+# link list: 1 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  3  v_point:  4 
+# link list: 2 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 17  v:  4  v_point:  5 
+# link list: 3 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  5  v_point:  6 
+# link list: 4 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  6  v_point:  7 
+# link list: 5 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  7  v_point:  8 
+# link list: 6 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  8  v_point:  9 
+# link list: 7 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  9  v_point: 10 
+# link list: 8 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 10  v_point: 11 
+# link list: 9 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 11  v_point: 12 
+# link list:10 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 12  v_point: 13 
+# link list:11 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 19  v: 13  v_point: 14 
+# link list:12 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 14  v_point: 15 
+# link list:13 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 15  v_point: 16 
+# link list:14 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 16  v_point: 17 
+# link list:15 to group: 0
+# POINT_GROUP: 1
+# ============= result =================
+# p:  0    X: 17    Y:  9
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(106)
+#    Time: 4020400 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 106
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
+run -all
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 19  v:  x  v_point:  2 
+# link list: 0 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  2  v_point:  3 
+# link list: 1 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  3  v_point:  4 
+# link list: 2 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 17  v:  4  v_point:  5 
+# link list: 3 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  5  v_point:  6 
+# link list: 4 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  6  v_point:  7 
+# link list: 5 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  7  v_point:  8 
+# link list: 6 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  8  v_point:  9 
+# link list: 7 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  9  v_point: 10 
+# link list: 8 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 10  v_point: 11 
+# link list: 9 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 11  v_point: 12 
+# link list:10 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 12  v_point: 13 
+# link list:11 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 19  v: 13  v_point: 14 
+# link list:12 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 14  v_point: 15 
+# link list:13 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 15  v_point: 16 
+# link list:14 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 16  v_point: 17 
+# link list:15 to group: 0
+# POINT_GROUP: 1
+# ============= result =================
+# p:  0    X:  x    Y:  x
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 17  v_point:  2 
+# link list: 0 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  2  v_point:  3 
+# link list: 1 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  3  v_point:  4 
+# link list: 2 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 17  v:  4  v_point:  5 
+# link list: 3 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  5  v_point:  6 
+# link list: 4 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  6  v_point:  7 
+# link list: 5 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  7  v_point:  8 
+# link list: 6 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  8  v_point:  9 
+# link list: 7 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  9  v_point: 10 
+# link list: 8 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 10  v_point: 11 
+# link list: 9 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 11  v_point: 12 
+# link list:10 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 12  v_point: 13 
+# link list:11 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 19  v: 13  v_point: 14 
+# link list:12 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 14  v_point: 15 
+# link list:13 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 15  v_point: 16 
+# link list:14 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 16  v_point: 17 
+# link list:15 to group: 0
+# POINT_GROUP: 1
+# ============= result =================
+# p:  0    X: 19    Y:  2
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(106)
+#    Time: 4020400 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 106
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
+run -all
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 19  v:  x  v_point:  2 
+# link list: 0 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  2  v_point:  3 
+# link list: 1 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  3  v_point:  4 
+# link list: 2 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 17  v:  4  v_point:  5 
+# link list: 3 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  5  v_point:  6 
+# link list: 4 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  6  v_point:  7 
+# link list: 5 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  7  v_point:  8 
+# link list: 6 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  8  v_point:  9 
+# link list: 7 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  9  v_point: 10 
+# link list: 8 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 10  v_point: 11 
+# link list: 9 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 11  v_point: 12 
+# link list:10 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 12  v_point: 13 
+# link list:11 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 19  v: 13  v_point: 14 
+# link list:12 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 14  v_point: 15 
+# link list:13 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 15  v_point: 16 
+# link list:14 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 16  v_point: 17 
+# link list:15 to group: 0
+# POINT_GROUP: 1
+# ============= result =================
+# p:  0    X: 19    Y:  2
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 17  v_point:  2 
+# link list: 0 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  2  v_point:  3 
+# link list: 1 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  3  v_point:  4 
+# link list: 2 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 17  v:  4  v_point:  5 
+# link list: 3 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  5  v_point:  6 
+# link list: 4 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  6  v_point:  7 
+# link list: 5 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  7  v_point:  8 
+# link list: 6 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  8  v_point:  9 
+# link list: 7 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  9  v_point: 10 
+# link list: 8 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 10  v_point: 11 
+# link list: 9 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 11  v_point: 12 
+# link list:10 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 12  v_point: 13 
+# link list:11 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 19  v: 13  v_point: 14 
+# link list:12 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 14  v_point: 15 
+# link list:13 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 15  v_point: 16 
+# link list:14 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 16  v_point: 17 
+# link list:15 to group: 0
+# POINT_GROUP: 1
+# ============= result =================
+# p:  0    X: 19    Y:  2
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(106)
+#    Time: 4020400 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 106
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
+run -all
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 19  v:  x  v_point:  2 
+# link list: 0 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  2  v_point:  3 
+# link list: 1 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  3  v_point:  4 
+# link list: 2 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 17  v:  4  v_point:  5 
+# link list: 3 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  5  v_point:  6 
+# link list: 4 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  6  v_point:  7 
+# link list: 5 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  7  v_point:  8 
+# link list: 6 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  8  v_point:  9 
+# link list: 7 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  9  v_point: 10 
+# link list: 8 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 10  v_point: 11 
+# link list: 9 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 11  v_point: 12 
+# link list:10 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 12  v_point: 13 
+# link list:11 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 19  v: 13  v_point: 14 
+# link list:12 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 14  v_point: 15 
+# link list:13 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 15  v_point: 16 
+# link list:14 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 16  v_point: 17 
+# link list:15 to group: 0
+# POINT_GROUP: 1
+# ============= result =================
+# p:  0    X: 17    Y:  9
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 17  v_point:  2 
+# link list: 0 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  2  v_point:  3 
+# link list: 1 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  3  v_point:  4 
+# link list: 2 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 17  v:  4  v_point:  5 
+# link list: 3 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  5  v_point:  6 
+# link list: 4 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  6  v_point:  7 
+# link list: 5 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  7  v_point:  8 
+# link list: 6 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  8  v_point:  9 
+# link list: 7 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  9  v_point: 10 
+# link list: 8 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 10  v_point: 11 
+# link list: 9 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 11  v_point: 12 
+# link list:10 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 12  v_point: 13 
+# link list:11 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 19  v: 13  v_point: 14 
+# link list:12 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 14  v_point: 15 
+# link list:13 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 15  v_point: 16 
+# link list:14 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 16  v_point: 17 
+# link list:15 to group: 0
+# POINT_GROUP: 1
+# ============= result =================
+# p:  0    X: 17    Y:  9
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(106)
+#    Time: 4020400 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 106
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
+run -all
+# ================= new_point ====================
+# i:  0  h_min:  x  h_max:  x  h_point: 19  v:  x  v_point:  2 
+# link list:  0 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  2  v_point:  3 
+# link list:  1 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  3  v_point:  4 
+# link list:  2 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 17  v:  4  v_point:  5 
+# link list:  3 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  5  v_point:  6 
+# link list:  4 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  6  v_point:  7 
+# link list:  5 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  7  v_point:  8 
+# link list:  6 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  8  v_point:  9 
+# link list:  7 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  9  v_point: 10 
+# link list:  8 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 10  v_point: 11 
+# link list:  9 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 11  v_point: 12 
+# link list: 10 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 12  v_point: 13 
+# link list: 11 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 19  v: 13  v_point: 14 
+# link list: 12 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 14  v_point: 15 
+# link list: 13 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 15  v_point: 16 
+# link list: 14 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 16  v_point: 17 
+# link list: 15 to group: 0
+# POINT_GROUP: 1
+# ============= result =================
+# p:  0    X: 17    Y:  9
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 17  v_point:  2 
+# link list:  0 to group: 0
+# new_group: 0 POINT_GROUP:0 
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  2  v_point:  3 
+# link list:  1 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v:  3  v_point:  4 
+# link list:  2 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 17  v:  4  v_point:  5 
+# link list:  3 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  5  v_point:  6 
+# link list:  4 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  6  v_point:  7 
+# link list:  5 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  7  v_point:  8 
+# link list:  6 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  8  v_point:  9 
+# link list:  7 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v:  9  v_point: 10 
+# link list:  8 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 10  v_point: 11 
+# link list:  9 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 11  v_point: 12 
+# link list: 10 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 17  v: 12  v_point: 13 
+# link list: 11 to group: 0
+# ================= new_point ====================
+# i:  0  h_min:  6  h_max: 27  h_point: 19  v: 13  v_point: 14 
+# link list: 12 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 14  v_point: 15 
+# link list: 13 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 15  v_point: 16 
+# link list: 14 to group: 0
+# ================= new_point ====================
+# i:  0  h_min: 11  h_max: 27  h_point: 19  v: 16  v_point: 17 
+# link list: 15 to group: 0
+# POINT_GROUP: 1
+# ============= result =================
+# p:  0    X: 17    Y:  9
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(106)
+#    Time: 4020400 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 106

@@ -3,7 +3,7 @@ import numpy as np
 
 
 class UartControl():
-    def __init__(self, port='/dev/ttyUSB1', rate=115200) -> None:
+    def __init__(self, port='/dev/ttyUSB0', rate=115200) -> None:
         pass
         print("Start UartControl...")
 
@@ -135,9 +135,13 @@ if __name__ == "__main__":
     uc = UartControl()
     while 1:
         uc.uart_ser()
+
+        uc.ser_write(1)
+
         print(uc.point_x_0,uc.point_y_0, end=' ')
         print(uc.point_x_1,uc.point_y_1, end=' ')
         print(uc.point_x_2,uc.point_y_2, end=' ')
         print(uc.point_x_3,uc.point_y_3, end=' ')
-        uc.ser_write(0)
+        print()
+        
         # exit()
