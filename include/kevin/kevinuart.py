@@ -138,10 +138,10 @@ if __name__ == "__main__":
 
         uc.ser_write(1)
 
-        print(uc.point_x_0,uc.point_y_0, end=' ')
-        print(uc.point_x_1,uc.point_y_1, end=' ')
-        print(uc.point_x_2,uc.point_y_2, end=' ')
-        print(uc.point_x_3,uc.point_y_3, end=' ')
+        print("p0", uc.point_x_0,uc.point_y_0, end='\t')
+        print("p1", uc.point_x_1,uc.point_y_1, end='\t')
+        print("p2", uc.point_x_2,uc.point_y_2, end='\t')
+        print("p3", uc.point_x_3,uc.point_y_3, end='\t')
         print()
         
         # exit()

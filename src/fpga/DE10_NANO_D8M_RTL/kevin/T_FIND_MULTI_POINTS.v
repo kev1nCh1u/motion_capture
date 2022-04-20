@@ -49,6 +49,8 @@ module T;
 
     initial
     begin
+        $display("================== start ===========================");
+
         CLK = 1;
 
         $readmemb("BINARY_FRAME_DATA.txt", BINARY_FRAME);
