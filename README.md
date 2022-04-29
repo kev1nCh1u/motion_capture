@@ -13,9 +13,9 @@ python setup.py install
 
 ## run code
     roscore
-    python /home/kevin/src/motion_capture/src/dahua_python/src/ros_cv_getFrame.py
+    python src/dahua_python/src/ros_cv_getFrame.py
 
-    python /home/kevin/src/motion_capture/src/image_processing/ir_track/src/ros_stero_light_track.py
+    python src/image_processing/ir_track/src/ros_stero_light_track.py
 
 
 ## dahua track point
@@ -23,20 +23,20 @@ python setup.py install
     kevin_start_capture.zsh
     kevin_start_calib.zsh
 
-    python /home/kevin/src/motion_capture/src/image_processing/calibration/stereo_depth_Chessboard.py
+    python src/image_processing/calibration/stereo_depth_Chessboard.py
 
     kevin_start_stereo_ir_track.zsh
-    python /home/kevin/src/motion_capture/src/image_processing/ir_track/src/ros_point_record.py
+    python src/image_processing/ir_track/src/ros_point_record.py
 
 ## fpga track point
 ### calibration
-    python3.8 /home/kevin/src/motion_capture/src/image_processing/capture/double_capture.py
-    python3.8 /home/kevin/src/motion_capture/src/matlab/start_stero_calib.py
+    python3.8 src/image_processing/capture/double_capture.py
+    python3.8 src/matlab/start_stero_calib.py
 ### verification
-    python3.8 /home/kevin/src/motion_capture/src/image_processing/calibration/stereo_board_depth_triangulation.py -id 14
+    python3.8 src/image_processing/calibration/stereo_board_depth_triangulation.py -id 14
 
-    python3.8 /home/kevin/src/motion_capture/src/image_processing/calibration/get_data.py
-    python3.8 /home/kevin/src/motion_capture/src/image_processing/calibration/point_plot_3d.py
+    python3.8 src/image_processing/calibration/get_data.py
+    python3.8 src/image_processing/calibration/point_plot_3d.py
 
 ### GUI
     python3.8 src/gui/qt_gui/src/main.py

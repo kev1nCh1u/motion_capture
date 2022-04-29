@@ -157,8 +157,8 @@ def main():
         vis = np.concatenate((frame_left, frame_right), axis=1)
 
         # Show the frames
-        cv2.imshow("frame left", frame_left)
-        cv2.imshow("frame right", frame_right)
+        # cv2.imshow("frame left", frame_left)
+        # cv2.imshow("frame right", frame_right)
         cv2.imshow("vis SubPix" + fname, vis)
 
         # Hit "q" to close the window

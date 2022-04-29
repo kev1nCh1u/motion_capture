@@ -56,8 +56,8 @@ def main():
     print()
 
     ########################################### uart
-    kuc = kevinuart.UartControl('/dev/ttyUSB0') # right camera
-    kuc1 = kevinuart.UartControl('/dev/ttyUSB1') # left camera
+    kuc = kevinuart.UartControl('/dev/ttyUSB1') # right camera
+    kuc1 = kevinuart.UartControl('/dev/ttyUSB0') # left camera
 
     ########################################### file
     data_path = "data/result/point_data.csv" # file path

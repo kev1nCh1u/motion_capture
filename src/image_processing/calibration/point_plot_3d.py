@@ -17,7 +17,7 @@ ax.set_xlabel('X')
 ax.set_ylabel('Z')
 ax.set_zlabel('Y')
 ax.set_xlim(-200,200)
-ax.set_ylim(300,500)
+ax.set_ylim(450,600)
 ax.set_zlim(-200,200)
 for i in range(4):
     ax.scatter(world_points[:,0+i*3], world_points[:,2+i*3], world_points[:,1+i*3], label='Point'+str(i))

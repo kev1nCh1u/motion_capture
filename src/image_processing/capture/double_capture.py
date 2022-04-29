@@ -51,9 +51,13 @@ class MultiCapture():
             ret, frame = self.cap.read()
             ret2, frame2 = self.cap2.read()
 
+            # mix frame
+            vis = np.concatenate((frame, frame2), axis=1)
+
             # 顯示圖片
-            cv2.imshow('frame', frame)
-            cv2.imshow('frame2', frame2)
+            # cv2.imshow('frame', frame)
+            # cv2.imshow('frame2', frame2)
+            cv2.imshow('vis', vis)
             
             inputKey = cv2.waitKey(1) & 0xFF
 
