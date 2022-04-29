@@ -6,88 +6,119 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>823</width>
-    <height>585</height>
+    <width>917</width>
+    <height>639</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="widget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>500</x>
-      <y>30</y>
-      <width>291</width>
-      <height>461</height>
-     </rect>
-    </property>
-    <widget class="QGraphicsView" name="graphicsView_2">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>220</y>
-       <width>256</width>
-       <height>192</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QGraphicsView" name="graphicsView">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>10</y>
-       <width>256</width>
-       <height>192</height>
-      </rect>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-    </widget>
-   </widget>
    <widget class="QWidget" name="widget_2" native="true">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>50</x>
       <y>30</y>
-      <width>441</width>
-      <height>461</height>
+      <width>721</width>
+      <height>511</height>
      </rect>
     </property>
     <widget class="QWidget" name="gridLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>50</y>
-       <width>381</width>
-       <height>146</height>
+       <x>20</x>
+       <y>30</y>
+       <width>678</width>
+       <height>450</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="1">
-       <widget class="QLabel" name="label_2">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetDefaultConstraint</enum>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <property name="horizontalSpacing">
+       <number>100</number>
+      </property>
+      <property name="verticalSpacing">
+       <number>20</number>
+      </property>
+      <item row="1" column="1">
+       <widget class="QLabel" name="label_4">
         <property name="text">
          <string>TextLabel</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_6">
+      <item row="8" column="1">
+       <widget class="QLabel" name="label_15">
         <property name="text">
-         <string>Capture：</string>
+         <string>TextLabel</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_5">
+      <item row="8" column="0">
+       <widget class="QLabel" name="label_11">
         <property name="text">
-         <string>Color：</string>
+         <string>Point 3:</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="2">
+      <item row="0" column="3">
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="text">
+         <string>binary</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="label_9">
+        <property name="text">
+         <string>Point 1:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="2">
+       <widget class="QLabel" name="label_17">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="2">
+       <widget class="QLabel" name="label_16">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QLabel" name="label_14">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>Point 3D:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QLabel" name="label_21">
+        <property name="text">
+         <string>Right</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
        <widget class="QSlider" name="horizontalSlider">
         <property name="maximum">
          <number>255</number>
@@ -101,37 +132,51 @@
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QLabel" name="label_3">
+       <widget class="QPushButton" name="pushButton_3">
         <property name="text">
-         <string>Threshold：</string>
+         <string>Save</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QPushButton" name="pushButton">
+      <item row="2" column="2">
+       <widget class="QPushButton" name="pushButton_6">
         <property name="text">
-         <string>color</string>
+         <string>test</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QLabel" name="label_13">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Color：</string>
         </property>
        </widget>
       </item>
       <item row="1" column="3">
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="pushButton_4">
         <property name="text">
-         <string>capture</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QPushButton" name="pushButton_2">
-        <property name="text">
-         <string>binary</string>
+         <string>change</string>
         </property>
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QLabel" name="label_4">
+       <widget class="QPushButton" name="pushButton_5">
         <property name="text">
-         <string>TextLabel</string>
+         <string>test</string>
         </property>
        </widget>
       </item>
@@ -142,10 +187,66 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="label_7">
+      <item row="8" column="2">
+       <widget class="QLabel" name="label_19">
         <property name="text">
-         <string>Point:</string>
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Threshold：</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLabel" name="label_20">
+        <property name="text">
+         <string>Left</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="2">
+       <widget class="QLabel" name="label_18">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QPushButton" name="pushButton_7">
+        <property name="text">
+         <string>test</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLabel" name="label_10">
+        <property name="text">
+         <string>Point 2:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string>Point 0:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>color</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QLabel" name="label_12">
+        <property name="text">
+         <string>TextLabel</string>
         </property>
        </widget>
       </item>
@@ -158,7 +259,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>823</width>
+     <width>917</width>
      <height>32</height>
     </rect>
    </property>

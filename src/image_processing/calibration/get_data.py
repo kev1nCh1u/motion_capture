@@ -70,35 +70,34 @@ def main():
         kuc1.uart_ser() # left camera
 
         ########################################### get_point 
-        center_point_left = [kuc.point_x, kuc.point_y]
-        center_point_right = [kuc1.point_x, kuc1.point_y]
-        print("center_point:", center_point_left, center_point_right)
+        for i in range(4):
+            print("p"+str(i), kuc.point2d[i,0],kuc.point2d[i,1],kuc1.point2d[i,0],kuc1.point2d[i,1], end='\t')
+        print()
 
         ############################################# triangulate
-        print("triangulation_depth ========================================")
-        world_points = np.zeros((2, 3), np.float64)
-        world_points[0] = triangulate(cameraMatrix1, cameraMatrix2, RotationOfCamera2, TranslationOfCamera2, center_point_left, center_point_right)
-
+        # print("triangulation_depth ========================================")
+        points3d = np.zeros((4, 3), np.float64)
+        for i in range(4):
+            if(kuc.point2d[i,0] or kuc1.point2d[i,0]):
+                points3d[i] = triangulate(cameraMatrix1, cameraMatrix2, RotationOfCamera2, TranslationOfCamera2, kuc.point2d[i], kuc1.point2d[i])
+            else:
+                points3d[i] = [0,0,0]
         #################################### cv draw picture
         blank_image = np.zeros((480,640,3), np.uint8) # create image
 
         # draw text
-        text = "X: " + str(round(world_points[0, 0], 2))
-        cv2.putText(blank_image, text,
-                    (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-        text = "Y: " + str(round(world_points[0, 1], 2))
-        cv2.putText(blank_image, text,
-                    (10, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-        text = "Depth: " + str(round(world_points[0, 2], 2))
-        cv2.putText(blank_image, text,
-                    (10, 120), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+
         text = "press s to save point"
         cv2.putText(blank_image, text,
-                    (10, 160), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+                    (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
         text = "Save point: " + str(count)
         cv2.putText(blank_image, text,
-                    (10, 200), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-        
+                    (10, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+
+        for i in range(4):
+            text = "p" + str(i) + " X: " + str(round(points3d[i, 0], 2)) + " Y: " + str(round(points3d[i, 1], 2)) + " Z: " + str(round(points3d[i, 2], 2))
+            cv2.putText(blank_image, text,
+                        (10, 140+i*40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
         # Show the frames
         cv2.imshow("blank_image", blank_image)
@@ -112,7 +111,10 @@ def main():
 
         # if s save
         elif inputKey == ord('s'):
-            text = str(world_points[0, 0]) + ', ' + str(world_points[0, 1]) + ', ' + str(world_points[0, 2]) + '\n'
+            text = ""
+            for i in range(4):
+                text += str(points3d[i, 0]) + ', ' + str(points3d[i, 1]) + ', ' + str(points3d[i, 2]) + ', '
+            text += '\n'
             data_file.write(text) # write data
             print('\nSave...', '\n')
             count += 1

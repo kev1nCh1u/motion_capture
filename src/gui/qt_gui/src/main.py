@@ -9,6 +9,7 @@ sys.path.append(os.getcwd())
 from include.kevin import kevinuart
 
 from time import sleep
+import numpy as np
 
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
@@ -39,11 +40,19 @@ class Ui(QtWidgets.QMainWindow):
 
     def timer_callback(self):
         # print("timer_callback")
-        self.uc.uart_ser()
-        self.uc1.uart_ser()
-        strVal = "x:" + str(self.uc.point_x_0) + " y:" + str(self.uc.point_y_0)
-        strVal = "x:" + str(self.uc1.point_x_0) + " y:" + str(self.uc1.point_y_0)
-        self.label.setText(str(strVal))
+        self.uc.uart_ser() # right
+        self.uc1.uart_ser() # left
+        strVal_3d = "x:" + "y:" + "z:"
+
+        self.label.setText(str(strVal_3d))
+        self.label_12.setText("x:" + str(self.uc.point2d[0,0]) + " y:" + str(self.uc.point2d[0,1]))
+        self.label_13.setText("x:" + str(self.uc.point2d[1,0]) + " y:" + str(self.uc.point2d[1,1]))
+        self.label_14.setText("x:" + str(self.uc.point2d[2,0]) + " y:" + str(self.uc.point2d[2,1]))
+        self.label_15.setText("x:" + str(self.uc.point2d[3,0]) + " y:" + str(self.uc.point2d[3,1]))
+        self.label_16.setText("x:" + str(self.uc1.point2d[0,0]) + " y:" + str(self.uc1.point2d[0,1]))
+        self.label_17.setText("x:" + str(self.uc1.point2d[1,0]) + " y:" + str(self.uc1.point2d[1,1]))
+        self.label_18.setText("x:" + str(self.uc1.point2d[2,0]) + " y:" + str(self.uc1.point2d[2,1]))
+        self.label_19.setText("x:" + str(self.uc1.point2d[3,0]) + " y:" + str(self.uc1.point2d[3,1]))
         self.label_4.setText(str(self.horizontalSlider.value()))
 
         self.graphicsView = QtWidgets.QGraphicsView()

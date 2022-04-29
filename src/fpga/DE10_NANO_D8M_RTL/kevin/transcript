@@ -1620,3 +1620,5 @@ run -all
 # ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(108)
 #    Time: 4020400 ns  Iteration: 0  Instance: /T
 # Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 108
+# End time: 21:06:40 on Apr 20,2022, Elapsed time: 5:02:02
+# Errors: 0, Warnings: 1

@@ -39,9 +39,9 @@ def triangulate(cameraMatrix1, cameraMatrix2, RotationOfCamera2, TranslationOfCa
     # svd
     U, S, V = np.linalg.svd(A)
     X = V.transpose()[:, -1]
-    print("X:", X)
+    # print("X:", X)
     X = X / X[3]
-    print("world_point:", X)
+    # print("world_point:", X)
     return X[0:3]
 
 ###################################################################################

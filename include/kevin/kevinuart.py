@@ -19,14 +19,7 @@ class UartControl():
         self.point_x_bytes_3 = b''
         self.point_y_bytes_3 = b''
 
-        self.point_x_0 = -1
-        self.point_y_0 = -1
-        self.point_x_1 = -1
-        self.point_y_1 = -1
-        self.point_x_2 = -1
-        self.point_y_2 = -1
-        self.point_x_3 = -1
-        self.point_y_3 = -1
+        self.point2d = np.zeros((4, 2),np.unsignedinteger)
         
         COM_PORT = port
         BAUD_RATES = rate
@@ -96,15 +89,19 @@ class UartControl():
                 elif(self.status == 5):
                     if(self.ser.read(1) ==  b'D'):
                         self.status = 0
-                        self.point_x_0 = int.from_bytes(self.point_x_bytes_0, "big")
-                        self.point_y_0 = int.from_bytes(self.point_y_bytes_0, "big")
-                        self.point_x_1 = int.from_bytes(self.point_x_bytes_1, "big")
-                        self.point_y_1 = int.from_bytes(self.point_y_bytes_1, "big")
-                        self.point_x_2 = int.from_bytes(self.point_x_bytes_2, "big")
-                        self.point_y_2 = int.from_bytes(self.point_y_bytes_2, "big")
-                        self.point_x_3 = int.from_bytes(self.point_x_bytes_3, "big")
-                        self.point_y_3 = int.from_bytes(self.point_y_bytes_3, "big")
-                        # print(self.point_x_0, self.point_y_0)
+                        self.point2d[0,0] = int.from_bytes(self.point_x_bytes_0, "big")
+                        self.point2d[0,1] = int.from_bytes(self.point_y_bytes_0, "big")
+                        self.point2d[1,0] = int.from_bytes(self.point_x_bytes_1, "big")
+                        self.point2d[1,1] = int.from_bytes(self.point_y_bytes_1, "big")
+                        self.point2d[2,0] = int.from_bytes(self.point_x_bytes_2, "big")
+                        self.point2d[2,1] = int.from_bytes(self.point_y_bytes_2, "big")
+                        self.point2d[3,0] = int.from_bytes(self.point_x_bytes_3, "big")
+                        self.point2d[3,1] = int.from_bytes(self.point_y_bytes_3, "big")
+                        # print(self.point2d[0,0], self.point2d[0,1])
+
+                        for i in range(4):
+                            if self.point2d[i,0] == 65535 : self.point2d[i,0] = 0
+                            if self.point2d[i,1] == 65535 : self.point2d[i,1] = 0
                     else:
                         self.status = 0
                 # self.ser_write()
@@ -138,10 +135,8 @@ if __name__ == "__main__":
 
         uc.ser_write(1)
 
-        print("p0", uc.point_x_0,uc.point_y_0, end='\t')
-        print("p1", uc.point_x_1,uc.point_y_1, end='\t')
-        print("p2", uc.point_x_2,uc.point_y_2, end='\t')
-        print("p3", uc.point_x_3,uc.point_y_3, end='\t')
+        for i in range(4):
+            print("p"+str(i), uc.point2d[i,0],uc.point2d[i,1], end='\t')
         print()
         
         # exit()

@@ -3,7 +3,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import pandas as pd
 
 
-path = "data/point_data.csv"
+path = "data/result/point_data.csv"
 savePlotPath = 'img/result/point_path_plot/point_path_plot' + '.png'
 
 df = pd.read_csv(path, header=None)
@@ -19,7 +19,11 @@ ax.set_zlabel('Y')
 ax.set_xlim(-200,200)
 ax.set_ylim(300,500)
 ax.set_zlim(-200,200)
-ax.scatter(world_points[:,0], world_points[:,2], world_points[:,1], label='Point')
+for i in range(4):
+    ax.scatter(world_points[:,0+i*3], world_points[:,2+i*3], world_points[:,1+i*3], label='Point'+str(i))
+# ax.scatter(world_points[:,3], world_points[:,5], world_points[:,4], label='Point1')
+# ax.scatter(world_points[:,6], world_points[:,8], world_points[:,7], label='Point1')
+# ax.scatter(world_points[:,3], world_points[:,5], world_points[:,4], label='Point1')
 ax.legend()
 plt.savefig(savePlotPath)
 plt.show()
