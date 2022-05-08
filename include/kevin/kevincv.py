@@ -53,9 +53,112 @@ def euclideanDistances3d(world_points):
         + (world_points[0, 2] - world_points[1, 2])**2)**0.5 #z
     return distance
 
+###################################################################################
+# euclideanDistances3d
+###################################################################################
+def euclideanDistancesTwo3d(a ,b):
+    distance = ((a[0] - b[0])**2 # x
+            + (a[1] - b[1])**2 # y
+            + (a[2] - b[2])**2)**0.5 #z
+    return distance
+
+###################################################################################
+# findPointDis
+###################################################################################
+def findPointDis(points3d, num):
+    distance = np.zeros((4), np.float64)
+
+    for i in range(4):
+        if(i != num):
+            distance[i] = euclideanDistancesTwo3d(points3d[num], points3d[i])
+
+    return distance
+
+###################################################################################
+# findAllDis
+###################################################################################
+def findAllDis(points3d):
+    distance = np.zeros((4,4), np.float64)
+
+    for i in range(4):
+        distance[i] = findPointDis(points3d, i)
+
+    return distance
+
+###################################################################################
+# arraySum
+###################################################################################
+def arraySum(a):
+    ans = np.zeros((4), np.float64)
+
+    # for i in range(4):
+    #     for j in range(4):
+    #         ans[i] += a[i][j]
+
+    for i in range(4):
+        ans[i] = np.sum(a[i])
+
+    return ans
+
+###################################################################################
+# findBodyPoint
+###################################################################################
+def findBodyPoint(point, orgin):
+    for i in range(4):
+        if(abs(point - orgin[i]) < 1):
+            return i
+
+    return -1
+
+###################################################################################
+# findBodyPointAll
+###################################################################################
+def findBodyPointAll(point, orgin):
+    nums = np.zeros((4), np.float64)
+
+    for i in range(4):
+        for j in range(4):
+            if(abs(point[i] - orgin[j]) < 1):
+                nums[i] = j
+
+    return nums
 
 
 
 # if main
 if __name__ == '__main__':
     print("welcome kevin_cv...")
+
+    origin  = np.array([
+                        [86.50438840372979, 0.6729383451448048, 474.92717314288876],
+                        [14.414906327500171, 22.34505201771049, 449.62576160776894],
+                        [96.13160683183148, 55.10663416683474, 478.5723029681971],
+                        [47.43867422337718, 71.66474800800661, 461.57418427997044],
+                        ])
+
+    points3d  = np.array([
+                        [44.408427247312176, 71.80456867683641, 471.56922565559825],
+                        [84.0008849766173, 1.0253193717497644, 484.2133958228639],
+                        [11.402377138005159, 22.452479238189188, 458.8405626214418],
+                        [93.7861030447076, 55.47613355449325, 487.92861245647583],
+                        ])
+
+    orgDis = findAllDis(origin)
+    print(orgDis)
+    orgSum = arraySum(orgDis)
+    print(orgSum)
+
+    while 1:
+        pointDis = findPointDis(points3d, 1)
+        print(pointDis)
+        pointSum = np.sum(pointDis)
+        print(pointSum)
+        
+        num = findBodyPoint(pointSum, orgSum)
+        print(num)
+
+        nums = findBodyPointAll(pointDis, orgDis[num])
+        print(nums)
+
+        exit()
+   
