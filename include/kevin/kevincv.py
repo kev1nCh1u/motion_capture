@@ -127,7 +127,7 @@ def findBodyPointAll(point, orgin):
 
 # if main
 if __name__ == '__main__':
-    print("welcome kevin_cv...")
+    print("welcome kevin_cv...\n")
 
     origin  = np.array([
                         [86.50438840372979, 0.6729383451448048, 474.92717314288876],
@@ -144,21 +144,21 @@ if __name__ == '__main__':
                         ])
 
     orgDis = findAllDis(origin)
-    print(orgDis)
+    print("origin distanse:\n", orgDis, "\n")
     orgSum = arraySum(orgDis)
-    print(orgSum)
+    print("origin distanse sum:\n",orgSum, "\n")
 
     while 1:
         pointDis = findPointDis(points3d, 1)
-        print(pointDis)
+        print("point distance:", pointDis)
         pointSum = np.sum(pointDis)
-        print(pointSum)
+        print("point sum", pointSum)
         
         num = findBodyPoint(pointSum, orgSum)
-        print(num)
+        print("point num:",num)
 
         nums = findBodyPointAll(pointDis, orgDis[num])
-        print(nums)
+        print("points num:", nums)
 
         exit()
    
