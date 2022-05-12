@@ -103,30 +103,84 @@ def arraySum(a):
 ###################################################################################
 # findBodyPoint
 ###################################################################################
-def findBodyPoint(point, orgin):
-    for i in range(4):
-        if(abs(point - orgin[i]) < 1):
+def findBodyPoint(pointDisSum, orginDisSum):
+    for i in range(len(orginDisSum)):
+        if(abs(pointDisSum - orginDisSum[i]) < 2):
             return i
-
     return -1
 
 ###################################################################################
-# findBodyPointAll
+# findBody_num
 ###################################################################################
-def findBodyPointAll(point, orgin):
-    nums = np.zeros((4), np.float64)
-
-    for i in range(4):
-        for j in range(4):
-            if(abs(point[i] - orgin[j]) < 1):
-                nums[i] = j
-
+def findBody_num(pointDis, orginDis, num):
+    nums = np.zeros((len(pointDis)), np.int8)
+    if(num >= 0):
+        for i in range(4):
+            for j in range(4):
+                if(abs(pointDis[i] - orginDis[num][j]) < 1):
+                    nums[i] = j
     return nums
 
 
+###################################################################################
+# findBody_dis
+###################################################################################
+def findBody_dis(pointDis, orginDis):
+    nums = np.zeros((len(pointDis)), np.int8)
+    for i in range(4):
+        if(pointDis[i] != 0):
+            for j in range(4):
+                for k in range(4):
+                    if(orginDis[j][k] != 0):
+                        if(abs(pointDis[i] - orginDis[j][k]) < 1):
+                            nums[i] = j
+    return nums
 
-# if main
-if __name__ == '__main__':
+
+###################################################################################
+# findBody_np
+###################################################################################
+def findBody_np(pointDis, orginDis, basePoint):
+    nums = np.zeros((len(pointDis)), np.int8)
+    point = np.zeros((3,2,2), np.int8)
+    pointDisId = np.zeros((3), np.int8)
+
+    count = 0
+    for i in range(len(pointDis)):
+        where = np.copy(orginDis)
+        if(pointDis[i]):
+            where = np.where(where < pointDis[i]+1, where, 0)
+            where = np.where(where > pointDis[i]-1, where, 0)
+            print("where:\n", where)
+            point[count] = np.nonzero(where)
+            pointDisId[count] = i
+            count += 1
+            if(count >= 3):
+                break
+    print(point)
+    
+    num = -1
+    for i in range(2):
+        for j in range(2):
+            if(point[0][i][0] == point[1][j][0]):
+                num = point[0][i][0]
+                
+                nums[pointDisId[0]] = point[0][i][1]
+                nums[pointDisId[1]] = point[1][j][1]
+
+                break
+    print("point num: ", num)
+    nums[basePoint] = num
+
+    # for i in range(2):
+    #     print(point[i][num][1])
+        # nums[pointDisId[i]] = point[i][num][1]
+    return nums
+
+###################################################################################
+# main
+###################################################################################
+def main():
     print("welcome kevin_cv...\n")
 
     origin  = np.array([
@@ -143,22 +197,37 @@ if __name__ == '__main__':
                         [93.7861030447076, 55.47613355449325, 487.92861245647583],
                         ])
 
-    orgDis = findAllDis(origin)
-    print("origin distanse:\n", orgDis, "\n")
-    orgSum = arraySum(orgDis)
-    print("origin distanse sum:\n",orgSum, "\n")
+    orginDis = findAllDis(origin)
+    print("origin distanse:\n", orginDis, "\n")
+    orginDisSum = arraySum(orginDis)
+    print("origin distanse sum:\n",orginDisSum, "\n")
 
-    while 1:
-        pointDis = findPointDis(points3d, 1)
+    for i in range(60):
+        basePoint = 2
+        pointDis = findPointDis(points3d, basePoint)
         print("point distance:", pointDis)
-        pointSum = np.sum(pointDis)
-        print("point sum", pointSum)
+        pointDisSum = np.sum(pointDis)
+        print("point sum", pointDisSum)
         
-        num = findBodyPoint(pointSum, orgSum)
+        num = findBodyPoint(pointDisSum, orginDisSum)
         print("point num:",num)
 
-        nums = findBodyPointAll(pointDis, orgDis[num])
+        nums = findBody_num(pointDis, orginDis, num)
         print("points num:", nums)
 
-        exit()
+        nums = findBody_np(pointDis, orginDis, basePoint)
+        print("points num:", nums)
+
+        break
+
+###################################################################################
+# # if main
+###################################################################################
+if __name__ == '__main__':
+    import time
+    start_time = time.time()
+    main()
+    print("--- %s seconds ---" % (time.time() - start_time))
+
+
    
