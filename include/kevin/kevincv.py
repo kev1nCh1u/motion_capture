@@ -196,6 +196,15 @@ def percentReliability(true, observed):
     return 100 - percentError(true, observed)
 
 ###################################################################################
+# percentReliabilityArray
+###################################################################################
+def percentReliabilityArray(true, observed, pointNums):
+    nums = np.zeros((len(true)), np.float32)
+    for i in range(len(true)):
+        nums[i] = 100 - percentError(true[pointNums[i]], observed[i])
+    return nums
+
+###################################################################################
 # main
 ###################################################################################
 def main():
@@ -224,11 +233,15 @@ def main():
         start_time_1 = time.time()
 
         basePoint = 2
-        pointDis = findPointDis(points3d, basePoint)
-        print("point distance:", pointDis)
+        # pointDis = findPointDis(points3d, basePoint)
+        # print("point distance:", pointDis)
+        # pointDisSum = np.sum(pointDis)
+        # print("point sum", pointDisSum)
 
-        pointDisSum = np.sum(pointDis)
-        print("point sum", pointDisSum)
+        pointDis = findAllDis(points3d)
+        print("points distanse:\n", pointDis, "\n")
+        pointDisSum = arraySum(pointDis)
+        print("points distanse sum:\n",pointDisSum, "\n")
         
         
         # num = findBodyPoint(pointDisSum, orginDisSum)
@@ -237,14 +250,17 @@ def main():
         # nums = findBody_num(pointDis, orginDis, num)
         # print("points num:", nums)
 
-        nums = findBody_np(pointDis, orginDis, basePoint)
+        nums = findBody_np(pointDis[basePoint], orginDis, basePoint)
         print("points num:", nums)
 
-        pe = percentError(orginDisSum[nums[basePoint]], pointDisSum)
-        print("percentError", pe)
+        # pe = percentError(orginDisSum[nums[basePoint]], pointDisSum[basePoint])
+        # print("percentError", pe)
 
-        pr = percentReliability(orginDisSum[nums[basePoint]], pointDisSum)
+        pr = percentReliability(orginDisSum[nums[basePoint]], pointDisSum[basePoint])
         print("percentReliability", pr)
+
+        pra = percentReliabilityArray(orginDisSum, pointDisSum, nums)
+        print("percentReliabilityArray", pra)
 
         print("--- 1: %s seconds ---" % (time.time() - start_time_1))
 
