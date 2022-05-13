@@ -66,7 +66,7 @@ def euclideanDistancesTwo3d(a ,b):
 # findPointDis
 ###################################################################################
 def findPointDis(points3d, num):
-    distance = np.zeros((4), np.float64)
+    distance = np.zeros((len(points3d)), np.float64)
 
     for i in range(4):
         if(i != num):
@@ -142,8 +142,8 @@ def findBody_dis(pointDis, orginDis):
 ###################################################################################
 def findBody_np(pointDis, orginDis, basePoint):
     nums = np.zeros((len(pointDis)), np.int8)
-    point = np.zeros((3,2,2), np.int8)
-    pointDisId = np.zeros((3), np.int8)
+    point = np.zeros((4,2,2), np.int8)
+    pointDisId = np.zeros((4), np.int8)
 
     count = 0
     for i in range(len(pointDis)):
@@ -151,13 +151,13 @@ def findBody_np(pointDis, orginDis, basePoint):
         if(pointDis[i]):
             where = np.where(where < pointDis[i]+1, where, 0)
             where = np.where(where > pointDis[i]-1, where, 0)
-            print("where:\n", where)
+            # print("where:\n", where)
             point[count] = np.nonzero(where)
             pointDisId[count] = i
             count += 1
-            if(count >= 3):
-                break
-    print(point)
+            # if(count >= 3):
+            #     break
+    # print(point)
     
     num = -1
     for i in range(2):
@@ -167,6 +167,11 @@ def findBody_np(pointDis, orginDis, basePoint):
                 
                 nums[pointDisId[0]] = point[0][i][1]
                 nums[pointDisId[1]] = point[1][j][1]
+                
+                for k in range(2):
+                    if(point[2][k][0] == num):
+                        nums[pointDisId[2]] = point[2][k][1]
+                        break
 
                 break
     print("point num: ", num)
@@ -176,6 +181,19 @@ def findBody_np(pointDis, orginDis, basePoint):
     #     print(point[i][num][1])
         # nums[pointDisId[i]] = point[i][num][1]
     return nums
+
+###################################################################################
+# percentError
+###################################################################################
+def percentError(true, observed):
+    return abs(true-observed) / true * 100
+
+###################################################################################
+# percentReliability
+###################################################################################
+def percentReliability(true, observed):
+    # return (true/abs(true-observed))/true * 100
+    return 100 - percentError(true, observed)
 
 ###################################################################################
 # main
@@ -203,20 +221,32 @@ def main():
     print("origin distanse sum:\n",orginDisSum, "\n")
 
     for i in range(60):
+        start_time_1 = time.time()
+
         basePoint = 2
         pointDis = findPointDis(points3d, basePoint)
         print("point distance:", pointDis)
+
         pointDisSum = np.sum(pointDis)
         print("point sum", pointDisSum)
         
-        num = findBodyPoint(pointDisSum, orginDisSum)
-        print("point num:",num)
+        
+        # num = findBodyPoint(pointDisSum, orginDisSum)
+        # print("point num:",num)
 
-        nums = findBody_num(pointDis, orginDis, num)
-        print("points num:", nums)
+        # nums = findBody_num(pointDis, orginDis, num)
+        # print("points num:", nums)
 
         nums = findBody_np(pointDis, orginDis, basePoint)
         print("points num:", nums)
+
+        pe = percentError(orginDisSum[nums[basePoint]], pointDisSum)
+        print("percentError", pe)
+
+        pr = percentReliability(orginDisSum[nums[basePoint]], pointDisSum)
+        print("percentReliability", pr)
+
+        print("--- 1: %s seconds ---" % (time.time() - start_time_1))
 
         break
 
@@ -227,7 +257,7 @@ if __name__ == '__main__':
     import time
     start_time = time.time()
     main()
-    print("--- %s seconds ---" % (time.time() - start_time))
+    print("--- total %s seconds ---" % (time.time() - start_time))
 
 
    
