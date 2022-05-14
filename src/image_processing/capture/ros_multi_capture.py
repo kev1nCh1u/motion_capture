@@ -25,7 +25,7 @@ class MultiCapture:
 
     camera_num = 0
     frame = np.zeros((camera_num,480,640,3), np.uint8)
-    save_path = 'img/stereo_calibration/new/'
+    save_path = 'data/stereo_calibration/new/'
     save_num = 1
     bridge = CvBridge()
 

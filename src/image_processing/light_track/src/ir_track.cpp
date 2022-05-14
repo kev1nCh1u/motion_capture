@@ -74,8 +74,8 @@ int main(int argc, char *argv[])
 	if (argc != 2)
 	{
 		printf("Load defalt image\n");
-		image = cv::imread("../../../../img/ir/Pic_2021_10_09_104654_1.bmp", 1); // 讀取影像檔案
-		// image = cv::imread("../../../../img/ir/ir_led_4.bmp", 1); // 讀取影像檔案
+		image = cv::imread("../../../../data/ir/Pic_2021_10_09_104654_1.bmp", 1); // 讀取影像檔案
+		// image = cv::imread("../../../../data/ir/ir_led_4.bmp", 1); // 讀取影像檔案
 	}
 	else
 	{

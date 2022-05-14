@@ -67,7 +67,7 @@ class pointRecord:
         self.maxFlag = False
         self.findMinMaxFlag = True # False
         self.saveDataPath = "data/point_path/point_path_data_" + self.fileName + ".csv"
-        self.savePlotPath = 'img/result/point_path_plot/point_path_plot_' + self.fileName + '.png'
+        self.savePlotPath = 'data/result/point_path_plot/point_path_plot_' + self.fileName + '.png'
         self.finishFlag = False
 
         # kevin ros

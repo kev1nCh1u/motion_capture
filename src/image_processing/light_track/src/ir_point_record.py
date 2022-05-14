@@ -11,7 +11,7 @@ import glob
 ###################################################################################
 capFlag = 1
 videoPath = '/home/kevin/MVviewer/videos/A5031CU815_4H05A85PAK641B0/*.avi'
-imagePath = "img/ir/Pic_2021_10_09_104654_1.bmp"
+imagePath = "data/ir/Pic_2021_10_09_104654_1.bmp"
 if capFlag:
     globFilePath = videoPath
 else:
@@ -36,7 +36,7 @@ class PointPath:
         self.maxFlag = False
         self.findMinMaxFlag = True # False
         self.saveDataPath = "data/point_path/point_path_data_" + self.fileName + ".csv"
-        self.savePlotPath = 'img/result/point_path_plot/point_path_plot_' + self.fileName + '.png'
+        self.savePlotPath = 'data/result/point_path_plot/point_path_plot_' + self.fileName + '.png'
 
     def findMinMax(self, point):
         if point[self.min_max_axis] < self.minPoint[self.min_max_axis]:

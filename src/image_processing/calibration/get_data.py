@@ -12,8 +12,8 @@ import argparse
 import os
 import importlib
 sys.path.append(os.getcwd())
-from include.kevin.kevincv import  *
-from include.kevin import kevinuart
+from lib.kevin.kevincv import  *
+from lib.kevin import kevinuart
 
 
 ###################################################################################

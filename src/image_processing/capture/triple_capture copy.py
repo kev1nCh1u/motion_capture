@@ -12,7 +12,7 @@ import threading
 
 print('\n opencv version:', cv2.__version__)
 
-save_path = 'img/stereo_calibration/new_triple/'
+save_path = 'data/stereo_calibration/new_triple/'
 
 class MultiCapture():
 

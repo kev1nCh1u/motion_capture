@@ -6,7 +6,7 @@ import glob
 chessboardSize = (9,6)
 frameSize = (640,480)
 
-path = "img/stereo_calibration/new/"
+path = "data/stereo_calibration/new/"
 fname = "05.jpg" # 5 6
 
 paramFlag = 1

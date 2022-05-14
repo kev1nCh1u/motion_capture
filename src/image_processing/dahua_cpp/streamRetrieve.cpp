@@ -114,7 +114,7 @@ void StreamRetrieve::threadProc()
 
 	// kevin define
 	cv::Mat image;
-	image = cv::imread("../../../img/ir/Pic_2021_10_09_104654_1.bmp", 1); // 讀取影像檔案
+	image = cv::imread("../../../data/ir/Pic_2021_10_09_104654_1.bmp", 1); // 讀取影像檔案
 	unsigned int frameCount = 0;
 
 	// kevin shared memory

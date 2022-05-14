@@ -10,7 +10,7 @@ import argparse
 import os
 import importlib
 sys.path.append(os.getcwd())
-from include.kevin.kevincv import  *
+from lib.kevin.kevincv import  *
 
 
 ###################################################################################
@@ -60,7 +60,7 @@ def main():
     while 1:
         ########################################## get frame
         capFlag = 0
-        save_path = 'img/result/chessboard/'
+        save_path = 'data/result/chessboard/'
 
         # Open both cameras
         if capFlag:
@@ -77,7 +77,7 @@ def main():
 
         # open both picture
         if not capFlag:
-            path = "img/stereo_calibration/new/"
+            path = "data/stereo_calibration/new/"
             fname = args.image_id + ".jpg"
             frame_left = cv2.imread(path + '1/' + fname)
             frame_right = cv2.imread(path + '2/' + fname)

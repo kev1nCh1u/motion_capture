@@ -15,7 +15,7 @@ stereoMapR_y = cv_file.getNode('stereoMapR_y').mat()
 
 imageSize = (np.shape(stereoMapL_x)[1], np.shape(stereoMapL_x)[0])
 capFlag = 0
-save_path = 'img/result/'
+save_path = 'data/result/'
 
 # Open both cameras
 if capFlag:
@@ -28,7 +28,7 @@ if capFlag:
     if not(cap_right.isOpened() and cap_left.isOpened()):
         exit()
 else:
-    path = "img/stereo_calibration/new/"
+    path = "data/stereo_calibration/new/"
     fname = "1/01.jpg"
     fname2 = "2/01.jpg"
     cap_right = cv2.imread(path + fname2)

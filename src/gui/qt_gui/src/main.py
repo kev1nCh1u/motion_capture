@@ -6,7 +6,7 @@ import sys
 import os
 import importlib
 sys.path.append(os.getcwd())
-from include.kevin import kevinuart
+from lib.kevin import kevinuart
 
 from time import sleep
 import numpy as np

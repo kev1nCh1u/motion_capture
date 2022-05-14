@@ -98,8 +98,8 @@ def main():
 			ret, frame = cap.read()
 
 		if not capFlag:
-			# frame = cv2.imread("img/ir/Pic_2021_10_09_104654_1.bmp")
-			frame = cv2.imread("img/ir/ir_led_4.bmp")
+			# frame = cv2.imread("data/ir/Pic_2021_10_09_104654_1.bmp")
+			frame = cv2.imread("data/ir/ir_led_4.bmp")
 			ret = True
 
 		if ret == True:

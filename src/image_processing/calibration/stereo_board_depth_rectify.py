@@ -102,7 +102,7 @@ def main():
 
     while 1:
         capFlag = 0
-        save_path = 'img/result/'
+        save_path = 'data/result/'
 
         # Camera parameters to undistort and rectify images
         cv_file = cv2.FileStorage()
@@ -137,7 +137,7 @@ def main():
 
         # open both picture
         if not capFlag:
-            path = "img/stereo_calibration/new/"
+            path = "data/stereo_calibration/new/"
             fname = args.image_id + ".jpg"
             frame_left = cv2.imread(path + '1/' + fname)
             frame_right = cv2.imread(path + '2/' + fname)

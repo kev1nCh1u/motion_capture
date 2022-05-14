@@ -99,5 +99,5 @@ db/
 _output_files/
 PLLJ_PLLSPE_INFO.txt
 
-img/stereo_calibration/new/
-img/stereo_calibration/test/
+data/stereo_calibration/new/
+data/stereo_calibration/test/
