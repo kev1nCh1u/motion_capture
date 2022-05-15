@@ -17,6 +17,11 @@ from cv_bridge import CvBridge
 import ir_track
 import threading
 
+import os
+sys.path.append(os.getcwd())
+from lib.kevin.kevincv import  *
+from lib.kevin import kevinuart
+
 print('\n opencv version:', cv2.__version__)
 
 ########################################################################################
@@ -67,46 +72,6 @@ class steroIrTrack:
         thread.start()  #執行
 
         rospy.spin()
-    
-
-    ###############################################################################################
-    # undistortRectify remap
-    ###############################################################################################
-    def undistortRectify(self, stereoMapL_x, stereoMapL_y, stereoMapR_x, stereoMapR_y, frameL, frameR):
-
-        # Undistort and rectify images
-        undistortedL = cv2.remap(
-            frameL, stereoMapL_x, stereoMapL_y, cv2.INTER_LANCZOS4, cv2.BORDER_CONSTANT, 0)
-        undistortedR = cv2.remap(
-            frameR, stereoMapR_x, stereoMapR_y, cv2.INTER_LANCZOS4, cv2.BORDER_CONSTANT, 0)
-
-        return undistortedL, undistortedR
-
-    ###############################################################################################
-    # find_depth
-    ###############################################################################################
-    def find_depth(self, left_point, right_point, baseline, focal):
-
-        x_left = left_point[0] # x point
-        x_right = right_point[0]
-
-        # displacement between left and right frames [pixels]
-        disparity = abs(x_left - x_right)
-        zDepth = (baseline * focal) / disparity            # z depth in [mm]
-
-        return zDepth
-
-    ###############################################################################################
-    # calcu_world_point
-    ###############################################################################################
-    def calcu_world_point(self,point, z_depth, focal):
-        world_points = np.zeros((3), np.float)
-        x_cam = point[0]
-        y_cam = point[1]
-        world_points[0] = (x_cam * z_depth) / focal
-        world_points[1] = (y_cam * z_depth) / focal
-        world_points[2] = z_depth
-        return world_points
 
     ########################################################################################
     # getImage
@@ -127,8 +92,8 @@ class steroIrTrack:
             # cv2.rectangle(frame_left, (0, 0), (640, 480), (255, 0, 0), 2)
             # cv2.rectangle(frame_right, (0, 0), (640, 480), (255, 0, 0), 2)
 
-            # undistortRectify remap
-            frame_left, frame_right  = self.undistortRectify(
+            # stereoRemap remap
+            frame_left, frame_right  = stereoRemap(
             self.stereoMapL_x, self.stereoMapL_y, self.stereoMapR_x, self.stereoMapR_y, frame_left, frame_right)
 
             # ir track
@@ -145,14 +110,14 @@ class steroIrTrack:
                     # print('right_point:',  right_point)
 
                     # find depth
-                    depth = self.find_depth(left_point, right_point, self.baseline, self.focalLength)
+                    depth = find_depth(left_point, right_point, self.baseline, self.focalLength)
                     if(self.showFlag):
                         text = "Dis: " + str(round(depth, 1))
                         cv2.putText(frame_right, text,
                                     (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
                     # find world point
-                    world_points[i] = self.calcu_world_point(left_point, depth, self.focalLength)
+                    world_points[i] = calcu_world_point(left_point, depth, self.focalLength)
                     if(self.showFlag):
                         text = "X:" + str(round(world_points[i][0], 1)) + " Y:" + str(round(world_points[i][1], 1))
                         cv2.putText(frame_left, text,

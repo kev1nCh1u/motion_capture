@@ -29,8 +29,8 @@ if capFlag:
         exit()
 else:
     path = "data/stereo_calibration/new/"
-    fname = "1/01.jpg"
-    fname2 = "2/01.jpg"
+    fname = "2/01.jpg"
+    fname2 = "1/01.jpg"
     cap_right = cv2.imread(path + fname2)
     cap_left = cv2.imread(path + fname)
 

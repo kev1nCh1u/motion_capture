@@ -7,7 +7,7 @@ path = "data/result/point_data.csv"
 savePlotPath = 'data/result/point_path_plot/point_path_plot' + '.png'
 
 df = pd.read_csv(path, header=None)
-world_points = df.to_numpy()
+point = df.to_numpy()
 
 # show plot 3d
 axis = 2 # x:0 y:1 z:2
@@ -20,10 +20,7 @@ ax.set_xlim(-200,200)
 ax.set_ylim(450,600)
 ax.set_zlim(-200,200)
 for i in range(4):
-    ax.scatter(world_points[:,0+i*3], world_points[:,2+i*3], world_points[:,1+i*3], label='Point'+str(i))
-# ax.scatter(world_points[:,3], world_points[:,5], world_points[:,4], label='Point1')
-# ax.scatter(world_points[:,6], world_points[:,8], world_points[:,7], label='Point1')
-# ax.scatter(world_points[:,3], world_points[:,5], world_points[:,4], label='Point1')
+    ax.scatter(point[:,0+i*3], point[:,2+i*3], point[:,1+i*3], label='Point'+str(i))
 ax.legend()
 plt.savefig(savePlotPath)
 plt.show()

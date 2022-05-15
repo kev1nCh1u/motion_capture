@@ -97,8 +97,8 @@ cv_file.release()
 print("Finish save parameters!")
 
 ############################### remap ##########################################################
-frame_left = cv.imread(path + '1/' + fname)
-frame_right = cv.imread(path + '2/' + fname)
+frame_left = cv.imread(path + '2/' + fname)
+frame_right = cv.imread(path + '1/' + fname)
 
 frame_left = cv.remap(frame_left, stereoMapL_x, stereoMapL_y, cv.INTER_LANCZOS4, cv.BORDER_CONSTANT, 0)
 frame_right = cv.remap(frame_right, stereoMapR_x, stereoMapR_y, cv.INTER_LANCZOS4, cv.BORDER_CONSTANT, 0)
