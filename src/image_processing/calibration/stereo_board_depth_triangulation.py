@@ -124,7 +124,7 @@ def main():
 
         # find distance
         print("world_points:", world_points)
-        distance = euclideanDistances3d(world_points[0:2])
+        distance = euclideanDistances3d(world_points[0], world_points[1])
         print("distance:", distance)
         print()
 
