@@ -27,7 +27,7 @@ def main():
 
         # Camera parameters to undistort and rectify images
         cv_file = cv2.FileStorage()
-        cv_file.open('data/param/stereoMap.xml', cv2.FileStorage_READ)
+        cv_file.open('data/parameter/stereoMap.xml', cv2.FileStorage_READ)
         stereoMapL_x = cv_file.getNode('stereoMapL_x').mat()
         stereoMapL_y = cv_file.getNode('stereoMapL_y').mat()
         stereoMapR_x = cv_file.getNode('stereoMapR_x').mat()
@@ -35,7 +35,7 @@ def main():
 
         # Stereo vision setup parameters
         fs = cv2.FileStorage(
-            "data/param/matlab_stereo_param.yaml", cv2.FILE_STORAGE_READ)
+            "data/parameter/matlab_stereo_param.yaml", cv2.FILE_STORAGE_READ)
         baseline = abs(fs.getNode("TranslationOfCamera2").mat().ravel()[0])
         focalLength = fs.getNode("FocalLength").mat().ravel()[0]
 

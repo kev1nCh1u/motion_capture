@@ -92,6 +92,16 @@ def euclideanDistances3d(a ,b):
     return distance
 
 ###################################################################################
+# pointCount
+###################################################################################
+def pointCount(points3d):
+    res = 4
+    for i in range(len(points3d)):
+        if(points3d[i][0] == 0):
+            res -= 1
+    return res
+
+###################################################################################
 # findPointDis
 ###################################################################################
 def findPointDis(points3d, num):
@@ -224,7 +234,7 @@ def findBody_np(pointDis, orginDis, basePoint):
                         break
 
                 break
-    print("point num: ", num + 1)
+    # print("point num: ", num + 1)
     nums[basePoint] = num + 1
 
     return nums
@@ -308,12 +318,15 @@ def main():
     orginDis = findAllDis(origin)
     # print("origin distanse:\n", orginDis, "\n")
     orginDisSum = arraySum(orginDis)
-    print("origin distanse sum:\n",orginDisSum, "\n")
+    # print("origin distanse sum:\n",orginDisSum, "\n")
     orginDisSumPart3 = arraySumPart3(orginDis)
     print("origin distanse part sum:\n",orginDisSumPart3, "\n")
 
     for i in range(60):
         start_time_1 = time.time()
+
+        pc = pointCount(points3d)
+        print("pointCount:\n", pc, "\n")
 
         basePoint = 2 - 1
         # pointDis = findPointDis(points3d, basePoint)
@@ -322,16 +335,16 @@ def main():
         # print("point sum", pointDisSum)
 
         pointDis = findAllDis(points3d)
-        print("points distanse:\n", pointDis, "\n")
+        # print("points distanse:\n", pointDis, "\n")
         pointDisSum = arraySum(pointDis)
         print("points distanse sum:\n",pointDisSum, "\n")
         
         # for
-        num = findPoint_sum(pointDisSum[basePoint], orginDisSum)
-        print("point num:",num)
+        # num = findPoint_sum(pointDisSum[basePoint], orginDisSum)
+        # print("point num:",num)
 
-        nums = findBody_num(pointDis[basePoint], orginDis, num)
-        print("points nums:", nums)
+        # nums = findBody_num(pointDis[basePoint], orginDis, num)
+        # print("points nums:", nums)
 
         nums = findBody_sum(pointDisSum, orginDisSum)
         print("points nums:", nums)
@@ -340,9 +353,11 @@ def main():
         nums = findBody_np(pointDis[basePoint], orginDis, basePoint)
         print("points nums:", nums)
 
+        # Reliability
         pra = percentReliabilityArray(orginDisSum, pointDisSum, nums)
         print("percentReliabilityArray", pra)
 
+        # time
         print("--- 1: %s seconds ---" % (time.time() - start_time_1))
 
         break

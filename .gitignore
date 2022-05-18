@@ -39,7 +39,6 @@ resources/
 *.tcl
 *.txt # Explicitly add any text files used
 *~
-*example*
 *sopc_*
 # *.sdc # I want those timing files
 

@@ -47,8 +47,8 @@ public:
 Point2world::Point2world()
 {
     // define
-    std::string filename_matlab = "/home/kevin/src/motion_capture/param/matlab_stereo_param.yaml";
-    std::string filename_stereoMap = "/home/kevin/src/motion_capture/param/stereoMap.xml";
+    std::string filename_matlab = "/home/kevin/src/motion_capture/data/parameter/matlab_stereo_param.yaml";
+    std::string filename_stereoMap = "/home/kevin/src/motion_capture/data/parameter/stereoMap.xml";
 
     // open file
     cout << "Start load param...\n";

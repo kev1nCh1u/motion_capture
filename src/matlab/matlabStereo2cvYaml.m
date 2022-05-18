@@ -1,7 +1,7 @@
 % matlab_stereo_param
 fprintf('\nStart create cv yaml\n')
 
-fileName = "/home/kevin/src/motion_capture/data/param/matlab_stereo_param.yaml";
+fileName = "/home/kevin/src/motion_capture/data/parameter/matlab_stereo_param.yaml";
 disp(fileName)
 
 matlab2opencv(fileName, stereoParams.CameraParameters1.IntrinsicMatrix, "IntrinsicMatrix1", "w")

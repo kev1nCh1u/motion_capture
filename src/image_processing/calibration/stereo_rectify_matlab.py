@@ -13,7 +13,7 @@ paramFlag = 1
 
 if(paramFlag):
     # load yaml param
-    fs = cv.FileStorage("data/param/matlab_stereo_param.yaml", cv.FILE_STORAGE_READ)
+    fs = cv.FileStorage("data/parameter/matlab_stereo_param.yaml", cv.FILE_STORAGE_READ)
 
     IntrinsicMatrix1 = fs.getNode("IntrinsicMatrix1").mat()
     RadialDistortion1 = fs.getNode("RadialDistortion1").mat()
@@ -81,7 +81,7 @@ stereoMapL = cv.initUndistortRectifyMap(cameraMatrix1, distCoeffs1, rectL, projM
 stereoMapR = cv.initUndistortRectifyMap(cameraMatrix2, distCoeffs2, rectR, projMatrixR,imageSize, cv.CV_32F)
 
 print("Saving parameters...")
-cv_file = cv.FileStorage('data/param/stereoMap.xml', cv.FILE_STORAGE_WRITE)
+cv_file = cv.FileStorage('data/parameter/stereoMap.xml', cv.FILE_STORAGE_WRITE)
 
 stereoMapL_x = stereoMapL[0]
 stereoMapL_y = stereoMapL[1]

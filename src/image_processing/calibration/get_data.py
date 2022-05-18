@@ -22,7 +22,7 @@ from lib.kevin import kevinuart
 def main():
     ########################################## load yaml param
     fs = cv2.FileStorage(
-        "data/param/matlab_stereo_param.yaml", cv2.FILE_STORAGE_READ)
+        "data/parameter/matlab_stereo_param.yaml", cv2.FILE_STORAGE_READ)
 
     IntrinsicMatrix1 = fs.getNode("IntrinsicMatrix1").mat()
     RadialDistortion1 = fs.getNode("RadialDistortion1").mat()
