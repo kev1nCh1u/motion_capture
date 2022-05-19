@@ -4,6 +4,7 @@ import numpy as np
 import time
 from matplotlib import pyplot as plt
 import time
+import scipy as sp
 
 from scipy.optimize import fsolve
 
@@ -265,13 +266,14 @@ class FindBody():
 
         # findBody_sum
         nums = findBody_sum(pointDisSum, orginDisSumTable)
-        print("points nums:\n", nums)
+        print("points nums:\n", nums, "\n")
 
         # Reliability
         pra = percentReliabilityArray(orginDisSumTable, pointDisSum, nums, flag)
-        print("percentReliabilityArray", pra)
+        print("percentReliabilityArray", pra, "\n")
 
-
+        return nums
+        
 ###################################################################################
 # percentError
 ###################################################################################
@@ -304,14 +306,15 @@ class SolvePoint():
     a = []
     b = []
     c = []
+    dis = []
 
     def solve_func(self,unsolve_value):
         x,y,z = unsolve_value[0],unsolve_value[1],unsolve_value[2]
 
         return [
-            (x-self.a[0])**2 + (y-self.a[1])**2 + (z-self.a[2])**2 - 79**2,
-            (x-self.b[0])**2 + (y-self.b[1])**2 + (z-self.b[2])**2 - 57**2,
-            (x-self.c[0])**2 + (y-self.c[1])**2 + (z-self.c[2])**2 - 82**2,
+            (x-self.a[0])**2 + (y-self.a[1])**2 + (z-self.a[2])**2 - self.dis[0]**2,
+            (x-self.b[0])**2 + (y-self.b[1])**2 + (z-self.b[2])**2 - self.dis[1]**2,
+            (x-self.c[0])**2 + (y-self.c[1])**2 + (z-self.c[2])**2 - self.dis[2]**2,
         ]
 
     def solve_fsolve(self):
@@ -339,10 +342,10 @@ def main():
 
     points3d  = np.array([
                         [44.408427247312176, 71.80456867683641, 471.56922565559825],
-                        [84.0008849766173, 1.0253193717497644, 484.2133958228639],
+                        [0, 0, 0],
                         [11.402377138005159, 22.452479238189188, 458.8405626214418],
-                        [93.7861030447076, 55.47613355449325, 487.92861245647583],
-                        # [0, 0, 0],
+                        [84.0008849766173, 1.0253193717497644, 484.2133958228639],
+                        # [93.7861030447076, 55.47613355449325, 487.92861245647583],
                         # [0, 0, 0],
                         # [0, 0, 0],
                         # [0, 0, 0],
@@ -375,21 +378,40 @@ def main():
         
         # # findBody_num
         # nums = findBody_num(pointDis, pointDisSum, orginDis, orginDisSumTable4, basePoint)
-        # print("points nums:", nums)
+        # print("points nums:", nums, "\n")
 
         # # findBody_np
         # nums = findBody_np(pointDis, orginDis, basePoint)
-        # print("points nums:", nums)
+        # print("points nums:", nums, "\n")
 
         # # findBody_sum
         # nums = findBody_sum(pointDisSum, orginDisSumTable3)
-        # print("points nums:\n", nums)
+        # print("points nums:\n", nums, "\n")
 
         # # Reliability
         # pra = percentReliabilityArray(orginDisSumTable3, pointDisSum, nums)
-        # print("percentReliabilityArray", pra)
+        # print("percentReliabilityArray", pra, "\n")
 
-        FB.findBodySwith(pointDisSum, pc)
+        # find body in any case
+        nums = FB.findBodySwith(pointDisSum, pc)
+
+        # generate lost point
+        SP = SolvePoint()
+        numsSort = np.append(nums, np.arange(4).reshape((4, 1)), axis=1)
+        numsSort = np.sort(numsSort.view('i8,i8,i8'), order=['f1'], axis=0).view(np.int64)
+        SP.a = points3d[numsSort[1][2]]
+        SP.b = points3d[numsSort[2][2]]
+        SP.c = points3d[numsSort[3][2]]
+        SP.dis = np.delete(orginDis[nums[0][0]], nums[0][0], None)
+        lp = SP.solve_fsolve()
+        print("generate lost point:\n", lp, "\n")
+        points3d[nums[0][0]-1] = lp
+        print("new 3d points:\n", points3d, "\n")
+
+        # Reliability
+        observed = np.sum(findPointDis(points3d, nums[0][0]-1))
+        pra = 100 - percentError(orginDisSumTable4[0][nums[0][0]-1], observed)
+        print("Reliability: ", pra, "\n")
 
         # time
         print("--- 1: %s seconds ---" % (time.time() - start_time_1))
