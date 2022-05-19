@@ -128,14 +128,14 @@ def findAllDis(points3d):
 # arraySum
 ###################################################################################
 def arraySum(a):
-    ans = np.zeros((4), np.float64)
+    ans = np.zeros((1,4), np.float64)
 
     # for i in range(4):
     #     for j in range(4):
     #         ans[i] += a[i][j]
 
     for i in range(4):
-        ans[i] = np.sum(a[i])
+        ans[0][i] = np.sum(a[i])
 
     return ans
 
@@ -156,30 +156,47 @@ def arraySumPart3(a):
 ###################################################################################
 # findPoint_sumThres
 ###################################################################################
-def findPoint_sum(pointDisSum, orginDisSum):
-    for i in range(len(orginDisSum)):
-        if(abs(pointDisSum - orginDisSum[i]) < 2):
+def findPoint_sum(pointDisSum, orginDisSumTable):
+    for i in range(len(orginDisSumTable)):
+        if(abs(pointDisSum - orginDisSumTable[i]) < 2):
             return i+1
     return 0
 
 ###################################################################################
 # findPoint_sumClose
 ###################################################################################
-def findPoint_sum(pointDisSum, orginDisSum):
+def findPoint_sum(pointDisSum, orginDisSumTable):
+    if(pointDisSum == 0):
+        return 0
     res = 0
     error = sys.maxsize
-    for i in range(len(orginDisSum)):
-        errorNow = abs(pointDisSum - orginDisSum[i])
-        if(error > errorNow):
-            error = errorNow
-            res = i+1
+    for i in range(len(orginDisSumTable)):
+        for j in range(len(orginDisSumTable[0])):
+            errorNow = abs(pointDisSum - orginDisSumTable[i][j])
+            if(error > errorNow):
+                error = errorNow
+                res = (i,j+1)
     return res
+
+###################################################################################
+# findBody_sum
+###################################################################################
+def findBody_sum(pointDisSum, orginDisSumTable):
+    nums = np.zeros((4,2), np.int8)
+    for i in range(len(pointDisSum)):
+        nums[i] = findPoint_sum(pointDisSum[i], orginDisSumTable)
+    return nums
 
 ###################################################################################
 # findBody_num
 ###################################################################################
-def findBody_num(pointDis, orginDis, num):
+# def findBody_num(pointDis, orginDis, num):
+def findBody_num(pointDis, pointDisSum, orginDis, orginDisSumTable, basePoint):
+    num = findPoint_sum(pointDisSum[basePoint], orginDisSumTable)[1]
     num = num - 1
+
+    pointDis = pointDis[basePoint]
+    print(pointDis)
     nums = np.zeros((len(pointDis)), np.int8)
     if(num >= 0):
         for i in range(4):
@@ -189,18 +206,10 @@ def findBody_num(pointDis, orginDis, num):
     return nums
 
 ###################################################################################
-# findBody_sum
-###################################################################################
-def findBody_sum(pointDisSum, orginDisSum):
-    nums = np.zeros((len(pointDisSum)), np.int8)
-    for i in range(len(pointDisSum)):
-        nums[i] = findPoint_sum(pointDisSum[i], orginDisSum)
-    return nums
-
-###################################################################################
 # findBody_np
 ###################################################################################
 def findBody_np(pointDis, orginDis, basePoint):
+    pointDis = pointDis[basePoint]
     nums = np.zeros((len(pointDis)), np.int8)
     point = np.zeros((4,2,2), np.int8)
     pointDisId = np.zeros((4), np.int8)
@@ -211,13 +220,9 @@ def findBody_np(pointDis, orginDis, basePoint):
         if(pointDis[i]):
             where = np.where(where < pointDis[i]+1, where, 0)
             where = np.where(where > pointDis[i]-1, where, 0)
-            # print("where:\n", where)
             point[count] = np.nonzero(where)
             pointDisId[count] = i
             count += 1
-            # if(count >= 3):
-            #     break
-    # print(point)
     
     num = -1
     for i in range(2):
@@ -234,10 +239,38 @@ def findBody_np(pointDis, orginDis, basePoint):
                         break
 
                 break
-    # print("point num: ", num + 1)
     nums[basePoint] = num + 1
 
     return nums
+
+###################################################################################
+# findBodySwith
+###################################################################################
+class FindBody():
+    orginDis = []
+    orginDisSumTable4 = []
+    orginDisSumTable3 = []
+    
+    def findBodySwith(self, pointDisSum, pointCount):
+        flag = 0
+        if(pointCount == 4):
+            orginDisSumTable = self.orginDisSumTable4
+        elif(pointCount == 3):
+            orginDisSumTable = self.orginDisSumTable3
+        elif(pointCount == 2):
+            orginDisSumTable = self.orginDis
+            flag = 1
+        else:
+            orginDisSumTable = self.orginDis
+
+        # findBody_sum
+        nums = findBody_sum(pointDisSum, orginDisSumTable)
+        print("points nums:\n", nums)
+
+        # Reliability
+        pra = percentReliabilityArray(orginDisSumTable, pointDisSum, nums, flag)
+        print("percentReliabilityArray", pra)
+
 
 ###################################################################################
 # percentError
@@ -255,10 +288,13 @@ def percentReliability(true, observed):
 ###################################################################################
 # percentReliabilityArray
 ###################################################################################
-def percentReliabilityArray(true, observed, pointNums):
-    res = np.zeros((len(true)), np.float32)
-    for i in range(len(true)):
-        res[i] = 100 - percentError(true[pointNums[i]-1], observed[i])
+def percentReliabilityArray(true, observed, pointNums, half=0):
+    res = np.zeros(4, np.float32)
+    tableNum = pointNums[0][0]
+    for i in range(4):
+        res[i] = 100 - percentError(true[tableNum][pointNums[i][1]-1], observed[i])
+        if(half and res[i] > 0):
+            res[i] -= 50
     return res
 
 ###################################################################################
@@ -306,56 +342,54 @@ def main():
                         [84.0008849766173, 1.0253193717497644, 484.2133958228639],
                         [11.402377138005159, 22.452479238189188, 458.8405626214418],
                         [93.7861030447076, 55.47613355449325, 487.92861245647583],
-                        ])
-
-    points3d  = np.array([
-                        [44.408427247312176, 71.80456867683641, 471.56922565559825],
-                        [84.0008849766173, 1.0253193717497644, 484.2133958228639],
-                        [11.402377138005159, 22.452479238189188, 458.8405626214418],
-                        [0, 0, 0],
+                        # [0, 0, 0],
+                        # [0, 0, 0],
+                        # [0, 0, 0],
+                        # [0, 0, 0],
                         ])
 
     orginDis = findAllDis(origin)
-    # print("origin distanse:\n", orginDis, "\n")
-    orginDisSum = arraySum(orginDis)
-    # print("origin distanse sum:\n",orginDisSum, "\n")
-    orginDisSumPart3 = arraySumPart3(orginDis)
-    print("origin distanse part sum:\n",orginDisSumPart3, "\n")
+    print("origin distanse:\n", orginDis, "\n")
+    orginDisSumTable4 = arraySum(orginDis)
+    print("orginDisSumTable4:\n",orginDisSumTable4, "\n")
+    orginDisSumTable3 = arraySumPart3(orginDis)
+    print("orginDisSumTable3:\n",orginDisSumTable3, "\n")
+
+    FB = FindBody()
+    FB.orginDis = orginDis
+    FB.orginDisSumTable4 = orginDisSumTable4
+    FB.orginDisSumTable3 = orginDisSumTable3
 
     for i in range(60):
         start_time_1 = time.time()
 
         pc = pointCount(points3d)
-        print("pointCount:\n", pc, "\n")
+        # print("pointCount:\n", pc, "\n")
 
-        basePoint = 2 - 1
-        # pointDis = findPointDis(points3d, basePoint)
-        # print("point distance:", pointDis)
-        # pointDisSum = np.sum(pointDis)
-        # print("point sum", pointDisSum)
+        basePoint = 3 - 1
 
         pointDis = findAllDis(points3d)
         # print("points distanse:\n", pointDis, "\n")
-        pointDisSum = arraySum(pointDis)
+        pointDisSum = arraySum(pointDis)[0]
         print("points distanse sum:\n",pointDisSum, "\n")
         
-        # for
-        # num = findPoint_sum(pointDisSum[basePoint], orginDisSum)
-        # print("point num:",num)
-
-        # nums = findBody_num(pointDis[basePoint], orginDis, num)
+        # # findBody_num
+        # nums = findBody_num(pointDis, pointDisSum, orginDis, orginDisSumTable4, basePoint)
         # print("points nums:", nums)
 
-        nums = findBody_sum(pointDisSum, orginDisSum)
-        print("points nums:", nums)
+        # # findBody_np
+        # nums = findBody_np(pointDis, orginDis, basePoint)
+        # print("points nums:", nums)
 
-        # np
-        nums = findBody_np(pointDis[basePoint], orginDis, basePoint)
-        print("points nums:", nums)
+        # # findBody_sum
+        # nums = findBody_sum(pointDisSum, orginDisSumTable3)
+        # print("points nums:\n", nums)
 
-        # Reliability
-        pra = percentReliabilityArray(orginDisSum, pointDisSum, nums)
-        print("percentReliabilityArray", pra)
+        # # Reliability
+        # pra = percentReliabilityArray(orginDisSumTable3, pointDisSum, nums)
+        # print("percentReliabilityArray", pra)
+
+        FB.findBodySwith(pointDisSum, pc)
 
         # time
         print("--- 1: %s seconds ---" % (time.time() - start_time_1))
