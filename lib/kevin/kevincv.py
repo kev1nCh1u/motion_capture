@@ -105,12 +105,13 @@ def pointCount(points3d):
 ###################################################################################
 # findPointDis
 ###################################################################################
-def findPointDis(points3d, num):
+def findPointDis(points3d, num, flag=0):
     distance = np.zeros((len(points3d)), np.float64)
 
-    for i in range(4):
-        if(i != num and points3d[num][0] != 0 and points3d[i][0] != 0):
-            distance[i] = euclideanDistances3d(points3d[num], points3d[i])
+    for i in range(len(points3d)):
+        if(i != num):
+            if((points3d[num][0] != 0 and points3d[i][0] != 0) or flag):
+                distance[i] = euclideanDistances3d(points3d[num], points3d[i])
 
     return distance
 
@@ -300,9 +301,18 @@ def percentReliabilityArray(true, observed, pointNums, half=0):
     return res
 
 ###################################################################################
-# SolvePoint
+# percentReliabilityPoint
 ###################################################################################
-class SolvePoint():
+def percentReliabilityPoint(true, points3d, num):
+    observed = np.sum(findPointDis(points3d, num))
+    # print("observed dis:", observed)
+    res = 100 - percentError(true, observed)
+    return res
+
+###################################################################################
+# GenPoint
+###################################################################################
+class GenPoint():
     a = []
     b = []
     c = []
@@ -321,11 +331,69 @@ class SolvePoint():
         return fsolve(self.solve_func,[0,0,0])
 
 ###################################################################################
+# GenPoint2d
+###################################################################################
+class GenPoint2d():
+    dis = np.array([[0., 79.41495679, 92.6760091, 60.54557344],
+                    [79.41495679, 0., 55.3985338, 82.12350075],
+                    [92.6760091, 55.3985338, 0., 54.1674151 ],
+                    [60.54557344, 82.12350075, 54.1674151, 0.],])
+    
+    a = []
+    b = []
+    c = []
+    d = []
+
+    # gen point c
+    def solve_func_c(self,unsolve_value):
+        x,y = unsolve_value[0],unsolve_value[1]
+
+        return [
+            (x-self.a[0])**2 + (y-self.a[1])**2 - self.dis[0][2]**2,
+            (x-self.b[0])**2 + (y-self.b[1])**2 - self.dis[1][2]**2,
+        ]
+    def solve_fsolve_c(self):
+        return fsolve(self.solve_func_c,[0,0])
+
+    # gen point d
+    def solve_func_d(self,unsolve_value):
+        x,y = unsolve_value[0],unsolve_value[1]
+
+        return [
+            (x-self.a[0])**2 + (y-self.a[1])**2 - self.dis[0][3]**2,
+            (x-self.b[0])**2 + (y-self.b[1])**2 - self.dis[1][3]**2,
+        ]
+    def solve_fsolve_d(self):
+        return fsolve(self.solve_func_d,[0,0])
+
+    # genBodyPoint
+    def genBodyPoint(self):
+        self.a = np.array([0.,0.,0.])
+        self.b = np.array([0.,self.dis[0][1],0.])
+        self.c = np.append(self.solve_fsolve_c(), np.zeros(1), axis=0)
+        self.d = np.append(self.solve_fsolve_d(), np.zeros(1), axis=0)
+
+###################################################################################
+# findAxisDis
+###################################################################################
+def findAxisDis(point3d):
+    pointAxisx = np.array([50.,0.,0.])
+    pointAxisy = np.array([0.,50.,0.])
+    axisDis = np.zeros((2,4))
+    for i in range(4):
+        axisDis[0][i] = euclideanDistances3d(pointAxisx,point3d[i])
+        axisDis[1][i] = euclideanDistances3d(pointAxisy,point3d[i])
+    return axisDis
+
+
+###################################################################################
 # if main
 ###################################################################################
 if __name__ == '__main__':
 
     print("welcome kevin_cv...\n")
+
+    
 
 
 
