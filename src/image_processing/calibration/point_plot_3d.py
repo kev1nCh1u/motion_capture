@@ -1,5 +1,4 @@
 from matplotlib import pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 import pandas as pd
 
 
@@ -10,9 +9,9 @@ df = pd.read_csv(path, header=None)
 point = df.to_numpy()
 
 # show plot 3d
-axis = 2 # x:0 y:1 z:2
 fig = plt.figure()
-ax = fig.gca(projection='3d')
+# ax = fig.gca(projection='3d')
+ax = fig.add_subplot(projection='3d')
 ax.set_xlabel('X')
 ax.set_ylabel('Z')
 ax.set_zlabel('Y')

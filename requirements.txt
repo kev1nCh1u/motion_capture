@@ -2,7 +2,7 @@
 
 # Base ----------------------------------------
 os-sys
-opencv-python
+opencv-python==4.1.2.30
 numpy
 imutils
 argparse

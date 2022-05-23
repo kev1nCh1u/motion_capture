@@ -3,6 +3,8 @@ import sys
 sys.path.append(os.getcwd())
 from lib.kevin.kevincv import *
 
+# from matplotlib import pyplot as plt
+
 ###################################################################################
 # main
 ###################################################################################
@@ -25,10 +27,10 @@ def main():
 
     points3d  = np.array([
                         [44.408427247312176, 71.80456867683641, 471.56922565559825],
-                        [11.402377138005159, 22.452479238189188, 458.8405626214418],
                         [84.0008849766173, 1.0253193717497644, 484.2133958228639],
-                        # [93.7861030447076, 55.47613355449325, 487.92861245647583],
-                        [0, 0, 0],
+                        [11.402377138005159, 22.452479238189188, 458.8405626214418],
+                        [93.7861030447076, 55.47613355449325, 487.92861245647583],
+                        # [0, 0, 0],
                         # [0, 0, 0],
                         # [0, 0, 0],
                         # [0, 0, 0],
@@ -46,43 +48,34 @@ def main():
     fb.orginDisSumTable4 = orginDisSumTable4
     fb.orginDisSumTable3 = orginDisSumTable3
 
-    for i in range(60):
-        start_time_1 = time.time()
+    start_time_1 = time.time()
+    for i in range(1):
 
         pc = pointCount(points3d)
         # print("pointCount:\n", pc, "\n")
-
-        basePoint = 3 - 1
 
         pointDis = findAllDis(points3d)
         print("points distanse:\n", pointDis, "\n")
         pointDisSum = arraySum(pointDis)[0]
         print("points distanse sum:\n",pointDisSum, "\n")
-        
-        # # findBody_num
-        # nums = findBody_num(pointDis, pointDisSum, orginDis, orginDisSumTable4, basePoint)
-        # print("points nums:", nums, "\n")
-
-        # # findBody_np
-        # nums = findBody_np(pointDis, orginDis, basePoint)
-        # print("points nums:", nums, "\n")
-
-        # # findBody_sum
-        # nums = findBody_sum(pointDisSum, orginDisSumTable3)
-        # print("points nums:\n", nums, "\n")
-
-        # # Reliability
-        # pra = percentReliabilityArray(orginDisSumTable3, pointDisSum, nums)
-        # print("percentReliabilityArray", pra, "\n")
 
         # find body in any case
-        nums = fb.findBodySwith(pointDisSum, pc)
+        nums, pra = fb.findBodySwith(pointDisSum, pc)
+
+        # numsSort
+        numsSort = np.append(nums, np.arange(4).reshape((4, 1)), axis=1)
+        numsSort = np.sort(numsSort.view('i8,i8,i8'), order=['f1'], axis=0).view(np.int64)
+        print("numsSort:\n", numsSort, "\n")
+
+        # worstPoint
+        worstPoint = 0
+        if(pc == 4):
+            worstPoint = findWorstPoint(pra)
 
         # generate lost point
         if(pc == 3):
+            worstPoint = numsSort[1][0]
             gp = GenPoint()
-            numsSort = np.append(nums, np.arange(4).reshape((4, 1)), axis=1)
-            numsSort = np.sort(numsSort.view('i8,i8,i8'), order=['f1'], axis=0).view(np.int64)
             gp.a = points3d[numsSort[1][2]]
             gp.b = points3d[numsSort[2][2]]
             gp.c = points3d[numsSort[3][2]]
@@ -90,26 +83,50 @@ def main():
             lp = gp.solve_fsolve()
             print("generate lost point:\n", lp, "\n")
             points3d[numsSort[0][2]] = lp
+            # points3d[numsSort[0][2]] = [93.7861030447076, 55.47613355449325, 487.92861245647583]
             print("new 3d points:\n", points3d, "\n")
 
             # Reliability point
             prp = percentReliabilityPoint(orginDisSumTable4[0][numsSort[1][0]], points3d, numsSort[0][2])
             print("Reliability: ", prp, "\n")
 
-            # generate point
-            gp2d = GenPoint2d()
-            gp2d.genBodyPoint()
-            point3d = np.array([gp2d.a,gp2d.b,gp2d.c,gp2d.d])
-            print("virtual 3d point:\n", point3d, "\n")
+            # new numsSort
+            numsSort[0][1] = numsSort[1][0] + 1
+            numsSort = np.sort(numsSort.view('i8,i8,i8'), order=['f1'], axis=0).view(np.int64)
+            print("new numsSort:\n", numsSort, "\n")
 
-            # axisDis
-            axisDis = findAxisDis(point3d)
-            print("axis dis:\n", axisDis, "\n")
+        # create gen axis point
+        print("worstPoint", worstPoint)
+        numList = [i for i in range(4) if i != worstPoint]
+        gp = GenPoint()
+        gp.a = points3d[numsSort[numList[0]][2]]
+        gp.b = points3d[numsSort[numList[1]][2]]
+        gp.c = points3d[numsSort[numList[2]][2]]
+        
+        # gen virtual point
+        gp2d = GenPoint2d()
+        gp2d.genBodyPoint()
+        virtualPoint3d = np.array([gp2d.a,gp2d.b,gp2d.c,gp2d.d])
+        print("virtual 3d point:\n", virtualPoint3d, "\n")
 
-        # time
-        print("--- 1: %s seconds ---" % (time.time() - start_time_1))
+        # axisDis
+        axisDis = findAxisDis(virtualPoint3d)
+        print("axis dis:\n", axisDis, "\n")
+        
+        # find axis point
+        axisPoint = np.zeros((3,3))
+        axisDisSort = np.delete(axisDis, worstPoint, axis=1)
+        print("axisDisSort:\n",axisDisSort, "\n")
+        for i in range(3):
+            gp.dis = axisDisSort[i]
+            axisPoint[i] = gp.solve_fsolve()
+        print("axisPoint:\n", axisPoint, "\n")
 
-        break
+        # showPlot3d
+        showPlot3d(points3d, axisPoint, numsSort[:,2], pc, numsSort[0][2])
+
+    # time
+    print("--- 1: %s seconds ---" % (time.time() - start_time_1))
 
 ###################################################################################
 # if main

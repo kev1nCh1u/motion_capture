@@ -246,36 +246,6 @@ def findBody_np(pointDis, orginDis, basePoint):
     return nums
 
 ###################################################################################
-# findBodySwith
-###################################################################################
-class FindBody():
-    orginDis = []
-    orginDisSumTable4 = []
-    orginDisSumTable3 = []
-    
-    def findBodySwith(self, pointDisSum, pointCount):
-        flag = 0
-        if(pointCount == 4):
-            orginDisSumTable = self.orginDisSumTable4
-        elif(pointCount == 3):
-            orginDisSumTable = self.orginDisSumTable3
-        elif(pointCount == 2):
-            orginDisSumTable = self.orginDis
-            flag = 1
-        else:
-            orginDisSumTable = self.orginDis
-
-        # findBody_sum
-        nums = findBody_sum(pointDisSum, orginDisSumTable)
-        print("points nums:\n", nums, "\n")
-
-        # Reliability
-        pra = percentReliabilityArray(orginDisSumTable, pointDisSum, nums, flag)
-        print("percentReliabilityArray", pra, "\n")
-
-        return nums
-        
-###################################################################################
 # percentError
 ###################################################################################
 def percentError(true, observed):
@@ -308,6 +278,37 @@ def percentReliabilityPoint(true, points3d, num):
     # print("observed dis:", observed)
     res = 100 - percentError(true, observed)
     return res
+
+###################################################################################
+# findBodySwith
+###################################################################################
+class FindBody():
+    orginDis = []
+    orginDisSumTable4 = []
+    orginDisSumTable3 = []
+    
+    def findBodySwith(self, pointDisSum, pointCount):
+        flag = 0
+        if(pointCount == 4):
+            orginDisSumTable = self.orginDisSumTable4
+        elif(pointCount == 3):
+            orginDisSumTable = self.orginDisSumTable3
+        elif(pointCount == 2):
+            orginDisSumTable = self.orginDis
+            flag = 1
+        else:
+            orginDisSumTable = self.orginDis
+
+        # findBody_sum
+        nums = findBody_sum(pointDisSum, orginDisSumTable)
+        print("points nums:\n", nums, "\n")
+
+        # Reliability
+        pra = percentReliabilityArray(orginDisSumTable, pointDisSum, nums, flag)
+        print("percentReliabilityArray", pra, "\n")
+
+        return nums, pra
+        
 
 ###################################################################################
 # GenPoint
@@ -376,15 +377,69 @@ class GenPoint2d():
 ###################################################################################
 # findAxisDis
 ###################################################################################
-def findAxisDis(point3d):
-    pointAxisx = np.array([50.,0.,0.])
-    pointAxisy = np.array([0.,50.,0.])
-    axisDis = np.zeros((2,4))
+def findAxisDis(point3d, inputAxisPoint=0):
+    axisLen = 50
+    axisPoint = np.array([[axisLen,0.,0.],[0.,axisLen,0.],[0.,0.,axisLen]])
+    if(np.size(inputAxisPoint) == 9):
+        axisPoint = inputAxisPoint
+    axisDis = np.zeros((3,4))
     for i in range(4):
-        axisDis[0][i] = euclideanDistances3d(pointAxisx,point3d[i])
-        axisDis[1][i] = euclideanDistances3d(pointAxisy,point3d[i])
+        axisDis[0][i] = euclideanDistances3d(axisPoint[0],point3d[i])
+        axisDis[1][i] = euclideanDistances3d(axisPoint[1],point3d[i])
+        axisDis[2][i] = euclideanDistances3d(axisPoint[2],point3d[i])
     return axisDis
 
+###################################################################################
+# show plot 3d
+###################################################################################
+def showPlot3d(points3d, axisPoint, order, pointCount, baseNum=0):
+    fig = plt.figure()
+    ax = fig.add_subplot(projection='3d')
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+    # ax.set_xlim(-100,100)
+    # ax.set_ylim(-100,100)
+    # ax.set_zlim(400,500)
+    ax.scatter(points3d[:,0], points3d[:,1], points3d[:,2], label='points')
+    if(pointCount >= 3):
+        ax.scatter(axisPoint[0,0], axisPoint[0,1], axisPoint[0,2], label='x', c="red")
+        ax.scatter(axisPoint[1,0], axisPoint[1,1], axisPoint[1,2], label='y', c="green")
+        ax.scatter(axisPoint[2,0], axisPoint[2,1], axisPoint[2,2], label='z', c="blue")
+        xline = np.array([points3d[order[0],0], points3d[order[2],0]])
+        yline = np.array([points3d[order[0],1], points3d[order[2],1]])
+        zline = np.array([points3d[order[0],2], points3d[order[2],2]])
+        ax.plot3D(xline, yline, zline, 'gray')
+        xline = np.array([points3d[order[1],0], points3d[order[3],0]])
+        yline = np.array([points3d[order[1],1], points3d[order[3],1]])
+        zline = np.array([points3d[order[1],2], points3d[order[3],2]])
+        ax.plot3D(xline, yline, zline, 'gray')
+        xline = np.array([points3d[baseNum,0], axisPoint[0,0]])
+        yline = np.array([points3d[baseNum,1], axisPoint[0,1]])
+        zline = np.array([points3d[baseNum,2], axisPoint[0,2]])
+        ax.plot3D(xline, yline, zline, 'red')
+        xline = np.array([points3d[baseNum,0], axisPoint[1,0]])
+        yline = np.array([points3d[baseNum,1], axisPoint[1,1]])
+        zline = np.array([points3d[baseNum,2], axisPoint[1,2]])
+        ax.plot3D(xline, yline, zline, 'green')
+        xline = np.array([points3d[baseNum,0], axisPoint[2,0]])
+        yline = np.array([points3d[baseNum,1], axisPoint[2,1]])
+        zline = np.array([points3d[baseNum,2], axisPoint[2,2]])
+        ax.plot3D(xline, yline, zline, 'blue')
+    ax.legend()
+    plt.show()
+
+###################################################################################
+# findWorstPoint
+###################################################################################
+def findWorstPoint(percentReliabilityArray, numSize=4):
+    res = 0
+    min = 100
+    for i in range(numSize):
+        if(percentReliabilityArray[i] < min):
+            min = percentReliabilityArray[i]
+            res = i
+    return res
 
 ###################################################################################
 # if main
