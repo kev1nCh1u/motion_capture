@@ -3,10 +3,10 @@ import cv2
 import numpy as np
 import time
 from matplotlib import pyplot as plt
-import time
 import scipy as sp
 
 from scipy.optimize import fsolve
+from math import *
 
 ###############################################################################################
 # stereoRemap remap
@@ -156,9 +156,22 @@ def arraySumPart3(a):
     return ans
 
 ###################################################################################
+# findCloseNum
+###################################################################################
+def findCloseNum(num, array):
+    res = 0
+    error = sys.maxsize
+    for i in range(len(array)):
+        errorNow = abs(num - array[i])
+        if(error > errorNow):
+            error = errorNow
+            res = i
+    return res
+
+###################################################################################
 # findPoint_sumThres
 ###################################################################################
-def findPoint_sum(pointDisSum, orginDisSumTable):
+def findPoint_sumThres(pointDisSum, orginDisSumTable):
     for i in range(len(orginDisSumTable)):
         if(abs(pointDisSum - orginDisSumTable[i]) < 2):
             return i+1
@@ -167,34 +180,38 @@ def findPoint_sum(pointDisSum, orginDisSumTable):
 ###################################################################################
 # findPoint_sumClose
 ###################################################################################
-def findPoint_sum(pointDisSum, orginDisSumTable):
+def findPoint_sumClose(pointDisSum, orginDisSumTable, tableNum):
     if(pointDisSum == 0):
-        return 0
-    res = 0
+        return (0,0)
+    res = (0,0)
     error = sys.maxsize
-    for i in range(len(orginDisSumTable)):
-        for j in range(len(orginDisSumTable[0])):
-            errorNow = abs(pointDisSum - orginDisSumTable[i][j])
-            if(error > errorNow):
-                error = errorNow
-                res = (i,j+1)
+    # for i in range(len(orginDisSumTable)):
+    #     for j in range(len(orginDisSumTable[0])):
+    #         errorNow = abs(pointDisSum - orginDisSumTable[i][j])
+    #         if(error > errorNow):
+    #             error = errorNow
+    #             res = (i,j+1)
+    for i in range(len(orginDisSumTable[tableNum])):
+        errorNow = abs(pointDisSum - orginDisSumTable[tableNum][i])
+        if(error > errorNow):
+            error = errorNow
+            res = (tableNum, i+1)
     return res
 
 ###################################################################################
 # findBody_sum
 ###################################################################################
-def findBody_sum(pointDisSum, orginDisSumTable):
+def findBody_sum(pointDisSum, orginDisSumTable, tableNum):
     nums = np.zeros((4,2), np.int8)
     for i in range(len(pointDisSum)):
-        nums[i] = findPoint_sum(pointDisSum[i], orginDisSumTable)
+        nums[i] = findPoint_sumClose(pointDisSum[i], orginDisSumTable, tableNum)
     return nums
 
 ###################################################################################
 # findBody_num
 ###################################################################################
-# def findBody_num(pointDis, orginDis, num):
 def findBody_num(pointDis, pointDisSum, orginDis, orginDisSumTable, basePoint):
-    num = findPoint_sum(pointDisSum[basePoint], orginDisSumTable)[1]
+    num = findPoint_sumClose(pointDisSum[basePoint], orginDisSumTable)[1]
     num = num - 1
 
     pointDis = pointDis[basePoint]
@@ -286,21 +303,29 @@ class FindBody():
     orginDis = []
     orginDisSumTable4 = []
     orginDisSumTable3 = []
+    orginDisSumTableList4 = []
+    orginDisSumTableList3 = []
     
     def findBodySwith(self, pointDisSum, pointCount):
         flag = 0
+        tableNum = 0
         if(pointCount == 4):
             orginDisSumTable = self.orginDisSumTable4
+            orginDisSumTableList = self.orginDisSumTableList4
         elif(pointCount == 3):
             orginDisSumTable = self.orginDisSumTable3
+            orginDisSumTableList = self.orginDisSumTableList3
+            tableNum = findCloseNum(np.sum(pointDisSum), orginDisSumTableList)
         elif(pointCount == 2):
             orginDisSumTable = self.orginDis
             flag = 1
         else:
             orginDisSumTable = self.orginDis
+        print("tableNum: ", tableNum, "\n")
+        print("orginDisSumTable: \n", orginDisSumTable)
 
         # findBody_sum
-        nums = findBody_sum(pointDisSum, orginDisSumTable)
+        nums = findBody_sum(pointDisSum, orginDisSumTable, tableNum)
         print("points nums:\n", nums, "\n")
 
         # Reliability
@@ -388,6 +413,25 @@ def findAxisDis(point3d, inputAxisPoint=0):
         axisDis[1][i] = euclideanDistances3d(axisPoint[1],point3d[i])
         axisDis[2][i] = euclideanDistances3d(axisPoint[2],point3d[i])
     return axisDis
+
+###################################################################################
+# rotationToEuler
+###################################################################################
+def rotationToEuler(R):
+    sy = sqrt(R[0,0] * R[0,0] + R[1,0] * R[1,0])
+    singular = sy < 1e-6
+
+    if not singular:
+        x = atan2(R[2,1], R[2,2])
+        y = atan2(-R[2,0], sy)
+        z = atan2(R[1,0], R[0,0])
+    else:
+        x = atan2(-R[1,2], R[1,1])
+        y = atan2(-R[2,0], sy)
+        z = 0
+
+    return np.array([x,y,z])
+
 
 ###################################################################################
 # show plot 3d

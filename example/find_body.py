@@ -3,6 +3,8 @@ import sys
 sys.path.append(os.getcwd())
 from lib.kevin.kevincv import *
 
+import math
+
 # from matplotlib import pyplot as plt
 
 ###################################################################################
@@ -48,11 +50,21 @@ def main():
     fb.orginDisSumTable4 = orginDisSumTable4
     fb.orginDisSumTable3 = orginDisSumTable3
 
+    orginDisSumTableList4 = np.sum(orginDisSumTable4[0,:])
+    print("orginDisSumTable4List: ", orginDisSumTableList4)
+    orginDisSumTableList3 = np.zeros(4)
+    for i in range(4):
+        orginDisSumTableList3[i] = np.sum(orginDisSumTable3[i,:])
+    print("orginDisSumTable3List: ", orginDisSumTableList3)
+    fb.orginDisSumTableList4 = orginDisSumTableList4
+    fb.orginDisSumTableList3 = orginDisSumTableList3
+    print()
+
     start_time_1 = time.time()
     for i in range(1):
 
         pc = pointCount(points3d)
-        # print("pointCount:\n", pc, "\n")
+        print("pointCount:", pc, "\n")
 
         pointDis = findAllDis(points3d)
         print("points distanse:\n", pointDis, "\n")
@@ -96,7 +108,7 @@ def main():
             print("new numsSort:\n", numsSort, "\n")
 
         # create gen axis point
-        print("worstPoint", worstPoint)
+        print("worstPoint", worstPoint, "\n")
         numList = [i for i in range(4) if i != worstPoint]
         gp = GenPoint()
         gp.a = points3d[numsSort[numList[0]][2]]
@@ -122,11 +134,24 @@ def main():
             axisPoint[i] = gp.solve_fsolve()
         print("axisPoint:\n", axisPoint, "\n")
 
+        # axisPointDis
+        axisPointDis = np.zeros((3,3))
+        for i in range(3):
+            axisPointDis[i] = axisPoint[i] - points3d[numsSort[0][2]]
+        print("axisPointDis\n", axisPointDis, "\n")
+        axisPointDis = axisPointDis / 50
+        print("axisPointDis\n", axisPointDis, "\n")
+
+        # find axis angle
+        angle = rotationToEuler(axisPointDis)
+        print("angle rad: \n", angle)
+        print("angle deg: \n", np.rad2deg(angle))
+
         # showPlot3d
         showPlot3d(points3d, axisPoint, numsSort[:,2], pc, numsSort[0][2])
 
     # time
-    print("--- 1: %s seconds ---" % (time.time() - start_time_1))
+    print("\n--- 1: %s seconds ---" % (time.time() - start_time_1))
 
 ###################################################################################
 # if main
@@ -135,4 +160,4 @@ if __name__ == '__main__':
     import time
     start_time = time.time()
     main()
-    print("--- total %s seconds ---" % (time.time() - start_time))
+    print("\n--- total %s seconds ---" % (time.time() - start_time))
