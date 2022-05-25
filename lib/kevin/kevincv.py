@@ -263,6 +263,16 @@ def findBody_np(pointDis, orginDis, basePoint):
     return nums
 
 ###################################################################################
+# pointErrorArray
+###################################################################################
+def pointErrorArray(true, observed, pointNums, pointCount):
+    res = np.zeros(4, np.float32)
+    tableNum = pointNums[0][0]
+    for i in range(4):
+        res[i] = (true[tableNum][pointNums[i][1]-1] - observed[i]) / pointCount
+    return res
+
+###################################################################################
 # percentError
 ###################################################################################
 def percentError(true, observed):
@@ -332,7 +342,10 @@ class FindBody():
         pra = percentReliabilityArray(orginDisSumTable, pointDisSum, nums, flag)
         print("percentReliabilityArray", pra, "\n")
 
-        return nums, pra
+        pea = pointErrorArray(orginDisSumTable, pointDisSum, nums, pointCount)
+        print("pointError", pea, "\n")
+
+        return nums, pra, pea
         
 
 ###################################################################################

@@ -4,6 +4,7 @@ sys.path.append(os.getcwd())
 from lib.kevin.kevincv import *
 
 import math
+import pandas as pd
 
 # from matplotlib import pyplot as plt
 
@@ -12,6 +13,8 @@ import math
 ###################################################################################
 def main():
     print("find body...\n")
+
+    f = open("data/result/point_error_data.txt", "w")
 
     origin  = np.array([
                         [14.414906327500171, 22.34505201771049, 449.62576160776894],
@@ -38,6 +41,11 @@ def main():
                         # [0, 0, 0],
                         ])
 
+    path = "data/result/point_data.csv"
+
+    df = pd.read_csv(path, header=None)
+    point_data = df.to_numpy()
+
     orginDis = findAllDis(origin)
     print("origin distanse:\n", orginDis, "\n")
     orginDisSumTable4 = arraySum(orginDis)
@@ -61,7 +69,12 @@ def main():
     print()
 
     start_time_1 = time.time()
-    for i in range(1):
+    for i in range(19):
+        points3d[0] = point_data[i,0:3]
+        points3d[1] = point_data[i,3:6]
+        points3d[2] = point_data[i,6:9]
+        points3d[3] = point_data[i,9:12]
+        print("points3d:\n", points3d, "\n")
 
         pc = pointCount(points3d)
         print("pointCount:", pc, "\n")
@@ -72,7 +85,8 @@ def main():
         print("points distanse sum:\n",pointDisSum, "\n")
 
         # find body in any case
-        nums, pra = fb.findBodySwith(pointDisSum, pc)
+        nums, pra, pea = fb.findBodySwith(pointDisSum, pc)
+        f.write(str(pea) + "\n")
 
         # numsSort
         numsSort = np.append(nums, np.arange(4).reshape((4, 1)), axis=1)
@@ -149,6 +163,8 @@ def main():
 
         # showPlot3d
         showPlot3d(points3d, axisPoint, numsSort[:,2], pc, numsSort[0][2])
+
+    f.close()
 
     # time
     print("\n--- 1: %s seconds ---" % (time.time() - start_time_1))
