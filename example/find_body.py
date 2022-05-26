@@ -59,21 +59,34 @@ def main():
     fb.orginDisSumTable3 = orginDisSumTable3
 
     orginDisSumTableList4 = np.sum(orginDisSumTable4[0,:])
-    print("orginDisSumTable4List: ", orginDisSumTableList4)
+    # print("orginDisSumTable4List: ", orginDisSumTableList4, "\n")
     orginDisSumTableList3 = np.zeros(4)
     for i in range(4):
         orginDisSumTableList3[i] = np.sum(orginDisSumTable3[i,:])
-    print("orginDisSumTable3List: ", orginDisSumTableList3)
+    print("orginDisSumTable3List: ", orginDisSumTableList3, "\n")
     fb.orginDisSumTableList4 = orginDisSumTableList4
     fb.orginDisSumTableList3 = orginDisSumTableList3
-    print()
+
+    # gen virtual point
+    gp2d = GenPoint2d()
+    gp2d.genBodyPoint()
+    gp2d.dis = orginDis
+    virtualPoint2d = np.array([gp2d.a,gp2d.b,gp2d.c,gp2d.d])
+    print("virtual 2d point:\n", virtualPoint2d, "\n")
+
+    # axisDis
+    axisDis = findAxisDis(virtualPoint2d)
+    print("axis dis:\n", axisDis, "\n")
 
     start_time_1 = time.time()
     for i in range(len(point_data[:])):
+        print("==========================================================================================")
+
         points3d[0] = point_data[i,0:3]
         points3d[1] = point_data[i,3:6]
         points3d[2] = point_data[i,6:9]
-        points3d[3] = point_data[i,9:12]
+        # points3d[3] = point_data[i,9:12]
+        points3d[3] = (0,0,0)
         print("points3d:\n", points3d, "\n")
 
         pc = pointCount(points3d)
@@ -133,22 +146,12 @@ def main():
         gp.b = points3d[numsSort[numList[1]][2]]
         gp.c = points3d[numsSort[numList[2]][2]]
         
-        # gen virtual point
-        gp2d = GenPoint2d()
-        gp2d.genBodyPoint()
-        virtualPoint3d = np.array([gp2d.a,gp2d.b,gp2d.c,gp2d.d])
-        print("virtual 3d point:\n", virtualPoint3d, "\n")
-
-        # axisDis
-        axisDis = findAxisDis(virtualPoint3d)
-        print("axis dis:\n", axisDis, "\n")
-        
         # find axis point
         axisPoint = np.zeros((3,3))
-        axisDisSort = np.delete(axisDis, worstPoint, axis=1)
-        print("axisDisSort:\n",axisDisSort, "\n")
+        axisDisPart = np.delete(axisDis, worstPoint, axis=1)
+        print("axisDisPart:\n",axisDisPart, "\n")
         for i in range(3):
-            gp.dis = axisDisSort[i]
+            gp.dis = axisDisPart[i]
             axisPoint[i] = gp.solve_fsolve()
         print("axisPoint:\n", axisPoint, "\n")
 
@@ -166,7 +169,7 @@ def main():
         print("angle deg: \n", np.rad2deg(angle))
 
         # showPlot3d
-        # showPlot3d(points3d, axisPoint, numsSort[:,2], pc, numsSort[0][2])
+        showPlot3d(points3d, axisPoint, numsSort[:,2], pc, numsSort[0][2])
 
     fileErrData.close()
 

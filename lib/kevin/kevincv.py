@@ -276,6 +276,8 @@ def pointErrorArray(true, observed, pointNums, pointCount):
 # percentError
 ###################################################################################
 def percentError(true, observed):
+    if(observed == 0):
+        return 100
     return abs(true-observed) / true * 100
 
 ###################################################################################
@@ -332,7 +334,7 @@ class FindBody():
         else:
             orginDisSumTable = self.orginDis
         print("tableNum: ", tableNum, "\n")
-        print("orginDisSumTable: \n", orginDisSumTable)
+        # print("orginDisSumTable: \n", orginDisSumTable, "\n")
 
         # findBody_sum
         nums = findBody_sum(pointDisSum, orginDisSumTable, tableNum)
