@@ -14,7 +14,7 @@ import pandas as pd
 def main():
     print("find body...\n")
 
-    f = open("data/result/point_error_data.txt", "w")
+    fileErrData = open("data/result/point_error_data.csv", "w")
 
     origin  = np.array([
                         [14.414906327500171, 22.34505201771049, 449.62576160776894],
@@ -69,7 +69,7 @@ def main():
     print()
 
     start_time_1 = time.time()
-    for i in range(19):
+    for i in range(len(point_data[:])):
         points3d[0] = point_data[i,0:3]
         points3d[1] = point_data[i,3:6]
         points3d[2] = point_data[i,6:9]
@@ -86,7 +86,11 @@ def main():
 
         # find body in any case
         nums, pra, pea = fb.findBodySwith(pointDisSum, pc)
-        f.write(str(pea) + "\n")
+        text = ""
+        for i in range(4):
+            text += str(pea[i]) + ', '
+        text += '\n'
+        fileErrData.write(text) # write data
 
         # numsSort
         numsSort = np.append(nums, np.arange(4).reshape((4, 1)), axis=1)
@@ -162,9 +166,9 @@ def main():
         print("angle deg: \n", np.rad2deg(angle))
 
         # showPlot3d
-        showPlot3d(points3d, axisPoint, numsSort[:,2], pc, numsSort[0][2])
+        # showPlot3d(points3d, axisPoint, numsSort[:,2], pc, numsSort[0][2])
 
-    f.close()
+    fileErrData.close()
 
     # time
     print("\n--- 1: %s seconds ---" % (time.time() - start_time_1))
