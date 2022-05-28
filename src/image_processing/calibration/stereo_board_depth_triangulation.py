@@ -130,14 +130,14 @@ def main():
 
         #################################### cv draw picture
         # draw point
-        cv2.circle(frame_left, center_point_left.astype(
-                np.int32), 5, (0, 0, 255), -1)
-        cv2.circle(frame_left, center_point_left1.astype(
-                np.int32), 5, (255, 0, 0), -1)
-        cv2.circle(frame_right, center_point_right.astype(
-                np.int32), 5, (0, 0, 255), -1)
-        cv2.circle(frame_right, center_point_right1.astype(
-                np.int32), 5, (255, 0, 0), -1)
+        cv2.circle(frame_left, tuple(center_point_left.astype(
+                np.int32)), 5, (0, 0, 255), -1)
+        cv2.circle(frame_left, tuple(center_point_left1.astype(
+                np.int32)), 5, (255, 0, 0), -1)
+        cv2.circle(frame_right, tuple(center_point_right.astype(
+                np.int32)), 5, (0, 0, 255), -1)
+        cv2.circle(frame_right, tuple(center_point_right1.astype(
+                np.int32)), 5, (255, 0, 0), -1)
 
         # draw text
         text = "X: " + str(round(world_points[0, 0], 2))

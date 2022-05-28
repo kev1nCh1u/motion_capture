@@ -45,6 +45,42 @@ def calcu_world_point(point, z_depth, focal):
     world_points[2] = z_depth
     return world_points
 
+###############################################################################################
+# epipolar_line
+###############################################################################################
+def epipolar_line(FundamentalMatrix, point, size):
+    ###################################### line equation
+    lineEq = np.dot(FundamentalMatrix, point.T)
+    # print("lineEq", lineEq)
+    a = lineEq[0]
+    b = lineEq[1]
+    c = lineEq[2]
+
+    ####################################### find y ax+by+c=0
+    x = np.array(range(size))
+    # print("x", x)
+    y = -(a*x+c)/b
+    # print("y", y)
+    return y
+
+###############################################################################################
+# epipolar_line
+###############################################################################################
+def epipolar_line_r(FundamentalMatrix, point, size):
+    ###################################### line equation
+    lineEq = np.dot(point, FundamentalMatrix)
+    # print("lineEq", lineEq)
+    a = lineEq.T[0]
+    b = lineEq.T[1]
+    c = lineEq.T[2]
+
+    ####################################### find y ax+by+c=0
+    x = np.array(range(size))
+    # print("x", x)
+    y = -(a*x+c)/b
+    # print("y", y)
+    return y
+
 ###################################################################################
 # triangulate
 ###################################################################################

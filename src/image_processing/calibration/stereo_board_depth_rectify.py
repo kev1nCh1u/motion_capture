@@ -107,15 +107,15 @@ def main():
 
         # if find point, show x y on image, and draw
         if ret_left and ret_right:
-            cv2.circle(frame_left, center_point_left.astype(
-                np.int32), 5, (0, 0, 255), -1)
-            cv2.circle(frame_right, center_point_right.astype(
-                np.int32), 5, (0, 0, 255), -1)
+            cv2.circle(frame_left, tuple(center_point_left.astype(
+                np.int32)), 5, (0, 0, 255), -1)
+            cv2.circle(frame_right, tuple(center_point_right.astype(
+                np.int32)), 5, (0, 0, 255), -1)
 
-            cv2.circle(frame_left, center_point_left1.astype(
-                np.int32), 5, (255, 0, 0), -1)
-            cv2.circle(frame_right, center_point_right1.astype(
-                np.int32), 5, (255, 0, 0), -1)
+            cv2.circle(frame_left, tuple(center_point_left1.astype(
+                np.int32)), 5, (255, 0, 0), -1)
+            cv2.circle(frame_right, tuple(center_point_right1.astype(
+                np.int32)), 5, (255, 0, 0), -1)
 
             # find depth
             depth = find_depth(center_point_left,
@@ -184,8 +184,8 @@ def main():
         vis = np.concatenate((frame_left, frame_right), axis=1)
 
         # Show the frames
-        cv2.imshow("frame left", frame_left)
-        cv2.imshow("frame right", frame_right)
+        # cv2.imshow("frame left", frame_left)
+        # cv2.imshow("frame right", frame_right)
         cv2.imshow("vis SubPix" + fname, vis)
 
         # Hit "q" to close the window
