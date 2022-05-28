@@ -51,16 +51,13 @@ def calcu_world_point(point, z_depth, focal):
 def epipolar_line(FundamentalMatrix, point, size):
     ###################################### line equation
     lineEq = np.dot(FundamentalMatrix, point.T)
-    # print("lineEq", lineEq)
     a = lineEq[0]
     b = lineEq[1]
     c = lineEq[2]
 
     ####################################### find y ax+by+c=0
     x = np.array(range(size))
-    # print("x", x)
     y = -(a*x+c)/b
-    # print("y", y)
     return y
 
 ###############################################################################################
@@ -69,16 +66,13 @@ def epipolar_line(FundamentalMatrix, point, size):
 def epipolar_line_r(FundamentalMatrix, point, size):
     ###################################### line equation
     lineEq = np.dot(point, FundamentalMatrix)
-    # print("lineEq", lineEq)
     a = lineEq.T[0]
     b = lineEq.T[1]
     c = lineEq.T[2]
 
     ####################################### find y ax+by+c=0
     x = np.array(range(size))
-    # print("x", x)
     y = -(a*x+c)/b
-    # print("y", y)
     return y
 
 ###################################################################################
@@ -100,7 +94,6 @@ def triangulate(cameraMatrix1, cameraMatrix2, RotationOfCamera2, TranslationOfCa
     v = point_x[1]
     u_ = point_x_[0]
     v_ = point_x_[1]
-    # print("uv:", u, v, u_, v_)
 
     # equations
     A = np.array([
@@ -113,9 +106,7 @@ def triangulate(cameraMatrix1, cameraMatrix2, RotationOfCamera2, TranslationOfCa
     # svd
     U, S, V = np.linalg.svd(A)
     X = V.transpose()[:, -1]
-    # print("X:", X)
     X = X / X[3]
-    # print("world_point:", X)
     return X[0:3]
 
 ###################################################################################
@@ -251,7 +242,6 @@ def findBody_num(pointDis, pointDisSum, orginDis, orginDisSumTable, basePoint):
     num = num - 1
 
     pointDis = pointDis[basePoint]
-    print(pointDis)
     nums = np.zeros((len(pointDis)), np.int8)
     if(num >= 0):
         for i in range(4):
@@ -340,7 +330,6 @@ def percentReliabilityArray(true, observed, pointNums, half=0):
 ###################################################################################
 def percentReliabilityPoint(true, points3d, num):
     observed = np.sum(findPointDis(points3d, num))
-    # print("observed dis:", observed)
     res = 100 - percentError(true, observed)
     return res
 
@@ -351,7 +340,6 @@ class FindBody():
     orginDis = []
     orginDisSumTable4 = []
     orginDisSumTable3 = []
-    orginDisSumTableList4 = []
     orginDisSumTableList3 = []
     
     def findBodySwith(self, pointDisSum, pointCount):
@@ -359,7 +347,6 @@ class FindBody():
         tableNum = 0
         if(pointCount == 4):
             orginDisSumTable = self.orginDisSumTable4
-            orginDisSumTableList = self.orginDisSumTableList4
         elif(pointCount == 3):
             orginDisSumTable = self.orginDisSumTable3
             orginDisSumTableList = self.orginDisSumTableList3
@@ -369,22 +356,12 @@ class FindBody():
             flag = 1
         else:
             orginDisSumTable = self.orginDis
-        print("tableNum: ", tableNum, "\n")
-        # print("orginDisSumTable: \n", orginDisSumTable, "\n")
 
-        # findBody_sum
-        nums = findBody_sum(pointDisSum, orginDisSumTable, tableNum)
-        print("points nums:\n", nums, "\n")
-
-        # Reliability
-        pra = percentReliabilityArray(orginDisSumTable, pointDisSum, nums, flag)
-        print("percentReliabilityArray", pra, "\n")
-
-        pea = pointErrorArray(orginDisSumTable, pointDisSum, nums, pointCount)
-        print("pointError", pea, "\n")
+        nums = findBody_sum(pointDisSum, orginDisSumTable, tableNum) # findBody_sum
+        pra = percentReliabilityArray(orginDisSumTable, pointDisSum, nums, flag) # Reliability
+        pea = pointErrorArray(orginDisSumTable, pointDisSum, nums, pointCount) # error
 
         return nums, pra, pea
-        
 
 ###################################################################################
 # GenPoint
@@ -408,9 +385,9 @@ class GenPoint():
         return fsolve(self.solve_func,[0,0,0])
 
 ###################################################################################
-# GenPoint2d
+# GenBasePoint
 ###################################################################################
-class GenPoint2d():
+class GenBasePoint():
     dis = np.array([[0., 79.41495679, 92.6760091, 60.54557344],
                     [79.41495679, 0., 55.3985338, 82.12350075],
                     [92.6760091, 55.3985338, 0., 54.1674151 ],
@@ -496,11 +473,15 @@ def showPlot3d(points3d, axisPoint, order, pointCount, baseNum=0):
     # ax.set_xlim(-100,100)
     # ax.set_ylim(-100,100)
     # ax.set_zlim(400,500)
-    ax.scatter(points3d[:,0], points3d[:,1], points3d[:,2], label='points')
+    # ax.scatter(points3d[:,0], points3d[:,1], points3d[:,2], label='points')
+    for i in range(4):
+        ax.scatter(points3d[i,0], points3d[i,1], points3d[i,2], label='points '+str(order[i]))
+
     if(pointCount >= 3):
-        ax.scatter(axisPoint[0,0], axisPoint[0,1], axisPoint[0,2], label='x', c="red")
-        ax.scatter(axisPoint[1,0], axisPoint[1,1], axisPoint[1,2], label='y', c="green")
-        ax.scatter(axisPoint[2,0], axisPoint[2,1], axisPoint[2,2], label='z', c="blue")
+        ax.scatter(axisPoint[0,0], axisPoint[0,1], axisPoint[0,2], label='b', c="black")
+        ax.scatter(axisPoint[1,0], axisPoint[1,1], axisPoint[1,2], label='x', c="red")
+        ax.scatter(axisPoint[2,0], axisPoint[2,1], axisPoint[2,2], label='y', c="green")
+        ax.scatter(axisPoint[3,0], axisPoint[3,1], axisPoint[3,2], label='z', c="blue")
         xline = np.array([points3d[order[0],0], points3d[order[2],0]])
         yline = np.array([points3d[order[0],1], points3d[order[2],1]])
         zline = np.array([points3d[order[0],2], points3d[order[2],2]])
@@ -509,17 +490,17 @@ def showPlot3d(points3d, axisPoint, order, pointCount, baseNum=0):
         yline = np.array([points3d[order[1],1], points3d[order[3],1]])
         zline = np.array([points3d[order[1],2], points3d[order[3],2]])
         ax.plot3D(xline, yline, zline, 'gray')
-        xline = np.array([points3d[baseNum,0], axisPoint[0,0]])
-        yline = np.array([points3d[baseNum,1], axisPoint[0,1]])
-        zline = np.array([points3d[baseNum,2], axisPoint[0,2]])
+        xline = np.array([axisPoint[0,0], axisPoint[1,0]])
+        yline = np.array([axisPoint[0,1], axisPoint[1,1]])
+        zline = np.array([axisPoint[0,2], axisPoint[1,2]])
         ax.plot3D(xline, yline, zline, 'red')
-        xline = np.array([points3d[baseNum,0], axisPoint[1,0]])
-        yline = np.array([points3d[baseNum,1], axisPoint[1,1]])
-        zline = np.array([points3d[baseNum,2], axisPoint[1,2]])
+        xline = np.array([axisPoint[0,0], axisPoint[2,0]])
+        yline = np.array([axisPoint[0,1], axisPoint[2,1]])
+        zline = np.array([axisPoint[0,2], axisPoint[2,2]])
         ax.plot3D(xline, yline, zline, 'green')
-        xline = np.array([points3d[baseNum,0], axisPoint[2,0]])
-        yline = np.array([points3d[baseNum,1], axisPoint[2,1]])
-        zline = np.array([points3d[baseNum,2], axisPoint[2,2]])
+        xline = np.array([axisPoint[0,0], axisPoint[3,0]])
+        yline = np.array([axisPoint[0,1], axisPoint[3,1]])
+        zline = np.array([axisPoint[0,2], axisPoint[3,2]])
         ax.plot3D(xline, yline, zline, 'blue')
     ax.legend()
     plt.show()
@@ -535,6 +516,30 @@ def findWorstPoint(percentReliabilityArray, numSize=4):
             min = percentReliabilityArray[i]
             res = i
     return res
+
+###################################################################################
+# rigid_transform_3D
+###################################################################################
+def rigid_transform_3D(A, B):
+        assert len(A) == len(B)
+        N = A.shape[0]
+        mu_A = np.mean(A, axis=0)
+        mu_B = np.mean(B, axis=0)
+
+        AA = A - np.tile(mu_A, (N, 1))
+        BB = B - np.tile(mu_B, (N, 1))
+        H = np.transpose(AA) * BB
+
+        U, S, Vt = np.linalg.svd(H)
+        R = Vt.T * U.T
+        
+        if np.linalg.det(R) < 0:
+            Vt[2, :] *= -1
+            R = Vt.T * U.T
+
+        t = -R * mu_A.T + mu_B.T
+
+        return R, t
 
 ###################################################################################
 # if main
