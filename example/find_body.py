@@ -64,85 +64,70 @@ def main():
         print("==========================================================================================")
 
         ########################################## load point data
-        points3d[2] = point_data[i,0:3]
-        points3d[1] = point_data[i,3:6]
-        points3d[3] = point_data[i,6:9]
-        # points3d[0] = point_data[i,9:12]
-        points3d[0] = [0,0,0]
+        points3d[1] = point_data[i,0:3]
+        points3d[2] = point_data[i,3:6]
+        points3d[0] = point_data[i,6:9]
+        # points3d[1] = point_data[i,9:12]
+        points3d[3] = [0,0,0]
+        # points3d[0] = [0,0,0]
+        # points3d[2] = [0,0,0]
         print("points3d:\n", points3d)
 
         ########################################## point
         pc = pointCount(points3d)
         pointDis = findAllDis(points3d)
         pointDisSum = arraySum(pointDis)[0]
-        print("pointCount:", pc, "\n")
+        # print("pointCount:", pc, "\n")
         # print("points distanse:\n", pointDis, "\n")
         # print("points distanse sum:\n",pointDisSum, "\n")
 
         # find body in any case
-        nums, pra, pea = fb.findBodySwith(pointDisSum, pc)
-        print("nums:\n", nums, "\n")
+        nums, reliability, error = fb.findBodySwith(pointDisSum, pc)
+        print("nums:\n", nums)
+        print("reliability:\n", reliability)
+        print("error:\n", error)
 
         # write err data
         text = ""
         for i in range(4):
-            text += str(pea[i]) + ', '
+            text += str(error[i]) + ', '
         text += '\n'
         fileErrData.write(text) # write
 
         # numsSort
         numsSort = np.append(nums, np.arange(4).reshape((4, 1)), axis=1)
         numsSort = np.sort(numsSort.view('i8,i8,i8'), order=['f1'], axis=0).view(np.int64)
-        print("numsSort:\n", numsSort, "\n")
+        # print("numsSort:\n", numsSort, "\n")
 
         # worstPoint
-        worstPoint = 0
-        if(pc == 4):
-            worstPoint = findWorstPoint(pra)
-
-        # generate lost point
-        if(pc == 3):
-            worstPoint = numsSort[1][0]
-            gp = GenPoint()
-            gp.a = points3d[numsSort[1][2]]
-            gp.b = points3d[numsSort[2][2]]
-            gp.c = points3d[numsSort[3][2]]
-            gp.dis = np.delete(orginDis[nums[0][0]], nums[0][0], None)
-            lp = gp.solve_fsolve()
-            print("generate lost point:\n", lp, "\n")
-            points3d[numsSort[0][2]] = lp
-            print("new 3d points:\n", points3d, "\n")
-
-            # Reliability point
-            prp = percentReliabilityPoint(orginDisSumTable4[0][numsSort[1][0]], points3d, numsSort[0][2])
-            print("Reliability: ", prp, "\n")
-
-            # new numsSort
-            numsSort[0][1] = numsSort[1][0] + 1
-            numsSort = np.sort(numsSort.view('i8,i8,i8'), order=['f1'], axis=0).view(np.int64)
-            print("new numsSort:\n", numsSort, "\n")
-
-        # worstPoint
-        print("worstPoint", worstPoint, "\n")
-
-        # create gen axis point
-        numList = [i for i in range(4) if i != worstPoint]
-        gp = GenPoint()
-        gp.a = points3d[numsSort[numList[0]][2]]
-        gp.b = points3d[numsSort[numList[1]][2]]
-        gp.c = points3d[numsSort[numList[2]][2]]
-
+        worstPoint = findWorstPoint(reliability)
+        worstPointId = nums[worstPoint][1]
+        print("worstPoint:", worstPoint, "id:", worstPointId)
+        
         # points3dSort
         points3dSort = np.zeros((4,3))
         for i in range(4):
             points3dSort[i] = points3d[numsSort[i][2]]
-        
-        # part
-        basePoint2dPart = np.delete(basePoint2d, worstPoint, axis=0)
-        points3dSortPart = np.delete(points3dSort, worstPoint, axis=0)
-        print("basePoint2dPart",basePoint2dPart)
-        print("points3dSortPart",points3dSortPart)
 
+        # part
+        orginPointPart = np.delete(orginPoint, worstPointId-1, axis=0)
+        points3dSortPart = np.delete(points3dSort, worstPointId-1, axis=0)
+        basePoint2dPart = np.delete(basePoint2d, worstPointId-1, axis=0)
+        # print("orginPointPart",orginPointPart)
+        # print("points3dSortPart",points3dSortPart)
+
+        # generate lost point rt
+        if(pc == 3):
+            ret_R, ret_t = rigid_transform_3D(np.asmatrix(orginPointPart),np.asmatrix(points3dSortPart))
+            genPoint = (ret_R * np.asmatrix(orginPoint[worstPointId-1]).T) + np.tile(ret_t, (1,1))
+            genPoint = genPoint.T
+            points3d[worstPoint] = genPoint
+            print("gen point: ", genPoint)
+
+            # Reliability point
+            prp = percentReliabilityPoint(orginDisSumTable4[0][numsSort[1][0]], points3d, numsSort[0][2])
+            print("reliability: ", prp)
+        
         # find axis point rt
         ret_R, ret_t = rigid_transform_3D(np.asmatrix(basePoint2dPart),np.asmatrix(points3dSortPart))
         axisPoint = (ret_R * np.asmatrix(baseAxisPoint2d).T) + np.tile(ret_t, (1,4))
@@ -160,6 +145,8 @@ def main():
         print("angle deg: \n", np.rad2deg(angle))
 
         # showPlot3d
+        # print("points3d\n",points3d)
+        # print("points3dSort\n",points3dSort)
         showPlot3d(points3d, axisPoint, numsSort[:,2], pc, numsSort[0][2])
 
     fileErrData.close()
