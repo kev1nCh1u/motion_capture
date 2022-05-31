@@ -22,19 +22,19 @@ point2d = np.array(([479,319],[538,217],[429,248],[557,296]))
 for i in range(len(point2d)):
     cv2.circle(frame_right, tuple(point2d[i]), 5, (0, 0, 255), -1)
     point = np.array([[point2d[i][0],point2d[i][1],1]])
-    linePoint = epipolar_line_r(FundamentalMatrix, point, 640)
+    linePoint = epipolar_line(FundamentalMatrix, point, 640, 1)
     cv2.line(frame_left, (0, int(linePoint[0])), (640, int(linePoint[640-1])), 
         (0, 255, 0), 1)
 
 # gap = 50
 # for i in range(0,480,gap):
 #     point = np.array([[300,i,1]])
-#     linePoint = epipolar_line_r(FundamentalMatrix, point, 640)
+#     linePoint = epipolar_line(FundamentalMatrix, point, 640, 1)
 #     cv2.line(frame_left, (0, int(linePoint[0])), (640, int(linePoint[640-1])), 
 #         (0, 255, 0), 1)
 # for i in range(0,480,gap):
 #     point = np.array([[300,i,1]])
-#     linePoint = epipolar_line(FundamentalMatrix, point, 640)
+#     linePoint = epipolar_line(FundamentalMatrix, point, 640, 0)
 #     cv2.line(frame_right, (0, int(linePoint[0])), (640, int(linePoint[640-1])), 
 #         (0, 255, 0), 1)
 

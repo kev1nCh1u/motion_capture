@@ -1,5 +1,18 @@
 # motion_capture
 
+
+## camera
+```
+          marker
+            /\
+           /  \
+          /    \
+         /      \
+        /        \
+       /          \
+    camera_1    camera_2
+```
+
 ## install matlab engine
 https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html
 ```
