@@ -24,13 +24,15 @@ def main():
     points3d = fs.getNode("testPoint").mat()
     # print("orginDis:",orginDis)
 
-    ########################################## load point data
-    path = "data/result/point_data.csv"
+    ########################################## load point_data
+    path = "data/result/point_data_angle_2.csv"
     df = pd.read_csv(path, header=None)
     point_data = df.to_numpy()
 
-    ########################################## open point error data
-    fileErrData = open("data/result/point_error_data.csv", "w")
+    ########################################## open point_result
+    fileErrData = open("data/result/point_result.csv", "w")
+    text = "dis, relia, err0, err1, err2, err3, angle0, angle1, angle2,\n"
+    fileErrData.write(text) # write
 
     ########################################## orgin
     orginDis = findAllDis(orginPoint)
@@ -87,13 +89,6 @@ def main():
         print("reliability:\n", reliability)
         print("error:\n", error)
 
-        # write err data
-        text = ""
-        for i in range(4):
-            text += str(error[i]) + ', '
-        text += '\n'
-        fileErrData.write(text) # write
-
         # numsSort
         numsSort = np.append(nums, np.arange(4).reshape((4, 1)), axis=1)
         numsSort = np.sort(numsSort.view('i8,i8,i8'), order=['f1'], axis=0).view(np.int64)
@@ -132,22 +127,37 @@ def main():
         ret_R, ret_t = rigid_transform_3D(np.asmatrix(basePoint2dPart),np.asmatrix(points3dSortPart))
         axisPoint = (ret_R * np.asmatrix(baseAxisPoint2d).T) + np.tile(ret_t, (1,4))
         axisPoint = axisPoint.T
+        print(axisPoint)
 
         # axisPointDis
         axisPointDis = np.zeros((3,3))
         for i in range(3):
-            axisPointDis[i] = axisPoint[i] - points3d[numsSort[0][2]]
+            # axisPointDis[i] = axisPoint[i] - points3d[numsSort[0][2]]
+            axisPointDis[i] = axisPoint[i+1] - axisPoint[0]
         axisPointDis = axisPointDis / 50
+        print(axisPointDis)
 
         # find axis angle
         angle = rotationToEuler(axisPointDis)
         print("angle rad: \n", angle)
-        print("angle deg: \n", np.rad2deg(angle))
+        angleDeg = np.rad2deg(angle)
+        print("angle deg: \n", angleDeg)
+
+        # write err data
+        text = str(points3d[0][2]) + ", " + str(reliability[0]) + ", "
+        for i in range(4):
+            text += str(error[i]) + ', '
+        for i in range(3):
+            text += str(angleDeg[i]) + ', '
+        text += '\n'
+        fileErrData.write(text) # write
 
         # showPlot3d
         # print("points3d\n",points3d)
         # print("points3dSort\n",points3dSort)
-        showPlot3d(points3d, axisPoint, numsSort[:,2], pc, numsSort[0][2])
+        # showPlot3d(points3d, axisPoint, numsSort[:,2], pc, numsSort[0][2])
+
+        # exit()
 
     fileErrData.close()
 

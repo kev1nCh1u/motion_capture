@@ -62,6 +62,8 @@ def main():
     ########################################### file
     data_path = "data/result/point_data.csv" # file path
     data_file = open(data_path, "w") # open file
+    data_path = "data/result/input_data.csv" # file path
+    input_file = open(data_path, "w") # open file
     count = 0
 
     while 1:
@@ -70,9 +72,13 @@ def main():
         kuc1.uart_ser() # left camera
 
         ########################################### get_point 
+        text = ""
         for i in range(4):
             print("p"+str(i), kuc.point2d[i,0],kuc.point2d[i,1],kuc1.point2d[i,0],kuc1.point2d[i,1], end='\t')
+            text += str(kuc.point2d[i,0]) + ', ' + str(kuc.point2d[i,1]) + ', ' + str(kuc1.point2d[i,0]) + ', ' + str(kuc1.point2d[i,1]) + ', '
         print()
+        text += '\n'
+        input_file.write(text) # write data
 
         ############################################# triangulate
         # print("triangulation_depth ========================================")
@@ -121,6 +127,7 @@ def main():
 
     cv2.destroyAllWindows()
     data_file.close()
+    input_file.close()
 
 
 # if main

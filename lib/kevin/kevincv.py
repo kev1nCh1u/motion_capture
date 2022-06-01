@@ -48,7 +48,7 @@ def calcu_world_point(point, z_depth, focal):
 ###############################################################################################
 # epipolar_line
 ###############################################################################################
-def epipolar_line(FundamentalMatrix, point, size, flag):
+def epipolar_line(FundamentalMatrix, point, size, x, flag):
     ###################################### line equation
     if(flag == 0):
         lineEq = np.dot(FundamentalMatrix, point.T)
@@ -59,8 +59,10 @@ def epipolar_line(FundamentalMatrix, point, size, flag):
     c = lineEq[2]
 
     ####################################### find y ax+by+c=0
-    x = np.array(range(size))
+    if(size > 0):
+        x = np.array(range(size))
     y = -(a*x+c)/b
+
     return y
 
 
@@ -313,8 +315,8 @@ def percentReliabilityArray(true, observed, pointNums, half=0):
     tableNum = pointNums[0][0]
     for i in range(4):
         res[i] = 100 - percentError(true[tableNum][pointNums[i][1]-1], observed[i])
-        if(half and res[i] > 0):
-            res[i] -= 50
+        if(half and res[i] > 0): res[i] -= 50
+        if res[i]< 0 : res[i] = 0
     return res
 
 ###################################################################################
@@ -438,18 +440,24 @@ def findAxisDis(point3d, inputAxisPoint=0):
 # rotationToEuler
 ###################################################################################
 def rotationToEuler(R):
-    sy = sqrt(R[0,0] * R[0,0] + R[1,0] * R[1,0])
-    singular = sy < 1e-6
 
-    if not singular:
-        x = atan2(R[2,1], R[2,2])
-        y = atan2(-R[2,0], sy)
-        z = atan2(R[1,0], R[0,0])
-    else:
-        x = atan2(-R[1,2], R[1,1])
-        y = atan2(-R[2,0], sy)
-        z = 0
+    ################ method 1
+    # sy = sqrt(R[0,0] * R[0,0] + R[1,0] * R[1,0])
+    # singular = sy < 1e-6
+    # if not singular:
+    #     x = atan2(R[2,1], R[2,2])
+    #     y = atan2(-R[2,0], sy)
+    #     z = atan2(R[1,0], R[0,0])
+    # else:
+    #     x = atan2(-R[1,2], R[1,1])
+    #     y = atan2(-R[2,0], sy)
+    #     z = 0
 
+    ################ method 2 by sandy
+    x = -1 * asin(R[2,1])
+    y = atan2(R[2,0], R[2,2])
+    z = atan2(R[0,1], R[1,1])
+    
     return np.array([x,y,z])
 
 

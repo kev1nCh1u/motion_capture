@@ -31,5 +31,11 @@ for i in range(3):
     axisPoint[i+1] = gp.solve_fsolve()
 print("axisPoint:\n", axisPoint, "\n")
 
+# angle
+angle = rotationToEuler(axisDisSort)
+print("angle rad: \n", angle)
+angleDeg = np.rad2deg(angle)
+print("angle deg: \n", angleDeg)
+
 # showPlot3d
 showPlot3d(basePoint2d, axisPoint, range(4), 4, 0)

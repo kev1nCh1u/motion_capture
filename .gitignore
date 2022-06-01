@@ -56,3 +56,7 @@ PLLJ_PLLSPE_INFO.txt
 
 data/stereo_calibration/new/
 data/stereo_calibration/test/
+
+data/result/point_data.csv
+data/result/point_result.csv
+data/result/input_data.csv
