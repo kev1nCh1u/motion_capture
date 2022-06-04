@@ -1,5 +1,7 @@
 # motion_capture
 
+## source
+    source /home/kevin/src/motion_capture/kevin_setup.bash
 
 ## camera
 ```
@@ -54,4 +56,5 @@ python setup.py install
 ### GUI
     python3.8 src/gui/qt_gui/src/main.py
 
+### test
     python3.8 src/image_processing/capture/single_capture.py
