@@ -121,9 +121,9 @@ class UartControl():
         self.ser.write(b'\x54') #T
 
         if(colorFlag == 1):
-            self.ser.write(b'\x01')
+            self.ser.write(b'\x01') # binary
         elif(colorFlag == 0):
-            self.ser.write(b'\x00')
+            self.ser.write(b'\x00') # RGB
 
         self.ser.write((binaryThreshold).to_bytes(1, byteorder='little')) #binaryThreshold
 

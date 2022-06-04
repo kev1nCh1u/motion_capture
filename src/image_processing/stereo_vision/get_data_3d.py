@@ -46,6 +46,8 @@ def main():
     RotationOfCamera2 = np.transpose(RotationOfCamera2).astype('float64')
     TranslationOfCamera2 = np.transpose(TranslationOfCamera2).astype('float64')
 
+    FundamentalMatrix = fs.getNode("FundamentalMatrix").mat()
+
     print('\n cameraMatrix1\n', cameraMatrix1)
     print('\n distCoeffs1\n', distCoeffs1)
     print('\n cameraMatrix2\n', cameraMatrix2)
@@ -53,11 +55,19 @@ def main():
     print('\n imageSize\n', imageSize)
     print('\n RotationOfCamera2\n', RotationOfCamera2)
     print('\n TranslationOfCamera2\n', TranslationOfCamera2)
+    print('\n FundamentalMatrix\n', FundamentalMatrix)
     print()
 
     ########################################### uart
     kuc = kevinuart.UartControl('/dev/ttyUSB0') # right camera
     kuc1 = kevinuart.UartControl('/dev/ttyUSB1') # left camera
+
+    kuc.ser_write(1, 10) # binary thres10
+    kuc1.ser_write(1, 10)
+
+    #################################### open camera
+    cap = cv2.VideoCapture(4) # left
+    cap2 = cv2.VideoCapture(2) # right
 
     ########################################### file
     data_path = "data/result/point_data.csv" # file path
@@ -72,37 +82,59 @@ def main():
         kuc1.uart_ser() # left camera
 
         ########################################### get_point 
+        point2d_1 = kuc.point2d
+        point2d_2 = kuc1.point2d
+        # for i in range(4):
+        #     print("p"+str(i), point2d_1[i,0],point2d_1[i,1],point2d_2[i,0],point2d_2[i,1], end='\t')
+        # print()
+
+        ########################################### epipolar
         for i in range(4):
-            print("p"+str(i), kuc.point2d[i,0],kuc.point2d[i,1],kuc1.point2d[i,0],kuc1.point2d[i,1], end='\t')
-        print()
+            point_1 = np.array([[point2d_1[i][0],point2d_1[i][1],1]])
+            point_2 = np.array([[point2d_2[i][0],point2d_2[i][1],1]])
+            point2d_1[i,1] = epipolar_line(FundamentalMatrix, point_1, 0, 1, 1) # epipolar point
+            point2d_2[i,1] = epipolar_line(FundamentalMatrix, point_2, 0, 1, 0) # epipolar point
+        print(point2d_1)
+
+        ##################################### sorting
+        point2d_1 = np.sort(point2d_1.view('i8,i8'), order=['f1'], axis=0).view(np.int64)
+        point2d_2 = np.sort(point2d_2.view('i8,i8'), order=['f1'], axis=0).view(np.int64)
+        print(point2d_1)
+
+        ########################################### check
 
         ############################################# triangulate
         # print("triangulation_depth ========================================")
         points3d = np.zeros((4, 3), np.float64)
         for i in range(4):
-            if(kuc.point2d[i,0] or kuc1.point2d[i,0]):
-                points3d[i] = triangulate(cameraMatrix1, cameraMatrix2, RotationOfCamera2, TranslationOfCamera2, kuc.point2d[i], kuc1.point2d[i])
+            if(point2d_1[i,0] or point2d_2[i,0]):
+                points3d[i] = triangulate(cameraMatrix1, cameraMatrix2, RotationOfCamera2, TranslationOfCamera2, point2d_1[i], point2d_2[i])
             else:
                 points3d[i] = [0,0,0]
         #################################### cv draw picture
-        blank_image = np.zeros((480,640,3), np.uint8) # create image
+        ret, frame = cap.read()
+        ret2, frame2 = cap2.read()
 
-        # draw text
+        if(ret and ret2):
+            # mix frame
+            output_image = np.concatenate((frame, frame2), axis=1)
+        else:
+            output_image = np.zeros((480,640*2,3), np.uint8) # create image
 
         text = "press s to save point"
-        cv2.putText(blank_image, text,
+        cv2.putText(output_image, text,
                     (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
         text = "Save point: " + str(count)
-        cv2.putText(blank_image, text,
+        cv2.putText(output_image, text,
                     (10, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
         for i in range(4):
             text = "p" + str(i) + " X: " + str(round(points3d[i, 0], 2)) + " Y: " + str(round(points3d[i, 1], 2)) + " Z: " + str(round(points3d[i, 2], 2))
-            cv2.putText(blank_image, text,
+            cv2.putText(output_image, text,
                         (10, 140+i*40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
         # Show the frames
-        cv2.imshow("blank_image", blank_image)
+        cv2.imshow("output_image", output_image)
 
         # Hit "q" to close the window
         inputKey = cv2.waitKey(1) & 0xFF
@@ -121,7 +153,7 @@ def main():
 
             text = ""
             for i in range(4):       
-                text += str(kuc.point2d[i,0]) + ', ' + str(kuc.point2d[i,1]) + ', ' + str(kuc1.point2d[i,0]) + ', ' + str(kuc1.point2d[i,1]) + ', '
+                text += str(point2d_1[i,0]) + ', ' + str(point2d_1[i,1]) + ', ' + str(point2d_2[i,0]) + ', ' + str(point2d_2[i,1]) + ', '
             text += '\n'
             input_file.write(text) # write data
 
