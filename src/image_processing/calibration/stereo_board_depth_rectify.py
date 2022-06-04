@@ -86,9 +86,9 @@ def main():
         # if find point
         if ret_left and ret_right:
             corners_left = cv2.cornerSubPix(
-                gray_left, corners_left, (8, 8), (-1, -1), criteria)
+                gray_left, corners_left, (11,11), (-1, -1), criteria) # 8,8 11,11
             corners_right = cv2.cornerSubPix(
-                gray_right, corners_right, (8, 8), (-1, -1), criteria)
+                gray_right, corners_right, (11,11), (-1, -1), criteria)
 
             conerNum = 0
             center_point_left = corners_left[conerNum].ravel()

@@ -19,7 +19,7 @@ from lib.kevin.kevincv import  *
 def main():
     ######################################## kevin args
     parser = argparse.ArgumentParser()
-    parser.add_argument("-id", "--image_id", default='14', help="01~21")
+    parser.add_argument("-id", "--image_id", default='11', help="01~21")
     args = parser.parse_args()
 
     ########################################## load yaml param
@@ -81,9 +81,9 @@ def main():
             fname = args.image_id + ".jpg"
             frame_left = cv2.imread(path + '1/' + fname)
             frame_right = cv2.imread(path + '2/' + fname)
-        # cv2.imshow('frame_left',frame_left)
-        # cv2.imshow('frame_right',frame_right)
-        # cv2.waitKey(0)
+        cv2.imshow('frame_left',frame_left)
+        cv2.imshow('frame_right',frame_right)
+        cv2.waitKey(0)
 
         ########################################## find point
         # Convert the BGR image to gray
@@ -92,17 +92,18 @@ def main():
 
         # Find the chess board corners
         ret_left, corners_left = cv2.findChessboardCorners(
-            gray_left, (11, 8), None)
+            gray_left, (10, 7), None)
         ret_right, corners_right = cv2.findChessboardCorners(
-            gray_right, (11, 8), None)
+            gray_right, (10, 7), None)
 
-        # subpix
+        # subpix  # 8,8 11,11
+        winSize = 7
         criteria = (cv2.TERM_CRITERIA_EPS +
                     cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001) # termination criteria for cornerSubPix
         corners_left = cv2.cornerSubPix(
-            gray_left, corners_left, (8, 8), (-1, -1), criteria)
+            gray_left, corners_left, (winSize,winSize), (-1, -1), criteria)
         corners_right = cv2.cornerSubPix(
-            gray_right, corners_right, (8, 8), (-1, -1), criteria)
+            gray_right, corners_right, (winSize,winSize), (-1, -1), criteria)
 
         # select point
         conerNum = 0
@@ -159,7 +160,7 @@ def main():
         # Show the frames
         # cv2.imshow("frame left", frame_left)
         # cv2.imshow("frame right", frame_right)
-        cv2.imshow("vis SubPix" + fname, vis)
+        # cv2.imshow("vis SubPix" + fname, vis)
 
         # Hit "q" to close the window
         inputKey = cv2.waitKey(0) & 0xFF
@@ -174,10 +175,12 @@ def main():
             filename = save_path + 'chess_vis_tri_' + str(current_time) + '.jpg' # file path and name
             cv2.imwrite(filename, vis) # save image
             print('\nSave:', filename, '\n')
+        
+        break
 
     # Release and destroy all windows before termination
-    cap_right.release()
-    cap_left.release()
+    # cap_right.release()
+    # cap_left.release()
 
     cv2.destroyAllWindows()
 

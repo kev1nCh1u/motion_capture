@@ -56,8 +56,8 @@ def main():
     print()
 
     ########################################### uart
-    kuc = kevinuart.UartControl('/dev/ttyUSB1') # right camera
-    kuc1 = kevinuart.UartControl('/dev/ttyUSB0') # left camera
+    kuc = kevinuart.UartControl('/dev/ttyUSB0') # right camera
+    kuc1 = kevinuart.UartControl('/dev/ttyUSB1') # left camera
 
     ########################################### file
     data_path = "data/result/point_data.csv" # file path
@@ -72,13 +72,9 @@ def main():
         kuc1.uart_ser() # left camera
 
         ########################################### get_point 
-        text = ""
         for i in range(4):
             print("p"+str(i), kuc.point2d[i,0],kuc.point2d[i,1],kuc1.point2d[i,0],kuc1.point2d[i,1], end='\t')
-            text += str(kuc.point2d[i,0]) + ', ' + str(kuc.point2d[i,1]) + ', ' + str(kuc1.point2d[i,0]) + ', ' + str(kuc1.point2d[i,1]) + ', '
         print()
-        text += '\n'
-        input_file.write(text) # write data
 
         ############################################# triangulate
         # print("triangulation_depth ========================================")
@@ -122,6 +118,13 @@ def main():
                 text += str(points3d[i, 0]) + ', ' + str(points3d[i, 1]) + ', ' + str(points3d[i, 2]) + ', '
             text += '\n'
             data_file.write(text) # write data
+
+            text = ""
+            for i in range(4):       
+                text += str(kuc.point2d[i,0]) + ', ' + str(kuc.point2d[i,1]) + ', ' + str(kuc1.point2d[i,0]) + ', ' + str(kuc1.point2d[i,1]) + ', '
+            text += '\n'
+            input_file.write(text) # write data
+
             print('\nSave...', '\n')
             count += 1
 

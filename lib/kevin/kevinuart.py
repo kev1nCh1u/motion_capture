@@ -8,6 +8,7 @@ class UartControl():
         print("Start UartControl...")
 
         self.status = 0
+        self.error = 0
 
         self.data = np.empty([10], dtype='bytes')
         self.point_x_bytes_0 = b''
@@ -23,8 +24,12 @@ class UartControl():
         
         COM_PORT = port
         BAUD_RATES = rate
-        self.ser = serial.Serial(COM_PORT, BAUD_RATES, bytesize=8,
-                            stopbits=1, timeout=0.01)
+        try:
+            self.ser = serial.Serial(COM_PORT, BAUD_RATES, bytesize=8,
+                                stopbits=1, timeout=0.01)
+        except:
+            self.error = 1
+            print(COM_PORT,"error")
 
     def uart_ser(self):
         try:

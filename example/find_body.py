@@ -25,7 +25,7 @@ def main():
     # print("orginDis:",orginDis)
 
     ########################################## load point_data
-    path = "data/result/point_data_angle_2.csv"
+    path = "data/result/point_data.csv"
     df = pd.read_csv(path, header=None)
     point_data = df.to_numpy()
 
