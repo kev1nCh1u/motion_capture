@@ -54,6 +54,7 @@ db/
 _output_files/
 PLLJ_PLLSPE_INFO.txt
 
+# kevin
 data/stereo_calibration/new/
 data/stereo_calibration/test/
 

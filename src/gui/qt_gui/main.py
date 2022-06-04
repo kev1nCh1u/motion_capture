@@ -20,7 +20,7 @@ class Ui(QtWidgets.QMainWindow):
         self.image_count = 1
 
         super(Ui, self).__init__()
-        uic.loadUi('src/gui/qt_gui/ui/main.ui', self)
+        uic.loadUi('src/gui/qt_gui/main.ui', self)
 
         ############################ uart
         try:

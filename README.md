@@ -54,7 +54,7 @@ python setup.py install
     python3.8 src/image_processing/calibration/point_plot_3d.py
 
 ### GUI
-    python3.8 src/gui/qt_gui/src/main.py
+    python3.8 src/gui/qt_gui/main.py
 
 ### test
     python3.8 src/image_processing/capture/single_capture.py
