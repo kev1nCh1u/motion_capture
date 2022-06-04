@@ -62,8 +62,8 @@ def main():
     ########################################### file
     data_path = "data/result/point_data.csv" # file path
     data_file = open(data_path, "w") # open file
-    data_path = "data/result/input_data.csv" # file path
-    input_file = open(data_path, "w") # open file
+    input_path = "data/result/input_data.csv" # file path
+    input_file = open(input_path, "w") # open file
     count = 0
 
     while 1:
