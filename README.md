@@ -14,6 +14,11 @@
        /          \
     camera_1    camera_2
 ```
+threshold: 100
+
+## led 
+V: 3V
+
 
 ## install matlab engine
 https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html

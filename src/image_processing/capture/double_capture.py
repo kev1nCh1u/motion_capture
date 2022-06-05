@@ -9,7 +9,6 @@ import glob
 import time
 import threading
 
-
 print('\n opencv version:', cv2.__version__)
 
 save_path = 'data/stereo_calibration/new/'
@@ -18,6 +17,7 @@ class MultiCapture():
 
     def __init__(self) -> None:
         pass
+
         ############################# Capture img
         print('videoCapture....')
         self.cap = cv2.VideoCapture(4) # left

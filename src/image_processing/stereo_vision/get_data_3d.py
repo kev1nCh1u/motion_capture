@@ -7,10 +7,8 @@ import time
 import imutils
 from matplotlib import pyplot as plt
 import time
-import argparse
 
 import os
-import importlib
 sys.path.append(os.getcwd())
 from lib.kevin.kevincv import  *
 from lib.kevin import kevinuart
@@ -61,13 +59,10 @@ def main():
     ########################################### uart
     kuc = kevinuart.UartControl('/dev/ttyUSB0') # right camera
     kuc1 = kevinuart.UartControl('/dev/ttyUSB1') # left camera
-
-    kuc.ser_write(1, 10) # binary thres10
-    kuc1.ser_write(1, 10)
-
-    #################################### open camera
-    cap = cv2.VideoCapture(4) # left
-    cap2 = cv2.VideoCapture(2) # right
+    
+    # binary thres:50 100
+    kuc.ser_write(1, 50) 
+    kuc1.ser_write(1, 50)
 
     ########################################### file
     data_path = "data/result/point_data.csv" # file path
@@ -85,21 +80,24 @@ def main():
         point2d_1 = kuc.point2d
         point2d_2 = kuc1.point2d
         # for i in range(4):
-        #     print("p"+str(i), point2d_1[i,0],point2d_1[i,1],point2d_2[i,0],point2d_2[i,1], end='\t')
+        #     print("p"+str(i), point2d_1[i,0],point2d_1[i,1],point2d_2[i,0],point2d_2[i,1], end=' ')
         # print()
 
         ########################################### epipolar
-        for i in range(4):
-            point_1 = np.array([[point2d_1[i][0],point2d_1[i][1],1]])
-            point_2 = np.array([[point2d_2[i][0],point2d_2[i][1],1]])
-            point2d_1[i,1] = epipolar_line(FundamentalMatrix, point_1, 0, 1, 1) # epipolar point
-            point2d_2[i,1] = epipolar_line(FundamentalMatrix, point_2, 0, 1, 0) # epipolar point
-        print(point2d_1)
+        # for i in range(4):
+        #     point_1 = np.array([[point2d_1[i][0],point2d_1[i][1],1]])
+        #     point_2 = np.array([[point2d_2[i][0],point2d_2[i][1],1]])
+        #     point2d_1[i,1] = epipolar_line(FundamentalMatrix, point_1, 0, point_1[0][0], 0) # epipolar point
+        #     point2d_2[i,1] = epipolar_line(FundamentalMatrix, point_2, 0, point_2[0][0], 1) # epipolar point
 
         ##################################### sorting
-        point2d_1 = np.sort(point2d_1.view('i8,i8'), order=['f1'], axis=0).view(np.int64)
-        point2d_2 = np.sort(point2d_2.view('i8,i8'), order=['f1'], axis=0).view(np.int64)
-        print(point2d_1)
+        # point2d_1 = np.sort(point2d_1.view('i8,i8'), order=['f1'], axis=0).view(np.int64)
+        # point2d_2 = np.sort(point2d_2.view('i8,i8'), order=['f1'], axis=0).view(np.int64)
+        
+        #################################### print point
+        for i in range(4):
+            print("p"+str(i), point2d_1[i,0],point2d_1[i,1],point2d_2[i,0],point2d_2[i,1], end=' ')
+        print()
 
         ########################################### check
 
@@ -111,15 +109,17 @@ def main():
                 points3d[i] = triangulate(cameraMatrix1, cameraMatrix2, RotationOfCamera2, TranslationOfCamera2, point2d_1[i], point2d_2[i])
             else:
                 points3d[i] = [0,0,0]
-        #################################### cv draw picture
-        ret, frame = cap.read()
-        ret2, frame2 = cap2.read()
 
-        if(ret and ret2):
-            # mix frame
-            output_image = np.concatenate((frame, frame2), axis=1)
-        else:
-            output_image = np.zeros((480,640*2,3), np.uint8) # create image
+        #################################### cv draw picture
+        output_image = np.full((480,640*2,3), 255, np.uint8) # create image
+
+        for i in range(4):
+            if(point2d_1[i][0] and point2d_2[i][0]):
+                cv2.line(output_image, tuple(point2d_1[i].astype(int)-(5,0)), tuple(point2d_1[i].astype(int)+(5,0)), (0, 0, 255))
+                cv2.line(output_image, tuple(point2d_1[i].astype(int)-(0,5)), tuple(point2d_1[i].astype(int)+(0,5)), (0, 0, 255))
+                cv2.line(output_image, tuple(point2d_2[i].astype(int)-(5,0)+(640,0)), tuple(point2d_2[i].astype(int)+(5,0)+(640,0)), (0, 0, 255))
+                cv2.line(output_image, tuple(point2d_2[i].astype(int)-(0,5)+(640,0)), tuple(point2d_2[i].astype(int)+(0,5)+(640,0)), (0, 0, 255))
+
 
         text = "press s to save point"
         cv2.putText(output_image, text,

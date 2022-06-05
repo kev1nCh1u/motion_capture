@@ -3,9 +3,9 @@ import numpy as np
 
 
 class UartControl():
-    def __init__(self, port='/dev/ttyUSB0', rate=115200) -> None:
+    def __init__(self, port='/dev/ttyUSB1', rate=115200) -> None:
         pass
-        print("Start UartControl...")
+        print("Start UartControl...", port)
 
         self.status = 0
         self.error = 0
@@ -105,8 +105,8 @@ class UartControl():
                         # print(self.point2d[0,0], self.point2d[0,1])
 
                         for i in range(4):
-                            if self.point2d[i,0] == 65535 : self.point2d[i,0] = 0
-                            if self.point2d[i,1] == 65535 : self.point2d[i,1] = 0
+                            if self.point2d[i,0] >= 65535 : self.point2d[i,0] = 0
+                            if self.point2d[i,1] >= 65535 : self.point2d[i,1] = 0
                     else:
                         self.status = 0
                 # self.ser_write()
@@ -125,6 +125,11 @@ class UartControl():
         elif(colorFlag == 0):
             self.ser.write(b'\x00') # RGB
 
+        if(binaryThreshold < 50):
+            binaryThreshold = 50
+        if(binaryThreshold > 250):
+            binaryThreshold = 250 
+
         self.ser.write((binaryThreshold).to_bytes(1, byteorder='little')) #binaryThreshold
 
         self.ser.write(b'\x45') #E
@@ -140,10 +145,10 @@ if __name__ == "__main__":
     while 1:
         uc.uart_ser()
 
-        uc.ser_write(1)
+        uc.ser_write(0)
 
         for i in range(4):
-            print("p"+str(i), uc.point2d[i,0],uc.point2d[i,1], end='\t')
+            print("p"+str(i), uc.point2d[i,0],uc.point2d[i,1], end=' ')
         print()
         
         # exit()

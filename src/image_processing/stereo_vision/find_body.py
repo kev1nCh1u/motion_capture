@@ -18,38 +18,41 @@ def main():
 
     ########################################## load yaml param
     fs = cv2.FileStorage(
-    "data/parameter/marker_body.yaml", cv2.FILE_STORAGE_READ)
-    orginDis = fs.getNode("orginDistance").mat()
-    orginPoint = fs.getNode("orginPoint").mat()
-    points3d = fs.getNode("testPoint").mat()
+    # "data/parameter/marker_body.yaml", cv2.FILE_STORAGE_READ)
+    "data/parameter/create_markers.yaml", cv2.FILE_STORAGE_READ)
+    orginDis = fs.getNode("orginDistance0").mat()
+    orginPoint = fs.getNode("orginPoint0").mat()
+    # points3d = fs.getNode("testPoint").mat()
     # print("orginDis:",orginDis)
 
     ########################################## load point_data
-    path = "data/result/point_data_distance.csv"
+    path = "data/result/point_data.csv"
     df = pd.read_csv(path, header=None)
     point_data = df.to_numpy()
 
     ########################################## open point_result
-    fileErrData = open("data/result/point_result.csv", "w")
+    point_result = open("data/result/point_result.csv", "w")
     text = "dis, relia, err0, err1, err2, err3, angle0, angle1, angle2,\n"
-    fileErrData.write(text) # write
+    point_result.write(text) # write
 
     ########################################## orgin
-    orginDis = findAllDis(orginPoint)
+    # orginDis = findAllDis(orginPoint)
     orginDisSumTable4 = arraySum(orginDis)
     orginDisSumTable3 = arraySumPart3(orginDis)
     orginDisSumTableList3 = np.zeros(4)
     for i in range(4):
         orginDisSumTableList3[i] = np.sum(orginDisSumTable3[i,:])
+    
+    print("orginDisSumTable4",orginDisSumTable4)
 
-    # set find body
+    #################################################### set find body
     fb = FindBody()
     fb.orginDis = orginDis
     fb.orginDisSumTable4 = orginDisSumTable4
     fb.orginDisSumTable3 = orginDisSumTable3
     fb.orginDisSumTableList3 = orginDisSumTableList3
 
-    # gen base point
+    ################################################### gen base point
     gbp = GenBasePoint()
     gbp.genBodyPoint()
     gbp.dis = orginDis
@@ -57,20 +60,23 @@ def main():
     axisLen = 50
     baseAxisPoint2d = np.array([[0.,0.,0.],[axisLen,0.,0.],[0.,axisLen,0.],[0.,0.,axisLen]])
 
-    # axisDis
+    ################################################### axisDis
     axisDis = findAxisDis(basePoint2d)
     print("axis dis:\n", axisDis, "\n")
 
+    ##################################################### init value
+    points3d = np.zeros((4,3))
+
     start_time_1 = time.time()
     for i in range(len(point_data[:])):
-        print("==========================================================================================")
+        print("==========================================================")
 
         ########################################## load point data
-        points3d[1] = point_data[i,0:3]
-        points3d[2] = point_data[i,3:6]
-        points3d[0] = point_data[i,6:9]
-        # points3d[1] = point_data[i,9:12]
-        points3d[3] = [0,0,0]
+        points3d[0] = point_data[i,0:3]
+        points3d[1] = point_data[i,3:6]
+        points3d[2] = point_data[i,6:9]
+        points3d[3] = point_data[i,9:12]
+        # points3d[3] = [0,0,0]
         # points3d[0] = [0,0,0]
         # points3d[2] = [0,0,0]
         print("points3d:\n", points3d)
@@ -79,9 +85,9 @@ def main():
         pc = pointCount(points3d)
         pointDis = findAllDis(points3d)
         pointDisSum = arraySum(pointDis)[0]
-        # print("pointCount:", pc, "\n")
-        # print("points distanse:\n", pointDis, "\n")
-        # print("points distanse sum:\n",pointDisSum, "\n")
+        print("pointCount:", pc, "\n")
+        print("points distanse:\n", pointDis, "\n")
+        print("points distanse sum:\n",pointDisSum, "\n")
 
         # find body in any case
         nums, reliability, error = fb.findBodySwith(pointDisSum, pc)
@@ -143,14 +149,16 @@ def main():
         angleDeg = np.rad2deg(angle)
         print("angle deg: \n", angleDeg)
 
-        # write err data
-        text = str(points3d[0][2]) + ", " + str(reliability[0]) + ", "
-        for i in range(4):
-            text += str(error[i]) + ', '
-        for i in range(3):
-            text += str(angleDeg[i]) + ', '
-        text += '\n'
-        fileErrData.write(text) # write
+        # write point_result
+        # if(reliability[0] > 99):
+        if(abs(error[0]) < 1):
+            text = str(points3d[0][2]) + ", " + str(reliability[0]) + ", "
+            for i in range(4):
+                text += str(error[i]) + ', '
+            for i in range(3):
+                text += str(angleDeg[i]) + ', '
+            text += '\n'
+            point_result.write(text) # write
 
         # showPlot3d
         # print("points3d\n",points3d)
@@ -159,7 +167,7 @@ def main():
 
         # exit()
 
-    fileErrData.close()
+    point_result.close()
 
     # time
     print("\n--- 1: %s seconds ---" % (time.time() - start_time_1))

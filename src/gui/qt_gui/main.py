@@ -31,7 +31,7 @@ class Ui(QtWidgets.QMainWindow):
             print('\033[91m'+"Error cannot connect port!!!"+'\033[0m')
 
         ################################### camera
-        self.cap = cv2.VideoCapture(0) # init camera
+        self.cap = cv2.VideoCapture(4) # init camera
         self.cap2 = cv2.VideoCapture(2)
         
         ######################################## qt
@@ -66,7 +66,7 @@ class Ui(QtWidgets.QMainWindow):
         #################################### camera
         camFlag, self.image = self.cap.read()
         if(camFlag):
-            show = cv2.resize(self.image,(640,480))
+            show = cv2.resize(self.image,(320,240))
             show = cv2.cvtColor(show, cv2.COLOR_BGR2RGB)
             showImage = QImage(show.data, show.shape[1],show.shape[0],QImage.Format_RGB888)
             self.label_6.setPixmap(QPixmap.fromImage(showImage))
@@ -75,7 +75,7 @@ class Ui(QtWidgets.QMainWindow):
 
         camFlag2, self.image2 = self.cap2.read()
         if(camFlag2):
-            show2 = cv2.resize(self.image2,(640,480))
+            show2 = cv2.resize(self.image2,(320,240))
             show2 = cv2.cvtColor(show2, cv2.COLOR_BGR2RGB)
             showImage2 = QImage(show2.data, show2.shape[1],show2.shape[0],QImage.Format_RGB888)
             self.label_22.setPixmap(QPixmap.fromImage(showImage2))

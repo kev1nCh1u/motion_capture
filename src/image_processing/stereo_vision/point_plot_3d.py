@@ -2,7 +2,7 @@ from matplotlib import pyplot as plt
 import pandas as pd
 
 
-path = "data/result/point_data_angle_2.csv"
+path = "data/result/point_data.csv"
 savePlotPath = 'data/result/point_path_plot/point_path_plot' + '.png'
 
 df = pd.read_csv(path, header=None)
@@ -30,16 +30,16 @@ plt.show()
 ######################################################################
 # show one a time
 ######################################################################
-# print(len(point[:]))
-# for i in range(len(point[:])):
-#     # show plot 3d
-#     fig = plt.figure()
-#     ax = fig.add_subplot(projection='3d')
-#     ax.set_xlabel('X')
-#     ax.set_ylabel('Y')
-#     ax.set_zlabel('Z')
-#     for j in range(4):
-#         ax.scatter(point[i,0+j*3], point[i,1+j*3], point[i,2+j*3], label='Point'+str(i))
-#     ax.legend()
-#     plt.savefig(savePlotPath)
-#     plt.show()
+print(len(point[:]))
+for i in range(len(point[:])):
+    # show plot 3d
+    fig = plt.figure()
+    ax = fig.add_subplot(projection='3d')
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+    for j in range(4):
+        ax.scatter(point[i,0+j*3], point[i,1+j*3], point[i,2+j*3], label='Point'+str(i))
+    ax.legend()
+    plt.savefig(savePlotPath)
+    plt.show()
