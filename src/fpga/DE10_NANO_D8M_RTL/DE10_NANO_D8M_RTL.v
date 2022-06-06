@@ -119,6 +119,15 @@ wire 	[15:0] POINTS_V_2; // point_y_2
 wire 	[15:0] POINTS_H_3; // point_x_3
 wire 	[15:0] POINTS_V_3; // point_y_3
 
+wire 	[15:0] POINTS_H_4; // point_x_4
+wire 	[15:0] POINTS_V_4; // point_y_4
+wire 	[15:0] POINTS_H_5; // point_x_5
+wire 	[15:0] POINTS_V_5; // point_y_5
+wire 	[15:0] POINTS_H_6; // point_x_6
+wire 	[15:0] POINTS_V_6; // point_y_6
+wire 	[15:0] POINTS_H_7; // point_x_7
+wire 	[15:0] POINTS_V_7; // point_y_7
+
 ////////////////// kevin tx ////////////////////////
 wire [7:0] TX_BYTE;
 reg r_TX_DV;
@@ -325,7 +334,15 @@ FIND_MULTI_POINTS fmp1 (
 	.o_POINTS_H_2		(POINTS_H_2[15:0]),
 	.o_POINTS_V_2		(POINTS_V_2[15:0]),
 	.o_POINTS_H_3		(POINTS_H_3[15:0]),
-	.o_POINTS_V_3		(POINTS_V_3[15:0])
+	.o_POINTS_V_3		(POINTS_V_3[15:0]),
+	.o_POINTS_H_4		(POINTS_H_4[15:0]),
+	.o_POINTS_V_4		(POINTS_V_4[15:0]),
+	.o_POINTS_H_5		(POINTS_H_5[15:0]),
+	.o_POINTS_V_5		(POINTS_V_5[15:0]),
+	.o_POINTS_H_6		(POINTS_H_6[15:0]),
+	.o_POINTS_V_6		(POINTS_V_6[15:0]),
+	.o_POINTS_H_7		(POINTS_H_7[15:0]),
+	.o_POINTS_V_7		(POINTS_V_7[15:0])
 );
 
 //-----------uart_tx
@@ -350,6 +367,14 @@ uart_tx_data utd (
 	.POINTS_V_2			(POINTS_V_2[15:0]),
 	.POINTS_H_3			(POINTS_H_3[15:0]),
 	.POINTS_V_3			(POINTS_V_3[15:0]),
+	.POINTS_H_4			(POINTS_H_4[15:0]),
+	.POINTS_V_4			(POINTS_V_4[15:0]),
+	.POINTS_H_5			(POINTS_H_5[15:0]),
+	.POINTS_V_5			(POINTS_V_5[15:0]),
+	.POINTS_H_6			(POINTS_H_6[15:0]),
+	.POINTS_V_6			(POINTS_V_6[15:0]),
+	.POINTS_H_7			(POINTS_H_7[15:0]),
+	.POINTS_V_7			(POINTS_V_7[15:0]),
 	.TX_BYTE			(TX_BYTE)
 );
 

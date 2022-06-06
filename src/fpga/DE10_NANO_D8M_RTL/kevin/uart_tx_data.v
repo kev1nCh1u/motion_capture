@@ -9,10 +9,18 @@ module uart_tx_data (input TX_DONE,
                      input [15:0] POINTS_V_2,
                      input [15:0] POINTS_H_3,
                      input [15:0] POINTS_V_3,
+                     input [15:0] POINTS_H_4,
+                     input [15:0] POINTS_V_4,
+                     input [15:0] POINTS_H_5,
+                     input [15:0] POINTS_V_5,
+                     input [15:0] POINTS_H_6,
+                     input [15:0] POINTS_V_6,
+                     input [15:0] POINTS_H_7,
+                     input [15:0] POINTS_V_7,
                      output [7:0] TX_BYTE);
 
 reg [7:0] DATA_CNT;
-reg [7:0] DATA[0:20];
+reg [7:0] DATA[0:100];
 reg [7:0] r_TX_BYTE;
     
 always @(posedge TX_DONE) begin
@@ -38,13 +46,33 @@ always @(posedge TX_DONE) begin
     DATA[15] = POINTS_H_3[7:0];    // point_x L 3
     DATA[16] = POINTS_V_3[15:8];   // point_y H 3
     DATA[17] = POINTS_V_3[7:0];    // point_y L 3
+
+    DATA[18] = POINTS_H_4[15:8];   // point_x H 4
+    DATA[19] = POINTS_H_4[7:0];    // point_x L 4
+    DATA[20] = POINTS_V_4[15:8];   // point_y H 4
+    DATA[21] = POINTS_V_4[7:0];    // point_y L 4
+
+    DATA[22] = POINTS_H_5[15:8];   // point_x H 5
+    DATA[23] = POINTS_H_5[7:0];    // point_x L 5
+    DATA[24] = POINTS_V_5[15:8];   // point_y H 5
+    DATA[25] = POINTS_V_5[7:0];    // point_y L 5
+
+    DATA[26] = POINTS_H_6[15:8];   // point_x H 6
+    DATA[27] = POINTS_H_6[7:0];    // point_x L 6
+    DATA[28] = POINTS_V_6[15:8];   // point_y H 6
+    DATA[29] = POINTS_V_6[7:0];    // point_y L 6
+
+    DATA[30] = POINTS_H_7[15:8];   // point_x H 7
+    DATA[31] = POINTS_H_7[7:0];    // point_x L 7
+    DATA[32] = POINTS_V_7[15:8];   // point_y H 7
+    DATA[33] = POINTS_V_7[7:0];    // point_y L 7
     
-    DATA[18] = 8'h45; //E
-    DATA[19] = 8'h4E; //N
-    DATA[20] = 8'h44; //D
+    DATA[34] = 8'h45; //E
+    DATA[35] = 8'h4E; //N
+    DATA[36] = 8'h44; //D
 
     r_TX_BYTE <= DATA[DATA_CNT];
-    if (DATA_CNT < 20)
+    if (DATA_CNT < 36)
     begin
         DATA_CNT <= DATA_CNT + 1;
     end

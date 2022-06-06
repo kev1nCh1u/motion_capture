@@ -19,6 +19,15 @@ module FIND_MULTI_POINTS (
                    output reg		[15:0] o_POINTS_V_2,
                    output reg		[15:0] o_POINTS_H_3,
                    output reg		[15:0] o_POINTS_V_3,
+
+                   output reg		[15:0] o_POINTS_H_4,
+                   output reg		[15:0] o_POINTS_V_4,
+                   output reg		[15:0] o_POINTS_H_5,
+                   output reg		[15:0] o_POINTS_V_5,
+                   output reg		[15:0] o_POINTS_H_6,
+                   output reg		[15:0] o_POINTS_V_6,
+                   output reg		[15:0] o_POINTS_H_7,
+                   output reg		[15:0] o_POINTS_V_7,
                    
                    output reg       [15:0] o_POINTS_LIST,
                    output reg       [15:0] o_POINTS_NUM,
@@ -43,10 +52,10 @@ reg		[9:0] POINTS_H_IN[0:30]; //{num,mid,min,max,group,...}
 reg		[9:0] POINTS_V_IN[0:30];
 
 reg		[3:0] POINT_GROUP = 0;
-reg		[9:0] POINT_RANGE[0:3][0:3]; // {h_mid, h_min, h_max, v}
-reg		[19:0] POINT_H[0:3]; //[POINT_GROUP]
-reg		[19:0] POINT_V[0:3]; //[POINT_GROUP]
-reg		[19:0] POINT_GROUP_NUM[0:3];
+reg		[9:0] POINT_RANGE[0:7][0:3]; // {h_mid, h_min, h_max, v}
+reg		[19:0] POINT_H[0:7]; //[POINT_GROUP]
+reg		[19:0] POINT_V[0:7]; //[POINT_GROUP]
+reg		[19:0] POINT_GROUP_NUM[0:7];
 reg     LINK_FLAG;
 
 // reg		[15:0] BUFF;
@@ -86,7 +95,7 @@ always@(posedge CLK)begin
         //////////////////////// find group
         // $display("================= new_point ====================");
         LINK_FLAG = 0;
-        for(i=0; i<=3; i=i+1)
+        for(i=0; i<=7; i=i+1)
         begin
             if(!LINK_FLAG)
             begin
@@ -177,7 +186,7 @@ always@(posedge CLK)begin
         // $display("================== new frame ===========================");
         // reset
         POINT_GROUP = 0;
-        for(i=0; i<=3; i=i+1)
+        for(i=0; i<=7; i=i+1)
         begin
             POINT_H[i] = 0;
             POINT_V[i] = 0;
@@ -191,7 +200,7 @@ always@(posedge CLK)begin
     begin
         // reset
         // POINT_GROUP = 0;
-        // for(i=0; i<=3; i=i+1)
+        // for(i=0; i<= 7; i=i+1)
         // begin
         //     POINT_H[i] = 0;
         //     POINT_V[i] = 0;
@@ -239,12 +248,12 @@ always@(posedge CLK)begin
 
         // link output
         $display("============= result =================");
-        for(i=0; i<=3; i=i+1)
+        for(i=0; i<=7; i=i+1)
         begin
             POINT_H[i] = POINT_H[i] / POINT_GROUP_NUM[i]; // average H
             POINT_V[i] = POINT_V[i] / POINT_GROUP_NUM[i]; // average V
         end
-        for(i=0; i<=3; i=i+1)
+        for(i=0; i<=7; i=i+1)
         begin
             $display("p:%3d    X:%3d    Y:%3d", i, POINT_H[i], POINT_V[i]);
         end
@@ -256,6 +265,15 @@ always@(posedge CLK)begin
         o_POINTS_V_2 = POINT_V[2];
         o_POINTS_H_3 = POINT_H[3];
         o_POINTS_V_3 = POINT_V[3];
+
+        o_POINTS_H_4 = POINT_H[4];
+        o_POINTS_V_4 = POINT_V[4];
+        o_POINTS_H_5 = POINT_H[5];
+        o_POINTS_V_5 = POINT_V[5];
+        o_POINTS_H_6 = POINT_H[6];
+        o_POINTS_V_6 = POINT_V[6];
+        o_POINTS_H_7 = POINT_H[7];
+        o_POINTS_V_7 = POINT_V[7];
 
         POINTS_LIST = 0;
         POINTS_NUM = 0;

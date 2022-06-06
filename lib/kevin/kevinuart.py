@@ -9,18 +9,14 @@ class UartControl():
 
         self.status = 0
         self.error = 0
+        self.pointSize = 8
 
         self.data = np.empty([10], dtype='bytes')
-        self.point_x_bytes_0 = b''
-        self.point_y_bytes_0 = b''
-        self.point_x_bytes_1 = b''
-        self.point_y_bytes_1 = b''
-        self.point_x_bytes_2 = b''
-        self.point_y_bytes_2 = b''
-        self.point_x_bytes_3 = b''
-        self.point_y_bytes_3 = b''
 
-        self.point2d = np.zeros((4, 2),np.unsignedinteger)
+        self.pointx_bytes = np.full(self.pointSize, b'\xffff')
+        self.pointy_bytes = np.full(self.pointSize, b'\xffff')
+
+        self.point2d = np.zeros((self.pointSize, 2),np.unsignedinteger)
         
         COM_PORT = port
         BAUD_RATES = rate
@@ -44,40 +40,18 @@ class UartControl():
                     if(self.ser.read(1) ==  b'T'):
                         self.status += 1
                     else:
-                        self.status = 0
-                ###################### point 0
+                        self.status = 0    
+
+                # ####################### point
                 elif(self.status == 2):
-                    self.data[1] = self.ser.read(1)
-                    self.data[2] = self.ser.read(1)
-                    self.point_x_bytes_0 = self.data[1] + self.data[2]
+                    for i in range(self.pointSize):
+                        self.data[1] = self.ser.read(1)
+                        self.data[2] = self.ser.read(1)
+                        self.pointx_bytes[i] = self.data[1] + self.data[2]
 
-                    self.data[3] = self.ser.read(1)
-                    self.data[4] = self.ser.read(1)
-                    self.point_y_bytes_0 = self.data[3] + self.data[4]
-                ###################### point 1
-                    self.data[1] = self.ser.read(1)
-                    self.data[2] = self.ser.read(1)
-                    self.point_x_bytes_1 = self.data[1] + self.data[2]
-
-                    self.data[3] = self.ser.read(1)
-                    self.data[4] = self.ser.read(1)
-                    self.point_y_bytes_1 = self.data[3] + self.data[4]
-                ####################### point 2
-                    self.data[1] = self.ser.read(1)
-                    self.data[2] = self.ser.read(1)
-                    self.point_x_bytes_2 = self.data[1] + self.data[2]
-
-                    self.data[3] = self.ser.read(1)
-                    self.data[4] = self.ser.read(1)
-                    self.point_y_bytes_2 = self.data[3] + self.data[4]
-                ####################### point 3
-                    self.data[1] = self.ser.read(1)
-                    self.data[2] = self.ser.read(1)
-                    self.point_x_bytes_3 = self.data[1] + self.data[2]
-
-                    self.data[3] = self.ser.read(1)
-                    self.data[4] = self.ser.read(1)
-                    self.point_y_bytes_3 = self.data[3] + self.data[4]
+                        self.data[3] = self.ser.read(1)
+                        self.data[4] = self.ser.read(1)
+                        self.pointy_bytes[i] = self.data[3] + self.data[4]
 
                     self.status += 1
                 ######################### end
@@ -94,17 +68,12 @@ class UartControl():
                 elif(self.status == 5):
                     if(self.ser.read(1) ==  b'D'):
                         self.status = 0
-                        self.point2d[0,0] = int.from_bytes(self.point_x_bytes_0, "big")
-                        self.point2d[0,1] = int.from_bytes(self.point_y_bytes_0, "big")
-                        self.point2d[1,0] = int.from_bytes(self.point_x_bytes_1, "big")
-                        self.point2d[1,1] = int.from_bytes(self.point_y_bytes_1, "big")
-                        self.point2d[2,0] = int.from_bytes(self.point_x_bytes_2, "big")
-                        self.point2d[2,1] = int.from_bytes(self.point_y_bytes_2, "big")
-                        self.point2d[3,0] = int.from_bytes(self.point_x_bytes_3, "big")
-                        self.point2d[3,1] = int.from_bytes(self.point_y_bytes_3, "big")
-                        # print(self.point2d[0,0], self.point2d[0,1])
 
-                        for i in range(4):
+                        for i in range(self.pointSize):
+                            self.point2d[i,0] = int.from_bytes(self.pointx_bytes[i], "big")
+                            self.point2d[i,1] = int.from_bytes(self.pointy_bytes[i], "big")
+
+                        for i in range(self.pointSize):
                             if self.point2d[i,0] >= 65535 : self.point2d[i,0] = 0
                             if self.point2d[i,1] >= 65535 : self.point2d[i,1] = 0
                     else:
@@ -147,7 +116,7 @@ if __name__ == "__main__":
 
         uc.ser_write(0)
 
-        for i in range(4):
+        for i in range(8):
             print("p"+str(i), uc.point2d[i,0],uc.point2d[i,1], end=' ')
         print()
         
