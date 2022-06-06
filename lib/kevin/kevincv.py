@@ -328,7 +328,19 @@ def percentReliabilityPoint(true, points3d, num):
     return res
 
 ###################################################################################
-# findBodySwith
+# mseFuc
+###################################################################################
+def mseFuc(true, observed):
+    return np.mean((true - observed)**2)
+
+###################################################################################
+# rmseFuc
+###################################################################################
+def rmseFuc(true, observed):
+    return sqrt(np.mean((true - observed)**2))
+
+###################################################################################
+# findBody
 ###################################################################################
 class FindBody():
     orginDis = []
@@ -336,7 +348,7 @@ class FindBody():
     orginDisSumTable3 = []
     orginDisSumTableList3 = []
     
-    def findBodySwith(self, pointDisSum, pointCount):
+    def findBody(self, pointDisSum, pointCount):
         flag = 0
         tableNum = 0
         if(pointCount == 4):
@@ -352,8 +364,8 @@ class FindBody():
             orginDisSumTable = self.orginDis
 
         nums = findBody_sum(pointDisSum, orginDisSumTable, tableNum) # findBody num
-        reliability = percentReliabilityArray(orginDisSumTable, pointDisSum, nums, flag) # Reliability
         error = pointErrorArray(orginDisSumTable, pointDisSum, nums, pointCount) # error
+        reliability = percentReliabilityArray(orginDisSumTable, pointDisSum, nums, flag) # Reliability
 
         return nums, reliability, error
 

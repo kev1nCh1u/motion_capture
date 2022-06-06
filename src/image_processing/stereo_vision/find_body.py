@@ -81,7 +81,7 @@ def main():
         # points3d[2] = [0,0,0]
         print("points3d:\n", points3d)
 
-        ########################################## point
+        ########################################## point calculate
         pc = pointCount(points3d)
         pointDis = findAllDis(points3d)
         pointDisSum = arraySum(pointDis)[0]
@@ -89,35 +89,44 @@ def main():
         print("points distanse:\n", pointDis, "\n")
         print("points distanse sum:\n",pointDisSum, "\n")
 
-        # find body in any case
-        nums, reliability, error = fb.findBodySwith(pointDisSum, pc)
+        ############################# find body
+        nums, reliability, error = fb.findBody(pointDisSum, pc)
         print("nums:\n", nums)
         print("reliability:\n", reliability)
         print("error:\n", error)
 
-        # numsSort
+        ############################## numsSort
         numsSort = np.append(nums, np.arange(4).reshape((4, 1)), axis=1)
         numsSort = np.sort(numsSort.view('i8,i8,i8'), order=['f1'], axis=0).view(np.int64)
         # print("numsSort:\n", numsSort, "\n")
 
-        # worstPoint
+        ################################# worstPoint
         worstPoint = findWorstPoint(reliability)
         worstPointId = nums[worstPoint][1]
         print("worstPoint:", worstPoint, "id:", worstPointId)
         
-        # points3dSort
+        ############################## points3dSort
         points3dSort = np.zeros((4,3))
         for i in range(4):
             points3dSort[i] = points3d[numsSort[i][2]]
 
-        # part
+        ################################ error
+        pointDisSort = findAllDis(points3dSort) 
+        msePoint = mseFuc(pointDisSort, orginDis)
+        print(msePoint)
+
+        pointDisSort = findAllDis(points3dSort) 
+        rmsePoint = rmseFuc(pointDisSort, orginDis)
+        print(rmsePoint)
+
+        ################################ part
         orginPointPart = np.delete(orginPoint, worstPointId-1, axis=0)
         points3dSortPart = np.delete(points3dSort, worstPointId-1, axis=0)
         basePoint2dPart = np.delete(basePoint2d, worstPointId-1, axis=0)
         # print("orginPointPart",orginPointPart)
         # print("points3dSortPart",points3dSortPart)
 
-        # generate lost point rt
+        ############################### generate lost point rt
         if(pc == 3):
             ret_R, ret_t = rigid_transform_3D(np.asmatrix(orginPointPart),np.asmatrix(points3dSortPart))
             genPoint = (ret_R * np.asmatrix(orginPoint[worstPointId-1]).T) + np.tile(ret_t, (1,1))
@@ -129,13 +138,13 @@ def main():
             prp = percentReliabilityPoint(orginDisSumTable4[0][numsSort[1][0]], points3d, numsSort[0][2])
             print("reliability: ", prp)
         
-        # find axis point rt
+        ################################### find axis point rt
         ret_R, ret_t = rigid_transform_3D(np.asmatrix(basePoint2dPart),np.asmatrix(points3dSortPart))
         axisPoint = (ret_R * np.asmatrix(baseAxisPoint2d).T) + np.tile(ret_t, (1,4))
         axisPoint = axisPoint.T
         print(axisPoint)
 
-        # axisPointDis
+        #################################### axisPointDis
         axisPointDis = np.zeros((3,3))
         for i in range(3):
             # axisPointDis[i] = axisPoint[i] - points3d[numsSort[0][2]]
@@ -143,24 +152,29 @@ def main():
         axisPointDis = axisPointDis / 50
         print(axisPointDis)
 
-        # find axis angle
+        ######################################## find axis angle
         angle = rotationToEuler(axisPointDis)
         print("angle rad: \n", angle)
         angleDeg = np.rad2deg(angle)
         print("angle deg: \n", angleDeg)
 
-        # write point_result
+        ########################################### write point_result
         # if(reliability[0] > 99):
-        if(abs(error[0]) < 1):
+        if(abs(msePoint) < 2):
             text = str(points3d[0][2]) + ", " + str(reliability[0]) + ", "
             for i in range(4):
                 text += str(error[i]) + ', '
             for i in range(3):
                 text += str(angleDeg[i]) + ', '
+            text += str(msePoint) + ', '
+            for i in range(4):
+                text += str(pointDisSum[i]) + ', '
+            for i in range(4):
+                text += str(nums[i]) + ', '
             text += '\n'
             point_result.write(text) # write
 
-        # showPlot3d
+        ############################################ showPlot3d
         # print("points3d\n",points3d)
         # print("points3dSort\n",points3dSort)
         # showPlot3d(points3d, axisPoint, numsSort[:,2], pc, numsSort[0][2])

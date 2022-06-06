@@ -61,8 +61,8 @@ def main():
     kuc1 = kevinuart.UartControl('/dev/ttyUSB1') # left camera
     
     # binary thres:50 100
-    kuc.ser_write(1, 50) 
-    kuc1.ser_write(1, 50)
+    kuc.ser_write(1, 100) 
+    kuc1.ser_write(1, 100)
 
     ########################################### file
     data_path = "data/result/point_data.csv" # file path

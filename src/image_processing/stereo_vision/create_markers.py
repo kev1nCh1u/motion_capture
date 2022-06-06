@@ -60,8 +60,8 @@ def main():
     kuc1 = kevinuart.UartControl('/dev/ttyUSB1') # left camera
     
     # binary thres:50 100
-    kuc.ser_write(1, 50) 
-    kuc1.ser_write(1, 50)
+    kuc.ser_write(1, 100) 
+    kuc1.ser_write(1, 100)
 
     #################################### open camera
     # cap = cv2.VideoCapture(4) # left
@@ -119,7 +119,7 @@ def main():
                 cv2.line(output_image, tuple(point2d_2[i].astype(int)-(5,0)+(640,0)), tuple(point2d_2[i].astype(int)+(5,0)+(640,0)), (0, 0, 255))
                 cv2.line(output_image, tuple(point2d_2[i].astype(int)-(0,5)+(640,0)), tuple(point2d_2[i].astype(int)+(0,5)+(640,0)), (0, 0, 255))
 
-        text = "press c to capture point"
+        text = "press s to capture point"
         cv2.putText(output_image, text,
                     (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1)
         text = "Capture point: " + str(count)
@@ -142,7 +142,7 @@ def main():
             break
 
         # if c capture
-        elif inputKey == ord('c'):
+        elif inputKey == ord('s'):
             orginPoint = points3d
             orginDistance = findAllDis(points3d)
             fs.write('orginDistance'+str(count), orginDistance)
