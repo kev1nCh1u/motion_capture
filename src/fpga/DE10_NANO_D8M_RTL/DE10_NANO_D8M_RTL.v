@@ -110,23 +110,41 @@ wire 	[23:0] VGA_BINARY;
 wire 	[15:0] H_CNT;
 wire 	[15:0] V_CNT;
 
-wire 	[15:0] POINTS_H_0; // point_x_0
-wire 	[15:0] POINTS_V_0; // point_y_0
-wire 	[15:0] POINTS_H_1; // point_x_1
-wire 	[15:0] POINTS_V_1; // point_y_1
-wire 	[15:0] POINTS_H_2; // point_x_2
-wire 	[15:0] POINTS_V_2; // point_y_2
-wire 	[15:0] POINTS_H_3; // point_x_3
-wire 	[15:0] POINTS_V_3; // point_y_3
+wire 	[15:0] POINTS_H0;
+wire 	[15:0] POINTS_V0;
+wire 	[15:0] POINTS_H1;
+wire 	[15:0] POINTS_V1;
+wire 	[15:0] POINTS_H2;
+wire 	[15:0] POINTS_V2;
+wire 	[15:0] POINTS_H3;
+wire 	[15:0] POINTS_V3;
 
-wire 	[15:0] POINTS_H_4; // point_x_4
-wire 	[15:0] POINTS_V_4; // point_y_4
-wire 	[15:0] POINTS_H_5; // point_x_5
-wire 	[15:0] POINTS_V_5; // point_y_5
-wire 	[15:0] POINTS_H_6; // point_x_6
-wire 	[15:0] POINTS_V_6; // point_y_6
-wire 	[15:0] POINTS_H_7; // point_x_7
-wire 	[15:0] POINTS_V_7; // point_y_7
+wire 	[15:0] POINTS_H4;
+wire 	[15:0] POINTS_V4;
+wire 	[15:0] POINTS_H5;
+wire 	[15:0] POINTS_V5;
+wire 	[15:0] POINTS_H6;
+wire 	[15:0] POINTS_V6;
+wire 	[15:0] POINTS_H7;
+wire 	[15:0] POINTS_V7;
+
+wire 	[15:0] POINTS_H8;
+wire 	[15:0] POINTS_V8;
+wire 	[15:0] POINTS_H9;
+wire 	[15:0] POINTS_V9;
+wire 	[15:0] POINTS_H10;
+wire 	[15:0] POINTS_V10;
+wire 	[15:0] POINTS_H11;
+wire 	[15:0] POINTS_V11;
+
+wire 	[15:0] POINTS_H12;
+wire 	[15:0] POINTS_V12;
+wire 	[15:0] POINTS_H13;
+wire 	[15:0] POINTS_V13;
+wire 	[15:0] POINTS_H14;
+wire 	[15:0] POINTS_V14;
+wire 	[15:0] POINTS_H15;
+wire 	[15:0] POINTS_V15;
 
 ////////////////// kevin tx ////////////////////////
 wire [7:0] TX_BYTE;
@@ -316,8 +334,8 @@ MONO2BINARY m2b1(.CLK			(FPGA_CLK1_50),
 //     .BINARY_FLAG		(BINARY_FLAG),
 //     .H_CNT				(H_CNT),
 //     .V_CNT				(V_CNT),
-//     .BINARY_POINTS_H	(POINTS_H_0[15:0]),
-//     .BINARY_POINTS_V	(POINTS_V_0[15:0])
+//     .BINARY_POINTS_H	(POINTS_H0[15:0]),
+//     .BINARY_POINTS_V	(POINTS_V0[15:0])
 // );
 
 FIND_MULTI_POINTS fmp1 (
@@ -327,22 +345,39 @@ FIND_MULTI_POINTS fmp1 (
     .BINARY_FLAG		(BINARY_FLAG),
     .H_CNT				(H_CNT),
     .V_CNT				(V_CNT),
-	.o_POINTS_H_0		(POINTS_H_0[15:0]),
-	.o_POINTS_V_0		(POINTS_V_0[15:0]),
-	.o_POINTS_H_1		(POINTS_H_1[15:0]),
-	.o_POINTS_V_1		(POINTS_V_1[15:0]),
-	.o_POINTS_H_2		(POINTS_H_2[15:0]),
-	.o_POINTS_V_2		(POINTS_V_2[15:0]),
-	.o_POINTS_H_3		(POINTS_H_3[15:0]),
-	.o_POINTS_V_3		(POINTS_V_3[15:0]),
-	.o_POINTS_H_4		(POINTS_H_4[15:0]),
-	.o_POINTS_V_4		(POINTS_V_4[15:0]),
-	.o_POINTS_H_5		(POINTS_H_5[15:0]),
-	.o_POINTS_V_5		(POINTS_V_5[15:0]),
-	.o_POINTS_H_6		(POINTS_H_6[15:0]),
-	.o_POINTS_V_6		(POINTS_V_6[15:0]),
-	.o_POINTS_H_7		(POINTS_H_7[15:0]),
-	.o_POINTS_V_7		(POINTS_V_7[15:0])
+	.o_POINTS_H0		(POINTS_H0[15:0]),
+	.o_POINTS_V0		(POINTS_V0[15:0]),
+	.o_POINTS_H1		(POINTS_H1[15:0]),
+	.o_POINTS_V1		(POINTS_V1[15:0]),
+	.o_POINTS_H2		(POINTS_H2[15:0]),
+	.o_POINTS_V2		(POINTS_V2[15:0]),
+	.o_POINTS_H3		(POINTS_H3[15:0]),
+	.o_POINTS_V3		(POINTS_V3[15:0]),
+	.o_POINTS_H4		(POINTS_H4[15:0]),
+	.o_POINTS_V4		(POINTS_V4[15:0]),
+	.o_POINTS_H5		(POINTS_H5[15:0]),
+	.o_POINTS_V5		(POINTS_V5[15:0]),
+	.o_POINTS_H6		(POINTS_H6[15:0]),
+	.o_POINTS_V6		(POINTS_V6[15:0]),
+	.o_POINTS_H7		(POINTS_H7[15:0]),
+	.o_POINTS_V7		(POINTS_V7[15:0]),
+	.o_POINTS_H8		(POINTS_H8[15:0]),
+	.o_POINTS_V8		(POINTS_V8[15:0]),
+	.o_POINTS_H9		(POINTS_H9[15:0]),
+	.o_POINTS_V9		(POINTS_V9[15:0]),
+	.o_POINTS_H10		(POINTS_H10[15:0]),
+	.o_POINTS_V10		(POINTS_V10[15:0]),
+	.o_POINTS_H11		(POINTS_H11[15:0]),
+	.o_POINTS_V11		(POINTS_V11[15:0]),
+	.o_POINTS_H12		(POINTS_H12[15:0]),
+	.o_POINTS_V12		(POINTS_V12[15:0]),
+	.o_POINTS_H13		(POINTS_H13[15:0]),
+	.o_POINTS_V13		(POINTS_V13[15:0]),
+	.o_POINTS_H14		(POINTS_H14[15:0]),
+	.o_POINTS_V14		(POINTS_V14[15:0]),
+	.o_POINTS_H15		(POINTS_H15[15:0]),
+	.o_POINTS_V15		(POINTS_V15[15:0]),
+	.test				()
 );
 
 //-----------uart_tx
@@ -359,22 +394,38 @@ uart_tx #(.CLKS_PER_BIT(BAUD_RATE)) ut0 (
 // -----------uart_tx_data
 uart_tx_data utd (
 	.TX_DONE			(TX_DONE),
-	.POINTS_H_0			(POINTS_H_0[15:0]),
-	.POINTS_V_0			(POINTS_V_0[15:0]),
-	.POINTS_H_1			(POINTS_H_1[15:0]),
-	.POINTS_V_1			(POINTS_V_1[15:0]),
-	.POINTS_H_2			(POINTS_H_2[15:0]),
-	.POINTS_V_2			(POINTS_V_2[15:0]),
-	.POINTS_H_3			(POINTS_H_3[15:0]),
-	.POINTS_V_3			(POINTS_V_3[15:0]),
-	.POINTS_H_4			(POINTS_H_4[15:0]),
-	.POINTS_V_4			(POINTS_V_4[15:0]),
-	.POINTS_H_5			(POINTS_H_5[15:0]),
-	.POINTS_V_5			(POINTS_V_5[15:0]),
-	.POINTS_H_6			(POINTS_H_6[15:0]),
-	.POINTS_V_6			(POINTS_V_6[15:0]),
-	.POINTS_H_7			(POINTS_H_7[15:0]),
-	.POINTS_V_7			(POINTS_V_7[15:0]),
+	.POINTS_H0			(POINTS_H0[15:0]),
+	.POINTS_V0			(POINTS_V0[15:0]),
+	.POINTS_H1			(POINTS_H1[15:0]),
+	.POINTS_V1			(POINTS_V1[15:0]),
+	.POINTS_H2			(POINTS_H2[15:0]),
+	.POINTS_V2			(POINTS_V2[15:0]),
+	.POINTS_H3			(POINTS_H3[15:0]),
+	.POINTS_V3			(POINTS_V3[15:0]),
+	.POINTS_H4			(POINTS_H4[15:0]),
+	.POINTS_V4			(POINTS_V4[15:0]),
+	.POINTS_H5			(POINTS_H5[15:0]),
+	.POINTS_V5			(POINTS_V5[15:0]),
+	.POINTS_H6			(POINTS_H6[15:0]),
+	.POINTS_V6			(POINTS_V6[15:0]),
+	.POINTS_H7			(POINTS_H7[15:0]),
+	.POINTS_V7			(POINTS_V7[15:0]),
+	.POINTS_H8			(POINTS_H8[15:0]),
+	.POINTS_V8			(POINTS_V8[15:0]),
+	.POINTS_H9			(POINTS_H9[15:0]),
+	.POINTS_V9			(POINTS_V9[15:0]),
+	.POINTS_H10			(POINTS_H10[15:0]),
+	.POINTS_V10			(POINTS_V10[15:0]),
+	.POINTS_H11			(POINTS_H11[15:0]),
+	.POINTS_V11			(POINTS_V11[15:0]),
+	.POINTS_H12			(POINTS_H12[15:0]),
+	.POINTS_V12			(POINTS_V12[15:0]),
+	.POINTS_H13			(POINTS_H13[15:0]),
+	.POINTS_V13			(POINTS_V13[15:0]),
+	.POINTS_H14			(POINTS_H14[15:0]),
+	.POINTS_V14			(POINTS_V14[15:0]),
+	.POINTS_H15			(POINTS_H15[15:0]),
+	.POINTS_V15			(POINTS_V15[15:0]),
 	.TX_BYTE			(TX_BYTE)
 );
 
@@ -419,10 +470,10 @@ assign TEST_IO_2 = {UART_RX, UART_TX} ;
 
 //-- kevin debug issp
 sources source1 (
-	.probe  (POINTS_H_0[15:0])   //  probes.probe
+	.probe  (POINTS_H0[15:0])   //  probes.probe
 );
 sources source2 (
-	.probe  (POINTS_V_0[15:0])   //  probes.probe
+	.probe  (POINTS_V0[15:0])   //  probes.probe
 );
 
 endmodule

@@ -9,14 +9,15 @@ class UartControl():
 
         self.status = 0
         self.error = 0
-        self.pointSize = 8
+        self.pointSize = 16
+        self.count = 0
 
         self.data = np.empty([10], dtype='bytes')
 
         self.pointx_bytes = np.full(self.pointSize, b'\xffff')
         self.pointy_bytes = np.full(self.pointSize, b'\xffff')
 
-        self.point2d = np.zeros((self.pointSize, 2),np.unsignedinteger)
+        self.point2d = np.zeros((self.pointSize, 2),np.double)
         
         COM_PORT = port
         BAUD_RATES = rate
@@ -70,12 +71,14 @@ class UartControl():
                         self.status = 0
 
                         for i in range(self.pointSize):
-                            self.point2d[i,0] = int.from_bytes(self.pointx_bytes[i], "big")
-                            self.point2d[i,1] = int.from_bytes(self.pointy_bytes[i], "big")
+                            self.point2d[i,0] = int.from_bytes(self.pointx_bytes[i], "big") / 10.
+                            self.point2d[i,1] = int.from_bytes(self.pointy_bytes[i], "big") / 10.
 
+                        self.count = 0
                         for i in range(self.pointSize):
-                            if self.point2d[i,0] >= 65535 : self.point2d[i,0] = 0
-                            if self.point2d[i,1] >= 65535 : self.point2d[i,1] = 0
+                            if self.point2d[i,0] >= 700 : self.point2d[i,0] = 0
+                            if self.point2d[i,1] >= 700 : self.point2d[i,1] = 0
+                            if self.point2d[i,0] != 0 : self.count += 1
                     else:
                         self.status = 0
                 # self.ser_write()
@@ -116,7 +119,8 @@ if __name__ == "__main__":
 
         uc.ser_write(0)
 
-        for i in range(8):
+        print("c:"+str(uc.count), end=' ')
+        for i in range(4):
             print("p"+str(i), uc.point2d[i,0],uc.point2d[i,1], end=' ')
         print()
         

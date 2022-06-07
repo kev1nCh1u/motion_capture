@@ -1,22 +1,38 @@
 
 
 module uart_tx_data (input TX_DONE,
-                     input [15:0] POINTS_H_0,
-                     input [15:0] POINTS_V_0,
-                     input [15:0] POINTS_H_1,
-                     input [15:0] POINTS_V_1,
-                     input [15:0] POINTS_H_2,
-                     input [15:0] POINTS_V_2,
-                     input [15:0] POINTS_H_3,
-                     input [15:0] POINTS_V_3,
-                     input [15:0] POINTS_H_4,
-                     input [15:0] POINTS_V_4,
-                     input [15:0] POINTS_H_5,
-                     input [15:0] POINTS_V_5,
-                     input [15:0] POINTS_H_6,
-                     input [15:0] POINTS_V_6,
-                     input [15:0] POINTS_H_7,
-                     input [15:0] POINTS_V_7,
+                     input [15:0] POINTS_H0,
+                     input [15:0] POINTS_V0,
+                     input [15:0] POINTS_H1,
+                     input [15:0] POINTS_V1,
+                     input [15:0] POINTS_H2,
+                     input [15:0] POINTS_V2,
+                     input [15:0] POINTS_H3,
+                     input [15:0] POINTS_V3,
+                     input [15:0] POINTS_H4,
+                     input [15:0] POINTS_V4,
+                     input [15:0] POINTS_H5,
+                     input [15:0] POINTS_V5,
+                     input [15:0] POINTS_H6,
+                     input [15:0] POINTS_V6,
+                     input [15:0] POINTS_H7,
+                     input [15:0] POINTS_V7,
+                     input [15:0] POINTS_H8,
+                     input [15:0] POINTS_V8,
+                     input [15:0] POINTS_H9,
+                     input [15:0] POINTS_V9,
+                     input [15:0] POINTS_H10,
+                     input [15:0] POINTS_V10,
+                     input [15:0] POINTS_H11,
+                     input [15:0] POINTS_V11,
+                     input [15:0] POINTS_H12,
+                     input [15:0] POINTS_V12,
+                     input [15:0] POINTS_H13,
+                     input [15:0] POINTS_V13,
+                     input [15:0] POINTS_H14,
+                     input [15:0] POINTS_V14,
+                     input [15:0] POINTS_H15,
+                     input [15:0] POINTS_V15,
                      output [7:0] TX_BYTE);
 
 reg [7:0] DATA_CNT;
@@ -27,52 +43,92 @@ always @(posedge TX_DONE) begin
     DATA[0] = 8'h53; //S
     DATA[1] = 8'h54; //T
     
-    DATA[2] = POINTS_H_0[15:8];   // point_x H 0
-    DATA[3] = POINTS_H_0[7:0];    // point_x L 0
-    DATA[4] = POINTS_V_0[15:8];   // point_y H 0
-    DATA[5] = POINTS_V_0[7:0];    // point_y L 0
+    DATA[2] = POINTS_H0[15:8]; 
+    DATA[3] = POINTS_H0[7:0];  
+    DATA[4] = POINTS_V0[15:8]; 
+    DATA[5] = POINTS_V0[7:0];  
 
-    DATA[6] = POINTS_H_1[15:8];   // point_x H 1
-    DATA[7] = POINTS_H_1[7:0];    // point_x L 1
-    DATA[8] = POINTS_V_1[15:8];   // point_y H 1
-    DATA[9] = POINTS_V_1[7:0];    // point_y L 1
+    DATA[6] = POINTS_H1[15:8];   
+    DATA[7] = POINTS_H1[7:0];    
+    DATA[8] = POINTS_V1[15:8];   
+    DATA[9] = POINTS_V1[7:0];    
 
-    DATA[10] = POINTS_H_2[15:8];   // point_x H 2
-    DATA[11] = POINTS_H_2[7:0];    // point_x L 2
-    DATA[12] = POINTS_V_2[15:8];   // point_y H 2
-    DATA[13] = POINTS_V_2[7:0];    // point_y L 2
+    DATA[10] = POINTS_H2[15:8];   
+    DATA[11] = POINTS_H2[7:0];    
+    DATA[12] = POINTS_V2[15:8];   
+    DATA[13] = POINTS_V2[7:0];    
 
-    DATA[14] = POINTS_H_3[15:8];   // point_x H 3
-    DATA[15] = POINTS_H_3[7:0];    // point_x L 3
-    DATA[16] = POINTS_V_3[15:8];   // point_y H 3
-    DATA[17] = POINTS_V_3[7:0];    // point_y L 3
+    DATA[14] = POINTS_H3[15:8];   
+    DATA[15] = POINTS_H3[7:0];    
+    DATA[16] = POINTS_V3[15:8];   
+    DATA[17] = POINTS_V3[7:0];    
 
-    DATA[18] = POINTS_H_4[15:8];   // point_x H 4
-    DATA[19] = POINTS_H_4[7:0];    // point_x L 4
-    DATA[20] = POINTS_V_4[15:8];   // point_y H 4
-    DATA[21] = POINTS_V_4[7:0];    // point_y L 4
+    DATA[18] = POINTS_H4[15:8];   
+    DATA[19] = POINTS_H4[7:0];    
+    DATA[20] = POINTS_V4[15:8];   
+    DATA[21] = POINTS_V4[7:0];    
 
-    DATA[22] = POINTS_H_5[15:8];   // point_x H 5
-    DATA[23] = POINTS_H_5[7:0];    // point_x L 5
-    DATA[24] = POINTS_V_5[15:8];   // point_y H 5
-    DATA[25] = POINTS_V_5[7:0];    // point_y L 5
+    DATA[22] = POINTS_H5[15:8];   
+    DATA[23] = POINTS_H5[7:0];    
+    DATA[24] = POINTS_V5[15:8];   
+    DATA[25] = POINTS_V5[7:0];    
 
-    DATA[26] = POINTS_H_6[15:8];   // point_x H 6
-    DATA[27] = POINTS_H_6[7:0];    // point_x L 6
-    DATA[28] = POINTS_V_6[15:8];   // point_y H 6
-    DATA[29] = POINTS_V_6[7:0];    // point_y L 6
+    DATA[26] = POINTS_H6[15:8];   
+    DATA[27] = POINTS_H6[7:0];    
+    DATA[28] = POINTS_V6[15:8];   
+    DATA[29] = POINTS_V6[7:0];    
 
-    DATA[30] = POINTS_H_7[15:8];   // point_x H 7
-    DATA[31] = POINTS_H_7[7:0];    // point_x L 7
-    DATA[32] = POINTS_V_7[15:8];   // point_y H 7
-    DATA[33] = POINTS_V_7[7:0];    // point_y L 7
+    DATA[30] = POINTS_H7[15:8];  
+    DATA[31] = POINTS_H7[7:0];   
+    DATA[32] = POINTS_V7[15:8];  
+    DATA[33] = POINTS_V7[7:0];   
+
+    DATA[34] = POINTS_H8[15:8]; 
+    DATA[35] = POINTS_H8[7:0];  
+    DATA[36] = POINTS_V8[15:8]; 
+    DATA[37] = POINTS_V8[7:0];  
+
+    DATA[38] = POINTS_H9[15:8];   
+    DATA[39] = POINTS_H9[7:0];    
+    DATA[40] = POINTS_V9[15:8];   
+    DATA[41] = POINTS_V9[7:0];    
+
+    DATA[42] = POINTS_H10[15:8];   
+    DATA[43] = POINTS_H10[7:0];    
+    DATA[44] = POINTS_V10[15:8];   
+    DATA[45] = POINTS_V10[7:0];    
+
+    DATA[46] = POINTS_H11[15:8];   
+    DATA[47] = POINTS_H11[7:0];    
+    DATA[48] = POINTS_V11[15:8];   
+    DATA[49] = POINTS_V11[7:0];    
+
+    DATA[50] = POINTS_H12[15:8];   
+    DATA[51] = POINTS_H12[7:0];    
+    DATA[52] = POINTS_V12[15:8];   
+    DATA[53] = POINTS_V12[7:0];    
+
+    DATA[54] = POINTS_H13[15:8];   
+    DATA[55] = POINTS_H13[7:0];    
+    DATA[56] = POINTS_V13[15:8];   
+    DATA[57] = POINTS_V13[7:0];    
+
+    DATA[58] = POINTS_H14[15:8];   
+    DATA[59] = POINTS_H14[7:0];    
+    DATA[60] = POINTS_V14[15:8];   
+    DATA[61] = POINTS_V14[7:0];    
+
+    DATA[62] = POINTS_H15[15:8];  
+    DATA[63] = POINTS_H15[7:0];   
+    DATA[64] = POINTS_V15[15:8];  
+    DATA[65] = POINTS_V15[7:0];   
     
-    DATA[34] = 8'h45; //E
-    DATA[35] = 8'h4E; //N
-    DATA[36] = 8'h44; //D
+    DATA[66] = 8'h45; //E
+    DATA[67] = 8'h4E; //N
+    DATA[68] = 8'h44; //D
 
     r_TX_BYTE <= DATA[DATA_CNT];
-    if (DATA_CNT < 36)
+    if (DATA_CNT < 68)
     begin
         DATA_CNT <= DATA_CNT + 1;
     end
