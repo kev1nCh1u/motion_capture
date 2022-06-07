@@ -27,6 +27,10 @@ if __name__ == '__main__':
         B = R * A.T + tile(t,(1,n))
         B = B.T
 
+        # temp = A[2]
+        # A[2] = A[3]
+        # A[3] = temp
+
         ret_R, ret_t = rigid_transform_3D(A,B)
         print("rt:\n",ret_R,ret_t)
         A2 = (ret_R * A.T) + tile(ret_t, (1,n))

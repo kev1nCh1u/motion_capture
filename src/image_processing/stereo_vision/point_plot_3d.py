@@ -3,6 +3,7 @@ import pandas as pd
 
 
 path = "data/result/point_data.csv"
+# path = "data/result/point_result.csv"
 savePlotPath = 'data/result/point_path_plot/point_path_plot' + '.png'
 
 df = pd.read_csv(path, header=None)

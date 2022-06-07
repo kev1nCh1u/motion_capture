@@ -94,9 +94,9 @@ def main():
         # point2d_2 = np.sort(point2d_2.view('i8,i8'), order=['f1'], axis=0).view(np.int64)
         
         #################################### print point
-        for i in range(4):
-            print("p"+str(i), point2d_1[i,0],point2d_1[i,1],point2d_2[i,0],point2d_2[i,1], end=' ')
-        print()
+        # for i in range(4):
+        #     print("p"+str(i), point2d_1[i,0],point2d_1[i,1],point2d_2[i,0],point2d_2[i,1], end=' ')
+        # print()
 
         ########################################### check
 

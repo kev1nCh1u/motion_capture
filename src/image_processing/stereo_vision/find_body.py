@@ -26,14 +26,15 @@ def main():
     # print("orginDis:",orginDis)
 
     ########################################## load point_data
+    # path = "data/result/point_data_angle_2.csv"
     path = "data/result/point_data.csv"
     df = pd.read_csv(path, header=None)
     point_data = df.to_numpy()
 
     ########################################## open point_result
     point_result = open("data/result/point_result.csv", "w")
-    text = "dis, relia, err0, err1, err2, err3, angle0, angle1, angle2,\n"
-    point_result.write(text) # write
+    # text = "dis, relia, err0, err1, err2, err3, angle0, angle1, angle2,\n"
+    # point_result.write(text) # write
 
     ########################################## orgin
     # orginDis = findAllDis(orginPoint)
@@ -160,17 +161,24 @@ def main():
 
         ########################################### write point_result
         # if(reliability[0] > 99):
-        if(abs(msePoint) < 2):
-            text = str(points3d[0][2]) + ", " + str(reliability[0]) + ", "
+        if(abs(msePoint) < 100):
+            text = ""
+
+            # text = str(points3d[0][2]) + ", " + str(reliability[0]) + ", "
+            # for i in range(4):
+            #     text += str(error[i]) + ', '
+            # for i in range(3):
+            #     text += str(angleDeg[i]) + ', '
+            # text += str(msePoint) + ', '
+            # for i in range(4):
+            #     text += str(pointDisSum[i]) + ', '
+            # for i in range(4):
+            #     text += str(nums[i]) + ', '
+
             for i in range(4):
-                text += str(error[i]) + ', '
-            for i in range(3):
-                text += str(angleDeg[i]) + ', '
-            text += str(msePoint) + ', '
-            for i in range(4):
-                text += str(pointDisSum[i]) + ', '
-            for i in range(4):
-                text += str(nums[i]) + ', '
+                for j in range(3):
+                    text += str(points3dSort[i][j]) + ', '
+
             text += '\n'
             point_result.write(text) # write
 
