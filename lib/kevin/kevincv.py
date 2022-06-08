@@ -342,13 +342,13 @@ def rmseFuc(true, observed):
 ###################################################################################
 # findBody
 ###################################################################################
-class FindBody():
+class FindBodyId():
     orginDis = []
     orginDisSumTable4 = []
     orginDisSumTable3 = []
     orginDisSumTableList3 = []
     
-    def findBody(self, pointDisSum, pointCount):
+    def findBodyId(self, pointDisSum, pointCount):
         flag = 0
         tableNum = 0
         if(pointCount == 4):
