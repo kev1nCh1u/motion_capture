@@ -7,6 +7,7 @@ import time
 import imutils
 from matplotlib import pyplot as plt
 import time
+import pandas as pd
 
 import os
 sys.path.append(os.getcwd())
@@ -14,126 +15,127 @@ from lib.kevin.kevincv import  *
 from lib.kevin import kevinuart
 
 
-###################################################################################
-# main
-###################################################################################
-def main():
-    ########################################## load yaml param
-    fs = cv2.FileStorage(
-        "data/parameter/matlab_stereo_param.yaml", cv2.FILE_STORAGE_READ)
+class GetData():
+    def __init__(self):
+        ########################################## load yaml param
+        fs = cv2.FileStorage(
+            "data/parameter/matlab_stereo_param.yaml", cv2.FILE_STORAGE_READ)
 
-    IntrinsicMatrix1 = fs.getNode("IntrinsicMatrix1").mat()
-    RadialDistortion1 = fs.getNode("RadialDistortion1").mat()
-    TangentialDistortion1 = fs.getNode("TangentialDistortion1").mat()
+        IntrinsicMatrix1 = fs.getNode("IntrinsicMatrix1").mat()
+        RadialDistortion1 = fs.getNode("RadialDistortion1").mat()
+        TangentialDistortion1 = fs.getNode("TangentialDistortion1").mat()
 
-    IntrinsicMatrix2 = fs.getNode("IntrinsicMatrix2").mat()
-    RadialDistortion2 = fs.getNode("RadialDistortion2").mat()
-    TangentialDistortion2 = fs.getNode("TangentialDistortion2").mat()
+        IntrinsicMatrix2 = fs.getNode("IntrinsicMatrix2").mat()
+        RadialDistortion2 = fs.getNode("RadialDistortion2").mat()
+        TangentialDistortion2 = fs.getNode("TangentialDistortion2").mat()
 
-    ImageSize = fs.getNode("ImageSize").mat()
-    RotationOfCamera2 = fs.getNode("RotationOfCamera2").mat()
-    TranslationOfCamera2 = fs.getNode("TranslationOfCamera2").mat()
+        ImageSize = fs.getNode("ImageSize").mat()
+        RotationOfCamera2 = fs.getNode("RotationOfCamera2").mat()
+        TranslationOfCamera2 = fs.getNode("TranslationOfCamera2").mat()
 
-    cameraMatrix1 = np.transpose(IntrinsicMatrix1).astype('float64')
-    distCoeffs1 = np.concatenate(
-        (RadialDistortion1, TangentialDistortion1), axis=1).astype('float64')
-    cameraMatrix2 = np.transpose(IntrinsicMatrix2).astype('float64')
-    distCoeffs2 = np.concatenate(
-        (RadialDistortion2, TangentialDistortion2), axis=1).astype('float64')
-    imageSize = ImageSize.ravel()[::-1].astype('int64')
-    RotationOfCamera2 = np.transpose(RotationOfCamera2).astype('float64')
-    TranslationOfCamera2 = np.transpose(TranslationOfCamera2).astype('float64')
+        self.cameraMatrix1 = np.transpose(IntrinsicMatrix1).astype('float64')
+        self.distCoeffs1 = np.concatenate(
+            (RadialDistortion1, TangentialDistortion1), axis=1).astype('float64')
+        self.cameraMatrix2 = np.transpose(IntrinsicMatrix2).astype('float64')
+        self.distCoeffs2 = np.concatenate(
+            (RadialDistortion2, TangentialDistortion2), axis=1).astype('float64')
+        self.imageSize = ImageSize.ravel()[::-1].astype('int64')
+        self.RotationOfCamera2 = np.transpose(RotationOfCamera2).astype('float64')
+        self.TranslationOfCamera2 = np.transpose(TranslationOfCamera2).astype('float64')
 
-    FundamentalMatrix = fs.getNode("FundamentalMatrix").mat()
+        self.FundamentalMatrix = fs.getNode("FundamentalMatrix").mat()
 
-    print('\n cameraMatrix1\n', cameraMatrix1)
-    print('\n distCoeffs1\n', distCoeffs1)
-    print('\n cameraMatrix2\n', cameraMatrix2)
-    print('\n distCoeffs2\n', distCoeffs2)
-    print('\n imageSize\n', imageSize)
-    print('\n RotationOfCamera2\n', RotationOfCamera2)
-    print('\n TranslationOfCamera2\n', TranslationOfCamera2)
-    print('\n FundamentalMatrix\n', FundamentalMatrix)
-    print()
+        print('\n cameraMatrix1\n', self.cameraMatrix1)
+        print('\n distCoeffs1\n', self.distCoeffs1)
+        print('\n cameraMatrix2\n', self.cameraMatrix2)
+        print('\n distCoeffs2\n', self.distCoeffs2)
+        print('\n imageSize\n', self.imageSize)
+        print('\n RotationOfCamera2\n', self.RotationOfCamera2)
+        print('\n TranslationOfCamera2\n', self.TranslationOfCamera2)
+        print('\n FundamentalMatrix\n', self.FundamentalMatrix)
+        print()
 
-    ########################################### uart
-    kuc = kevinuart.UartControl('/dev/ttyUSB0') # right camera
-    kuc1 = kevinuart.UartControl('/dev/ttyUSB1') # left camera
-    
-    # binary thres:50 100
-    kuc.ser_write(1, 100) 
-    kuc1.ser_write(1, 100)
+        ########################################### uart
+        self.kuc = kevinuart.UartControl('/dev/ttyUSB0') # right camera
+        self.kuc1 = kevinuart.UartControl('/dev/ttyUSB1') # left camera
+        
+        # binary thres:50 100
+        self.kuc.ser_write(1, 100) 
+        self.kuc1.ser_write(1, 100)
 
-    ########################################### file
-    data_path = "data/result/point_data.csv" # file path
-    data_file = open(data_path, "w") # open file
-    input_path = "data/result/input_data.csv" # file path
-    input_file = open(input_path, "w") # open file
-    count = 0
+        ########################################### file
+        data_path = "data/result/point_data.csv" # file path
+        self.data_file = open(data_path, "w") # open file
+        input_path = "data/result/input_data.csv" # file path
+        self.input_file = open(input_path, "w") # open file
+        self.count = 0
 
-    while 1:
-        ########################################## read_uart
-        kuc.uart_ser() # right camera
-        kuc1.uart_ser() # left camera
+    def getPoint(self, point2d_1=[], point2d_2=[]):
+        ########################################## get_point 
+        self.kuc.uart_ser() # read uart right camera
+        self.kuc1.uart_ser() # read uart left camera
 
-        ########################################### get_point 
-        point2d_1 = kuc.point2d
-        point2d_2 = kuc1.point2d
-        # for i in range(4):
-        #     print("p"+str(i), point2d_1[i,0],point2d_1[i,1],point2d_2[i,0],point2d_2[i,1], end=' ')
-        # print()
+        if(len(point2d_1) == 0 and len(point2d_2) == 0):
+            self.point2d_1 = self.kuc.point2d
+            self.point2d_2 = self.kuc1.point2d
+        else:
+            self.point2d_1 = point2d_1
+            self.point2d_2 = point2d_2
 
         ########################################### epipolar
         # for i in range(4):
-        #     point_1 = np.array([[point2d_1[i][0],point2d_1[i][1],1]])
-        #     point_2 = np.array([[point2d_2[i][0],point2d_2[i][1],1]])
-        #     point2d_1[i,1] = epipolar_line(FundamentalMatrix, point_1, 0, point_1[0][0], 0) # epipolar point
-        #     point2d_2[i,1] = epipolar_line(FundamentalMatrix, point_2, 0, point_2[0][0], 1) # epipolar point
+        #     point_1 = np.array([[self.point2d_1[i][0],self.point2d_1[i][1],1]])
+        #     point_2 = np.array([[self.point2d_2[i][0],self.point2d_2[i][1],1]])
+        #     self.point2d_1[i,1] = epipolar_line(FundamentalMatrix, point_1, 0, point_1[0][0], 0) # epipolar point
+        #     self.point2d_2[i,1] = epipolar_line(FundamentalMatrix, point_2, 0, point_2[0][0], 1) # epipolar point
 
         ##################################### sorting
-        # point2d_1 = np.sort(point2d_1.view('i8,i8'), order=['f1'], axis=0).view(np.int64)
-        # point2d_2 = np.sort(point2d_2.view('i8,i8'), order=['f1'], axis=0).view(np.int64)
+        # self.point2d_1 = np.sort(self.point2d_1.view('i8,i8'), order=['f1'], axis=0).view(np.int64)
+        # self.point2d_2 = np.sort(self.point2d_2.view('i8,i8'), order=['f1'], axis=0).view(np.int64)
         
         #################################### print point
         for i in range(4):
-            print("p"+str(i), point2d_1[i,0],point2d_1[i,1],point2d_2[i,0],point2d_2[i,1], end=' ')
+            print("p"+str(i), self.point2d_1[i,0],self.point2d_1[i,1],self.point2d_2[i,0],self.point2d_2[i,1], end=' ')
         print()
 
         ########################################### check
 
         ############################################# triangulate
-        # print("triangulation_depth ========================================")
-        points3d = np.zeros((4, 3), np.float64)
+        self.points3d = np.zeros((4, 3), np.float64)
         for i in range(4):
-            if(point2d_1[i,0] or point2d_2[i,0]):
-                points3d[i] = triangulate(cameraMatrix1, cameraMatrix2, RotationOfCamera2, TranslationOfCamera2, point2d_1[i], point2d_2[i])
+            if(self.point2d_1[i,0] or self.point2d_2[i,0]):
+                self.points3d[i] = triangulate(self.cameraMatrix1, self.cameraMatrix2, self.RotationOfCamera2, self.TranslationOfCamera2, self.point2d_1[i], self.point2d_2[i])
             else:
-                points3d[i] = [0,0,0]
+                self.points3d[i] = [0,0,0]
 
+        return self.points3d
+
+    def showImage(self):
         #################################### cv draw picture
         output_image = np.full((480,640*2,3), 255, np.uint8) # create image
 
         for i in range(4):
-            if(point2d_1[i][0] and point2d_2[i][0]):
-                cv2.line(output_image, tuple(point2d_1[i].astype(int)-(5,0)), tuple(point2d_1[i].astype(int)+(5,0)), (0, 0, 255))
-                cv2.line(output_image, tuple(point2d_1[i].astype(int)-(0,5)), tuple(point2d_1[i].astype(int)+(0,5)), (0, 0, 255))
-                cv2.line(output_image, tuple(point2d_2[i].astype(int)-(5,0)+(640,0)), tuple(point2d_2[i].astype(int)+(5,0)+(640,0)), (0, 0, 255))
-                cv2.line(output_image, tuple(point2d_2[i].astype(int)-(0,5)+(640,0)), tuple(point2d_2[i].astype(int)+(0,5)+(640,0)), (0, 0, 255))
+            if(self.point2d_1[i][0] and self.point2d_2[i][0]):
+                cv2.line(output_image, tuple(self.point2d_1[i].astype(int)-(5,0)), tuple(self.point2d_1[i].astype(int)+(5,0)), (0, 0, 255))
+                cv2.line(output_image, tuple(self.point2d_1[i].astype(int)-(0,5)), tuple(self.point2d_1[i].astype(int)+(0,5)), (0, 0, 255))
+                cv2.line(output_image, tuple(self.point2d_2[i].astype(int)-(5,0)+(640,0)), tuple(self.point2d_2[i].astype(int)+(5,0)+(640,0)), (0, 0, 255))
+                cv2.line(output_image, tuple(self.point2d_2[i].astype(int)-(0,5)+(640,0)), tuple(self.point2d_2[i].astype(int)+(0,5)+(640,0)), (0, 0, 255))
 
 
         text = "press s to save point"
         cv2.putText(output_image, text,
-                    (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-        text = "Save point: " + str(count)
+                    (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1)
+        text = "Capture point: " + str(self.count)
         cv2.putText(output_image, text,
-                    (10, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+                    (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1)
 
         for i in range(4):
-            text = "p" + str(i) + " X: " + str(round(points3d[i, 0], 2)) + " Y: " + str(round(points3d[i, 1], 2)) + " Z: " + str(round(points3d[i, 2], 2))
+            text = "p" + str(i) + " X: " + str(round(self.points3d[i, 0], 2)) + " Y: " + str(round(self.points3d[i, 1], 2)) + " Z: " + str(round(self.points3d[i, 2], 2))
             cv2.putText(output_image, text,
-                        (10, 140+i*40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+                        (10, 60+i*20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1)
 
-        # Show the frames
+
+        ######################### Show the frames
         cv2.imshow("output_image", output_image)
 
         # Hit "q" to close the window
@@ -141,29 +143,60 @@ def main():
 
         # if q exit
         if inputKey == ord('q'):
-            break
+            self.close()
+            exit()
 
         # if s save
         elif inputKey == ord('s'):
+            # write result data
             text = ""
             for i in range(4):
-                text += str(points3d[i, 0]) + ', ' + str(points3d[i, 1]) + ', ' + str(points3d[i, 2]) + ', '
+                text += str(self.points3d[i, 0]) + ', ' + str(self.points3d[i, 1]) + ', ' + str(self.points3d[i, 2]) + ', '
             text += '\n'
-            data_file.write(text) # write data
+            self.data_file.write(text)
 
+            # write input data
             text = ""
             for i in range(4):       
-                text += str(point2d_1[i,0]) + ', ' + str(point2d_1[i,1]) + ', ' + str(point2d_2[i,0]) + ', ' + str(point2d_2[i,1]) + ', '
+                text += str(self.point2d_1[i,0]) + ', ' + str(self.point2d_1[i,1]) + ', '
+            for i in range(4):       
+                text += str(self.point2d_2[i,0]) + ', ' + str(self.point2d_2[i,1]) + ', '
             text += '\n'
-            input_file.write(text) # write data
+            self.input_file.write(text)
 
             print('\nSave...', '\n')
-            count += 1
+            self.count += 1
 
-    cv2.destroyAllWindows()
-    data_file.close()
-    input_file.close()
+    ############################## close
+    def close(self):
+        cv2.destroyAllWindows()
+        self.data_file.close()
+        self.input_file.close()
+        print("Close....")
 
+###################################################################################
+# main
+###################################################################################
+def main():
+    gd = GetData()
+    
+    ###################### get data by csv
+    path = "data/result/input_data_.csv"
+    df = pd.read_csv(path, header=None)
+    point = df.to_numpy()
+    for i in range(len(point)):
+        point2d_1 = point[i,0:8].reshape((-1,2))
+        point2d_2 = point[i,8:16].reshape((-1,2))
+
+        test = np.full((4,2),1)
+        gd.getPoint(point2d_1,point2d_2)
+        gd.showImage()
+        time.sleep(0.1)
+
+    ###################### get data by cam
+    # while 1:
+        # gd.getPoint()
+        # gd.showImage()
 
 # if main
 if __name__ == '__main__':

@@ -3,7 +3,7 @@ import numpy as np
 
 
 class UartControl():
-    def __init__(self, port='/dev/ttyUSB1', rate=115200) -> None:
+    def __init__(self, port='/dev/ttyUSB0', rate=115200) -> None:
         pass
         print("Start UartControl...", port)
 
@@ -30,58 +30,61 @@ class UartControl():
 
     def uart_ser(self):
         try:
-            while self.ser.in_waiting:
-                ###################### start
-                if(self.status == 0):
-                    if(self.ser.read(1) ==  b'S'):
-                        self.status += 1
-                    else:
-                        self.status = 0
-                elif(self.status == 1):
-                    if(self.ser.read(1) ==  b'T'):
-                        self.status += 1
-                    else:
-                        self.status = 0    
+            if(self.error == 0):
+                while self.ser.in_waiting:
+                    ###################### start
+                    if(self.status == 0):
+                        if(self.ser.read(1) ==  b'S'):
+                            self.status += 1
+                        else:
+                            self.status = 0
+                    elif(self.status == 1):
+                        if(self.ser.read(1) ==  b'T'):
+                            self.status += 1
+                        else:
+                            self.status = 0    
 
-                # ####################### point
-                elif(self.status == 2):
-                    for i in range(self.pointSize):
-                        self.data[1] = self.ser.read(1)
-                        self.data[2] = self.ser.read(1)
-                        self.pointx_bytes[i] = self.data[1] + self.data[2]
-
-                        self.data[3] = self.ser.read(1)
-                        self.data[4] = self.ser.read(1)
-                        self.pointy_bytes[i] = self.data[3] + self.data[4]
-
-                    self.status += 1
-                ######################### end
-                elif(self.status == 3):
-                    if(self.ser.read(1) ==  b'E'):
-                        self.status += 1
-                    else:
-                        self.status = 0
-                elif(self.status == 4):
-                    if(self.ser.read(1) ==  b'N'):
-                        self.status += 1
-                    else:
-                        self.status = 0
-                elif(self.status == 5):
-                    if(self.ser.read(1) ==  b'D'):
-                        self.status = 0
-
+                    # ####################### point
+                    elif(self.status == 2):
                         for i in range(self.pointSize):
-                            self.point2d[i,0] = int.from_bytes(self.pointx_bytes[i], "big") / 10.
-                            self.point2d[i,1] = int.from_bytes(self.pointy_bytes[i], "big") / 10.
+                            self.data[1] = self.ser.read(1)
+                            self.data[2] = self.ser.read(1)
+                            self.pointx_bytes[i] = self.data[1] + self.data[2]
 
-                        self.count = 0
-                        for i in range(self.pointSize):
-                            if self.point2d[i,0] >= 700 : self.point2d[i,0] = 0
-                            if self.point2d[i,1] >= 700 : self.point2d[i,1] = 0
-                            if self.point2d[i,0] != 0 : self.count += 1
-                    else:
-                        self.status = 0
-                # self.ser_write()
+                            self.data[3] = self.ser.read(1)
+                            self.data[4] = self.ser.read(1)
+                            self.pointy_bytes[i] = self.data[3] + self.data[4]
+
+                        self.status += 1
+                    ######################### end
+                    elif(self.status == 3):
+                        if(self.ser.read(1) ==  b'E'):
+                            self.status += 1
+                        else:
+                            self.status = 0
+                    elif(self.status == 4):
+                        if(self.ser.read(1) ==  b'N'):
+                            self.status += 1
+                        else:
+                            self.status = 0
+                    elif(self.status == 5):
+                        if(self.ser.read(1) ==  b'D'):
+                            self.status = 0
+
+                            for i in range(self.pointSize):
+                                self.point2d[i,0] = int.from_bytes(self.pointx_bytes[i], "big") / 10.
+                                self.point2d[i,1] = int.from_bytes(self.pointy_bytes[i], "big") / 10.
+
+                            self.count = 0
+                            for i in range(self.pointSize):
+                                if self.point2d[i,0] >= 700 : self.point2d[i,0] = 0
+                                if self.point2d[i,1] >= 700 : self.point2d[i,1] = 0
+                                if self.point2d[i,0] != 0 : self.count += 1
+                        else:
+                            self.status = 0
+                    # self.ser_write()
+            else:
+                print("serial error")
 
         except KeyboardInterrupt:
             self.ser.close()
@@ -89,24 +92,27 @@ class UartControl():
 
 
     def ser_write(self, colorFlag=0, binaryThreshold=150):
-        self.ser.write(b'\x53') #S
-        self.ser.write(b'\x54') #T
+        if(self.error == 0):
+            self.ser.write(b'\x53') #S
+            self.ser.write(b'\x54') #T
 
-        if(colorFlag == 1):
-            self.ser.write(b'\x01') # binary
-        elif(colorFlag == 0):
-            self.ser.write(b'\x00') # RGB
+            if(colorFlag == 1):
+                self.ser.write(b'\x01') # binary
+            elif(colorFlag == 0):
+                self.ser.write(b'\x00') # RGB
 
-        if(binaryThreshold < 50):
-            binaryThreshold = 50
-        if(binaryThreshold > 250):
-            binaryThreshold = 250 
+            if(binaryThreshold < 50):
+                binaryThreshold = 50
+            if(binaryThreshold > 250):
+                binaryThreshold = 250 
 
-        self.ser.write((binaryThreshold).to_bytes(1, byteorder='little')) #binaryThreshold
+            self.ser.write((binaryThreshold).to_bytes(1, byteorder='little')) #binaryThreshold
 
-        self.ser.write(b'\x45') #E
-        self.ser.write(b'\x4E') #N
-        self.ser.write(b'\x44') #D
+            self.ser.write(b'\x45') #E
+            self.ser.write(b'\x4E') #N
+            self.ser.write(b'\x44') #D
+        else:
+            print("serial error")
 
 
 ###################################################################################
