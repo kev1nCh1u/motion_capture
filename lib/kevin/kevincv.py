@@ -289,18 +289,19 @@ def findBody_np(pointDis, orginDis, basePoint):
 ###################################################################################
 # findBody_sort
 ###################################################################################
-def findBody_sort(pointDisSum, orginSort):
+def findBody_sort(pointDisSum, orginSort, tableNum):
     nums = np.zeros((4,2), np.int8)
     # orginSort = np.array([4,3,2,1])
     
     pointSort = np.append(pointDisSum.reshape((4, 1)), np.arange(4).reshape((4, 1)), axis=1)
     pointSort = np.sort(pointSort.view('i8,i8'), order=['f0'], axis=0).view(np.float64)
-    print("pointSort",pointSort)
 
     # nums[:,1] = pointSort[:,1]
-
     for i in range(4):
-        nums[int(pointSort[i,1]),1] = orginSort[i]
+        nums[int(pointSort[i,1]),0] = tableNum
+        nums[int(pointSort[i,1]),1] = orginSort[tableNum][i] + 1
+        if(nums[int(pointSort[i,1]),1] == 0):
+            nums[int(pointSort[i,1]),1] = tableNum + 1
     return nums
 
 ###################################################################################
@@ -331,12 +332,12 @@ def percentReliability(true, observed):
 ###################################################################################
 # percentReliabilityArray
 ###################################################################################
-def percentReliabilityArray(true, observed, pointNums, half=0):
+def percentReliabilityArray(true, observed, pointNums, pointCount=0):
     res = np.zeros(4, np.float32)
     tableNum = pointNums[0][0]
     for i in range(4):
         res[i] = 100 - percentError(true[tableNum][pointNums[i][1]-1], observed[i])
-        if(half and res[i] > 0): res[i] -= 50
+        if(pointCount == 2 and res[i] > 0): res[i] -= 50
         if res[i]< 0 : res[i] = 0
     return res
 
@@ -370,27 +371,29 @@ class FindBodyId():
     orginDisSumTableList3 = []
 
     orginSort4 = []
+    orginSort3 = []
     
     def findBodyId(self, pointDis, pointDisSum, pointCount):
-        flag = 0
         tableNum = 0
         if(pointCount == 4):
             orginDisSumTable = self.orginDisSumTable4
+            orginDisSortTable = self.orginSort4
+            nums = findBody_sort(pointDisSum, orginDisSortTable, tableNum) # findBody
         elif(pointCount == 3):
             orginDisSumTable = self.orginDisSumTable3
             orginDisSumTableList = self.orginDisSumTableList3
+            orginDisSortTable = self.orginSort3
             tableNum = findCloseNum(np.sum(pointDisSum), orginDisSumTableList)
+            nums = findBody_sort(pointDisSum, orginDisSortTable, tableNum) # findBody
         elif(pointCount == 2):
             orginDisSumTable = self.orginDis
-            flag = 1
+            nums = findBody_sum(pointDisSum, orginDisSumTable, tableNum) # findBody
         else:
             orginDisSumTable = self.orginDis
-
-        # nums = findBody_sum(pointDisSum, orginDisSumTable, tableNum) # findBody num
-        nums = findBody_sort(pointDisSum, self.orginSort4) # findBody num
+            nums = findBody_sum(pointDisSum, orginDisSumTable, tableNum) # findBody
 
         error = pointErrorArray(orginDisSumTable, pointDisSum, nums, pointCount) # error
-        reliability = percentReliabilityArray(orginDisSumTable, pointDisSum, nums, flag) # Reliability
+        reliability = percentReliabilityArray(orginDisSumTable, pointDisSum, nums, pointCount) # Reliability
 
         return nums, reliability, error
 

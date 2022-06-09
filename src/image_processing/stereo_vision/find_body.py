@@ -14,6 +14,9 @@ import pandas as pd
 sys.stdout = open("data/log/find_body.log", 'w')
 # sys.stdout = open(os.devnull, 'w')
 
+###################################################################################
+# FindBody
+###################################################################################
 class FindBody():
     def __init__(self, markerParam = "data/parameter/create_markers.yaml"):
         ########################################## load param and data
@@ -40,7 +43,10 @@ class FindBody():
         self.orginDisSumTable3 = arraySumPart3(self.orginDis)
         self.orginDisSumTableList3 = np.zeros(4)
         for i in range(4): self.orginDisSumTableList3[i] = np.sum(self.orginDisSumTable3[i,:])
-        orginSort4 = arraySortNum(self.orginDisSumTable4)[:,1].astype(int)
+        self.orginSort4 = np.zeros((1,4))
+        self.orginSort4[0] = arraySortNum(self.orginDisSumTable4)[:,1].astype(int)
+        self.orginSort3 = np.zeros((4,4))
+        for i in range(4): self.orginSort3[i] = arraySortNum(self.orginDisSumTable3[i])[:,1].astype(int)
 
         #################################################### set find body
         self.fbi = FindBodyId()
@@ -48,7 +54,8 @@ class FindBody():
         self.fbi.orginDisSumTable4 = self.orginDisSumTable4
         self.fbi.orginDisSumTable3 = self.orginDisSumTable3
         self.fbi.orginDisSumTableList3 = self.orginDisSumTableList3
-        self.fbi.orginSort4 = orginSort4
+        self.fbi.orginSort4 = self.orginSort4
+        self.fbi.orginSort3 = self.orginSort3
 
         ################################################### gen base point axis
         gbp = GenBasePoint()
@@ -58,30 +65,27 @@ class FindBody():
         axisLen = 50
         self.baseAxisPoint2d = np.array([[0.,0.,0.],[axisLen,0.,0.],[0.,axisLen,0.],[0.,0.,axisLen]])
 
-        axisDis = findAxisDis(self.basePoint2d)
-
-
+    ################################################### findBody
     def findBody(self, points3d, showPlot=0):
-
         start_time_1 = time.time()
 
         print("orginDis",self.orginDis)
         print("orginDisSumTable4",self.orginDisSumTable4)
+        print("orginDisSumTable3",self.orginDisSumTable3)
 
         ########################################## point calculate
         pc = pointCount(points3d)
         pointDis = findAllDis(points3d)
         pointDisSum = arraySum(pointDis)[0]
-        print("pointCount:", pc, "\n")
-        print("points distanse:\n", pointDis, "\n")
-        print("points distanse sum:\n",pointDisSum, "\n")
+        print("pointCount:", pc)
+        print("points distanse:\n", pointDis)
+        print("points distanse sum:\n",pointDisSum)
 
         ############################# find body id
         nums, reliability, error = self.fbi.findBodyId(pointDis, pointDisSum, pc)
         print("nums:\n", nums)
         print("reliability:\n", reliability)
         print("error:\n", error)
-        # exit()
 
         ############################## numsSort
         numsSort = np.append(nums, np.arange(4).reshape((4, 1)), axis=1)
@@ -98,6 +102,25 @@ class FindBody():
         for i in range(4):
             points3dSort[i] = points3d[numsSort[i][2]]
 
+        ################################ part
+        orginPointPart = np.delete(self.orginPoint, worstPointId-1, axis=0)
+        points3dSortPart = np.delete(points3dSort, worstPointId-1, axis=0)
+        basePoint2dPart = np.delete(self.basePoint2d, worstPointId-1, axis=0)
+
+        ############################### generate lost point rt
+        if(pc == 3):
+            ret_R, ret_t = rigid_transform_3D(np.asmatrix(orginPointPart),np.asmatrix(points3dSortPart))
+            genPoint = (ret_R * np.asmatrix(self.orginPoint[worstPointId-1]).T) + np.tile(ret_t, (1,1))
+            genPoint = genPoint.T
+            points3d[worstPoint] = genPoint
+            points3dSort[worstPointId-1] = genPoint
+            print("gen point: ", genPoint)
+
+            # Reliability point
+            prp = percentReliabilityPoint(self.orginDisSumTable4[0][numsSort[1][0]], points3d, numsSort[0][2])
+            print("reliability: ", prp)
+        print("points3dSort", points3dSort)
+
         ################################ error
         pointDisSort = findAllDis(points3dSort) 
         msePoint = mseFuc(pointDisSort, self.orginDis)
@@ -107,25 +130,6 @@ class FindBody():
         rmsePoint = rmseFuc(pointDisSort, self.orginDis)
         print("rmsePoint:",rmsePoint)
 
-        ################################ part
-        orginPointPart = np.delete(self.orginPoint, worstPointId-1, axis=0)
-        points3dSortPart = np.delete(points3dSort, worstPointId-1, axis=0)
-        basePoint2dPart = np.delete(self.basePoint2d, worstPointId-1, axis=0)
-        # print("orginPointPart",orginPointPart)
-        # print("points3dSortPart",points3dSortPart)
-
-        ############################### generate lost point rt
-        if(pc == 3):
-            ret_R, ret_t = rigid_transform_3D(np.asmatrix(orginPointPart),np.asmatrix(points3dSortPart))
-            genPoint = (ret_R * np.asmatrix(self.orginPoint[worstPointId-1]).T) + np.tile(ret_t, (1,1))
-            genPoint = genPoint.T
-            points3d[worstPoint] = genPoint
-            print("gen point: ", genPoint)
-
-            # Reliability point
-            prp = percentReliabilityPoint(self.orginDisSumTable4[0][numsSort[1][0]], points3d, numsSort[0][2])
-            print("reliability: ", prp)
-        
         ################################### find axis point rt
         ret_R, ret_t = rigid_transform_3D(np.asmatrix(basePoint2dPart),np.asmatrix(points3dSortPart))
         axisPoint = (ret_R * np.asmatrix(self.baseAxisPoint2d).T) + np.tile(ret_t, (1,4))
