@@ -24,6 +24,7 @@ def main():
     ########################################### init value
     fs = cv2.FileStorage("data/parameter/create_markers.yaml", cv2.FILE_STORAGE_WRITE)
     count = 0
+    num = 0
 
     while 1:
         points3d = gd.getPoint()
@@ -34,7 +35,7 @@ def main():
         text = "press s to capture point"
         cv2.putText(output_image, text,
                     (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1)
-        text = "Capture point: " + str(count)
+        text = "Capture point: " + str(num) + " count:" + str(count)
         cv2.putText(output_image, text,
                     (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1)
 
@@ -55,11 +56,22 @@ def main():
 
         # if c capture
         elif inputKey == ord('s'):
-            orginPoint = points3d
-            orginDistance = findAllDis(points3d)
-            fs.write('orginDistance'+str(count), orginDistance)
-            fs.write('orginPoint'+str(count), orginPoint)
+            orginPoint_data = np.zeros((5,4,3))
+            orginDistance_data = np.zeros((5,4,4))
+
+            orginPoint_data[count] = points3d
+            orginDistance_data[count] = findAllDis(points3d)
+
+            orginPoint = np.median(orginPoint_data,axis=0)
+            orginDistance = np.median(orginDistance_data,axis=0)
+            
             count += 1
+
+            if(count == 5):
+                fs.write('orginDistance'+str(num), orginDistance)
+                fs.write('orginPoint'+str(num), orginPoint)
+                count = 0
+                num += 1
 
     ############################## close
     cv2.destroyAllWindows()
