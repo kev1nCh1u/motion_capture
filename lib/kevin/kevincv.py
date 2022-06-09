@@ -7,6 +7,8 @@ import scipy as sp
 
 from scipy.optimize import fsolve
 from math import *
+from itertools import *
+
 
 ###############################################################################################
 # stereoRemap remap
@@ -174,6 +176,14 @@ def arraySumPart3(a):
     return ans
 
 ###################################################################################
+# arraySortNum
+###################################################################################
+def arraySortNum(a):
+    ans = np.append(a.reshape((4, 1)), np.arange(4).reshape((4, 1)), axis=1)
+    ans = np.sort(ans.view('i8,i8'), order=['f0'], axis=0).view(np.float64)
+    return ans
+
+###################################################################################
 # findCloseNum
 ###################################################################################
 def findCloseNum(num, array):
@@ -203,12 +213,6 @@ def findPoint_sumClose(pointDisSum, orginDisSumTable, tableNum):
         return (0,0)
     res = (0,0)
     error = sys.maxsize
-    # for i in range(len(orginDisSumTable)):
-    #     for j in range(len(orginDisSumTable[0])):
-    #         errorNow = abs(pointDisSum - orginDisSumTable[i][j])
-    #         if(error > errorNow):
-    #             error = errorNow
-    #             res = (i,j+1)
     for i in range(len(orginDisSumTable[tableNum])):
         errorNow = abs(pointDisSum - orginDisSumTable[tableNum][i])
         if(error > errorNow):
@@ -283,6 +287,23 @@ def findBody_np(pointDis, orginDis, basePoint):
     return nums
 
 ###################################################################################
+# findBody_sort
+###################################################################################
+def findBody_sort(pointDisSum, orginSort):
+    nums = np.zeros((4,2), np.int8)
+    # orginSort = np.array([4,3,2,1])
+    
+    pointSort = np.append(pointDisSum.reshape((4, 1)), np.arange(4).reshape((4, 1)), axis=1)
+    pointSort = np.sort(pointSort.view('i8,i8'), order=['f0'], axis=0).view(np.float64)
+    print("pointSort",pointSort)
+
+    # nums[:,1] = pointSort[:,1]
+
+    for i in range(4):
+        nums[int(pointSort[i,1]),1] = orginSort[i]
+    return nums
+
+###################################################################################
 # pointErrorArray
 ###################################################################################
 def pointErrorArray(true, observed, pointNums, pointCount):
@@ -347,8 +368,10 @@ class FindBodyId():
     orginDisSumTable4 = []
     orginDisSumTable3 = []
     orginDisSumTableList3 = []
+
+    orginSort4 = []
     
-    def findBodyId(self, pointDisSum, pointCount):
+    def findBodyId(self, pointDis, pointDisSum, pointCount):
         flag = 0
         tableNum = 0
         if(pointCount == 4):
@@ -363,7 +386,9 @@ class FindBodyId():
         else:
             orginDisSumTable = self.orginDis
 
-        nums = findBody_sum(pointDisSum, orginDisSumTable, tableNum) # findBody num
+        # nums = findBody_sum(pointDisSum, orginDisSumTable, tableNum) # findBody num
+        nums = findBody_sort(pointDisSum, self.orginSort4) # findBody num
+
         error = pointErrorArray(orginDisSumTable, pointDisSum, nums, pointCount) # error
         reliability = percentReliabilityArray(orginDisSumTable, pointDisSum, nums, flag) # Reliability
 

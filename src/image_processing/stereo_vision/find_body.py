@@ -11,6 +11,8 @@ import pandas as pd
 
 # from matplotlib import pyplot as plt
 
+sys.stdout = open("data/log/find_body.log", 'w')
+# sys.stdout = open(os.devnull, 'w')
 
 class FindBody():
     def __init__(self, markerParam = "data/parameter/create_markers.yaml"):
@@ -19,7 +21,6 @@ class FindBody():
         fs = cv2.FileStorage(markerParam, cv2.FILE_STORAGE_READ)
         self.orginDis = fs.getNode("orginDistance0").mat()
         self.orginPoint = fs.getNode("orginPoint0").mat()
-        # print("orginDis:",orginDis)
 
         # result data
         self.point_result = open("data/result/point_result.csv", "w")
@@ -34,15 +35,12 @@ class FindBody():
         self.point_sdata.write(text) # write
 
         ########################################## orgin calculate
-        self.orginDis = findAllDis(self.orginPoint)
+        # self.orginDis = findAllDis(self.orginPoint)
         self.orginDisSumTable4 = arraySum(self.orginDis)
         self.orginDisSumTable3 = arraySumPart3(self.orginDis)
         self.orginDisSumTableList3 = np.zeros(4)
-        for i in range(4):
-            self.orginDisSumTableList3[i] = np.sum(self.orginDisSumTable3[i,:])
-        
-        print("orginDis",self.orginDis)
-        print("orginDisSumTable4",self.orginDisSumTable4)
+        for i in range(4): self.orginDisSumTableList3[i] = np.sum(self.orginDisSumTable3[i,:])
+        orginSort4 = arraySortNum(self.orginDisSumTable4)[:,1].astype(int)
 
         #################################################### set find body
         self.fbi = FindBodyId()
@@ -50,6 +48,7 @@ class FindBody():
         self.fbi.orginDisSumTable4 = self.orginDisSumTable4
         self.fbi.orginDisSumTable3 = self.orginDisSumTable3
         self.fbi.orginDisSumTableList3 = self.orginDisSumTableList3
+        self.fbi.orginSort4 = orginSort4
 
         ################################################### gen base point axis
         gbp = GenBasePoint()
@@ -60,7 +59,6 @@ class FindBody():
         self.baseAxisPoint2d = np.array([[0.,0.,0.],[axisLen,0.,0.],[0.,axisLen,0.],[0.,0.,axisLen]])
 
         axisDis = findAxisDis(self.basePoint2d)
-        # print("axis dis:\n", axisDis, "\n")
 
 
     def findBody(self, points3d, showPlot=0):
@@ -144,13 +142,13 @@ class FindBody():
 
         ######################################## find axis angle
         angle = rotationToEuler(axisPointDis)
-        print("angle rad: \n", angle)
         angleDeg = np.rad2deg(angle)
+        # print("angle rad: \n", angle)
         print("angle deg: \n", angleDeg)
 
         ########################################### write point_result
         # if(reliability[0] > 99):
-        if(abs(msePoint) < 100):
+        if(abs(msePoint) < 50):
         # if(1):
             # result data
             text = ""
@@ -191,11 +189,12 @@ class FindBody():
 # if main
 ###################################################################################
 if __name__ == '__main__':
+    sys.stdout = sys.__stdout__
     print("find body...\n")
     start_time = time.time()
 
     fb = FindBody()
-    fb = FindBody("data/parameter/marker_body.yaml")
+    # fb = FindBody("data/parameter/marker_body.yaml")
 
     ########################################## load point_data
     df = pd.read_csv("data/result/point_data.csv", header=0)
@@ -213,7 +212,6 @@ if __name__ == '__main__':
         # points3d[3] = [0,0,0]
         # points3d[0] = [0,0,0]
         # points3d[2] = [0,0,0]
-        print("points3d:\n", points3d)
 
         fb.findBody(points3d)
 
