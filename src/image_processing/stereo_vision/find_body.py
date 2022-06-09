@@ -19,7 +19,6 @@ class FindBody():
         fs = cv2.FileStorage(markerParam, cv2.FILE_STORAGE_READ)
         self.orginDis = fs.getNode("orginDistance0").mat()
         self.orginPoint = fs.getNode("orginPoint0").mat()
-        # points3d = fs.getNode("testPoint").mat()
         # print("orginDis:",orginDis)
 
         # result data
@@ -35,13 +34,14 @@ class FindBody():
         self.point_sdata.write(text) # write
 
         ########################################## orgin calculate
-        # self.orginDis = findAllDis(orginPoint)
+        self.orginDis = findAllDis(self.orginPoint)
         self.orginDisSumTable4 = arraySum(self.orginDis)
         self.orginDisSumTable3 = arraySumPart3(self.orginDis)
         self.orginDisSumTableList3 = np.zeros(4)
         for i in range(4):
             self.orginDisSumTableList3[i] = np.sum(self.orginDisSumTable3[i,:])
         
+        print("orginDis",self.orginDis)
         print("orginDisSumTable4",self.orginDisSumTable4)
 
         #################################################### set find body
@@ -60,12 +60,15 @@ class FindBody():
         self.baseAxisPoint2d = np.array([[0.,0.,0.],[axisLen,0.,0.],[0.,axisLen,0.],[0.,0.,axisLen]])
 
         axisDis = findAxisDis(self.basePoint2d)
-        print("axis dis:\n", axisDis, "\n")
+        # print("axis dis:\n", axisDis, "\n")
 
 
-    def findBody(self, points3d):
+    def findBody(self, points3d, showPlot=0):
 
         start_time_1 = time.time()
+
+        print("orginDis",self.orginDis)
+        print("orginDisSumTable4",self.orginDisSumTable4)
 
         ########################################## point calculate
         pc = pointCount(points3d)
@@ -75,11 +78,12 @@ class FindBody():
         print("points distanse:\n", pointDis, "\n")
         print("points distanse sum:\n",pointDisSum, "\n")
 
-        ############################# find body
-        nums, reliability, error = self.fbi.findBodyId(pointDisSum, pc)
+        ############################# find body id
+        nums, reliability, error = self.fbi.findBodyId(pointDis, pointDisSum, pc)
         print("nums:\n", nums)
         print("reliability:\n", reliability)
         print("error:\n", error)
+        # exit()
 
         ############################## numsSort
         numsSort = np.append(nums, np.arange(4).reshape((4, 1)), axis=1)
@@ -99,11 +103,11 @@ class FindBody():
         ################################ error
         pointDisSort = findAllDis(points3dSort) 
         msePoint = mseFuc(pointDisSort, self.orginDis)
-        print(msePoint)
+        print("msePoint:",msePoint)
 
         pointDisSort = findAllDis(points3dSort) 
         rmsePoint = rmseFuc(pointDisSort, self.orginDis)
-        print(rmsePoint)
+        print("rmsePoint:",rmsePoint)
 
         ################################ part
         orginPointPart = np.delete(self.orginPoint, worstPointId-1, axis=0)
@@ -128,7 +132,7 @@ class FindBody():
         ret_R, ret_t = rigid_transform_3D(np.asmatrix(basePoint2dPart),np.asmatrix(points3dSortPart))
         axisPoint = (ret_R * np.asmatrix(self.baseAxisPoint2d).T) + np.tile(ret_t, (1,4))
         axisPoint = axisPoint.T
-        print(axisPoint)
+        # print(axisPoint)
 
         #################################### axisPointDis
         axisPointDis = np.zeros((3,3))
@@ -136,7 +140,7 @@ class FindBody():
             # axisPointDis[i] = axisPoint[i] - points3d[numsSort[0][2]]
             axisPointDis[i] = axisPoint[i+1] - axisPoint[0]
         axisPointDis = axisPointDis / 50
-        print(axisPointDis)
+        # print(axisPointDis)
 
         ######################################## find axis angle
         angle = rotationToEuler(axisPointDis)
@@ -147,6 +151,7 @@ class FindBody():
         ########################################### write point_result
         # if(reliability[0] > 99):
         if(abs(msePoint) < 100):
+        # if(1):
             # result data
             text = ""
             text = str(points3d[0][2]) + ", " + str(reliability[0]) + ", "
@@ -155,10 +160,9 @@ class FindBody():
             for i in range(3):
                 text += str(angleDeg[i]) + ', '
             text += str(msePoint) + ', '
+            text += str(rmsePoint) + ', '
             for i in range(4):
-                text += str(pointDisSum[i]) + ', '
-            for i in range(4):
-                text += str(nums[i]) + ', '
+                text += str(nums[i][1]) + ', '
             text += '\n'
             self.point_result.write(text) # write
 
@@ -170,12 +174,13 @@ class FindBody():
             text += '\n'
             self.point_sdata.write(text) # write
 
+        ############################################ showPlot3d
+        if(showPlot == 1):
+        # if(showPlot == 0 and abs(msePoint) > 10):
+            showPlot3d(points3d, axisPoint, numsSort[:,2], pc, numsSort[0][2])
+
         # time
         print("\n--- time 1: %s seconds ---" % (time.time() - start_time_1))
-
-    ############################################ showPlot3d
-    # def showPlot(self):
-    #     showPlot3d(points3d, axisPoint, numsSort[:,2], pc, numsSort[0][2])
 
     def close(self):
         self.point_result.close()
@@ -190,12 +195,11 @@ if __name__ == '__main__':
     start_time = time.time()
 
     fb = FindBody()
-    # fb = FindBody("data/parameter/marker_body.yaml")
+    fb = FindBody("data/parameter/marker_body.yaml")
 
     ########################################## load point_data
-    path = "data/result/point_data_angle_2.csv"
-    # path = "data/result/point_data.csv"
-    df = pd.read_csv(path, header=None)
+    df = pd.read_csv("data/result/point_data.csv", header=0)
+    # df = pd.read_csv("data/result/point_data_angle_2.csv", header=0)
     point_data = df.to_numpy()
 
     ########################################## load point data

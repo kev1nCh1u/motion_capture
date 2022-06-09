@@ -25,6 +25,6 @@ numCombinations = list(combinations(num,4))
 print(len(numCombinations))
 
 # print(np.sum(numCombinations[0]))
-print(np.sum(numCombinations,1))
+# print(np.sum(numCombinations,1))
 
 print("--- total %s seconds ---" % (time.time() - start_time)) 

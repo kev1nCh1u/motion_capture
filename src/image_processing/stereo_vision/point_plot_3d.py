@@ -1,13 +1,12 @@
 from matplotlib import pyplot as plt
 import pandas as pd
 
-
-path = "data/result/point_data.csv"
-# path = "data/result/point_result.csv"
-savePlotPath = 'data/result/point_path_plot/point_path_plot' + '.png'
-
-df = pd.read_csv(path, header=None)
+df = pd.read_csv("data/result/point_data.csv", header=0)
+# df = pd.read_csv("data/result/point_sdata.csv", header=0)
 point = df.to_numpy()
+print(point[0])
+
+savePlotPath = 'data/result/point_path_plot/point_path_plot' + '.png'
 
 ######################################################################
 # show all
@@ -25,22 +24,22 @@ ax.set_zlabel('Z')
 for i in range(4):
     ax.scatter(point[:,0+i*3], point[:,1+i*3], point[:,2+i*3], label='Point'+str(i))
 ax.legend()
-plt.savefig(savePlotPath)
+# plt.savefig(savePlotPath)
 plt.show()
 
 ######################################################################
 # show one a time
 ######################################################################
-print(len(point[:]))
-for i in range(len(point[:])):
-    # show plot 3d
-    fig = plt.figure()
-    ax = fig.add_subplot(projection='3d')
-    ax.set_xlabel('X')
-    ax.set_ylabel('Y')
-    ax.set_zlabel('Z')
-    for j in range(4):
-        ax.scatter(point[i,0+j*3], point[i,1+j*3], point[i,2+j*3], label='Point'+str(i))
-    ax.legend()
-    plt.savefig(savePlotPath)
-    plt.show()
+# print(len(point[:]))
+# for i in range(len(point[:])):
+#     # show plot 3d
+#     fig = plt.figure()
+#     ax = fig.add_subplot(projection='3d')
+#     ax.set_xlabel('X')
+#     ax.set_ylabel('Y')
+#     ax.set_zlabel('Z')
+#     for j in range(4):
+#         ax.scatter(point[i,0+j*3], point[i,1+j*3], point[i,2+j*3], label='Point'+str(i))
+#     ax.legend()
+#     plt.savefig(savePlotPath)
+#     plt.show()

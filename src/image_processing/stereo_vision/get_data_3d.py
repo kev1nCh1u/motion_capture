@@ -64,11 +64,17 @@ class GetData():
         self.kuc1.ser_write(1, 100)
 
         ########################################### file
-        data_path = "data/result/point_data.csv" # file path
-        self.data_file = open(data_path, "w") # open file
-        input_path = "data/result/input_data.csv" # file path
-        self.input_file = open(input_path, "w") # open file
+        self.data_file = open("data/result/point_data.csv", "w") # open point_data
+        self.input_file = open("data/result/input_data.csv", "w") # open input_data
         self.count = 0
+
+        text = ""
+        for i in range(4): text += "p" + str(i) + "x," + "p" + str(i) + "y," + "p" + str(i) + "z,"
+        text += "\n"
+        self.data_file.write(text) # write point_data
+
+        text = "p1_x1,p1y1,p1_x2,p1y2,p1_x3,p1y3,p1_x3,p1y3,p2_x1,p2y1,p2_x2,p2y2,p2_x3,p2y3,p2_x3,p2y3,\n"
+        self.input_file.write(text) # write input_file
 
     def getPoint(self, point2d_1=[], point2d_2=[]):
         ########################################## get_point 
@@ -110,7 +116,7 @@ class GetData():
 
         return self.points3d
 
-    def showImage(self):
+    def showImage(self, savePoint=0):
         #################################### cv draw picture
         output_image = np.full((480,640*2,3), 255, np.uint8) # create image
 
@@ -147,7 +153,7 @@ class GetData():
             exit()
 
         # if s save
-        elif inputKey == ord('s'):
+        elif inputKey == ord('s') or savePoint:
             # write result data
             text = ""
             for i in range(4):
@@ -181,8 +187,7 @@ def main():
     gd = GetData()
     
     ###################### get data by csv
-    path = "data/result/input_data_.csv"
-    df = pd.read_csv(path, header=None)
+    df = pd.read_csv("data/result/input_data_.csv", header=0)
     point = df.to_numpy()
     for i in range(len(point)):
         point2d_1 = point[i,0:8].reshape((-1,2))
@@ -190,8 +195,9 @@ def main():
 
         test = np.full((4,2),1)
         gd.getPoint(point2d_1,point2d_2)
-        gd.showImage()
-        time.sleep(0.1)
+        gd.showImage(1)
+        # time.sleep(0.1)
+    gd.close()
 
     ###################### get data by cam
     # while 1:
