@@ -1,6 +1,6 @@
 import serial
 import numpy as np
-
+import time
 
 class UartControl():
     def __init__(self, port='/dev/ttyUSB0', rate=115200) -> None:
@@ -9,7 +9,7 @@ class UartControl():
 
         self.status = 0
         self.error = 0
-        self.pointSize = 16
+        self.pointSize = 8
         self.count = 0
 
         self.data = np.empty([10], dtype='bytes')
@@ -38,14 +38,9 @@ class UartControl():
                             self.status += 1
                         else:
                             self.status = 0
-                    elif(self.status == 1):
-                        if(self.ser.read(1) ==  b'T'):
-                            self.status += 1
-                        else:
-                            self.status = 0    
 
                     # ####################### point
-                    elif(self.status == 2):
+                    elif(self.status == 1):
                         for i in range(self.pointSize):
                             self.data[1] = self.ser.read(1)
                             self.data[2] = self.ser.read(1)
@@ -57,18 +52,9 @@ class UartControl():
 
                         self.status += 1
                     ######################### end
-                    elif(self.status == 3):
+                    elif(self.status == 2):
                         if(self.ser.read(1) ==  b'E'):
                             self.status += 1
-                        else:
-                            self.status = 0
-                    elif(self.status == 4):
-                        if(self.ser.read(1) ==  b'N'):
-                            self.status += 1
-                        else:
-                            self.status = 0
-                    elif(self.status == 5):
-                        if(self.ser.read(1) ==  b'D'):
                             self.status = 0
 
                             for i in range(self.pointSize):
@@ -121,13 +107,16 @@ class UartControl():
 if __name__ == "__main__":
     uc = UartControl()
     while 1:
+        start_time = time.time()
         uc.uart_ser()
 
-        uc.ser_write(0)
+        # uc.ser_write(0)
 
         print("c:"+str(uc.count), end=' ')
         for i in range(4):
             print("p"+str(i), uc.point2d[i,0],uc.point2d[i,1], end=' ')
         print()
+
+        print("\n--- total %s seconds ---" % (time.time() - start_time))
         
         # exit()
