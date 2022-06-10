@@ -22,8 +22,8 @@ class FindBody():
         ########################################## load param and data
         # marker parameter
         fs = cv2.FileStorage(markerParam, cv2.FILE_STORAGE_READ)
-        self.orginDis = fs.getNode("orginDistance0").mat()
-        self.orginPoint = fs.getNode("orginPoint0").mat()
+        self.orginDis = fs.getNode("orginDistance").mat()
+        self.orginPoint = fs.getNode("orginPoint").mat()
 
         # result data
         self.point_result = open("data/result/point_result.csv", "w")

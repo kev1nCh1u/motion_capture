@@ -16,7 +16,7 @@ from lib.kevin import kevinuart
 
 
 class GetData():
-    def __init__(self):
+    def __init__(self, file=1):
         ########################################## load yaml param
         fs = cv2.FileStorage(
             "data/parameter/matlab_stereo_param.yaml", cv2.FILE_STORAGE_READ)
@@ -64,17 +64,18 @@ class GetData():
         self.kuc1.ser_write(1, 100)
 
         ########################################### file
-        self.data_file = open("data/result/point_data.csv", "w") # open point_data
-        self.input_file = open("data/result/input_data.csv", "w") # open input_data
-        self.count = 0
+        if(file):
+            self.data_file = open("data/result/point_data.csv", "w") # open point_data
+            self.input_file = open("data/result/input_data.csv", "w") # open input_data
+            self.count = 0
 
-        text = ""
-        for i in range(4): text += "p" + str(i) + "x," + "p" + str(i) + "y," + "p" + str(i) + "z,"
-        text += "\n"
-        self.data_file.write(text) # write point_data
+            text = ""
+            for i in range(4): text += "p" + str(i) + "x," + "p" + str(i) + "y," + "p" + str(i) + "z,"
+            text += "\n"
+            self.data_file.write(text) # write point_data
 
-        text = "p1_x1,p1y1,p1_x2,p1y2,p1_x3,p1y3,p1_x3,p1y3,p2_x1,p2y1,p2_x2,p2y2,p2_x3,p2y3,p2_x3,p2y3,\n"
-        self.input_file.write(text) # write input_file
+            text = "p1_x1,p1y1,p1_x2,p1y2,p1_x3,p1y3,p1_x3,p1y3,p2_x1,p2y1,p2_x2,p2y2,p2_x3,p2y3,p2_x3,p2y3,\n"
+            self.input_file.write(text) # write input_file
 
     def getPoint(self, point2d_1=[], point2d_2=[]):
         ########################################## get_point 

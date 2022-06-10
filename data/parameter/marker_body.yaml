@@ -1,6 +1,6 @@
 %YAML:1.0
 ---
-orginDistance0: !!opencv-matrix
+orginDistance: !!opencv-matrix
     rows: 4
     cols: 4
     dt: f
@@ -9,7 +9,7 @@ orginDistance0: !!opencv-matrix
             92.6760091, 55.3985338, 0., 54.1674151,
             60.54557344, 82.12350075, 54.1674151, 0.]
             
-orginPoint0: !!opencv-matrix
+orginPoint: !!opencv-matrix
     rows: 4
     cols: 3
     dt: f
@@ -19,7 +19,7 @@ orginPoint0: !!opencv-matrix
             47.43867422337718, 71.66474800800661, 461.57418427997044]
 
 # angle point
-orginPoint0: !!opencv-matrix
+orginPoint: !!opencv-matrix
     rows: 4
     cols: 3
     dt: f
@@ -29,7 +29,7 @@ orginPoint0: !!opencv-matrix
             -139.02824796111642, 85.0492918522255, 981.5225782012477]
 
 # test point
-orginPoint0: !!opencv-matrix
+orginPoint: !!opencv-matrix
     rows: 4
     cols: 3
     dt: f

@@ -14,17 +14,20 @@ from lib.kevin import kevinuart
 
 from get_data_3d import *
 
-gd = GetData()
+gd = GetData(0)
 
 ###################################################################################
 # main
 ###################################################################################
 def main():
+    body_num = input("Enter body num: ")
 
     ########################################### init value
-    fs = cv2.FileStorage("data/parameter/create_markers.yaml", cv2.FILE_STORAGE_WRITE)
+    fs = cv2.FileStorage("data/parameter/create_markers"+str(body_num)+".yaml", cv2.FILE_STORAGE_WRITE)
     count = 0
-    num = 0
+    num = body_num
+    orginPoint_data = np.zeros((10,4,3))
+    orginDistance_data = np.zeros((10,4,4))
 
     while 1:
         points3d = gd.getPoint()
@@ -52,26 +55,18 @@ def main():
 
         # if q exit
         if inputKey == ord('q'):
+            orginPoint = np.median(orginPoint_data,axis=0)
+            orginDistance = np.median(orginDistance_data,axis=0)
+            fs.write('orginDistance', orginDistance)
+            fs.write('orginPoint', orginPoint)
             break
 
         # if c capture
         elif inputKey == ord('s'):
-            orginPoint_data = np.zeros((5,4,3))
-            orginDistance_data = np.zeros((5,4,4))
-
-            orginPoint_data[count] = points3d
-            orginDistance_data[count] = findAllDis(points3d)
-
-            orginPoint = np.median(orginPoint_data,axis=0)
-            orginDistance = np.median(orginDistance_data,axis=0)
-            
-            count += 1
-
-            if(count == 5):
-                fs.write('orginDistance'+str(num), orginDistance)
-                fs.write('orginPoint'+str(num), orginPoint)
-                count = 0
-                num += 1
+            if(count < len(orginPoint_data)):
+                orginPoint_data[count] = points3d
+                orginDistance_data[count] = findAllDis(points3d)
+                count += 1
 
     ############################## close
     cv2.destroyAllWindows()
