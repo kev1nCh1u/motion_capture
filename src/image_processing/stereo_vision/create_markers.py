@@ -61,7 +61,7 @@ def main():
             fs.write('orginPoint', orginPoint)
             break
 
-        # if c capture
+        # if s capture
         elif inputKey == ord('s'):
             if(count < len(orginPoint_data)):
                 orginPoint_data[count] = points3d
