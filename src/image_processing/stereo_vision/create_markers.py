@@ -30,10 +30,18 @@ def main():
     orginDistance_data = np.zeros((10,4,4))
 
     while 1:
-        points3d = gd.getPoint()
+        points3d = gd.getPoint()[0:4]
 
         #################################### cv draw picture
         output_image = np.full((480,640*2,3), 255, np.uint8) # create image
+
+        for i in range(4):
+            if(gd.point2d_1[i][0] and gd.point2d_2[i][0]):
+                cv2.line(output_image, tuple(gd.point2d_1[i].astype(int)-(5,0)), tuple(gd.point2d_1[i].astype(int)+(5,0)), (0, 0, 255))
+                cv2.line(output_image, tuple(gd.point2d_1[i].astype(int)-(0,5)), tuple(gd.point2d_1[i].astype(int)+(0,5)), (0, 0, 255))
+                cv2.line(output_image, tuple(gd.point2d_2[i].astype(int)-(5,0)+(640,0)), tuple(gd.point2d_2[i].astype(int)+(5,0)+(640,0)), (0, 0, 255))
+                cv2.line(output_image, tuple(gd.point2d_2[i].astype(int)-(0,5)+(640,0)), tuple(gd.point2d_2[i].astype(int)+(0,5)+(640,0)), (0, 0, 255))
+
 
         text = "press s to capture point"
         cv2.putText(output_image, text,
@@ -59,6 +67,8 @@ def main():
             orginDistance = np.median(orginDistance_data,axis=0)
             fs.write('orginDistance', orginDistance)
             fs.write('orginPoint', orginPoint)
+            print("orginDistance\n",orginDistance)
+            print("orginPoint\n",orginPoint)
             break
 
         # if s capture
