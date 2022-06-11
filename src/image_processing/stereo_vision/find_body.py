@@ -2,7 +2,7 @@ import os
 import sys
 import time
 
-from numpy import ndarray
+from numpy import float32, ndarray
 sys.path.append(os.getcwd())
 from lib.kevin.kevincv import *
 
@@ -69,6 +69,7 @@ class FindBody():
     def findBody(self, points3d, showPlot=0):
         start_time_1 = time.time()
 
+        print("orginPoint",self.orginPoint)
         print("orginDis",self.orginDis)
         print("orginDisSumTable4",self.orginDisSumTable4)
         print("orginDisSumTable3",self.orginDisSumTable3)
@@ -198,15 +199,20 @@ if __name__ == '__main__':
     start_time = time.time()
 
     fb = FindBody()
-    # fb = FindBody("data/parameter/marker_body.yaml")
 
     ########################################## load point_data
-    df = pd.read_csv("data/result/point_data.csv", header=0)
-    # df = pd.read_csv("data/result/point_data_angle_2.csv", header=0)
-    point_data = df.to_numpy()
+    # df = pd.read_csv("data/result/point_data.csv", header=0)
+
+    # df = pd.read_csv("data/result/point/point_data_angle_roll.csv", header=0)
+    # fb = FindBody("data/parameter/marker_body.yaml")
+
+    df = pd.read_csv("data/result/point/point_data_angle_45.csv", header=0)
+    fb = FindBody("data/parameter/create_markers0.yaml")
+    # fb = FindBody("data/parameter/marker_body.yaml")
+    point_data = df.to_numpy(float32)
 
     ########################################## load point data
-    points3d = np.zeros((4,3))
+    points3d = np.zeros((4,3),float32)
     for i in range(len(point_data[:])):
         print("==========================================================")
         points3d[0] = point_data[i,0:3]

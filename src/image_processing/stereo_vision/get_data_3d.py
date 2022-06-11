@@ -121,7 +121,7 @@ class GetData():
             if(self.point2d_1[i,0] or self.point2d_2[i,0]):
                 self.points3d[i] = triangulate(self.cameraMatrix1, self.cameraMatrix2, self.RotationOfCamera2, self.TranslationOfCamera2, self.point2d_1[i], self.point2d_2[i])
             else:
-                self.points3d[i] = [0,0,0]
+                self.points3d[i] = [0.,0.,0.]
 
         return self.points3d
 
