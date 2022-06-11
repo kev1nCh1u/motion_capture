@@ -116,7 +116,7 @@ class GetData():
         ########################################### check
 
         ############################################# triangulate
-        self.points3d = np.zeros((pointSize, 3), np.float64)
+        self.points3d = np.zeros((pointSize, 3), np.float32)
         for i in range(pointSize):
             if(self.point2d_1[i,0] or self.point2d_2[i,0]):
                 self.points3d[i] = triangulate(self.cameraMatrix1, self.cameraMatrix2, self.RotationOfCamera2, self.TranslationOfCamera2, self.point2d_1[i], self.point2d_2[i])

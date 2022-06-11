@@ -1,8 +1,8 @@
 from matplotlib import pyplot as plt
 import pandas as pd
 
-df = pd.read_csv("data/result/point_data.csv", header=0)
-# df = pd.read_csv("data/result/point_sdata.csv", header=0)
+# df = pd.read_csv("data/result/point_data.csv", header=0)
+df = pd.read_csv("data/result/point_sdata.csv", header=0)
 point = df.to_numpy()
 print(point[0])
 

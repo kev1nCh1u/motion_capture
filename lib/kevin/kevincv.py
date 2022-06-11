@@ -115,12 +115,11 @@ def euclideanDistances3d(a ,b):
 ###################################################################################
 # pointCount
 ###################################################################################
-def pointCount(points3d):
-    res = 4
+def pointCount(points3d, size=4):
     for i in range(len(points3d)):
         if(points3d[i][0] == 0):
-            res -= 1
-    return res
+            size -= 1
+    return size
 
 ###################################################################################
 # findPointDis
@@ -364,38 +363,29 @@ def rmseFuc(true, observed):
 ###################################################################################
 # findBody
 ###################################################################################
-class FindBodyId():
-    orginDis = []
-    orginDisSumTable4 = []
-    orginDisSumTable3 = []
-    orginDisSumTableList3 = []
+def findBodyId(pointDisSum, pointCount, orginDis, orginDisSumTable4, orginDisSumTable3, orginDisSumTableList3, orginSort4, orginSort3):
+    tableNum = 0
+    if(pointCount == 4):
+        orginDisSumTable = orginDisSumTable4
+        orginDisSortTable = orginSort4
+        nums = findBody_sort(pointDisSum, orginDisSortTable, tableNum) # findBody
+    elif(pointCount == 3):
+        orginDisSumTable = orginDisSumTable3
+        orginDisSumTableList = orginDisSumTableList3
+        orginDisSortTable = orginSort3
+        tableNum = findCloseNum(np.sum(pointDisSum), orginDisSumTableList)
+        nums = findBody_sort(pointDisSum, orginDisSortTable, tableNum) # findBody
+    elif(pointCount == 2):
+        orginDisSumTable = orginDis
+        nums = findBody_sum(pointDisSum, orginDisSumTable, tableNum) # findBody
+    else:
+        orginDisSumTable = orginDis
+        nums = findBody_sum(pointDisSum, orginDisSumTable, tableNum) # findBody
 
-    orginSort4 = []
-    orginSort3 = []
-    
-    def findBodyId(self, pointDis, pointDisSum, pointCount):
-        tableNum = 0
-        if(pointCount == 4):
-            orginDisSumTable = self.orginDisSumTable4
-            orginDisSortTable = self.orginSort4
-            nums = findBody_sort(pointDisSum, orginDisSortTable, tableNum) # findBody
-        elif(pointCount == 3):
-            orginDisSumTable = self.orginDisSumTable3
-            orginDisSumTableList = self.orginDisSumTableList3
-            orginDisSortTable = self.orginSort3
-            tableNum = findCloseNum(np.sum(pointDisSum), orginDisSumTableList)
-            nums = findBody_sort(pointDisSum, orginDisSortTable, tableNum) # findBody
-        elif(pointCount == 2):
-            orginDisSumTable = self.orginDis
-            nums = findBody_sum(pointDisSum, orginDisSumTable, tableNum) # findBody
-        else:
-            orginDisSumTable = self.orginDis
-            nums = findBody_sum(pointDisSum, orginDisSumTable, tableNum) # findBody
+    error = pointErrorArray(orginDisSumTable, pointDisSum, nums, pointCount) # error
+    reliability = percentReliabilityArray(orginDisSumTable, pointDisSum, nums, pointCount) # Reliability
 
-        error = pointErrorArray(orginDisSumTable, pointDisSum, nums, pointCount) # error
-        reliability = percentReliabilityArray(orginDisSumTable, pointDisSum, nums, pointCount) # Reliability
-
-        return nums, reliability, error
+    return nums, reliability, error
 
 ###################################################################################
 # GenPoint
@@ -422,11 +412,7 @@ class GenPoint():
 # GenBasePoint
 ###################################################################################
 class GenBasePoint():
-    dis = np.array([[0., 79.41495679, 92.6760091, 60.54557344],
-                    [79.41495679, 0., 55.3985338, 82.12350075],
-                    [92.6760091, 55.3985338, 0., 54.1674151 ],
-                    [60.54557344, 82.12350075, 54.1674151, 0.],])
-    
+    dis = []
     a = []
     b = []
     c = []
