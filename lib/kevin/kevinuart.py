@@ -23,7 +23,7 @@ class UartControl():
         BAUD_RATES = rate
         try:
             self.ser = serial.Serial(COM_PORT, BAUD_RATES, bytesize=8,
-                                stopbits=1, timeout=0.01)
+                                stopbits=1, timeout=0.0001)
         except:
             self.error = 1
             print(COM_PORT,"error")

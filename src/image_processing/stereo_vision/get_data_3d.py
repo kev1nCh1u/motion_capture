@@ -80,11 +80,10 @@ class GetData():
 
     ########################################## get_point 
     def getPoint(self, size=0, point2d_1=[], point2d_2=[]):
-        self.kuc.uart_ser() # read uart right camera
-        self.kuc1.uart_ser() # read uart left camera
-
         pointSize = 8
         if(size == 0):
+            self.kuc.uart_ser() # read uart right camera
+            self.kuc1.uart_ser() # read uart left camera
             self.point2d_1 = self.kuc.point2d
             self.point2d_2 = self.kuc1.point2d
         else:
@@ -192,23 +191,23 @@ class GetData():
 ###################################################################################
 if __name__ == '__main__':
     ###################### get data by csv
-    gd = GetData(file=0)
-    df = pd.read_csv("data/result/input_data.csv", header=0)
-    point = df.to_numpy()
-    for i in range(len(point)):
-        point2d_1 = point[i,0:16].reshape((-1,2))
-        point2d_2 = point[i,16:32].reshape((-1,2))
+    # gd = GetData(file=0)
+    # df = pd.read_csv("data/result/input_data.csv", header=0)
+    # point = df.to_numpy()
+    # for i in range(len(point)):
+    #     point2d_1 = point[i,0:16].reshape((-1,2))
+    #     point2d_2 = point[i,16:32].reshape((-1,2))
 
-        test = np.full((4,2),1)
-        gd.getPoint(8,point2d_1,point2d_2)
-        gd.showImage(savePoint=0)
-        time.sleep(0.1)
-    gd.close()
+    #     test = np.full((4,2),1)
+    #     gd.getPoint(8,point2d_1,point2d_2)
+    #     gd.showImage(savePoint=0)
+    #     time.sleep(0.1)
+    # gd.close()
 
     ###################### get data by cam
+    gd = GetData(file=0)
     while 1:
-        gd = GetData(file=1)
         start_time = time.time()
         gd.getPoint()
-        gd.showImage(savePoint=1)
+        gd.showImage(savePoint=0)
         print("\n--- total %s seconds ---" % (time.time() - start_time))

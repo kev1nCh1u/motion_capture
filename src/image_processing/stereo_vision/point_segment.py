@@ -21,6 +21,7 @@ from src.image_processing.stereo_vision.find_body import *
 class PointSegment():
     def __init__(self, file=0):
         self.fb = FindBody()
+        self.file = file
 
         ########################################### file
         self.count = 0
@@ -63,6 +64,11 @@ class PointSegment():
 
     ########################################## pointSegment
     def pointSegment(self, points3d):
+        axisVector = np.zeros((2,4,3))
+        angleDeg = np.zeros((2,3))
+        msePoint = np.zeros((2))
+        rmsePoint = np.zeros((2))
+
         self.points3d = points3d
         # print("orginDisSumTableList4",self.orginDisSumTableList4)
         # print("orginDisSumTableList3",self.orginDisSumTableList3)
@@ -76,31 +82,48 @@ class PointSegment():
         point3dSeg = np.zeros((5,4,3))
         point3dList = np.zeros((2))
         count = 0
-        for i in range(len(points3dCombinations)):
-            pointDis = findAllDis(points3dCombinations[i])
+
+        if(pc <= 4 and pc >= 1):
+            pointDis = findAllDis(points3d[0:4])
             pointDisSum = arraySum(pointDis)[0]
             pointList = np.sum(pointDisSum)
-            if(pointList < 1000 and pc == 8):
-                # print(pointList)
-                point3dList[count] = pointList
-                point3dSeg[count] = points3dCombinations[i]
-                count += 1
-        point3dListSort = np.append(point3dList.reshape((2, 1)), np.arange(2).reshape((2, 1)), axis=1)
-        point3dListSort = np.sort(point3dListSort.view('i8,i8'), order=['f0'], axis=0).view(np.float64)
-        # print(point3dListSort)
-        # print("pointCount:", pc)
-        # print("points distanse:\n", pointDis)
-        # print("points distanse sum:\n",pointDisSum)
+            table = findCloseNum(pointList,self.orginDisSumTableList4)
+            axisVector[0], angleDeg[0], msePoint[0], rmsePoint[0] = self.fb.findBody(points3d[0:4],table=int(table))
+            # print(table,pointList,self.orginDisSumTableList4)
+            return (table,0), axisVector, angleDeg, msePoint, rmsePoint, pc
+        else:
+            for i in range(len(points3dCombinations)):
+                pointDis = findAllDis(points3dCombinations[i])
+                pointDisSum = arraySum(pointDis)[0]
+                pointList = np.sum(pointDisSum)
+                if(pointList < 1000 and pc >= 4 and count < 2 and pointDisSum[0] and pointDisSum[1] and pointDisSum[2] and pointDisSum[3]):
+                    # print(pointList)
+                    point3dList[count] = pointList
+                    point3dSeg[count] = points3dCombinations[i]
+                    count += 1
+            point3dListSort = np.append(point3dList.reshape((2, 1)), np.arange(2).reshape((2, 1)), axis=1)
+            point3dListSort = np.sort(point3dListSort.view('i8,i8'), order=['f0'], axis=0).view(np.float64)
 
-        axisVector = np.zeros((2,4,3))
-        angleDeg = np.zeros((2,3))
-        msePoint = np.zeros((2))
-        rmsePoint = np.zeros((2))
-        for i in range(2):
-            if(point3dListSort[i][0]):
-                axisVector[i], angleDeg[i], msePoint[i], rmsePoint[i] = self.fb.findBody(point3dSeg[int(point3dListSort[i][1])],table=int(self.sortList[i][1]))
+            # print(point3dListSort)
+            # print("pointCount:", pc)
+            # print("points distanse:\n", pointDis)
+            # print("points distanse sum:\n",pointDisSum)
 
-        return self.sortList[:,1], axisVector, angleDeg, msePoint, rmsePoint
+            for i in range(count):
+                if(point3dListSort[i][0] and point3dListSort[i][0] and point3dListSort[i][0] and point3dListSort[i][0]):
+                    axisVector[i], angleDeg[i], msePoint[i], rmsePoint[i] = self.fb.findBody(point3dSeg[int(point3dListSort[i][1])],table=int(self.sortList[i][1]))
+
+        if(self.file):
+            text = ""
+            for i in range(2):
+                text += str(int(self.sortList[i][1]))+","+str(np.round(axisVector[i][0][0],2))+","+str(np.round(axisVector[i][0][1],2))+","+str(np.round(axisVector[i][0][2],2))+","
+                text += str(np.round(angleDeg[i][0],2))+","+str(np.round(angleDeg[i][1],2))+","+str(np.round(angleDeg[i][2],2))+","
+                text += str(np.round(msePoint[i],2))+","+str(np.round(rmsePoint[i],2))
+                text += "\n"
+            self.data_file.write(text) # write point_data
+
+
+        return self.sortList[:,1], axisVector, angleDeg, msePoint, rmsePoint, pc
     
     ############################## close
     def close(self):
@@ -113,7 +136,7 @@ class PointSegment():
 if __name__ == '__main__':
 
     gd = GetData(file=0)
-    ps = PointSegment()
+    ps = PointSegment(file=1)
 
     ##################### get data by csv
     df = pd.read_csv("data/result/input_data.csv", header=0)

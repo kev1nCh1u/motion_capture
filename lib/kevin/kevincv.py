@@ -317,6 +317,8 @@ def pointErrorArray(true, observed, pointNums, pointCount):
 # percentError
 ###################################################################################
 def percentError(true, observed):
+    if(true == 0):
+        return 0
     if(observed == 0):
         return 100
     return abs(true-observed) / true * 100

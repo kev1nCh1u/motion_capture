@@ -91,6 +91,7 @@ class FindBody():
         pc = pointCount(points3d)
         pointDis = findAllDis(points3d)
         pointDisSum = arraySum(pointDis)[0]
+        # print(points3d[3],end=" ")
         # print("pointCount:", pc)
         # print("points distanse:\n", pointDis)
         # print("points distanse sum:\n",pointDisSum)
@@ -115,6 +116,8 @@ class FindBody():
         points3dSort = np.zeros((4,3))
         for i in range(4):
             points3dSort[i] = points3d[numsSort[i][2]]
+        # print(numsSort[0][2])
+        # print(numsSort[0][2],points3d[3],points3dSort[0])
 
         ################################ part
         orginPointPart = np.delete(orginPoint, worstPointId-1, axis=0)
@@ -161,17 +164,21 @@ class FindBody():
         axisVector[1] = points3dSort[1]-points3dSort[0] # vector x
         axisVector[3] = np.cross(axisVector[1],points3dSort[2]-points3dSort[0]) # vector z = cross(x,vy)
         axisVector[2] = np.cross(axisVector[3],axisVector[1]) # vector y = cross(z,x)
-        # axisVector[2] = points3dSort[0] # test
+        # print(points3dSort[0])
+        # print(axisVector)
 
         unitVector = np.zeros((4,3), np.float32) # b,x,y,z
         unitVector[0] = points3dSort[0]
-        unitVector[1] = axisVector[1] / euclideanDistances3d(axisVector[1],np.zeros(3))
-        unitVector[2] = axisVector[2] / euclideanDistances3d(axisVector[2],np.zeros(3))
-        unitVector[3] = axisVector[3] / euclideanDistances3d(axisVector[3],np.zeros(3))
+        if(axisVector[1][0] and axisVector[2][0] and axisVector[3][0]):
+            unitVector[1] = axisVector[1] / euclideanDistances3d(axisVector[1],np.zeros(3))
+            unitVector[2] = axisVector[2] / euclideanDistances3d(axisVector[2],np.zeros(3))
+            unitVector[3] = axisVector[3] / euclideanDistances3d(axisVector[3],np.zeros(3))
+        # print(unitVector)
 
         axisVector[1] = unitVector[1] * np.full(3,50) + points3dSort[0]
         axisVector[2] = unitVector[2] * np.full(3,50) + points3dSort[0]
         axisVector[3] = unitVector[3] * np.full(3,50) + points3dSort[0]
+        # print(axisVector[0])
 
         # print(axisVector)
         # print(unitVector)
