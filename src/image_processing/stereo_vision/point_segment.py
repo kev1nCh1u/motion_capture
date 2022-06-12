@@ -12,8 +12,8 @@ sys.path.append(os.getcwd())
 from lib.kevin.kevincv import  *
 from lib.kevin import kevinuart
 
-from get_data_3d import *
-from find_body import *
+from src.image_processing.stereo_vision.get_data_3d import *
+from src.image_processing.stereo_vision.find_body import *
 
 ###################################################################################
 # PointSegment
@@ -88,54 +88,28 @@ class PointSegment():
         point3dListSort = np.append(point3dList.reshape((2, 1)), np.arange(2).reshape((2, 1)), axis=1)
         point3dListSort = np.sort(point3dListSort.view('i8,i8'), order=['f0'], axis=0).view(np.float64)
         # print(point3dListSort)
-        for i in range(2):
-            if(point3dListSort[i][0]):
-                nums = self.fb.findBody(point3dSeg[int(point3dListSort[i][1])],table=int(self.sortList[i][1]))
-                # print(nums)
-                # input()
-            
-        
         # print("pointCount:", pc)
         # print("points distanse:\n", pointDis)
         # print("points distanse sum:\n",pointDisSum)
 
-    ############################## showImage
-    def showImage(self):
-        # cv draw picture
-        output_image = np.full((480,640*2,3), 255, np.uint8) # create image
+        axisVector = np.zeros((2,4,3))
+        angleDeg = np.zeros((2,3))
+        msePoint = np.zeros((2))
+        rmsePoint = np.zeros((2))
+        for i in range(2):
+            if(point3dListSort[i][0]):
+                axisVector[i], angleDeg[i], msePoint[i], rmsePoint[i] = self.fb.findBody(point3dSeg[int(point3dListSort[i][1])],table=int(self.sortList[i][1]))
 
-        text = "press s to capture point"
-        cv2.putText(output_image, text,
-                    (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1)
-        text = "Capture point: " + str(self.count)
-        cv2.putText(output_image, text,
-                    (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1)
-
-        for i in range(4):
-            text = "p" + str(i) + " X: " + str(round(self.points3d[i, 0], 2)) + " Y: " + str(round(self.points3d[i, 1], 2)) + " Z: " + str(round(self.points3d[i, 2], 2))
-            cv2.putText(output_image, text,
-                        (10, 60+i*20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1)
-
-        # Show the frames
-        cv2.imshow("output_image", output_image)
-
-        # Hit "q" to close the window
-        inputKey = cv2.waitKey(1) & 0xFF
-
-        # if q exit
-        if inputKey == ord('q'):
-            exit()
-
-        # if s capture
-        elif inputKey == ord('s'):
-            self.count += 1
+        return self.sortList[:,1], axisVector, angleDeg, msePoint, rmsePoint
     
     ############################## close
     def close(self):
         cv2.destroyAllWindows()
 
 
-# if main
+###################################################################################
+# main
+###################################################################################
 if __name__ == '__main__':
 
     gd = GetData(file=0)
@@ -154,7 +128,6 @@ if __name__ == '__main__':
         # time.sleep(0.1)
 
         ps.pointSegment(points3d)
-        ps.showImage()
         print("--- total %s seconds ---" % (time.time() - start_time)) 
         
     gd.close()

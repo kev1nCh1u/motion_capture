@@ -490,7 +490,7 @@ def rotationToEuler(R):
 ###################################################################################
 # show plot 3d
 ###################################################################################
-def showPlot3d(points3d, axisPoint, pointCount, counter=0):
+def showPlot3d(points3d, axisPoint, pointCount, type=0, counter=0):
     fig = plt.figure()
     ax = fig.add_subplot(projection='3d')
     ax.set_xlabel('X')
@@ -527,10 +527,11 @@ def showPlot3d(points3d, axisPoint, pointCount, counter=0):
             ax.plot3D(xline, yline, zline, axisColor[i+1])
 
     ax.legend()
-
-    savePlotPath = 'data/result/plot3d/plot3d_' + "{0:0=2d}".format(counter) + '.png'
-    plt.savefig(savePlotPath)
-    # plt.show()
+    if(type == 0):
+        plt.show()
+    elif(type == 1):
+        savePlotPath = 'data/result/plot3d/plot3d_' + "{0:0=2d}".format(counter) + '.png'
+        plt.savefig(savePlotPath)
 
 ###################################################################################
 # findWorstPoint

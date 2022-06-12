@@ -25,8 +25,8 @@ class FindBody():
         self.orginDis = np.zeros((2,4,4))
         self.orginPoint = np.zeros((2,4,3))
 
-        # self.markerPath0 = "data/parameter/create_markers0.yaml"
-        self.markerPath0 = "data/parameter/marker_body.yaml"
+        self.markerPath0 = "data/parameter/create_markers0.yaml"
+        # self.markerPath0 = "data/parameter/marker_body.yaml"
         fs = cv2.FileStorage(self.markerPath0, cv2.FILE_STORAGE_READ)
         self.orginDis[0] = fs.getNode("orginDistance").mat()
         self.orginPoint[0] = fs.getNode("orginPoint").mat()
@@ -181,7 +181,7 @@ class FindBody():
         angle = rotationToEuler(unitVector)
         angleDeg = np.rad2deg(angle)
         # print("angle rad: \n", angle)
-        print("angle deg: \n", angleDeg)
+        # print("angle deg: \n", angleDeg)
 
         ########################################### write point_result
         # if(reliability[0] > 99):
@@ -213,13 +213,13 @@ class FindBody():
         ############################################ showPlot3d
         if(showPlot == 1):
         # if(showPlot == 0 and abs(msePoint) > 10):
-            showPlot3d(points3dSort, axisVector, pc, self.counter)
+            showPlot3d(points3dSort, axisVector, pc, 0,self.counter)
 
         # time
         # print("\n--- time 1: %s seconds ---" % (time.time() - start_time_1))
 
         self.counter += 1
-        return nums
+        return axisVector, angleDeg, msePoint, rmsePoint
 
     def close(self):
         self.point_result.close()
@@ -238,7 +238,7 @@ if __name__ == '__main__':
 
     ########################################## load point_data
     # df = pd.read_csv("data/result/point_data.csv", header=0)
-    df = pd.read_csv("data/result/point/point_data_angle_roll.csv", header=0)
+    df = pd.read_csv("data/result/point_data/point_data_angle_roll.csv", header=0)
     # df = pd.read_csv("data/result/point/point_data_angle_45.csv", header=0)
     point_data = df.to_numpy(float32)
 

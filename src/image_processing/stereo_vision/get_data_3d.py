@@ -1,11 +1,6 @@
-from itertools import count
 import sys
 import cv2
-from cv2 import split
 import numpy as np
-import time
-import imutils
-from matplotlib import pyplot as plt
 import time
 import pandas as pd
 
@@ -196,23 +191,23 @@ class GetData():
 # main
 ###################################################################################
 if __name__ == '__main__':
-    gd = GetData(file=1)
-    
     ###################### get data by csv
-    # df = pd.read_csv("data/result/input_data_.csv", header=0)
-    # point = df.to_numpy()
-    # for i in range(len(point)):
-    #     point2d_1 = point[i,0:8].reshape((-1,2))
-    #     point2d_2 = point[i,8:16].reshape((-1,2))
+    gd = GetData(file=0)
+    df = pd.read_csv("data/result/input_data.csv", header=0)
+    point = df.to_numpy()
+    for i in range(len(point)):
+        point2d_1 = point[i,0:16].reshape((-1,2))
+        point2d_2 = point[i,16:32].reshape((-1,2))
 
-    #     test = np.full((4,2),1)
-    #     gd.getPoint(size=4,point2d_1,point2d_2)
-    #     gd.showImage(save=0)
-    #     time.sleep(0.1)
-    # gd.close()
+        test = np.full((4,2),1)
+        gd.getPoint(8,point2d_1,point2d_2)
+        gd.showImage(savePoint=0)
+        time.sleep(0.1)
+    gd.close()
 
     ###################### get data by cam
     while 1:
+        gd = GetData(file=1)
         start_time = time.time()
         gd.getPoint()
         gd.showImage(savePoint=1)

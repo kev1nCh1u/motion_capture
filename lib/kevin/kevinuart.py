@@ -4,8 +4,8 @@ import time
 
 class UartControl():
     def __init__(self, port='/dev/ttyUSB0', rate=115200) -> None:
-        pass
         print("Start UartControl...", port)
+        self.port = port
 
         self.status = 0
         self.error = 0
@@ -70,7 +70,8 @@ class UartControl():
                             self.status = 0
                     # self.ser_write()
             else:
-                print("serial error")
+                # print("serial error! " + self.port)
+                pass
 
         except KeyboardInterrupt:
             self.ser.close()
