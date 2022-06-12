@@ -6,7 +6,7 @@ df = pd.read_csv("data/result/point_sdata.csv", header=0)
 point = df.to_numpy()
 print(point[0])
 
-savePlotPath = 'data/result/point_path_plot/point_path_plot' + '.png'
+savePlotPath = 'data/result/point_path_plot/point_plot_3d' + '.png'
 
 ######################################################################
 # show all
@@ -24,7 +24,7 @@ ax.set_zlabel('Z')
 for i in range(4):
     ax.scatter(point[:,0+i*3], point[:,1+i*3], point[:,2+i*3], label='Point'+str(i))
 ax.legend()
-# plt.savefig(savePlotPath)
+plt.savefig(savePlotPath)
 plt.show()
 
 ######################################################################

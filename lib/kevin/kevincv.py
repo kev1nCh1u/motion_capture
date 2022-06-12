@@ -468,21 +468,21 @@ def findAxisDis(point3d, inputAxisPoint=0):
 def rotationToEuler(R):
 
     ################ method 1
-    # sy = sqrt(R[0,0] * R[0,0] + R[1,0] * R[1,0])
-    # singular = sy < 1e-6
-    # if not singular:
-    #     x = atan2(R[2,1], R[2,2])
-    #     y = atan2(-R[2,0], sy)
-    #     z = atan2(R[1,0], R[0,0])
-    # else:
-    #     x = atan2(-R[1,2], R[1,1])
-    #     y = atan2(-R[2,0], sy)
-    #     z = 0
+    sy = sqrt(R[0,0] * R[0,0] + R[1,0] * R[1,0])
+    singular = sy < 1e-6
+    if not singular:
+        x = atan2(R[2,1], R[2,2])
+        y = atan2(-R[2,0], sy)
+        z = atan2(R[1,0], R[0,0])
+    else:
+        x = atan2(-R[1,2], R[1,1])
+        y = atan2(-R[2,0], sy)
+        z = 0
 
     ################ method 2 by sandy
-    x = -1 * asin(R[2,1])
-    y = atan2(R[2,0], R[2,2])
-    z = atan2(R[0,1], R[1,1])
+    # x = -1 * asin(R[2,1])
+    # y = atan2(R[2,0], R[2,2])
+    # z = atan2(R[0,1], R[1,1])
     
     return np.array([x,y,z])
 
@@ -490,7 +490,7 @@ def rotationToEuler(R):
 ###################################################################################
 # show plot 3d
 ###################################################################################
-def showPlot3d(points3d, axisPoint, order, pointCount, baseNum=0):
+def showPlot3d(points3d, axisPoint, pointCount, counter=0):
     fig = plt.figure()
     ax = fig.add_subplot(projection='3d')
     ax.set_xlabel('X')
@@ -505,7 +505,7 @@ def showPlot3d(points3d, axisPoint, order, pointCount, baseNum=0):
     # point
     for i in range(4):
         if(points3d[i,0] != 0):
-            ax.scatter(points3d[i,0], points3d[i,1], points3d[i,2], label='points '+str(order[i]))
+            ax.scatter(points3d[i,0], points3d[i,1], points3d[i,2], label='points '+str(i))
 
     if(pointCount >= 3):
         # axis point
@@ -516,7 +516,7 @@ def showPlot3d(points3d, axisPoint, order, pointCount, baseNum=0):
         lineBody = np.zeros((2,3,2)) # x y z
         for i in range(2):
             for j in range(3):
-                lineBody[i][j] = np.array([points3d[order[i],j], points3d[order[i+2],j]])
+                lineBody[i][j] = np.array([points3d[i,j], points3d[i+2,j]])
             ax.plot3D(lineBody[i][0], lineBody[i][1], lineBody[i][2], 'gray')
 
         # axis line
@@ -527,7 +527,10 @@ def showPlot3d(points3d, axisPoint, order, pointCount, baseNum=0):
             ax.plot3D(xline, yline, zline, axisColor[i+1])
 
     ax.legend()
-    plt.show()
+
+    savePlotPath = 'data/result/plot3d/plot3d_' + "{0:0=2d}".format(counter) + '.png'
+    plt.savefig(savePlotPath)
+    # plt.show()
 
 ###################################################################################
 # findWorstPoint

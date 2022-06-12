@@ -19,12 +19,13 @@ import pandas as pd
 ###################################################################################
 class FindBody():
     def __init__(self):
+        self.counter = 0
         ########################################## load param and data
         # marker parameter
         self.orginDis = np.zeros((2,4,4))
         self.orginPoint = np.zeros((2,4,3))
 
-        self.markerPath0 = "data/parameter/create_markers0.yaml"
+        # self.markerPath0 = "data/parameter/create_markers0.yaml"
         self.markerPath0 = "data/parameter/marker_body.yaml"
         fs = cv2.FileStorage(self.markerPath0, cv2.FILE_STORAGE_READ)
         self.orginDis[0] = fs.getNode("orginDistance").mat()
@@ -135,31 +136,52 @@ class FindBody():
         ################################ error
         pointDisSort = findAllDis(points3dSort) 
         msePoint = mseFuc(pointDisSort, orginDis)
-        # print("msePoint:",msePoint)
-
         pointDisSort = findAllDis(points3dSort) 
         rmsePoint = rmseFuc(pointDisSort, orginDis)
+        # print("msePoint:",msePoint)
         # print("rmsePoint:",rmsePoint)
 
         ################################### find axis point rt
-        ret_R, ret_t = rigid_transform_3D(np.asmatrix(basePoint2dPart),np.asmatrix(points3dSortPart))
-        axisPoint = (ret_R * np.asmatrix(baseAxisPoint2d).T) + np.tile(ret_t, (1,4))
-        axisPoint = axisPoint.T
+        # ret_R, ret_t = rigid_transform_3D(np.asmatrix(basePoint2dPart),np.asmatrix(points3dSortPart))
+        # axisPoint = (ret_R * np.asmatrix(baseAxisPoint2d).T) + np.tile(ret_t, (1,4))
+        # axisPoint = axisPoint.T
         # print(axisPoint)
 
         #################################### axisPointDis
-        axisPointDis = np.zeros((3,3))
-        for i in range(3):
-            # axisPointDis[i] = axisPoint[i] - points3d[numsSort[0][2]]
-            axisPointDis[i] = axisPoint[i+1] - axisPoint[0]
-        axisPointDis = axisPointDis / 50
+        # axisPointDis = np.zeros((3,3))
+        # for i in range(3):
+        #     # axisPointDis[i] = axisPoint[i] - points3d[numsSort[0][2]]
+        #     axisPointDis[i] = axisPoint[i+1] - axisPoint[0]
+        # axisPointDis = axisPointDis / 50
         # print(axisPointDis)
 
+        ################################### find axis cross
+        axisVector = np.zeros((4,3), np.float32) # b,x,y,z
+        axisVector[0] = points3dSort[0]
+        axisVector[1] = points3dSort[1]-points3dSort[0] # vector x
+        axisVector[3] = np.cross(axisVector[1],points3dSort[2]-points3dSort[0]) # vector z = cross(x,vy)
+        axisVector[2] = np.cross(axisVector[3],axisVector[1]) # vector y = cross(z,x)
+        # axisVector[2] = points3dSort[0] # test
+
+        unitVector = np.zeros((4,3), np.float32) # b,x,y,z
+        unitVector[0] = points3dSort[0]
+        unitVector[1] = axisVector[1] / euclideanDistances3d(axisVector[1],np.zeros(3))
+        unitVector[2] = axisVector[2] / euclideanDistances3d(axisVector[2],np.zeros(3))
+        unitVector[3] = axisVector[3] / euclideanDistances3d(axisVector[3],np.zeros(3))
+
+        axisVector[1] = unitVector[1] * np.full(3,50) + points3dSort[0]
+        axisVector[2] = unitVector[2] * np.full(3,50) + points3dSort[0]
+        axisVector[3] = unitVector[3] * np.full(3,50) + points3dSort[0]
+
+        # print(axisVector)
+        # print(unitVector)
+
         ######################################## find axis angle
-        angle = rotationToEuler(axisPointDis)
+        # angle = rotationToEuler(axisPointDis)
+        angle = rotationToEuler(unitVector)
         angleDeg = np.rad2deg(angle)
         # print("angle rad: \n", angle)
-        # print("angle deg: \n", angleDeg)
+        print("angle deg: \n", angleDeg)
 
         ########################################### write point_result
         # if(reliability[0] > 99):
@@ -191,11 +213,12 @@ class FindBody():
         ############################################ showPlot3d
         if(showPlot == 1):
         # if(showPlot == 0 and abs(msePoint) > 10):
-            showPlot3d(points3d, axisPoint, numsSort[:,2], pc, numsSort[0][2])
+            showPlot3d(points3dSort, axisVector, pc, self.counter)
 
         # time
         # print("\n--- time 1: %s seconds ---" % (time.time() - start_time_1))
 
+        self.counter += 1
         return nums
 
     def close(self):

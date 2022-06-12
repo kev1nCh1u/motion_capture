@@ -1,8 +1,15 @@
 
 import numpy as np
 
-a = np.random.rand(10,4,3)
-print(a)
+b = np.array([0,0,0])
+x = np.array([1,0,0])
+y = np.array([5,5,0])
 
-b = np.median(a,axis=0)
-print(b)
+z = np.cross(x,y)
+
+print(z)
+
+y_n = print(np.cross(z,x))
+
+qq = np.array([3,3,3])
+print(qq / 2)
