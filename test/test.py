@@ -16,6 +16,6 @@ print(qq / 2)
 
 print("{0:0=2d}".format(3))
 print("{0:0=1d}".format(3))
-print("{0:0=3.2f}".format(103.22222222))
+print("{0:0=07.2f}".format(3.22222222))
 
-print("x:%03.2f" %(10003.2))
+print("x:%07.2f" %(3.2))

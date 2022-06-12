@@ -16,6 +16,13 @@ import time
 # main
 ###################################################################################
 if __name__ == '__main__':
+    print(" _  __          _        ____ _     _       ")
+    print("| |/ /_____   _(_)_ __  / ___| |__ (_)_   _ ")
+    print("| ' // _ \ \ / / | '_ \| |   | '_ \| | | | |")
+    print("| . \  __/\ V /| | | | | |___| | | | | |_| |")
+    print("|_|\_\___| \_/ |_|_| |_|\____|_| |_|_|\__,_|")
+    print("Kevin vision start...")
+                                            
 
     gd = GetData(file=0)
     ps = PointSegment()
@@ -58,18 +65,18 @@ if __name__ == '__main__':
 
         ########################## end
         text =  ""
-        if(axisVector[0][0][0]):
+        if(axisVector[0][0][0] and msePoint[0] < 50):
         # if(1):
             pass
             # print("--- total %s seconds ---" % (time.time() - start_time))
             # print(int(sortList[0]), str(np.round(axisVector[0][0],2)), str(np.round(angleDeg[0],2)), np.round(msePoint[0],2), np.round(rmsePoint[0],2))
             
-            print("id:%1d x:%003.2f y:%03.2f z:%03.2f r:%03.2f p:%03.2f y:%03.2f mse:%03.2f rmse:%03.2f pc:%d      end"
+            print("id:%1d x:%08.2f y:%08.2f z:%08.2f r:%08.2f p:%08.2f y:%08.2f mse:%08.2f rmse:%08.2f pc:%d      end"
                 %(int(sortList[0]),np.round(axisVector[0][0][0],2),np.round(axisVector[0][0][1],2),np.round(axisVector[0][0][2],2)
                 ,np.round(angleDeg[0][0],2),np.round(angleDeg[0][1],2),np.round(angleDeg[0][2],2)
                 ,np.round(msePoint[0],2),np.round(rmsePoint[0],2),pc), end="\r")
 
-            for i in range(2):
+            for i in range(int(pc/4)):
                 text += str(int(sortList[i]))+","+str(np.round(axisVector[i][0][0],2))+","+str(np.round(axisVector[i][0][1],2))+","+str(np.round(axisVector[i][0][2],2))+","
                 text += str(np.round(angleDeg[i][0],2))+","+str(np.round(angleDeg[i][1],2))+","+str(np.round(angleDeg[i][2],2))+","
                 text += str(np.round(msePoint[i],2))+","+str(np.round(rmsePoint[i],2))

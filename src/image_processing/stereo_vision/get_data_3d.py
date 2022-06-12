@@ -13,8 +13,9 @@ from lib.kevin import kevinuart
 # GetData
 ###################################################################################
 class GetData():
-    def __init__(self, file=0):
+    def __init__(self, uart=0, file=0):
         self.file = file
+        self.uart = uart
         ########################################## load yaml param
         fs = cv2.FileStorage(
             "data/parameter/matlab_stereo_param.yaml", cv2.FILE_STORAGE_READ)
@@ -43,23 +44,24 @@ class GetData():
 
         self.FundamentalMatrix = fs.getNode("FundamentalMatrix").mat()
 
-        print('\n cameraMatrix1\n', self.cameraMatrix1)
-        print('\n distCoeffs1\n', self.distCoeffs1)
-        print('\n cameraMatrix2\n', self.cameraMatrix2)
-        print('\n distCoeffs2\n', self.distCoeffs2)
-        print('\n imageSize\n', self.imageSize)
-        print('\n RotationOfCamera2\n', self.RotationOfCamera2)
-        print('\n TranslationOfCamera2\n', self.TranslationOfCamera2)
-        print('\n FundamentalMatrix\n', self.FundamentalMatrix)
-        print()
+        # print('\n cameraMatrix1\n', self.cameraMatrix1)
+        # print('\n distCoeffs1\n', self.distCoeffs1)
+        # print('\n cameraMatrix2\n', self.cameraMatrix2)
+        # print('\n distCoeffs2\n', self.distCoeffs2)
+        # print('\n imageSize\n', self.imageSize)
+        # print('\n RotationOfCamera2\n', self.RotationOfCamera2)
+        # print('\n TranslationOfCamera2\n', self.TranslationOfCamera2)
+        # print('\n FundamentalMatrix\n', self.FundamentalMatrix)
+        # print()
 
         ########################################### uart
-        self.kuc = kevinuart.UartControl('/dev/ttyUSB1') # right camera
-        self.kuc1 = kevinuart.UartControl('/dev/ttyUSB0') # left camera
-        
-        # binary thres:50 100
-        self.kuc.ser_write(1, 100) 
-        self.kuc1.ser_write(1, 100)
+        if(uart == 1):
+            self.kuc = kevinuart.UartControl('/dev/ttyUSB1') # right camera
+            self.kuc1 = kevinuart.UartControl('/dev/ttyUSB0') # left camera
+            
+            # binary thres:50 100
+            self.kuc.ser_write(1, 100) 
+            self.kuc1.ser_write(1, 100)
 
         ########################################### file
         self.count = 0
@@ -191,7 +193,7 @@ class GetData():
 ###################################################################################
 if __name__ == '__main__':
     ###################### get data by csv
-    # gd = GetData(file=0)
+    # gd = GetData(uart=0, file=0)
     # df = pd.read_csv("data/result/input_data.csv", header=0)
     # point = df.to_numpy()
     # for i in range(len(point)):
@@ -205,7 +207,7 @@ if __name__ == '__main__':
     # gd.close()
 
     ###################### get data by cam
-    gd = GetData(file=0)
+    gd = GetData(uart=1, file=1)
     while 1:
         start_time = time.time()
         gd.getPoint()

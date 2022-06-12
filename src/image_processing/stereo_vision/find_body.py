@@ -55,7 +55,7 @@ class FindBody():
         self.orginSort4 = np.zeros((2,1,4))
         self.orginSort3 = np.zeros((2,4,4))
         for j in range(2):
-            # self.orginDis = findAllDis(self.orginPoint)
+            # self.orginDis[j] = findAllDis(self.orginPoint[j])
             self.orginDisSumTable4[j] = arraySum(self.orginDis[j])
             self.orginDisSumTable3[j] = arraySumPart3(self.orginDis[j])
             for i in range(4): self.orginDisSumTableList3[j][i] = np.sum(self.orginDisSumTable3[j][i,:])

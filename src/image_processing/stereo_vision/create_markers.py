@@ -14,12 +14,11 @@ from lib.kevin import kevinuart
 
 from get_data_3d import *
 
-gd = GetData(0)
-
 ###################################################################################
 # main
 ###################################################################################
 def main():
+    gd = GetData(uart=1,file=0)
     body_num = input("Enter body num: ")
 
     ########################################### init value
@@ -63,20 +62,30 @@ def main():
 
         # if q exit
         if inputKey == ord('q'):
-            orginPoint = np.median(orginPoint_data,axis=0)
-            orginDistance = np.median(orginDistance_data,axis=0)
+            # orginPoint = np.median(orginPoint_data,axis=0)
+            # orginDistance = np.median(orginDistance_data,axis=0)
+            # fs.write('orginDistance', orginDistance)
+            # fs.write('orginPoint', orginPoint)
+            # print("orginDistance\n",orginDistance)
+            # print("orginPoint\n",orginPoint)
+            break
+
+        # if s capture
+        elif inputKey == ord('s'):
+            orginPoint = points3d
+            orginDistance = findAllDis(points3d)
             fs.write('orginDistance', orginDistance)
             fs.write('orginPoint', orginPoint)
             print("orginDistance\n",orginDistance)
             print("orginPoint\n",orginPoint)
             break
 
-        # if s capture
-        elif inputKey == ord('s'):
             if(count < len(orginPoint_data)):
                 orginPoint_data[count] = points3d
                 orginDistance_data[count] = findAllDis(points3d)
                 count += 1
+
+
 
     ############################## close
     cv2.destroyAllWindows()
