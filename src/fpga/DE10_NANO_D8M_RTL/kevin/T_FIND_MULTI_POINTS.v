@@ -23,7 +23,7 @@ module T;
     wire [15:0] POINTS_NUM;
     wire [15:0] test;
 
-    reg BINARY_FRAME[0:99][0:199]; // [y][x]
+    reg BINARY_FRAME[0:479][0:639]; // [y][x]
 
     integer i, j;
 
@@ -53,19 +53,20 @@ module T;
 
         CLK = 1;
 
-        $readmemb("BINARY_FRAME_DATA.txt", BINARY_FRAME);
+        // $readmemb("img/BINARY_FRAME_DATA.txt", BINARY_FRAME);
 
         ///////////////////// a frame
+        $readmemb("img/test_point_00.txt", BINARY_FRAME);
         VGA_HS = 0;
         VGA_VS = 0;
         #100;
 
         VGA_VS = 1;
-        for(i=0; i<100; i=i+1) // y
+        for(i=0; i<480; i=i+1) // y
         begin
             VGA_HS = 1;
             V_CNT = i;
-            for(j=0; j<200; j=j+1) // x
+            for(j=0; j<640; j=j+1) // x
             begin
                 H_CNT = j;
                 BINARY_FLAG = BINARY_FRAME[i][j];
@@ -80,17 +81,18 @@ module T;
         VGA_VS = 0;
         #100;
 
-        ////////////////////// a frame
+        ///////////////////// a frame
+        $readmemb("img/test_point_01.txt", BINARY_FRAME);
         VGA_HS = 0;
         VGA_VS = 0;
         #100;
 
         VGA_VS = 1;
-        for(i=0; i<100; i=i+1) // y
+        for(i=0; i<480; i=i+1) // y
         begin
             VGA_HS = 1;
             V_CNT = i;
-            for(j=0; j<200; j=j+1) // x
+            for(j=0; j<640; j=j+1) // x
             begin
                 H_CNT = j;
                 BINARY_FLAG = BINARY_FRAME[i][j];
@@ -105,6 +107,60 @@ module T;
         VGA_VS = 0;
         #100;
 
+        ///////////////////// a frame
+        $readmemb("img/test_point_02.txt", BINARY_FRAME);
+        VGA_HS = 0;
+        VGA_VS = 0;
+        #100;
+
+        VGA_VS = 1;
+        for(i=0; i<480; i=i+1) // y
+        begin
+            VGA_HS = 1;
+            V_CNT = i;
+            for(j=0; j<640; j=j+1) // x
+            begin
+                H_CNT = j;
+                BINARY_FLAG = BINARY_FRAME[i][j];
+                #100;
+            end
+            VGA_HS = 0;
+            BINARY_FLAG = 0;
+            #100;
+        end
+
+        VGA_HS = 0;
+        VGA_VS = 0;
+        #100;
+
+        ///////////////////// a frame
+        $readmemb("img/test_point_03.txt", BINARY_FRAME);
+        VGA_HS = 0;
+        VGA_VS = 0;
+        #100;
+
+        VGA_VS = 1;
+        for(i=0; i<480; i=i+1) // y
+        begin
+            VGA_HS = 1;
+            V_CNT = i;
+            for(j=0; j<640; j=j+1) // x
+            begin
+                H_CNT = j;
+                BINARY_FLAG = BINARY_FRAME[i][j];
+                #100;
+            end
+            VGA_HS = 0;
+            BINARY_FLAG = 0;
+            #100;
+        end
+
+        VGA_HS = 0;
+        VGA_VS = 0;
+        #100;
+
+
+////////// end
         $stop;
     end
 

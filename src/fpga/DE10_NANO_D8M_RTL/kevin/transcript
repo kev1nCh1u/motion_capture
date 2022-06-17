@@ -4,7 +4,111 @@
 # 2 compiles, 0 failed with no errors.
 vsim work.T
 # vsim work.T 
-# Start time: 20:34:54 on Jun 07,2022
+# Start time: 16:57:31 on Jun 17,2022
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
+# ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'UUT'.  Expected 41, found 17.
+#    Time: 0 ns  Iteration: 0  Instance: /T/UUT File: /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v Line: 30
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H4'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V4'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H5'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V5'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H6'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V6'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H7'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V7'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H8'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V8'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H9'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V9'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H10'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V10'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H11'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V11'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H12'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V12'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H13'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V13'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H14'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V14'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H15'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V15'.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'UUT'.  Expected 41, found 17.
+#    Time: 0 ns  Iteration: 0  Instance: /T/UUT File: /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v Line: 30
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H4'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V4'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H5'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V5'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H6'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V6'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H7'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V7'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H8'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V8'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H9'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V9'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H10'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V10'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H11'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V11'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H12'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V12'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H13'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V13'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H14'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V14'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H15'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V15'.
+run -all
+# ================== start ===========================
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(164)
+#    Time: 1230728 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 164
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.T
+# Loading work.FIND_MULTI_POINTS
+# ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'UUT'.  Expected 41, found 17.
+#    Time: 0 ns  Iteration: 0  Instance: /T/UUT File: /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v Line: 30
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H4'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V4'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H5'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V5'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H6'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V6'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H7'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V7'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H8'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V8'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H9'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V9'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H10'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V10'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H11'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V11'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H12'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V12'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H13'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V13'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H14'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V14'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H15'.
+# ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V15'.
+run -all
+# ================== start ===========================
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(164)
+#    Time: 123072800 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 164
+# Compile of FIND_MULTI_POINTS.v was successful.
+# Compile of T_FIND_MULTI_POINTS.v was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
 # Loading work.T
 # Loading work.FIND_MULTI_POINTS
 # ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'UUT'.  Expected 41, found 17.
@@ -36,14 +140,14 @@ vsim work.T
 run -all
 # ================== start ===========================
 # ============= result =================
-# p:  0    X:178    Y: 95
-# p:  1    X:470    Y:205
-# p:  2    X:232    Y:280
-# p:  3    X:490    Y:285
-# p:  4    X:460    Y:385
-# p:  5    X:240    Y:455
-# p:  6    X:440    Y:595
-# p:  7    X:590    Y:595
+# p:  0    X:1240    Y:1630
+# p:  1    X:6030    Y:1800
+# p:  2    X:720    Y:2510
+# p:  3    X:4190    Y:3380
+# p:  4    X:  x    Y:  x
+# p:  5    X:  x    Y:  x
+# p:  6    X:  x    Y:  x
+# p:  7    X:  x    Y:  x
 # p:  8    X:  x    Y:  x
 # p:  9    X:  x    Y:  x
 # p: 10    X:  x    Y:  x
@@ -53,14 +157,14 @@ run -all
 # p: 14    X:  x    Y:  x
 # p: 15    X:  x    Y:  x
 # ============= result =================
-# p:  0    X:178    Y: 95
-# p:  1    X:470    Y:205
-# p:  2    X:232    Y:280
-# p:  3    X:490    Y:285
-# p:  4    X:460    Y:385
-# p:  5    X:240    Y:455
-# p:  6    X:440    Y:595
-# p:  7    X:590    Y:595
+# p:  0    X:4700    Y:130
+# p:  1    X:260    Y:1590
+# p:  2    X:4470    Y:3880
+# p:  3    X:2710    Y:3910
+# p:  4    X:  x    Y:  x
+# p:  5    X:  x    Y:  x
+# p:  6    X:  x    Y:  x
+# p:  7    X:  x    Y:  x
 # p:  8    X:  x    Y:  x
 # p:  9    X:  x    Y:  x
 # p: 10    X:  x    Y:  x
@@ -69,9 +173,48 @@ run -all
 # p: 13    X:  x    Y:  x
 # p: 14    X:  x    Y:  x
 # p: 15    X:  x    Y:  x
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(108)
-#    Time: 4020400 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 108
+# ============= result =================
+# p:  0    X:1010    Y:570
+# p:  1    X:510    Y:1190
+# p:  2    X:620    Y:2850
+# p:  3    X:3730    Y:3720
+# p:  4    X:  x    Y:  x
+# p:  5    X:  x    Y:  x
+# p:  6    X:  x    Y:  x
+# p:  7    X:  x    Y:  x
+# p:  8    X:  x    Y:  x
+# p:  9    X:  x    Y:  x
+# p: 10    X:  x    Y:  x
+# p: 11    X:  x    Y:  x
+# p: 12    X:  x    Y:  x
+# p: 13    X:  x    Y:  x
+# p: 14    X:  x    Y:  x
+# p: 15    X:  x    Y:  x
+# ============= result =================
+# p:  0    X:1610    Y:2030
+# p:  1    X:4400    Y:3040
+# p:  2    X:780    Y:3050
+# p:  3    X:1180    Y:3330
+# p:  4    X:  x    Y:  x
+# p:  5    X:  x    Y:  x
+# p:  6    X:  x    Y:  x
+# p:  7    X:  x    Y:  x
+# p:  8    X:  x    Y:  x
+# p:  9    X:  x    Y:  x
+# p: 10    X:  x    Y:  x
+# p: 11    X:  x    Y:  x
+# p: 12    X:  x    Y:  x
+# p: 13    X:  x    Y:  x
+# p: 14    X:  x    Y:  x
+# p: 15    X:  x    Y:  x
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(164)
+#    Time: 123072800 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 164
+add wave -position end  sim:/T/VGA_HS
+add wave -position end  sim:/T/V_CNT
+add wave -position end  sim:/T/BINARY_FLAG
+add wave -position 2  sim:/T/i
+add wave -position 3  sim:/T/j
 restart
 # ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
 # ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'UUT'.  Expected 41, found 17.
@@ -103,14 +246,14 @@ restart
 run -all
 # ================== start ===========================
 # ============= result =================
-# p:  0    X:178    Y: 95
-# p:  1    X:470    Y:205
-# p:  2    X:232    Y:280
-# p:  3    X:490    Y:285
-# p:  4    X:460    Y:385
-# p:  5    X:240    Y:455
-# p:  6    X:440    Y:595
-# p:  7    X:590    Y:595
+# p:  0    X:1240    Y:1630
+# p:  1    X:6030    Y:1800
+# p:  2    X:720    Y:2510
+# p:  3    X:4190    Y:3380
+# p:  4    X:  x    Y:  x
+# p:  5    X:  x    Y:  x
+# p:  6    X:  x    Y:  x
+# p:  7    X:  x    Y:  x
 # p:  8    X:  x    Y:  x
 # p:  9    X:  x    Y:  x
 # p: 10    X:  x    Y:  x
@@ -120,14 +263,14 @@ run -all
 # p: 14    X:  x    Y:  x
 # p: 15    X:  x    Y:  x
 # ============= result =================
-# p:  0    X:178    Y: 95
-# p:  1    X:470    Y:205
-# p:  2    X:232    Y:280
-# p:  3    X:490    Y:285
-# p:  4    X:460    Y:385
-# p:  5    X:240    Y:455
-# p:  6    X:440    Y:595
-# p:  7    X:590    Y:595
+# p:  0    X:4700    Y:130
+# p:  1    X:260    Y:1590
+# p:  2    X:4470    Y:3880
+# p:  3    X:2710    Y:3910
+# p:  4    X:  x    Y:  x
+# p:  5    X:  x    Y:  x
+# p:  6    X:  x    Y:  x
+# p:  7    X:  x    Y:  x
 # p:  8    X:  x    Y:  x
 # p:  9    X:  x    Y:  x
 # p: 10    X:  x    Y:  x
@@ -136,9 +279,44 @@ run -all
 # p: 13    X:  x    Y:  x
 # p: 14    X:  x    Y:  x
 # p: 15    X:  x    Y:  x
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(108)
-#    Time: 4020400 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 108
+# ============= result =================
+# p:  0    X:1010    Y:570
+# p:  1    X:510    Y:1190
+# p:  2    X:620    Y:2850
+# p:  3    X:3730    Y:3720
+# p:  4    X:  x    Y:  x
+# p:  5    X:  x    Y:  x
+# p:  6    X:  x    Y:  x
+# p:  7    X:  x    Y:  x
+# p:  8    X:  x    Y:  x
+# p:  9    X:  x    Y:  x
+# p: 10    X:  x    Y:  x
+# p: 11    X:  x    Y:  x
+# p: 12    X:  x    Y:  x
+# p: 13    X:  x    Y:  x
+# p: 14    X:  x    Y:  x
+# p: 15    X:  x    Y:  x
+# ============= result =================
+# p:  0    X:1610    Y:2030
+# p:  1    X:4400    Y:3040
+# p:  2    X:780    Y:3050
+# p:  3    X:1180    Y:3330
+# p:  4    X:  x    Y:  x
+# p:  5    X:  x    Y:  x
+# p:  6    X:  x    Y:  x
+# p:  7    X:  x    Y:  x
+# p:  8    X:  x    Y:  x
+# p:  9    X:  x    Y:  x
+# p: 10    X:  x    Y:  x
+# p: 11    X:  x    Y:  x
+# p: 12    X:  x    Y:  x
+# p: 13    X:  x    Y:  x
+# p: 14    X:  x    Y:  x
+# p: 15    X:  x    Y:  x
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(164)
+#    Time: 123072800 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 164
+add wave -position 1  sim:/T/VGA_VS
 restart
 # ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
 # ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'UUT'.  Expected 41, found 17.
@@ -170,16 +348,16 @@ restart
 run -all
 # ================== start ===========================
 # ============= result =================
-# p:  0    X:178    Y: 95
-# p:  1    X:470    Y:205
-# p:  2    X:232    Y:280
-# p:  3    X:490    Y:285
-# p:  4    X:460    Y:385
-# p:  5    X:240    Y:455
-# p:  6    X:580    Y:520
-# p:  7    X:150    Y:555
-# p:  8    X:440    Y:595
-# p:  9    X:590    Y:595
+# p:  0    X:1240    Y:1630
+# p:  1    X:6030    Y:1800
+# p:  2    X:720    Y:2510
+# p:  3    X:4190    Y:3380
+# p:  4    X:  x    Y:  x
+# p:  5    X:  x    Y:  x
+# p:  6    X:  x    Y:  x
+# p:  7    X:  x    Y:  x
+# p:  8    X:  x    Y:  x
+# p:  9    X:  x    Y:  x
 # p: 10    X:  x    Y:  x
 # p: 11    X:  x    Y:  x
 # p: 12    X:  x    Y:  x
@@ -187,24 +365,58 @@ run -all
 # p: 14    X:  x    Y:  x
 # p: 15    X:  x    Y:  x
 # ============= result =================
-# p:  0    X:178    Y: 95
-# p:  1    X:470    Y:205
-# p:  2    X:232    Y:280
-# p:  3    X:490    Y:285
-# p:  4    X:460    Y:385
-# p:  5    X:240    Y:455
-# p:  6    X:580    Y:520
-# p:  7    X:150    Y:555
-# p:  8    X:440    Y:595
-# p:  9    X:590    Y:595
+# p:  0    X:4700    Y:130
+# p:  1    X:260    Y:1590
+# p:  2    X:4470    Y:3880
+# p:  3    X:2710    Y:3910
+# p:  4    X:  x    Y:  x
+# p:  5    X:  x    Y:  x
+# p:  6    X:  x    Y:  x
+# p:  7    X:  x    Y:  x
+# p:  8    X:  x    Y:  x
+# p:  9    X:  x    Y:  x
 # p: 10    X:  x    Y:  x
 # p: 11    X:  x    Y:  x
 # p: 12    X:  x    Y:  x
 # p: 13    X:  x    Y:  x
 # p: 14    X:  x    Y:  x
 # p: 15    X:  x    Y:  x
-# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(108)
-#    Time: 4020400 ns  Iteration: 0  Instance: /T
-# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 108
-# End time: 20:36:13 on Jun 07,2022, Elapsed time: 0:01:19
-# Errors: 0, Warnings: 27
+# ============= result =================
+# p:  0    X:1010    Y:570
+# p:  1    X:510    Y:1190
+# p:  2    X:620    Y:2850
+# p:  3    X:3730    Y:3720
+# p:  4    X:  x    Y:  x
+# p:  5    X:  x    Y:  x
+# p:  6    X:  x    Y:  x
+# p:  7    X:  x    Y:  x
+# p:  8    X:  x    Y:  x
+# p:  9    X:  x    Y:  x
+# p: 10    X:  x    Y:  x
+# p: 11    X:  x    Y:  x
+# p: 12    X:  x    Y:  x
+# p: 13    X:  x    Y:  x
+# p: 14    X:  x    Y:  x
+# p: 15    X:  x    Y:  x
+# ============= result =================
+# p:  0    X:1610    Y:2030
+# p:  1    X:4400    Y:3040
+# p:  2    X:780    Y:3050
+# p:  3    X:1180    Y:3330
+# p:  4    X:  x    Y:  x
+# p:  5    X:  x    Y:  x
+# p:  6    X:  x    Y:  x
+# p:  7    X:  x    Y:  x
+# p:  8    X:  x    Y:  x
+# p:  9    X:  x    Y:  x
+# p: 10    X:  x    Y:  x
+# p: 11    X:  x    Y:  x
+# p: 12    X:  x    Y:  x
+# p: 13    X:  x    Y:  x
+# p: 14    X:  x    Y:  x
+# p: 15    X:  x    Y:  x
+# ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(164)
+#    Time: 123072800 ns  Iteration: 0  Instance: /T
+# Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 164
+# End time: 17:12:47 on Jun 17,2022, Elapsed time: 0:15:16
+# Errors: 0, Warnings: 26
