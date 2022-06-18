@@ -12,8 +12,8 @@ sys.path.append(os.getcwd())
 from lib.kevin.kevincv import  *
 from lib.kevin import kevinuart
 
-from src.image_processing.stereo_vision.get_data_3d import *
-from src.image_processing.stereo_vision.find_body import *
+from src.image_processing.kevinVision.get_data_3d import *
+from src.image_processing.kevinVision.find_body import *
 
 ###################################################################################
 # PointSegment
@@ -65,10 +65,10 @@ class PointSegment():
     ########################################## pointSegment
     def pointSegment(self, points3d):
         markerID = np.full((2), -1)
-        axisVector = np.zeros((2,4,3))
-        angleDeg = np.zeros((2,3))
-        msePoint = np.zeros((2))
-        rmsePoint = np.zeros((2))
+        # axisVector = np.zeros((2,4,3))
+        # angleDeg = np.zeros((2,3))
+        # msePoint = np.zeros((2))
+        # rmsePoint = np.zeros((2))
 
         ######################## point calculate
         self.points3d = points3d
