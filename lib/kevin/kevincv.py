@@ -465,7 +465,7 @@ def findAxisDis(point3d, inputAxisPoint=0):
     return axisDis
 
 ###################################################################################
-# rotationToEuler
+# rotationToEuler_angle
 ###################################################################################
 def rotationToEuler(R):
 
@@ -480,13 +480,20 @@ def rotationToEuler(R):
         x = atan2(-R[1,2], R[1,1])
         y = atan2(-R[2,0], sy)
         z = 0
+    angle = np.rad2deg(np.array([x,y,z]))
 
     ################ method 2 by sandy
-    # x = -1 * asin(R[2,1])
-    # y = atan2(R[2,0], R[2,2])
-    # z = atan2(R[0,1], R[1,1])
+    # x = atan2(R[2,1], R[2,2])
+    # y = -1 * asin(R[2,0])
+    # z = atan2(R[1,0], R[0,0])
+    # angle = np.rad2deg(np.array([x,y,z]))
     
-    return np.array([x,y,z])
+    ################ method 3
+    # from scipy.spatial.transform import Rotation
+    # RR = Rotation.from_rotvec(R)
+    # angle = RR.as_euler('xyz', degrees=True)[0]
+
+    return angle
 
 
 ###################################################################################

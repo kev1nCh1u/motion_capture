@@ -185,10 +185,8 @@ class FindBody():
 
         ######################################## find axis angle
         # angle = rotationToEuler(axisPointDis)
-        angle = rotationToEuler(unitVector)
-        angleDeg = np.rad2deg(angle)
-        # print("angle rad: \n", angle)
-        # print("angle deg: \n", angleDeg)
+        angle = rotationToEuler(unitVector[1:])
+        # print("angle: \n", angle)
 
         ########################################### write point_result
         # if(reliability[0] > 99):
@@ -200,7 +198,7 @@ class FindBody():
             for i in range(4):
                 text += str(error[i]) + ', '
             for i in range(3):
-                text += str(angleDeg[i]) + ', '
+                text += str(angle[i]) + ', '
             text += str(msePoint) + ', '
             text += str(rmsePoint) + ', '
             text += str(table) + ', '
@@ -226,7 +224,7 @@ class FindBody():
         # print("\n--- time 1: %s seconds ---" % (time.time() - start_time_1))
 
         self.counter += 1
-        return axisVector, angleDeg, msePoint, rmsePoint
+        return axisVector, angle, msePoint, rmsePoint
 
     def close(self):
         self.point_result.close()
@@ -245,8 +243,8 @@ if __name__ == '__main__':
 
     ########################################## load point_data
     # df = pd.read_csv("data/result/point_data.csv", header=0)
-    df = pd.read_csv("data/result/point_data/point_data_angle_roll.csv", header=0)
-    # df = pd.read_csv("data/result/point/point_data_angle_45.csv", header=0)
+    df = pd.read_csv("data/result/point_data/point_data_angle_yaw.csv", header=0)
+    # df = pd.read_csv("data/result/point_data/point_data_angle_45.csv", header=0)
     point_data = df.to_numpy(float32)
 
     ########################################## load point data
@@ -260,7 +258,7 @@ if __name__ == '__main__':
         # points3d[0] = [0,0,0]
         # points3d[2] = [0,0,0]
 
-        fb.findBody(points3d,table=0,showPlot=1)
+        fb.findBody(points3d,table=0,showPlot=0)
 
 
     print("\n--- total %s seconds ---" % (time.time() - start_time))
