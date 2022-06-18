@@ -2,9 +2,9 @@ from matplotlib import pyplot as plt
 import pandas as pd
 
 # df = pd.read_csv("data/result/point_data.csv", header=0)
-df = pd.read_csv("data/result/point_sdata.csv", header=0)
+df = pd.read_csv("data/result/point_find.csv", header=0)
 point = df.to_numpy()
-print(point[0])
+# print(point[0])
 
 savePlotPath = 'data/result/point_path_plot/point_plot_3d' + '.png'
 

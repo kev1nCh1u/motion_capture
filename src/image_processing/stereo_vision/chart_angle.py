@@ -18,16 +18,17 @@ savePlotPath = 'data/result/point_path_plot/marker_plot_3d' + '.png'
 # show angle
 ######################################################################
 num = np.arange(len(point[:,6]))
+true = num * 10 + point[0,7]
 
 fig, ax = plt.subplots()
 
 # note that plot returns a list of lines.  The "l1, = plot" usage
 # extracts the first element of the list into l1 using tuple
 # unpacking.  So l1 is a Line2D instance, not a sequence of lines
-l1 = ax.plot(num, point[:,5], 'o-', label='Roll')
-l2 = ax.plot(num, point[:,6], '--^', label='Pitch')
-l3 = ax.plot(num, point[:,7], '-+', label='Yaw')
-# l4 = ax.plot(point[:,3]+3, point[:,8], 's-.')
+ax.plot(num, true, '-.', label='True')
+ax.plot(num, point[:,5], 'o-', label='Roll')
+ax.plot(num, point[:,6], '--^', label='Pitch')
+ax.plot(num, point[:,7], '-+', label='Yaw')
 
 ax.legend()
 

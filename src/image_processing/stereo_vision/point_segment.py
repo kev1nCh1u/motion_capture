@@ -29,7 +29,7 @@ class PointSegment():
             self.data_file = open("data/result/point_segment.csv", "w") # open point_data
 
             text = ""
-            for i in range(4): text += "p" + str(i) + "x," + "p" + str(i) + "y," + "p" + str(i) + "z,"
+            for i in range(8): text += "p" + str(i) + "x," + "p" + str(i) + "y," + "p" + str(i) + "z,"
             text += "\n"
             self.data_file.write(text) # write point_data
 
@@ -47,14 +47,14 @@ class PointSegment():
         self.orginDisSumTableList4 = np.zeros(2)
         self.orginDisSumTableList3 = np.zeros(2*4)
         for i in range(2):
-            # self.orginDis[i] = findAllDis(self.orginPoint)
+            self.orginDis[i] = findAllDis(self.orginPoint[i])
             self.orginDisSumTable4 = arraySum(self.orginDis[i])
             self.orginDisSumTable3 = arraySumPart3(self.orginDis[i])
             self.orginDisSumTableList4[i] = np.sum(self.orginDisSumTable4)
             for j in range(4): self.orginDisSumTableList3[i*4+j] = np.sum(self.orginDisSumTable3[j,:])
         # print(self.orginDisSumTable4)
         # print(self.orginDisSumTable3)
-        # print(self.orginDisSumTableList4)
+        print(self.orginDisSumTableList4)
         # print(self.orginDisSumTableList3)
 
         self.sortList = np.append(self.orginDisSumTableList4.reshape((2, 1)), np.arange(2).reshape((2, 1)), axis=1)
@@ -64,33 +64,32 @@ class PointSegment():
 
     ########################################## pointSegment
     def pointSegment(self, points3d):
+        markerID = np.full((2), -1)
         axisVector = np.zeros((2,4,3))
         angleDeg = np.zeros((2,3))
         msePoint = np.zeros((2))
         rmsePoint = np.zeros((2))
 
+        ######################## point calculate
         self.points3d = points3d
-        # print("orginDisSumTableList4",self.orginDisSumTableList4)
-        # print("orginDisSumTableList3",self.orginDisSumTableList3)
-        # print("orginDisSumTableList4",self.orginDisSumTableList4)
-        # print("points3d",points3d)
-
-        # point calculate
         pc = pointCount(points3d,8)
-        points3dCombinations = list(combinations(points3d,4))
+        points3dCombinations = list(combinations(points3d[:pc],4))
         # points3dCombinations = list(permutations(points3d,4))
+        # print(points3dCombinations)
         point3dSeg = np.zeros((5,4,3))
         point3dList = np.zeros((2))
         count = 0
 
+        ######################## find marker
         if(pc <= 4 and pc >= 1):
-            pointDis = findAllDis(points3d[0:4])
+            point3dSeg[0] = points3d[0:4]
+            pointDis = findAllDis(point3dSeg[0])
             pointDisSum = arraySum(pointDis)[0]
             pointList = np.sum(pointDisSum)
-            table = findCloseNum(pointList,self.orginDisSumTableList4)
-            axisVector[0], angleDeg[0], msePoint[0], rmsePoint[0] = self.fb.findBody(points3d[0:4],table=int(table))
-            # print(table,pointList,self.orginDisSumTableList4)
-            return (table,0), axisVector, angleDeg, msePoint, rmsePoint, pc
+            markerID[0] = findCloseNum(pointList,self.orginDisSumTableList4)
+            count = 1
+            # axisVector[0], angleDeg[0], msePoint[0], rmsePoint[0] = self.fb.findBody(points3d[0:4],table=int(markerID[0]))
+            # return markerID, axisVector, angleDeg, msePoint, rmsePoint, pc
         else:
             for i in range(len(points3dCombinations)):
                 pointDis = findAllDis(points3dCombinations[i])
@@ -100,30 +99,33 @@ class PointSegment():
                     # print(pointList)
                     point3dList[count] = pointList
                     point3dSeg[count] = points3dCombinations[i]
+                    markerID[count] = findCloseNum(pointList,self.orginDisSumTableList4)
                     count += 1
-            point3dListSort = np.append(point3dList.reshape((2, 1)), np.arange(2).reshape((2, 1)), axis=1)
-            point3dListSort = np.sort(point3dListSort.view('i8,i8'), order=['f0'], axis=0).view(np.float64)
+            # print(point3dList)
+            # point3dListSort = np.append(point3dList.reshape((2, 1)), np.arange(2).reshape((2, 1)), axis=1)
+            # point3dListSort = np.sort(point3dListSort.view('i8,i8'), order=['f0'], axis=0).view(np.float64)
 
-            # print(point3dListSort)
-            # print("pointCount:", pc)
-            # print("points distanse:\n", pointDis)
-            # print("points distanse sum:\n",pointDisSum)
+            # for i in range(count):
+            #     if(point3dListSort[i][0] and point3dListSort[i][0] and point3dListSort[i][0] and point3dListSort[i][0]):
+            #         axisVector[i], angleDeg[i], msePoint[i], rmsePoint[i] = self.fb.findBody(point3dSeg[int(point3dListSort[i][1])],table=int(self.sortList[i][1]))
+            
+            ######################## findBody
+            # for i in range(count):
+            #     axisVector[i], angleDeg[i], msePoint[i], rmsePoint[i] = self.fb.findBody(point3dSeg[i],table=int(markerID[i]))
 
-            for i in range(count):
-                if(point3dListSort[i][0] and point3dListSort[i][0] and point3dListSort[i][0] and point3dListSort[i][0]):
-                    axisVector[i], angleDeg[i], msePoint[i], rmsePoint[i] = self.fb.findBody(point3dSeg[int(point3dListSort[i][1])],table=int(self.sortList[i][1]))
-
+        ######################## save to file
         if(self.file):
             text = ""
             for i in range(2):
-                text += str(int(self.sortList[i][1]))+","+str(np.round(axisVector[i][0][0],2))+","+str(np.round(axisVector[i][0][1],2))+","+str(np.round(axisVector[i][0][2],2))+","
-                text += str(np.round(angleDeg[i][0],2))+","+str(np.round(angleDeg[i][1],2))+","+str(np.round(angleDeg[i][2],2))+","
-                text += str(np.round(msePoint[i],2))+","+str(np.round(rmsePoint[i],2))
-                text += "\n"
+                for j in range(4):
+                    for k in range(3):
+                        text += str(int(point3dSeg[i,j,k]))+","
+            text += "\n"
             self.data_file.write(text) # write point_data
 
-
-        return self.sortList[:,1], axisVector, angleDeg, msePoint, rmsePoint, pc
+        # return self.sortList[:,1], axisVector, angleDeg, msePoint, rmsePoint, pc
+        # return markerID, axisVector, angleDeg, msePoint, rmsePoint, pc
+        return markerID, point3dSeg, count, pc
     
     ############################## close
     def close(self):
@@ -136,27 +138,73 @@ class PointSegment():
 if __name__ == '__main__':
 
     gd = GetData(file=0)
+    fb = FindBody()
     ps = PointSegment(file=1)
 
-    ##################### get data by csv
+    ##################### get data by input_data
     df = pd.read_csv("data/result/input_data.csv", header=0)
     point = df.to_numpy()
+    start_time = time.time()
     for i in range(len(point)):
-        start_time = time.time()
         point2d_1 = point[i,0:16].reshape((-1,2))
         point2d_2 = point[i,16:32].reshape((-1,2))
 
-        test = np.full((4,2),1)
         points3d = gd.getPoint(8,point2d_1,point2d_2)
-        # time.sleep(0.1)
 
-        ps.pointSegment(points3d)
-        print("--- total %s seconds ---" % (time.time() - start_time)) 
+        # markerID, axisVector, angleDeg, msePoint, rmsePoint, pc = ps.pointSegment(points3d)
+
+        markerID, point3dSeg, count, pc = ps.pointSegment(points3d)
+        axisVector = np.zeros((2,4,3))
+        angleDeg = np.zeros((2,3))
+        msePoint = np.zeros((2))
+        rmsePoint = np.zeros((2))
+        for j in range(count):
+            axisVector[j], angleDeg[j], msePoint[j], rmsePoint[j] = fb.findBody(point3dSeg[j],table=int(markerID[j]))
+
+
+        print(markerID)
+    print("%s ms ---" % ((time.time() - start_time) / len(point) * 1000))
         
-    gd.close()
+    ########################################## load point_data
+    # # df = pd.read_csv("data/result/point_data.csv", header=0)
+    # df = pd.read_csv("data/result/point_data/point_data_angle_yaw.csv", header=0)
+    # # df = pd.read_csv("data/result/point_data/point_data_angle_45.csv", header=0)
+    # point_data = df.to_numpy(float32)
+    # print(len(point_data[:]))
+
+    # points3d = np.zeros((8,3),float32)
+    # start_time = time.time()
+    # for i in range(len(point_data[:])):
+    #     points3d[0] = point_data[i,0:3]
+    #     points3d[1] = point_data[i,3:6]
+    #     points3d[2] = point_data[i,6:9]
+    #     points3d[3] = point_data[i,9:12]
+
+    #     # markerID, axisVector, angleDeg, msePoint, rmsePoint, pc = ps.pointSegment(points3d)
+
+    #     markerID, point3dSeg, count, pc = ps.pointSegment(points3d)
+    #     axisVector = np.zeros((2,4,3))
+    #     angleDeg = np.zeros((2,3))
+    #     msePoint = np.zeros((2))
+    #     rmsePoint = np.zeros((2))
+    #     for j in range(count):
+    #         axisVector[j], angleDeg[j], msePoint[j], rmsePoint[j] = fb.findBody(point3dSeg[j],table=int(markerID[j]))
+
+    #     print(markerID)
+    # print("%s ms ---" % ((time.time() - start_time) / len(point_data[:]) * 1000))
     
     ###################### get data by cam
     # while 1:
     #     points3d = gd.getPoint()
-    #     ps.pointSegment(points3d)
+
+    #     # markerID, axisVector, angleDeg, msePoint, rmsePoint, pc = ps.pointSegment(points3d)
+
+    #     markerID, point3dSeg, count, pc = ps.pointSegment(points3d)
+    #     axisVector = np.zeros((2,4,3))
+    #     angleDeg = np.zeros((2,3))
+    #     msePoint = np.zeros((2))
+    #     rmsePoint = np.zeros((2))
+    #     for j in range(count):
+    #         axisVector[j], angleDeg[j], msePoint[j], rmsePoint[j] = fb.findBody(point3dSeg[j],table=int(markerID[j]))
+
     #     ps.showImage()

@@ -25,6 +25,7 @@ if __name__ == '__main__':
                                             
 
     gd = GetData(file=0)
+    fb = FindBody()
     ps = PointSegment()
 
     ######################################### load data
@@ -49,7 +50,18 @@ if __name__ == '__main__':
     #     point2d_1 = point[i,0:16].reshape((-1,2))
     #     point2d_2 = point[i,16:32].reshape((-1,2))
     #     points3d = gd.getPoint(8,point2d_1,point2d_2)
-    #     sortList, axisVector, angleDeg, msePoint, rmsePoint = ps.pointSegment(points3d)
+
+    #     ####################### findBody
+    #     # markerID, axisVector, angleDeg, msePoint, rmsePoint, pc = ps.pointSegment(points3d)
+
+    #     markerID, point3dSeg, count, pc = ps.pointSegment(points3d)
+    #     axisVector = np.zeros((2,4,3))
+    #     angleDeg = np.zeros((2,3))
+    #     msePoint = np.zeros((2))
+    #     rmsePoint = np.zeros((2))
+    #     for i in range(count):
+    #         axisVector[i], angleDeg[i], msePoint[i], rmsePoint[i] = fb.findBody(point3dSeg[i],table=int(markerID[i]))
+
         
     ###################### get data by cam
     while 1:
@@ -61,7 +73,17 @@ if __name__ == '__main__':
         point2d_2 = kuc1.point2d
         points3d = gd.getPoint(8,point2d_1,point2d_2)
         # print(points3d)
-        sortList, axisVector, angleDeg, msePoint, rmsePoint, pc = ps.pointSegment(points3d)
+
+        ####################### findBody
+        # markerID, axisVector, angleDeg, msePoint, rmsePoint, pc = ps.pointSegment(points3d)
+
+        markerID, point3dSeg, count, pc = ps.pointSegment(points3d)
+        axisVector = np.zeros((2,4,3))
+        angleDeg = np.zeros((2,3))
+        msePoint = np.zeros((2))
+        rmsePoint = np.zeros((2))
+        for i in range(count):
+            axisVector[i], angleDeg[i], msePoint[i]
 
         ########################## end
         text =  ""
@@ -69,18 +91,19 @@ if __name__ == '__main__':
         # if(1):
             pass
             # print("--- total %s seconds ---" % (time.time() - start_time))
-            # print(int(sortList[0]), str(np.round(axisVector[0][0],2)), str(np.round(angleDeg[0],2)), np.round(msePoint[0],2), np.round(rmsePoint[0],2))
+            # print(int(markerID[0]), str(np.round(axisVector[0][0],2)), str(np.round(angleDeg[0],2)), np.round(msePoint[0],2), np.round(rmsePoint[0],2))
             
             print("id:%1d x:%08.2f y:%08.2f z:%08.2f r:%08.2f p:%08.2f y:%08.2f mse:%08.2f rmse:%08.2f pc:%d      end"
-                %(int(sortList[0]),np.round(axisVector[0][0][0],2),np.round(axisVector[0][0][1],2),np.round(axisVector[0][0][2],2)
+                %(int(markerID[0]),np.round(axisVector[0][0][0],2),np.round(axisVector[0][0][1],2),np.round(axisVector[0][0][2],2)
                 ,np.round(angleDeg[0][0],2),np.round(angleDeg[0][1],2),np.round(angleDeg[0][2],2)
                 ,np.round(msePoint[0],2),np.round(rmsePoint[0],2),pc), end="\r")
 
             for i in range(int(pc/4)):
-                text += str(int(sortList[i]))+","+str(np.round(axisVector[i][0][0],2))+","+str(np.round(axisVector[i][0][1],2))+","+str(np.round(axisVector[i][0][2],2))+","
+                text += str(int(markerID[i]))+","+str(np.round(axisVector[i][0][0],2))+","+str(np.round(axisVector[i][0][1],2))+","+str(np.round(axisVector[i][0][2],2))+","
                 text += str(np.round(angleDeg[i][0],2))+","+str(np.round(angleDeg[i][1],2))+","+str(np.round(angleDeg[i][2],2))+","
                 text += str(np.round(msePoint[i],2))+","+str(np.round(rmsePoint[i],2))
                 text += "\n"
             data_file.write(text) # write point_data
 
         # time.sleep(0.1)
+    print()

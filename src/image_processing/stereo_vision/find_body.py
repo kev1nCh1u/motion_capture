@@ -41,12 +41,12 @@ class FindBody():
         text = "dis,relia,err0,err1,err2,err3,angle0,angle1,angle2,mse,rmse,table,id0,id1,id2,id3\n"
         self.point_result.write(text) # write
 
-        # sort data
-        self.point_sdata = open("data/result/point_sdata.csv", "w")
+        # find point data
+        self.point_find = open("data/result/point_find.csv", "w")
         text = ""
         for i in range(4): text += "p" + str(i) + "x," + "p" + str(i) + "y," + "p" + str(i) + "z,"
         text += "\n"
-        self.point_sdata.write(text) # write
+        self.point_find.write(text) # write
 
         ########################################## orgin calculate
         self.orginDisSumTable4 = np.zeros((2,1,4))
@@ -213,7 +213,7 @@ class FindBody():
                 for j in range(3):
                     text += str(points3dSort[i][j]) + ', '
             text += '\n'
-            self.point_sdata.write(text) # write
+            self.point_find.write(text) # write
 
         ############################################ showPlot3d
         if(showPlot == 1):
@@ -228,7 +228,7 @@ class FindBody():
 
     def close(self):
         self.point_result.close()
-        self.point_sdata.close()
+        self.point_find.close()
 
 
 ###################################################################################
@@ -247,7 +247,6 @@ if __name__ == '__main__':
     # df = pd.read_csv("data/result/point_data/point_data_angle_45.csv", header=0)
     point_data = df.to_numpy(float32)
 
-    ########################################## load point data
     points3d = np.zeros((4,3),float32)
     for i in range(len(point_data[:])):
         points3d[0] = point_data[i,0:3]
