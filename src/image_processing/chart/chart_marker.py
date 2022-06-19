@@ -6,7 +6,7 @@ import numpy as np
 from matplotlib.collections import LineCollection
 from matplotlib.colors import ListedColormap, BoundaryNorm
 
-df = pd.read_csv("data/result/point_main_2.csv", header=0)
+df = pd.read_csv("data/result/point_main.csv", header=0)
 point = df.to_numpy()
 # print(point[0])
 
@@ -41,9 +41,9 @@ plt.show()
 fig = plt.figure()
 ax = fig.add_subplot()
 ax.set_xlabel('X')
-ax.set_ylabel('Z')
+ax.set_ylabel('Y')
 
-sc = ax.scatter(point[:,1], point[:,3], s=20, label='Marker', c=point[:,8], cmap='jet')
+sc = ax.scatter(point[:,1], point[:,2], s=20, label='Marker', c=point[:,8], cmap='jet')
 ax.legend()
 plt.savefig(savePlotPath)
 cbar = plt.colorbar(sc)
