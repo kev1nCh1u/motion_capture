@@ -25,8 +25,8 @@ class FindBody():
         self.orginDis = np.zeros((2,4,4))
         self.orginPoint = np.zeros((2,4,3))
 
-        self.markerPath0 = "data/parameter/create_markers0.yaml"
-        # self.markerPath0 = "data/parameter/marker_body.yaml"
+        # self.markerPath0 = "data/parameter/create_markers0.yaml"
+        self.markerPath0 = "data/parameter/marker_body.yaml"
         fs = cv2.FileStorage(self.markerPath0, cv2.FILE_STORAGE_READ)
         self.orginDis[0] = fs.getNode("orginDistance").mat()
         self.orginPoint[0] = fs.getNode("orginPoint").mat()

@@ -4,26 +4,18 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
-img = cv2.imread("data/example/red-heart.png")  
+contours = np.zeros((100,2))
+count = 0
+for i in range(10):
+    for j in range(10):
+        contours[count] = [i*50,j*50]
+        count += 1
 
- 
-gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)  
-ret, binary = cv2.threshold(gray,50,255,cv2.THRESH_BINARY)  
-cv2.imshow("gray", gray)  
-cv2.imshow("binary", binary)  
- 
-# contours, hierarchy = cv2.findContours(binary,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)  
-contours, hierarchy = cv2.findContours(binary,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)  
-cv2.drawContours(img,contours,-1,(0,255,255),3)  
-print(contours[0][-3])
-print("size:", len(contours[0]))
-
-cv2.imshow("img", img)  
-cv2.waitKey(1)  
+print(contours)
 
 contoursNp = np.array(contours).reshape(-1,2)
 print(len(contoursNp))
-contoursNp = contoursNp[::30] # down_sample
+# contoursNp = contoursNp[::30] # down_sample
 print(contoursNp)
 
 NewMin = np.array([-92,372]) # x,y

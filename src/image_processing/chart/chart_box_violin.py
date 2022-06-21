@@ -13,11 +13,10 @@ point = point[(point[:,8] < 10)]
 
 point = point[point[:,3].argsort()]
 
-x1 = point[(point[:,3] < 1000)]
-x2 = point[((point[:,3] > 1000) & (point[:,3] < 1500))]
-x3 = point[((point[:,3] > 1500) & (point[:,3] < 2000))]
-x4 = point[((point[:,3] > 2000) & (point[:,3] < 2500))]
-x5 = point[((point[:,3] > 250) & (point[:,3] < 3000))]
+x1 = point[((point[:,3] > 1000) & (point[:,3] <= 1500))]
+x2 = point[((point[:,3] > 1500) & (point[:,3] <= 2000))]
+x3 = point[((point[:,3] > 2000) & (point[:,3] <= 2500))]
+x4 = point[((point[:,3] > 250) & (point[:,3] <= 3000))]
 
 ###################################################
 fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(9, 4))
@@ -27,10 +26,10 @@ np.random.seed(19680801)
 
 
 # generate some random test data
-all_data = [np.random.normal(0, std, 100) for std in range(5, 10)]
+all_data = [np.random.normal(0, std, 100) for std in range(6, 10)]
 
-all_data = [x1[:,8],x2[:,8],x3[:,8],x4[:,8],x5[:,8]]
-
+all_data = [x1[:,8],x2[:,8],x3[:,8],x4[:,8]]
+# print(np.average(all_data,axis=0))
 
 # plot violin plot
 bplot1 = axs[0].violinplot(all_data,
@@ -46,7 +45,7 @@ axs[1].set_title('Box plot')
 for ax in axs:
     ax.yaxis.grid(True)
     ax.set_xticks([y + 1 for y in range(len(all_data))],
-                  labels=['D1', 'D2', 'D3', 'D4', 'D5'])
+                  labels=['D1', 'D2', 'D3', 'D4'])
     ax.set_xlabel('1000~3000')
     ax.set_ylabel('RMSE')
 
