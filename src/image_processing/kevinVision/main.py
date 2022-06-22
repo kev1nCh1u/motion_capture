@@ -33,7 +33,7 @@ class Main():
 
         ######################################### load data
         self.data_file = open("data/result/point_main.csv", "w") # open point_data
-        text =  "id, x, y, z, roll, pitch, yaw, mse, rmse"
+        text =  "id, x, y, z, roll, pitch, yaw, mse, rmse, mae, mape"
         text += "\n"
         self.data_file.write(text) # write point_data
 
@@ -64,8 +64,10 @@ class Main():
             angleDeg = np.zeros((2,3))
             msePoint = np.zeros((2))
             rmsePoint = np.zeros((2))
+            maePoint = np.zeros((2))
+            mapePoint = np.zeros((2))
             for i in range(count):
-                axisVector[i], angleDeg[i], msePoint[i], rmsePoint[i] = self.fb.findBody(point3dSeg[i],table=int(markerID[i]))
+                axisVector[i], angleDeg[i], msePoint[i], rmsePoint[i], maePoint[i], mapePoint[i] = self.fb.findBody(point3dSeg[i],table=int(markerID[i]))
 
             ########################## end
             text =  ""
@@ -75,15 +77,15 @@ class Main():
                 # print("--- total %s seconds ---" % (time.time() - start_time))
                 # print(int(markerID[0]), str(np.round(axisVector[0][0],2)), str(np.round(angleDeg[0],2)), np.round(msePoint[0],2), np.round(rmsePoint[0],2))
                 
-                print("id:%1d x:%08.2f y:%08.2f z:%08.2f r:%08.2f p:%08.2f y:%08.2f mse:%08.2f rmse:%08.2f pc:%d      end"
+                print("id:%1d x:%08.2f y:%08.2f z:%08.2f r:%08.2f p:%08.2f y:%08.2f mse:%08.2f rmse:%08.2f mae:%08.2f mape:%08.2f pc:%d      end"
                     %(int(markerID[0]),np.round(axisVector[0][0][0],2),np.round(axisVector[0][0][1],2),np.round(axisVector[0][0][2],2)
                     ,np.round(angleDeg[0][0],2),np.round(angleDeg[0][1],2),np.round(angleDeg[0][2],2)
-                    ,np.round(msePoint[0],2),np.round(rmsePoint[0],2),pc), end="\r")
+                    ,np.round(msePoint[0],2),np.round(rmsePoint[0],2),np.round(maePoint[0],2),np.round(mapePoint[0],2),pc), end="\r")
 
                 for i in range(int(pc/4)):
                     text += str(int(markerID[i]))+","+str(np.round(axisVector[i][0][0],2))+","+str(np.round(axisVector[i][0][1],2))+","+str(np.round(axisVector[i][0][2],2))+","
                     text += str(np.round(angleDeg[i][0],2))+","+str(np.round(angleDeg[i][1],2))+","+str(np.round(angleDeg[i][2],2))+","
-                    text += str(np.round(msePoint[i],2))+","+str(np.round(rmsePoint[i],2))
+                    text += str(np.round(msePoint[i],2))+","+str(np.round(rmsePoint[i],2))+","+str(np.round(maePoint[i],2))+","+str(np.round(mapePoint[i],2))
                     text += "\n"
                 self.data_file.write(text) # write point_data
 
@@ -110,8 +112,10 @@ class Main():
             angleDeg = np.zeros((2,3))
             msePoint = np.zeros((2))
             rmsePoint = np.zeros((2))
+            maePoint = np.zeros((2))
+            mapePoint = np.zeros((2))
             for i in range(count):
-                axisVector[i], angleDeg[i], msePoint[i], rmsePoint[i] = self.fb.findBody(point3dSeg[i],table=int(markerID[i]))
+                axisVector[i], angleDeg[i], msePoint[i], rmsePoint[i], maePoint[i], mapePoint[i] = self.fb.findBody(point3dSeg[i],table=int(markerID[i]))
 
             ########################## end
             text =  ""
@@ -121,15 +125,15 @@ class Main():
                 # print("--- total %s seconds ---" % (time.time() - start_time))
                 # print(int(markerID[0]), str(np.round(axisVector[0][0],2)), str(np.round(angleDeg[0],2)), np.round(msePoint[0],2), np.round(rmsePoint[0],2))
                 
-                print("id:%1d x:%08.2f y:%08.2f z:%08.2f r:%08.2f p:%08.2f y:%08.2f mse:%08.2f rmse:%08.2f pc:%d      end"
+                print("id:%1d x:%08.2f y:%08.2f z:%08.2f r:%08.2f p:%08.2f y:%08.2f mse:%08.2f rmse:%08.2f mae:%08.2f mape:%08.2f pc:%d      end"
                     %(int(markerID[0]),np.round(axisVector[0][0][0],2),np.round(axisVector[0][0][1],2),np.round(axisVector[0][0][2],2)
                     ,np.round(angleDeg[0][0],2),np.round(angleDeg[0][1],2),np.round(angleDeg[0][2],2)
-                    ,np.round(msePoint[0],2),np.round(rmsePoint[0],2),pc), end="\r")
+                    ,np.round(msePoint[0],2),np.round(rmsePoint[0],2),np.round(maePoint[0],2),np.round(mapePoint[0],2),pc), end="\r")
 
                 for i in range(int(pc/4)):
                     text += str(int(markerID[i]))+","+str(np.round(axisVector[i][0][0],2))+","+str(np.round(axisVector[i][0][1],2))+","+str(np.round(axisVector[i][0][2],2))+","
                     text += str(np.round(angleDeg[i][0],2))+","+str(np.round(angleDeg[i][1],2))+","+str(np.round(angleDeg[i][2],2))+","
-                    text += str(np.round(msePoint[i],2))+","+str(np.round(rmsePoint[i],2))
+                    text += str(np.round(msePoint[i],2))+","+str(np.round(rmsePoint[i],2))+","+str(np.round(maePoint[i],2))+","+str(np.round(mapePoint[i],2))
                     text += "\n"
                 self.data_file.write(text) # write point_data
 

@@ -363,6 +363,24 @@ def rmseFuc(true, observed):
     return sqrt(np.mean((true - observed)**2))
 
 ###################################################################################
+# maeFuc
+###################################################################################
+def maeFuc(true, observed):
+    return np.mean(np.abs(true - observed))
+
+###################################################################################
+# mapeFuc
+###################################################################################
+def mapeFuc(true, observed):
+
+    true = true[true != 0]
+    observed = observed[observed != 0]
+    if((len(true) and len(observed)) and (len(true) == len(observed))):
+        return np.mean(np.abs((true - observed) / true)) * 100
+    else:
+        return 100
+
+###################################################################################
 # findBody
 ###################################################################################
 def findBodyId(pointDisSum, pointCount, orginDis, orginDisSumTable4, orginDisSumTable3, orginDisSumTableList3, orginSort4, orginSort3):

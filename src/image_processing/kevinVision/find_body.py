@@ -25,8 +25,8 @@ class FindBody():
         self.orginDis = np.zeros((2,4,4))
         self.orginPoint = np.zeros((2,4,3))
 
-        # self.markerPath0 = "data/parameter/create_markers0.yaml"
-        self.markerPath0 = "data/parameter/marker_body.yaml"
+        self.markerPath0 = "data/parameter/create_markers0.yaml"
+        # self.markerPath0 = "data/parameter/marker_body.yaml"
         fs = cv2.FileStorage(self.markerPath0, cv2.FILE_STORAGE_READ)
         self.orginDis[0] = fs.getNode("orginDistance").mat()
         self.orginPoint[0] = fs.getNode("orginPoint").mat()
@@ -38,7 +38,7 @@ class FindBody():
 
         # result data
         self.point_result = open("data/result/point_result.csv", "w")
-        text = "dis,relia,err0,err1,err2,err3,angle0,angle1,angle2,mse,rmse,table,id0,id1,id2,id3\n"
+        text = "dis,relia,err0,err1,err2,err3,roll,pitch,yaw,mse,rmse,mae,mape,table,id0,id1,id2,id3\n"
         self.point_result.write(text) # write
 
         # find point data
@@ -138,11 +138,15 @@ class FindBody():
 
         ################################ error
         pointDisSort = findAllDis(points3dSort) 
-        msePoint = mseFuc(pointDisSort, orginDis)
-        pointDisSort = findAllDis(points3dSort) 
-        rmsePoint = rmseFuc(pointDisSort, orginDis)
+        msePoint = mseFuc(orginDis, pointDisSort)
+        rmsePoint = rmseFuc(orginDis, pointDisSort)
+        maePoint = maeFuc(orginDis, pointDisSort)
+        mapePoint = mapeFuc(orginDis, pointDisSort)
+        # print("===========")
         # print("msePoint:",msePoint)
         # print("rmsePoint:",rmsePoint)
+        # print("maePoint:",maePoint)
+        # print("mapePoint:",mapePoint)
 
         ################################### find axis point rt
         # ret_R, ret_t = rigid_transform_3D(np.asmatrix(basePoint2dPart),np.asmatrix(points3dSortPart))
@@ -201,9 +205,12 @@ class FindBody():
                 text += str(angle[i]) + ', '
             text += str(msePoint) + ', '
             text += str(rmsePoint) + ', '
+            text += str(maePoint) + ', '
+            text += str(mapePoint) + ', '
             text += str(table) + ', '
-            for i in range(4):
-                text += str(nums[i][1]) + ', '
+            # for i in range(4):
+            #     text += str(nums[i][1]) + ', '
+
             text += '\n'
             self.point_result.write(text) # write
 
@@ -224,7 +231,7 @@ class FindBody():
         # print("\n--- time 1: %s seconds ---" % (time.time() - start_time_1))
 
         self.counter += 1
-        return axisVector, angle, msePoint, rmsePoint
+        return axisVector, angle, msePoint, rmsePoint, maePoint, mapePoint
 
     def close(self):
         self.point_result.close()
