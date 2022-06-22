@@ -14,10 +14,6 @@ import time
 class Main():
     def __init__(self):
 
-        import get_data_3d
-        import point_segment
-        import find_body
-
         print(" _  __          _        ____ _     _       ")
         print("| |/ /_____   _(_)_ __  / ___| |__ (_)_   _ ")
         print("| ' // _ \ \ / / | '_ \| |   | '_ \| | | | |")
@@ -29,7 +25,8 @@ class Main():
         self.fb = FindBody()
         self.ps = PointSegment()
 
-        print(self.gd.cameraMatrix1)
+        # print(self.gd.cameraMatrix1)
+        self.mainCounter = 0
 
         ######################################### load data
         self.data_file = open("data/result/point_main.csv", "w") # open point_data
@@ -94,59 +91,77 @@ class Main():
 
     def run(self):
         ###################### get data by cam
-        while 1:
-            start_time = time.time()
-            self.kuc.uart_ser() # read uart right camera
-            self.kuc1.uart_ser() # read uart left camera
+        start_time = time.time()
+        self.kuc.uart_ser() # read uart right camera
+        self.kuc1.uart_ser() # read uart left camera
 
-            point2d_1 = self.kuc.point2d
-            point2d_2 = self.kuc1.point2d
-            points3d = self.gd.getPoint(8,point2d_1,point2d_2)
-            # print(points3d)
+        point2d_1 = self.kuc.point2d
+        point2d_2 = self.kuc1.point2d
+        points3d = self.gd.getPoint(8,point2d_1,point2d_2)
+        # print(points3d)
 
-            ####################### findBody
-            # markerID, axisVector, angleDeg, msePoint, rmsePoint, pc = ps.pointSegment(points3d)
+        ####################### findBody
+        # markerID, axisVector, angleDeg, msePoint, rmsePoint, pc = ps.pointSegment(points3d)
 
-            markerID, point3dSeg, count, pc = self.ps.pointSegment(points3d)
-            axisVector = np.zeros((2,4,3))
-            angleDeg = np.zeros((2,3))
-            msePoint = np.zeros((2))
-            rmsePoint = np.zeros((2))
-            maePoint = np.zeros((2))
-            mapePoint = np.zeros((2))
-            for i in range(count):
-                axisVector[i], angleDeg[i], msePoint[i], rmsePoint[i], maePoint[i], mapePoint[i] = self.fb.findBody(point3dSeg[i],table=int(markerID[i]))
+        markerID, point3dSeg, count, pc = self.ps.pointSegment(points3d)
+        axisVector = np.zeros((2,4,3))
+        angleDeg = np.zeros((2,3))
+        msePoint = np.zeros((2))
+        rmsePoint = np.zeros((2))
+        maePoint = np.zeros((2))
+        mapePoint = np.zeros((2))
+        for i in range(count):
+            axisVector[i], angleDeg[i], msePoint[i], rmsePoint[i], maePoint[i], mapePoint[i] = self.fb.findBody(point3dSeg[i],table=int(markerID[i]))
 
-            ########################## end
-            text =  ""
-            if(axisVector[0][0][0] and msePoint[0] < 50):
-            # if(1):
-                pass
-                # print("--- total %s seconds ---" % (time.time() - start_time))
-                # print(int(markerID[0]), str(np.round(axisVector[0][0],2)), str(np.round(angleDeg[0],2)), np.round(msePoint[0],2), np.round(rmsePoint[0],2))
-                
-                print("id:%1d x:%08.2f y:%08.2f z:%08.2f r:%08.2f p:%08.2f y:%08.2f mse:%08.2f rmse:%08.2f mae:%08.2f mape:%08.2f pc:%d      end"
-                    %(int(markerID[0]),np.round(axisVector[0][0][0],2),np.round(axisVector[0][0][1],2),np.round(axisVector[0][0][2],2)
-                    ,np.round(angleDeg[0][0],2),np.round(angleDeg[0][1],2),np.round(angleDeg[0][2],2)
-                    ,np.round(msePoint[0],2),np.round(rmsePoint[0],2),np.round(maePoint[0],2),np.round(mapePoint[0],2),pc), end="\r")
+        ########################## end
+        text =  ""
+        if(axisVector[0][0][0] and msePoint[0] < 50):
+        # if(1):
+            pass
+            # print("--- total %s seconds ---" % (time.time() - start_time))
+            # print(int(markerID[0]), str(np.round(axisVector[0][0],2)), str(np.round(angleDeg[0],2)), np.round(msePoint[0],2), np.round(rmsePoint[0],2))
+            
+            # print("id:%1d x:%08.2f y:%08.2f z:%08.2f r:%08.2f p:%08.2f y:%08.2f mse:%08.2f rmse:%08.2f mae:%08.2f mape:%08.2f pc:%d      end"
+            #     %(int(markerID[0]),np.round(axisVector[0][0][0],2),np.round(axisVector[0][0][1],2),np.round(axisVector[0][0][2],2)
+            #     ,np.round(angleDeg[0][0],2),np.round(angleDeg[0][1],2),np.round(angleDeg[0][2],2)
+            #     ,np.round(msePoint[0],2),np.round(rmsePoint[0],2),np.round(maePoint[0],2),np.round(mapePoint[0],2),pc), end="\r")
 
-                for i in range(int(pc/4)):
-                    text += str(int(markerID[i]))+","+str(np.round(axisVector[i][0][0],2))+","+str(np.round(axisVector[i][0][1],2))+","+str(np.round(axisVector[i][0][2],2))+","
-                    text += str(np.round(angleDeg[i][0],2))+","+str(np.round(angleDeg[i][1],2))+","+str(np.round(angleDeg[i][2],2))+","
-                    text += str(np.round(msePoint[i],2))+","+str(np.round(rmsePoint[i],2))+","+str(np.round(maePoint[i],2))+","+str(np.round(mapePoint[i],2))
-                    text += "\n"
-                self.data_file.write(text) # write point_data
+            print("get", np.round(axisVector[0][0][2],2))
 
-            # time.sleep(0.1)
-        print()
+            for i in range(int(pc/4)):
+                text += str(int(markerID[i]))+","+str(np.round(axisVector[i][0][0],2))+","+str(np.round(axisVector[i][0][1],2))+","+str(np.round(axisVector[i][0][2],2))+","
+                text += str(np.round(angleDeg[i][0],2))+","+str(np.round(angleDeg[i][1],2))+","+str(np.round(angleDeg[i][2],2))+","
+                text += str(np.round(msePoint[i],2))+","+str(np.round(rmsePoint[i],2))+","+str(np.round(maePoint[i],2))+","+str(np.round(mapePoint[i],2))
+                text += "\n"
+            self.data_file.write(text) # write point_data
+
+            self.mainCounter += 1
+
+        # time.sleep(0.1)
+    # print()
 
 ###################################################################################
 # main
 ###################################################################################
 if __name__ == '__main__':
     m = Main()
-    m.run()
+
     # m.runData()
+
+    while 1:
+        m.run()
+
+    # while(1):
+    #     print("===========")
+    #     while(1):
+    #         m.run()
+    #         if(m.mainCounter > 20):
+    #             m.mainCounter = 0
+    #             break 
+    #     print("Get finish! press key...")
+    #     input()
+    
+    print()
 
         
    

@@ -4,11 +4,11 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
-contours = np.zeros((100,2))
+contours = np.zeros((25,2))
 count = 0
-for i in range(10):
-    for j in range(10):
-        contours[count] = [i*50,j*50]
+for i in range(5):
+    for j in range(5):
+        contours[count] = [i*100,j*100]
         count += 1
 
 print(contours)
