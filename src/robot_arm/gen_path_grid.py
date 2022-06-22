@@ -18,8 +18,9 @@ print(len(contoursNp))
 # contoursNp = contoursNp[::30] # down_sample
 print(contoursNp)
 
-NewMin = np.array([-92,372]) # x,y
-NewMax = np.array([208,72])
+center = np.array([-110,407]) # x,z
+NewMin = np.array([center[0]-150,center[1]+150]) # x,z
+NewMax = np.array([center[0]+150,center[1]-150])
 OldRange = (np.array([640,480]) - np.array([0,0]))  # (OldMax - OldMin)
 NewRange = (NewMax - NewMin)  # (NewMax - NewMin)
 path = (((contoursNp - [0,0]) * NewRange) / OldRange) + NewMin # (((OldValue - OldMin) * NewRange) / OldRange) + NewMin
@@ -43,11 +44,11 @@ ax.legend()
 
 robotNp = np.zeros((len(contoursNp),7))
 robotNp[:,0] = path[:,0]
-robotNp[:,1] = 456
+robotNp[:,1] = 281
 robotNp[:,2] = path[:,1]
 robotNp[:,3] = -180
 robotNp[:,4] = 0
-robotNp[:,5] = 180
+robotNp[:,5] = -90
 robotNp[:,6] = 100000
 
 print(robotNp[1])
