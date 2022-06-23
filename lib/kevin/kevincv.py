@@ -1,11 +1,12 @@
 import sys
 import cv2
 import numpy as np
-import time
 from matplotlib import pyplot as plt
-import scipy as sp
 
 from scipy.optimize import fsolve
+import warnings
+warnings.filterwarnings('ignore', 'The iteration is not making good progress')
+
 from math import *
 from itertools import *
 

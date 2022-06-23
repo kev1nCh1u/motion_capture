@@ -3,10 +3,10 @@ import numpy as np
 
 import pandas as pd
 
-df = pd.read_csv("data/result/point_main.csv", header=0)
+df = pd.read_csv("data/result/point_main_45.csv", header=0)
 # df = pd.read_csv("data/result/grid_point/point_main_grid_130.csv", header=0)
 # df = pd.read_csv("data/result/heart_path/point_main_heart_300.csv", header=0)
-df = pd.read_csv("data/result/point_main_dis_45.csv", header=0)
+# df = pd.read_csv("data/result/point_main_dis_45.csv", header=0)
 point = df.to_numpy()
 # print(point[0])
 

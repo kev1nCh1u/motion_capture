@@ -2,11 +2,10 @@ import os
 import sys
 import time
 
-from numpy import float32, ndarray
+from numpy import float32
 sys.path.append(os.getcwd())
 from lib.kevin.kevincv import *
 
-import math
 import pandas as pd
 
 # from matplotlib import pyplot as plt

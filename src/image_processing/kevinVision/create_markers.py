@@ -19,7 +19,7 @@ from get_data_3d import *
 ###################################################################################
 def main():
     gd = GetData(uart=1,file=0)
-    body_num = input("Enter body num: ")
+    body_num = input("Enter body num (0,1,2...): ")
 
     ########################################### init value
     fs = cv2.FileStorage("data/parameter/create_markers"+str(body_num)+".yaml", cv2.FILE_STORAGE_WRITE)

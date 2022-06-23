@@ -1,16 +1,12 @@
-from itertools import count
 import sys
 import cv2
 import numpy as np
 import time
-import imutils
-from matplotlib import pyplot as plt
 import time
 
 import os
 sys.path.append(os.getcwd())
 from lib.kevin.kevincv import  *
-from lib.kevin import kevinuart
 
 from src.image_processing.kevinVision.get_data_3d import *
 from src.image_processing.kevinVision.find_body import *
@@ -54,7 +50,7 @@ class PointSegment():
             for j in range(4): self.orginDisSumTableList3[i*4+j] = np.sum(self.orginDisSumTable3[j,:])
         # print(self.orginDisSumTable4)
         # print(self.orginDisSumTable3)
-        print(self.orginDisSumTableList4)
+        # print(self.orginDisSumTableList4)
         # print(self.orginDisSumTableList3)
 
         self.sortList = np.append(self.orginDisSumTableList4.reshape((2, 1)), np.arange(2).reshape((2, 1)), axis=1)

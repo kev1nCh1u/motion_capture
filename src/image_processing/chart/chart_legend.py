@@ -1,11 +1,7 @@
-from turtle import color
 from matplotlib import pyplot as plt
 import pandas as pd
 
 import numpy as np
-import matplotlib.collections as mcol
-from matplotlib.legend_handler import HandlerLineCollection, HandlerTuple
-from matplotlib.lines import Line2D
 
 df = pd.read_csv("data/result/point_main_2.csv", header=0)
 point = df.to_numpy()
