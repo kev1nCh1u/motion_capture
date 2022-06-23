@@ -8,13 +8,14 @@ from matplotlib.colors import ListedColormap, BoundaryNorm
 
 # df = pd.read_csv("data/result/point_main.csv", header=0)
 # df = pd.read_csv("data/result/grid_point/point_main_grid_130.csv", header=0)
-# df = pd.read_csv("data/result/heart_path/point_main_heart_300.csv", header=0)
-df = pd.read_csv("data/result/point_main_dis.csv", header=0)
+df = pd.read_csv("data/result/heart_path/point_main_heart_250.csv", header=0)
+# df = pd.read_csv("data/result/point_main_dis.csv", header=0)
 point = df.to_numpy()
 # print(point[0])
 
 savePlotPath = 'data/result/point_path_plot/marker_plot_3d' + '.png'
 
+point = point[600:]
 point = point[(point[:,8] < 3)]
 
 ######################################################################

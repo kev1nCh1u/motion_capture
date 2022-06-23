@@ -4,9 +4,9 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
-img = cv2.imread("data/example/red-heart.png")  
+img = cv2.imread("data/example/red-heart.png") # open image
 
- 
+####################################### image process
 gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)  
 ret, binary = cv2.threshold(gray,50,255,cv2.THRESH_BINARY)  
 cv2.imshow("gray", gray)  
@@ -26,6 +26,7 @@ print(len(contoursNp))
 contoursNp = contoursNp[::30] # down_sample
 print(contoursNp)
 
+####################################### remap to robot pose
 center = np.array([-110,407]) # x,z
 NewMin = np.array([center[0]-150,center[1]+150]) # x,z
 NewMax = np.array([center[0]+150,center[1]-150])
@@ -36,7 +37,7 @@ path = (((contoursNp - [0,0]) * NewRange) / OldRange) + NewMin # (((OldValue - O
 # path = (contoursNp / [640,480]) * [-92,6] + [208,456]
 # print(path[-3])
 
-# show all 2d
+####################################### show 2d plot
 fig = plt.figure()
 ax = fig.add_subplot()
 ax.set_xlabel('X')
@@ -50,6 +51,7 @@ ax.legend()
 # cbar = plt.colorbar(sc)
 # cbar.set_label('X')
 
+############################################## robot data
 robotNp = np.zeros((len(contoursNp),7))
 robotNp[:,0] = path[:,0]
 robotNp[:,1] = 281
@@ -61,7 +63,9 @@ robotNp[:,6] = 100000
 
 print(robotNp[1])
 
+############################################## save path
 fs = cv2.FileStorage("src/robot_arm/robot_path.yaml", cv2.FILE_STORAGE_WRITE)
 fs.write('path', robotNp)
 
+############################################## show plot
 plt.show()

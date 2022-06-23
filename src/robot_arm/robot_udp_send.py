@@ -10,7 +10,7 @@ UDP_IP = "192.168.1.71"
 UDP_PORT = 8777
 
 ###########################################################################
-# set point
+# set path
 ##########################################################################
 # point = np.zeros((10,7),np.float32) # px,py,pz,rx,ry,rz,v
 # point[0] = [162.14,435.47,321.36,178.20,2.61,162.09,100]
@@ -40,6 +40,9 @@ print(path[1])
 path_size = len(path)
 print(path_size)
 
+###########################################################################
+# send path
+##########################################################################
 for j in range(path_size):
     print("===========================================")
     message = b""
@@ -47,11 +50,7 @@ for j in range(path_size):
     for i in range(7):
         message += struct.pack('f', path[j][i])
 
-    print("UDP target IP: %s" % UDP_IP)
-    print("UDP target port: %s" % UDP_PORT)
-    print("message: %s" % message)
-
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
     sock.sendto(message, (UDP_IP, UDP_PORT))
 
-    time.sleep(0.001)
+    time.sleep(0.001) # wait for robot

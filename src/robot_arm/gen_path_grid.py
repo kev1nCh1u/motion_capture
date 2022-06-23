@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
+####################################### gen point
 contours = np.zeros((25,2))
 count = 0
 for i in range(5):
@@ -18,6 +19,7 @@ print(len(contoursNp))
 # contoursNp = contoursNp[::30] # down_sample
 print(contoursNp)
 
+####################################### remap to robot pose
 center = np.array([-110,407]) # x,z
 NewMin = np.array([center[0]-150,center[1]+150]) # x,z
 NewMax = np.array([center[0]+150,center[1]-150])
@@ -28,7 +30,7 @@ path = (((contoursNp - [0,0]) * NewRange) / OldRange) + NewMin # (((OldValue - O
 # path = (contoursNp / [640,480]) * [-92,6] + [208,456]
 # print(path[-3])
 
-# show all 2d
+####################################### show 2d plot
 fig = plt.figure()
 ax = fig.add_subplot()
 ax.set_xlabel('X')
@@ -42,6 +44,7 @@ ax.legend()
 # cbar = plt.colorbar(sc)
 # cbar.set_label('X')
 
+############################################## robot data
 robotNp = np.zeros((len(contoursNp),7))
 robotNp[:,0] = path[:,0]
 robotNp[:,1] = 281
@@ -53,7 +56,9 @@ robotNp[:,6] = 100000
 
 print(robotNp[1])
 
+############################################## save path
 fs = cv2.FileStorage("src/robot_arm/robot_path.yaml", cv2.FILE_STORAGE_WRITE)
 fs.write('path', robotNp)
 
+############################################## show plot
 plt.show()
