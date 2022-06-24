@@ -52,16 +52,33 @@ ax.legend()
 # cbar.set_label('X')
 
 ############################################## robot data
-robotNp = np.zeros((len(contoursNp),7))
-robotNp[:,0] = path[:,0]
-robotNp[:,1] = 281
-robotNp[:,2] = path[:,1]
-robotNp[:,3] = -180
-robotNp[:,4] = 0
-robotNp[:,5] = -90
-robotNp[:,6] = 100000
+robotNpSize = len(contoursNp)
+robotNp = np.zeros((robotNpSize*5,7))
+for i in range(5):
+    robotNp[robotNpSize*i:robotNpSize*(i+1),0] = path[:,0]
+    robotNp[robotNpSize*i:robotNpSize*(i+1),1] = 281+(i*100)
+    robotNp[robotNpSize*i:robotNpSize*(i+1),2] = path[:,1]
+    robotNp[robotNpSize*i:robotNpSize*(i+1),3] = -180
+    robotNp[robotNpSize*i:robotNpSize*(i+1),4] = 0
+    robotNp[robotNpSize*i:robotNpSize*(i+1),5] = -90
+    robotNp[robotNpSize*i:robotNpSize*(i+1),6] = 100000
 
-print(robotNp[1])
+    print(robotNp[1])
+
+#################################################### show plot 3d
+fig = plt.figure()
+# ax = fig.gca(projection='3d')
+ax = fig.add_subplot(projection='3d')
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+# ax.set_xlim(-200,200)
+# ax.set_ylim(450,600)
+# ax.set_zlim(-200,200)
+sc = ax.scatter(robotNp[:,0], robotNp[:,1], robotNp[:,2], s=20, label='Marker', c=robotNp[:,2], cmap='jet')
+ax.legend()
+cbar = plt.colorbar(sc)
+cbar.set_label('Path')
 
 ############################################## save path
 fs = cv2.FileStorage("src/robot_arm/robot_path.yaml", cv2.FILE_STORAGE_WRITE)
