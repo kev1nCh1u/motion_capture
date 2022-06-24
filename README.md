@@ -9,9 +9,6 @@
                                             
 ```
 
-## source
-    source /home/kevin/src/motion_capture/kevin_setup.bash
-
 ## camera
 ```
           marker
@@ -28,6 +25,11 @@ threshold: 100
 ## led 
 V: 3V
 
+## source
+    source /home/kevin/src/motion_capture/kevin_setup.bash
+
+## run start
+    kevin_start_main.bash
 
 ## install matlab engine
 https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html
@@ -36,11 +38,7 @@ cd "matlabroot\extern\engines\python"
 python setup.py install
 ```
 
-## run start
-    source setup.zsh
-    kevin_start.zsh
-
-## run code
+## run dahua
     roscore
     python src/dahua_python/src/ros_cv_getFrame.py
 
@@ -49,12 +47,12 @@ python setup.py install
 
 ## dahua track point
     roscore
-    kevin_start_capture.zsh
-    kevin_start_calib.zsh
+    kevin_start_capture.bash
+    kevin_start_calib.bash
 
     python src/image_processing/calibration/stereo_depth_Chessboard.py
 
-    kevin_start_stereo_ir_track.zsh
+    kevin_start_stereo_ir_track.bash
     python src/image_processing/ir_track/src/ros_point_record.py
 
 ## fpga track point

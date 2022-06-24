@@ -21,6 +21,6 @@ cd $ws_path
 # 分頁視窗 #
 ###########
 # gnome-terminal --tab -t "分頁名稱" -- bash -ic "指令"
-python3.8 src/image_processing/kevinVision/main.py
+gnome-terminal --tab -t "main" -- bash -ic "python3.8 src/gui/qt_gui/main.py"
 sleep 0.2
 
