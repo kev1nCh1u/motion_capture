@@ -1,0 +1,72 @@
+%YAML:1.0
+---
+IntrinsicMatrix1: !!opencv-matrix
+    rows: 3
+    cols: 3
+    dt: f
+    data: [ 905.767223, 0.000000, 0.000000, 
+            0.000000, 907.037219, 0.000000, 314.034765, 
+            248.762257, 1.000000]
+RadialDistortion1: !!opencv-matrix
+    rows: 1
+    cols: 2
+    dt: f
+    data: [ 0.064118, 4.205745]
+TangentialDistortion1: !!opencv-matrix
+    rows: 1
+    cols: 2
+    dt: f
+    data: [ 0.000000, 0.000000]
+IntrinsicMatrix2: !!opencv-matrix
+    rows: 3
+    cols: 3
+    dt: f
+    data: [ 894.812979, 0.000000, 0.000000, 
+            0.000000, 897.946126, 0.000000, 299.076423, 
+            240.391583, 1.000000]
+RadialDistortion2: !!opencv-matrix
+    rows: 1
+    cols: 2
+    dt: f
+    data: [ 0.128339, 0.102741]
+TangentialDistortion2: !!opencv-matrix
+    rows: 1
+    cols: 2
+    dt: f
+    data: [ 0.000000, 0.000000]
+ImageSize: !!opencv-matrix
+    rows: 1
+    cols: 2
+    dt: f
+    data: [ 480.000000, 640.000000]
+RotationOfCamera2: !!opencv-matrix
+    rows: 3
+    cols: 3
+    dt: f
+    data: [ 0.999781, 0.008744, -0.019012, 
+            -0.008848, 0.999946, -0.005386, 0.018964, 
+            0.005553, 0.999805]
+TranslationOfCamera2: !!opencv-matrix
+    rows: 1
+    cols: 3
+    dt: f
+    data: [ 63.073297, -0.078884, -2.203549]
+FocalLength: !!opencv-matrix
+    rows: 1
+    cols: 2
+    dt: f
+    data: [ 905.767223, 907.037219]
+EssentialMatrix: !!opencv-matrix
+    rows: 3
+    cols: 3
+    dt: f
+    data: [ 0.020768, 2.203855, -0.066633, 
+            -1.003911, 0.359195, -63.102770, 0.630397, 
+            63.069216, 0.351729]
+FundamentalMatrix: !!opencv-matrix
+    rows: 3
+    cols: 3
+    dt: f
+    data: [ 0.000000, 0.000003, -0.000758, 
+            -0.000001, 0.000000, -0.069997, 0.000985, 
+            0.068615, -0.110771]
