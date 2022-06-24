@@ -5,9 +5,9 @@ sys.path.append(os.getcwd())
 from lib.kevin.kevincv import  *
 from lib.kevin import kevinuart
 
-from src.image_processing.kevinVision.get_data_3d import *
-from src.image_processing.kevinVision.point_segment import *
-from src.image_processing.kevinVision.find_body import *
+from src.kevinVision.get_data_3d import *
+from src.kevinVision.point_segment import *
+from src.kevinVision.find_body import *
 
 import time
 

@@ -72,4 +72,4 @@ python setup.py install
     python3.8 src/image_processing/capture/single_capture.py
 
 ### UML
-    python3.8 ~/.local/bin/pyreverse -o png src/image_processing/kevinVision/. -mn -a1
+    python3.8 ~/.local/bin/pyreverse -o png src/kevinVision/. -mn -a1

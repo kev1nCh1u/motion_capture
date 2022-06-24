@@ -8,8 +8,8 @@ import os
 sys.path.append(os.getcwd())
 from lib.kevin.kevincv import  *
 
-from src.image_processing.kevinVision.get_data_3d import *
-from src.image_processing.kevinVision.find_body import *
+from src.kevinVision.get_data_3d import *
+from src.kevinVision.find_body import *
 
 ###################################################################################
 # PointSegment
