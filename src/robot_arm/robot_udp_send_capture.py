@@ -9,7 +9,7 @@ import cv2
 import os
 import sys
 sys.path.append(os.getcwd())
-from src.image_processing.kevinVision.main import *
+from src.kevinVision.main import *
 
 UDP_IP = "192.168.1.71"
 UDP_PORT = 8777
