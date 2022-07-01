@@ -16,11 +16,5 @@ echo -e "ws_path:" $ws_path "\n" # 列印路徑
 cd $ws_path
 # source devel/setup.bash
 
-
-###########
-# 分頁視窗 #
-###########
-# gnome-terminal --tab -t "分頁名稱" -- bash -ic "指令"
 python3.8 src/kevinVision/main.py
-sleep 0.2
 

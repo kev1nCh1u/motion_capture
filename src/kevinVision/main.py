@@ -121,10 +121,14 @@ class Main():
             # print("--- total %s seconds ---" % (time.time() - start_time))
             # print(int(markerID[0]), str(np.round(axisVector[0][0],2)), str(np.round(angle[0],2)), np.round(msePoint[0],2), np.round(rmsePoint[0],2))
             
-            print("id:%1d x:%08.2f y:%08.2f z:%08.2f r:%06.2f p:%06.2f y:%06.2f rmse:%06.2f pc:%d      end"
-                %(int(markerID[0]),np.round(axisVector[0][0][0],2),np.round(axisVector[0][0][1],2),np.round(axisVector[0][0][2],2)
-                ,np.round(angle[0][0],2),np.round(angle[0][1],2),np.round(angle[0][2],2)
-                ,np.round(rmsePoint[0],2),pc), end="\r")
+            # print("id:%1d x:%08.2f y:%08.2f z:%08.2f r:%06.2f p:%06.2f y:%06.2f rmse:%06.2f pc:%d      end"
+            #     %(int(markerID[0]),np.round(axisVector[0][0][0],2),np.round(axisVector[0][0][1],2),np.round(axisVector[0][0][2],2)
+            #     ,np.round(angle[0][0],2),np.round(angle[0][1],2),np.round(angle[0][2],2)
+            #     ,np.round(rmsePoint[0],2),pc), end="\r")
+
+            print("id:%1d x:%08.2f y:%08.2f z:%08.2f rmse:%06.2f ; id:%1d x:%08.2f y:%08.2f z:%08.2f rmse:%06.2f    end"
+                %(int(markerID[0]),np.round(axisVector[0][0][0],2),np.round(axisVector[0][0][1],2),np.round(axisVector[0][0][2],2),np.round(rmsePoint[0],2),
+                int(markerID[1]),np.round(axisVector[1][0][0],2),np.round(axisVector[1][0][1],2),np.round(axisVector[1][0][2],2),np.round(rmsePoint[1],2)), end="\r")
 
             # print("get", np.round(axisVector[0][0][2],2))
 
