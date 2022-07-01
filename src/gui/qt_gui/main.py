@@ -63,6 +63,15 @@ class Ui(QtWidgets.QMainWindow):
         self.label_18.setText("x:" + str(self.uc1.point2d[2,0]) + " y:" + str(self.uc1.point2d[2,1]))
         self.label_19.setText("x:" + str(self.uc1.point2d[3,0]) + " y:" + str(self.uc1.point2d[3,1]))
         
+        ################################### open imgae
+        self.label_24.setText("KevinVision")
+        imageLogo = cv2.imread('src/gui/qt_gui/logo/Screenshot from 2022-07-01 11-31-39.png')
+        height, width, channel = imageLogo.shape
+        bytesPerline = 3 * width
+        self.qImg = QImage(imageLogo.data, width, height, bytesPerline, QImage.Format_RGB888)
+        self.label_24.setPixmap(QPixmap.fromImage(self.qImg))
+            
+
         #################################### camera
         camFlag, self.image = self.cap.read()
         if(camFlag):

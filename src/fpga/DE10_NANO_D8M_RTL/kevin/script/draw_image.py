@@ -26,8 +26,8 @@ for j in range(4):
         points[i][0] = point
         i += 1
 
-        cv2.line(img, tuple((cX-10, cY-10)), tuple((cX+10, cY+10)), (255, 255, 255))
-        cv2.line(img, tuple((cX-10, cY+10)), tuple((cX+10, cY-10)), (255, 255, 255))
+        cv2.line(img, tuple((cX-10, cY-10)), tuple((cX+10, cY+10)), (255, 255, 255), 2)
+        cv2.line(img, tuple((cX-10, cY+10)), tuple((cX+10, cY-10)), (255, 255, 255), 2)
 
     cv2.imwrite("src/fpga/DE10_NANO_D8M_RTL/kevin/img/" + 'mark_point_' + "{0:0=2d}".format(j)+ '.jpg', img)
     cv2.imshow('img',img)
