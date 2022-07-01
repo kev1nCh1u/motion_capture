@@ -33,8 +33,9 @@ UDP_PORT = 8777
 ###########################################################################
 # load path
 ##########################################################################
+fs = cv2.FileStorage("src/robot_arm/robot_path.yaml", cv2.FILE_STORAGE_READ)
 # fs = cv2.FileStorage("src/robot_arm/robot_path_heart.yaml", cv2.FILE_STORAGE_READ)
-fs = cv2.FileStorage("src/robot_arm/robot_path_grid.yaml", cv2.FILE_STORAGE_READ)
+# fs = cv2.FileStorage("src/robot_arm/robot_path_grid.yaml", cv2.FILE_STORAGE_READ)
 
 path = fs.getNode("path").mat()
 
@@ -55,5 +56,5 @@ for j in range(path_size):
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
     sock.sendto(message, (UDP_IP, UDP_PORT))
 
-    time.sleep(0.001) # wait for robot
-    input()
+    time.sleep(0.1) # wait for robot
+    # input()

@@ -27,7 +27,7 @@ contoursNp = contoursNp[::30] # down_sample
 print(contoursNp)
 
 ####################################### remap to robot pose
-center = np.array([-110,407]) # x,z
+center = np.array([10,407]) # x,z
 NewMin = np.array([center[0]-150,center[1]+150]) # x,z
 NewMax = np.array([center[0]+150,center[1]-150])
 OldRange = (np.array([640,480]) - np.array([0,0]))  # (OldMax - OldMin)
@@ -56,7 +56,7 @@ robotNpSize = len(contoursNp)
 robotNp = np.zeros((robotNpSize*5,7))
 for i in range(5):
     robotNp[robotNpSize*i:robotNpSize*(i+1),0] = path[:,0]
-    robotNp[robotNpSize*i:robotNpSize*(i+1),1] = 281+(i*100)
+    robotNp[robotNpSize*i:robotNpSize*(i+1),1] = 250+(i*60)
     robotNp[robotNpSize*i:robotNpSize*(i+1),2] = path[:,1]
     robotNp[robotNpSize*i:robotNpSize*(i+1),3] = -180
     robotNp[robotNpSize*i:robotNpSize*(i+1),4] = 0
@@ -81,7 +81,7 @@ cbar = plt.colorbar(sc)
 cbar.set_label('Path')
 
 ############################################## save path
-fs = cv2.FileStorage("src/robot_arm/robot_path.yaml", cv2.FILE_STORAGE_WRITE)
+fs = cv2.FileStorage("src/robot_arm/robot_path_heart_3d.yaml", cv2.FILE_STORAGE_WRITE)
 fs.write('path', robotNp)
 
 ############################################## show plot
