@@ -132,11 +132,11 @@ class Main():
 
             # print("get", np.round(axisVector[0][0][2],2))
 
-            for i in range(int(pc/4)):
+            for i in range(2):
                 text += str(int(markerID[i]))+","+str(np.round(axisVector[i][0][0],2))+","+str(np.round(axisVector[i][0][1],2))+","+str(np.round(axisVector[i][0][2],2))+","
                 text += str(np.round(angle[i][0],2))+","+str(np.round(angle[i][1],2))+","+str(np.round(angle[i][2],2))+","
-                text += str(np.round(msePoint[i],2))+","+str(np.round(rmsePoint[i],2))+","+str(np.round(maePoint[i],2))+","+str(np.round(mapePoint[i],2))
-                text += "\n"
+                text += str(np.round(msePoint[i],2))+","+str(np.round(rmsePoint[i],2))+","+str(np.round(maePoint[i],2))+","+str(np.round(mapePoint[i],2))+","
+            text += "\n"
             self.data_file.write(text) # write point_data
 
             self.mainCounter += 1
