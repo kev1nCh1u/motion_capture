@@ -7,12 +7,14 @@ df = pd.read_csv("data/result/point_main.csv", header=0)
 # df = pd.read_csv("data/result/grid_point/point_main_grid_130.csv", header=0)
 # df = pd.read_csv("data/result/heart_path/point_main_heart_250.csv", header=0)
 # df = pd.read_csv("data/result/point_main_dis.csv", header=0)
+# df = pd.read_csv("data/result/point_main_robot_angle_3.csv", header=0)
 point = df.to_numpy()
 # print(point[0])
 
 savePlotPath = 'data/result/point_path_plot/marker_plot_3d' + '.png'
 
 # point = point[600:]
+print(len(point), point[0,:])
 point = point[(point[:,8] < 3)]
 
 ######################################################################
@@ -22,16 +24,16 @@ point = point[(point[:,8] < 3)]
 fig = plt.figure()
 # ax = fig.gca(projection='3d')
 ax = fig.add_subplot(projection='3d')
-ax.set_xlabel('X')
-ax.set_ylabel('Y')
-ax.set_zlabel('Z')
+ax.set_xlabel('X(mm)')
+ax.set_ylabel('Y(mm)')
+ax.set_zlabel('Z(mm)')
 # ax.set_xlim(-200,200)
 # ax.set_ylim(450,600)
 # ax.set_zlim(-200,200)
 sc = ax.scatter(point[:,1], point[:,2], point[:,3], s=20, label='Marker', c=point[:,8], cmap='jet',vmin=0, vmax=3)
 ax.legend()
 cbar = plt.colorbar(sc)
-cbar.set_label('RMSE')
+cbar.set_label('RMSE(mm)')
 plt.show()
 
 ######################################################################
@@ -40,8 +42,8 @@ plt.show()
 # show plot 3d
 fig = plt.figure()
 ax = fig.add_subplot()
-ax.set_xlabel('X')
-ax.set_ylabel('Y')
+ax.set_xlabel('X(mm)')
+ax.set_ylabel('Y(mm)')
 
 # ax.set_xlim(-200,200)
 # ax.set_ylim(200,-200)
@@ -51,7 +53,7 @@ sc = ax.scatter(point[:,1], point[:,2], s=20, label='Marker', c=point[:,8], cmap
 # ax.set_title('Distance '+ str(round(point[0,3]))+ "mm")
 ax.legend()
 cbar = plt.colorbar(sc)
-cbar.set_label('RMSE')
+cbar.set_label('RMSE(mm)')
 plt.show()
 
 ######################################################################

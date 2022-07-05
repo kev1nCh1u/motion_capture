@@ -9,8 +9,11 @@ df2 = pd.read_csv("data/result/grid_point/point_main_grid_150.csv", header=0)
 df3 = pd.read_csv("data/result/grid_point/point_main_grid_200.csv", header=0)
 df4 = pd.read_csv("data/result/grid_point/point_main_grid_250.csv", header=0)
 df5 = pd.read_csv("data/result/grid_point/point_main_grid_300.csv", header=0)
-# df = pd.read_csv("data/result/grid_point/point_main_grid_300.csv", header=0)
-# df = pd.read_csv("data/result/heart_path/point_main_heart_300.csv", header=0)
+# df1 = pd.read_csv("data/result/heart_path/point_main_heart_130.csv", header=0)
+# df2 = pd.read_csv("data/result/heart_path/point_main_heart_150.csv", header=0)
+# df3 = pd.read_csv("data/result/heart_path/point_main_heart_200.csv", header=0)
+# df4 = pd.read_csv("data/result/heart_path/point_main_heart_250.csv", header=0)
+# df5 = pd.read_csv("data/result/heart_path/point_main_heart_300.csv", header=0)
 point1 = df1.to_numpy()
 point2 = df2.to_numpy()
 point3 = df3.to_numpy()
@@ -20,21 +23,21 @@ point5 = df5.to_numpy()
 
 savePlotPath = 'data/result/point_path_plot/chart_box' + '.png'
 
-point1 = point1[(point1[:,8] < 10)]
-point2 = point2[(point2[:,8] < 10)]
-point3 = point3[(point3[:,8] < 10)]
-point4 = point4[(point4[:,8] < 10)]
-point5 = point5[(point5[:,8] < 10)]
+point1 = point1[(point1[:,8] < 3)]
+point2 = point2[(point2[:,8] < 3)]
+point3 = point3[(point3[:,8] < 3)]
+point4 = point4[(point4[:,8] < 3)]
+point5 = point5[(point5[:,8] < 3)]
 
-for i in range(7,11): print(np.average(point1[:,i]))
+for i in range(8,11): print(np.average(point1[:,i]))
 print()
-for i in range(7,11): print(np.average(point2[:,i]))
+for i in range(8,11): print(np.average(point2[:,i]))
 print()
-for i in range(7,11): print(np.average(point3[:,i]))
+for i in range(8,11): print(np.average(point3[:,i]))
 print()
-for i in range(7,11): print(np.average(point4[:,i]))
+for i in range(8,11): print(np.average(point4[:,i]))
 print()
-for i in range(7,11): print(np.average(point5[:,i]))
+for i in range(8,11): print(np.average(point5[:,i]))
 print()
 
 x1 = point1
@@ -71,8 +74,8 @@ for ax in axs:
     ax.yaxis.grid(True)
     ax.set_xticks([y + 1 for y in range(len(all_data))],
                   labels=['D1', 'D2', 'D3', 'D4', 'D5'])
-    ax.set_xlabel('1000~3000')
-    ax.set_ylabel('RMSE')
+    ax.set_xlabel('1000~3000 (mm)')
+    ax.set_ylabel('RMSE (mm)')
 
 # for pc in bplot1['bodies']:
 #     pc.set_facecolor('red')
