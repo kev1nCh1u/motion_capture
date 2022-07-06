@@ -20,13 +20,17 @@ x2 = point[((point[:,4] > 20) & (point[:,4] <= 40))]
 x3 = point[((point[:,4] > 40) & (point[:,4] <= 60))]
 x4 = point[((point[:,4] > 60))]
 
-for i in range(7,11): print(np.average(x1[:,i]))
+for i in range(8,11): print(np.average(x1[:,i]))
+print(np.std(x1[:,8]))
 print()
-for i in range(7,11): print(np.average(x2[:,i]))
+for i in range(8,11): print(np.average(x2[:,i]))
+print(np.std(x2[:,8]))
 print()
-for i in range(7,11): print(np.average(x3[:,i]))
+for i in range(8,11): print(np.average(x3[:,i]))
+print(np.std(x3[:,8]))
 print()
-for i in range(7,11): print(np.average(x4[:,i]))
+for i in range(8,11): print(np.average(x4[:,i]))
+print(np.std(x4[:,8]))
 print()
 
 ###################################################

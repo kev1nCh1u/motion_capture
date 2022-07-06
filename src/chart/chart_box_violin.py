@@ -3,10 +3,11 @@ import numpy as np
 
 import pandas as pd
 
-df = pd.read_csv("data/result/point_main_45.csv", header=0)
+df = pd.read_csv("data/result/point_main.csv", header=0)
+# df = pd.read_csv("data/result/point_main_dis.csv", header=0)
+# df = pd.read_csv("data/result/point_main_dis_45.csv", header=0)
 # df = pd.read_csv("data/result/grid_point/point_main_grid_130.csv", header=0)
 # df = pd.read_csv("data/result/heart_path/point_main_heart_300.csv", header=0)
-# df = pd.read_csv("data/result/point_main_dis_45.csv", header=0)
 point = df.to_numpy()
 # print(point[0])
 
@@ -21,13 +22,17 @@ x2 = point[((point[:,3] > 1500) & (point[:,3] <= 2000))]
 x3 = point[((point[:,3] > 2000) & (point[:,3] <= 2500))]
 x4 = point[((point[:,3] > 2500) & (point[:,3] <= 3000))]
 
-for i in range(7,11): print(np.average(x1[:,i]))
+for i in range(8,11): print(np.average(x1[:,i]))
+print(np.std(x1[:,8]))
 print()
-for i in range(7,11): print(np.average(x2[:,i]))
+for i in range(8,11): print(np.average(x2[:,i]))
+print(np.std(x2[:,8]))
 print()
-for i in range(7,11): print(np.average(x3[:,i]))
+for i in range(8,11): print(np.average(x3[:,i]))
+print(np.std(x3[:,8]))
 print()
-for i in range(7,11): print(np.average(x4[:,i]))
+for i in range(8,11): print(np.average(x4[:,i]))
+print(np.std(x4[:,8]))
 print()
 
 ###################################################
