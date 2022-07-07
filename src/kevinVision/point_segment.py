@@ -88,8 +88,8 @@ class PointSegment():
                 pointDis = findAllDis(points3dCombinations[i])
                 pointDisSum = arraySum(pointDis)[0]
                 pointList = np.sum(pointDisSum)
-                if((abs(pointList - self.orginDisSumTableList4[0]) < 50 and idFlag[0] == 0
-                    or abs(pointList - self.orginDisSumTableList4[1]) < 50 and idFlag[1] == 0)
+                if((abs(pointList - self.orginDisSumTableList4[0]) < 100 and idFlag[0] == 0
+                    or abs(pointList - self.orginDisSumTableList4[1]) < 100 and idFlag[1] == 0)
                     and count < 2):
                     # print(pointList)
                     point3dList[count] = pointList
