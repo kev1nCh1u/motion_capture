@@ -4,28 +4,33 @@ import pandas as pd
 import numpy as np
 
 df = pd.read_csv("data/result/point_main_robot_rom_2.csv", header=0)
+# df = pd.read_csv("data/result/point_main_human_rom_30.csv", header=0)
 point = df.to_numpy()
 # print(point[0])
 
 # point = point[3:-7]
 point = point[::10]
+point = point[(point[:,8] < 3)]
+point = point[(point[:,19] < 3)]
 point = point[(point[:,0] == 0)]
 point = point[(point[:,11] == 1)]
+# point = point[(point[:,0] == 1)]
+# point = point[(point[:,11] == 0)]
 
 point0 = point[:,0:11]
 minYaw0 = np.min(point0[:,6])
 maxYaw0 = np.max(point0[:,6])
-print(minYaw0, maxYaw0)
+print("minYaw0:",minYaw0,"maxYaw0:",maxYaw0)
 
 point1 = point[:,11:]
 minYaw1 = np.min(point1[:,6])
 maxYaw1 = np.max(point1[:,6])
-print(minYaw1, maxYaw1)
+print("minYaw1:",minYaw1,"maxYaw1:",maxYaw1)
 
 romAngle = np.abs(point0[:,6]) + np.abs(point1[:,6])
 minYawRom = np.min(romAngle)
 maxYawRom = np.max(romAngle)
-print(minYawRom, maxYawRom)
+print("minYawRom",minYawRom,"maxYawRom",maxYawRom)
 
 robotAngle = 23.81
 
@@ -38,9 +43,11 @@ true = num * 10 + point0[0,7]
 fig, ax = plt.subplots()
 
 # ax.plot(num, true, '-.', label='True')
-# ax.plot(num, point[:,4], '-', label='Roll')
-# ax.plot(num, point[:,5], '-', label='Pitch')
+# ax.plot(num, point0[:,4], '-', label='Roll0')
+# ax.plot(num, point0[:,5], '-', label='Pitch0')
 ax.plot(num, point0[:,6], '-', label='Yaw0')
+# ax.plot(num, point1[:,4], '-', label='Roll1')
+# ax.plot(num, point1[:,5], '-', label='Pitch1')
 ax.plot(num, point1[:,6], '-', label='Yaw1')
 ax.plot(num, romAngle, '-', label='ROM')
 
@@ -56,7 +63,7 @@ x2, y2 = [0, 200], [maxYawRom, maxYawRom]
 x3, y3 = [0, 200], [minYawRom+robotAngle, minYawRom+robotAngle]
 plt.plot(x1, y1, '--', label='Base')
 plt.plot(x2, y2, '--', label='Max')
-plt.plot(x3, y3, '--', label='True')
+# plt.plot(x3, y3, '--', label='True')
 plt.legend()
 
 plt.show()
