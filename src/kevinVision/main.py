@@ -118,7 +118,7 @@ class Main():
 
         ########################## end
         text =  ""
-        if(axisVector[0][0][0] and rmsePoint[0] < 1):
+        if(axisVector[0][0][0] and rmsePoint[0] < 10):
         # if(1):
             pass
             # print("--- total %s seconds ---" % (time.time() - start_time))

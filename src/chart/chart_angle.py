@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 df = pd.read_csv("data/result/point_main.csv", header=0)
-df = pd.read_csv("data/result/point_main_angle_yaw.csv", header=0)
+# df = pd.read_csv("data/result/angle/point_main_angle_yaw.csv", header=0)
 point = df.to_numpy()
 # print(point[0])
 
@@ -22,6 +22,8 @@ for j in range(20):
     # print(np.std(x[j][:,8]))
     # print()
 
+    print(round(np.average(x[j][:,4]),4))
+    print(round(np.average(x[j][:,5]),4))
     print(round(np.average(x[j][:,6]),4))
     print(round(np.std(x[j][:,6]),4))
     print()

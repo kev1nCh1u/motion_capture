@@ -1,7 +1,7 @@
 # Loading project motion_capture_kevin
 vsim work.T
 # vsim work.T 
-# Start time: 19:39:45 on Jun 21,2022
+# Start time: 14:28:57 on Jul 19,2022
 # Loading work.T
 # Loading work.FIND_MULTI_POINTS
 # ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'UUT'.  Expected 41, found 17.
@@ -30,26 +30,6 @@ vsim work.T
 # ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V14'.
 # ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_H15'.
 # ** Warning: (vsim-3722) /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(30): [TFMPC] - Missing connection for port 'o_POINTS_V15'.
-add wave -position end  sim:/T/CLK
-add wave -position end  sim:/T/VGA_HS
-add wave -position end  sim:/T/VGA_VS
-add wave -position end  sim:/T/BINARY_FLAG
-add wave -position end  sim:/T/H_CNT
-add wave -position end  sim:/T/V_CNT
-add wave -position end  sim:/T/POINTS_H0
-add wave -position end  sim:/T/POINTS_V0
-add wave -position end  sim:/T/POINTS_H1
-add wave -position end  sim:/T/POINTS_V1
-add wave -position end  sim:/T/POINTS_H2
-add wave -position end  sim:/T/POINTS_V2
-add wave -position end  sim:/T/POINTS_H3
-add wave -position end  sim:/T/POINTS_V3
-add wave -position end  sim:/T/POINTS_LIST
-add wave -position end  sim:/T/POINTS_NUM
-add wave -position end  sim:/T/test
-add wave -position end  sim:/T/BINARY_FRAME
-add wave -position end  sim:/T/i
-add wave -position end  sim:/T/j
 run -all
 # ================== start ===========================
 # ============= result =================
@@ -123,6 +103,7 @@ run -all
 # ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(164)
 #    Time: 123072800 ns  Iteration: 0  Instance: /T
 # Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 164
+add wave -position end  sim:/T/CLK
 restart
 # ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
 # ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'UUT'.  Expected 41, found 17.
@@ -224,25 +205,5 @@ run -all
 # ** Note: $stop    : /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v(164)
 #    Time: 123072800 ns  Iteration: 0  Instance: /T
 # Break in Module T at /home/kevin/src/motion_capture/src/fpga/DE10_NANO_D8M_RTL/kevin/T_FIND_MULTI_POINTS.v line 164
-add wave -position end  sim:/T/CLK
-add wave -position end  sim:/T/VGA_HS
-add wave -position end  sim:/T/VGA_VS
-add wave -position end  sim:/T/BINARY_FLAG
-add wave -position end  sim:/T/H_CNT
-add wave -position end  sim:/T/V_CNT
-add wave -position end  sim:/T/POINTS_H0
-add wave -position end  sim:/T/POINTS_V0
-add wave -position end  sim:/T/POINTS_H1
-add wave -position end  sim:/T/POINTS_V1
-add wave -position end  sim:/T/POINTS_H2
-add wave -position end  sim:/T/POINTS_V2
-add wave -position end  sim:/T/POINTS_H3
-add wave -position end  sim:/T/POINTS_V3
-add wave -position end  sim:/T/POINTS_LIST
-add wave -position end  sim:/T/POINTS_NUM
-add wave -position end  sim:/T/test
-add wave -position end  sim:/T/BINARY_FRAME
-add wave -position end  sim:/T/i
-add wave -position end  sim:/T/j
-# End time: 19:45:43 on Jun 21,2022, Elapsed time: 0:05:58
-# Errors: 0, Warnings: 26
+# End time: 15:05:06 on Jul 19,2022, Elapsed time: 0:36:09
+# Errors: 0, Warnings: 27

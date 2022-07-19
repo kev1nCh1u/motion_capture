@@ -4,23 +4,23 @@ import pandas as pd
 
 import numpy as np
 
-# df = pd.read_csv("data/result/point_main.csv", header=0)
+df = pd.read_csv("data/result/point_main_walk_40.csv", header=0)
 # df = pd.read_csv("data/result/point_main_robot_rom_2.csv", header=0)
-df = pd.read_csv("data/result/point_main_human_rom_30.csv", header=0)
+# df = pd.read_csv("data/result/point_main_human_rom_30.csv", header=0)
 point = df.to_numpy()
 # print(point[0])
 
 savePlotPath = 'data/result/point_path_plot/marker_plot_3d' + '.png'
 
-# point = point[600:]
+point = point[600:1000]
 print(len(point), point[0,:])
 # point = point[::10]
-point = point[(point[:,8] < 3)]
-point = point[(point[:,19] < 3)]
-# point = point[(point[:,0] == 0)]
-# point = point[(point[:,11] == 1)]
-point = point[(point[:,0] == 1)]
-point = point[(point[:,11] == 0)]
+point = point[(point[:,8] < 10)]
+point = point[(point[:,19] < 10)]
+point = point[(point[:,0] == 0)]
+point = point[(point[:,11] == 1)]
+# point = point[(point[:,0] == 1)]
+# point = point[(point[:,11] == 0)]
 
 point0 = point[:,0:11]
 minYaw0 = np.min(point0[:,6])
