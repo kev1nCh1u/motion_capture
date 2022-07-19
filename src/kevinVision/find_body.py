@@ -181,15 +181,16 @@ class FindBody():
         axisVector[1] = unitVector[1] * np.full(3,50) + points3dSort[0]
         axisVector[2] = unitVector[2] * np.full(3,50) + points3dSort[0]
         axisVector[3] = unitVector[3] * np.full(3,50) + points3dSort[0]
-        # print(axisVector[0])
+        # print("axisVector",axisVector[0])
 
         # print(axisVector)
-        # print(unitVector)
+        # print("unitVector",unitVector)
 
         ######################################## find axis angle
         # angle = rotationToEuler(axisPointDis)
         angle = rotationToEuler(unitVector[1:])
         # print("angle: \n", angle)
+        # print("Rotation",eulerToRotation(angle[0],angle[1],angle[2],"zyx"))
 
         ########################################### write point_result
         # if(reliability[0] > 99):
@@ -230,7 +231,7 @@ class FindBody():
         # print("\n--- time 1: %s seconds ---" % (time.time() - start_time_1))
 
         self.counter += 1
-        return axisVector, angle, msePoint, rmsePoint, maePoint, mapePoint
+        return axisVector, unitVector, angle, msePoint, rmsePoint, maePoint, mapePoint
 
     def close(self):
         self.point_result.close()

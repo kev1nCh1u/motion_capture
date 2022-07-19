@@ -8,14 +8,30 @@ df = pd.read_csv("data/result/point_main.csv", header=0)
 # df = pd.read_csv("data/result/heart_path/point_main_heart_250.csv", header=0)
 # df = pd.read_csv("data/result/point_main_dis.csv", header=0)
 # df = pd.read_csv("data/result/point_main_robot_angle_3.csv", header=0)
+# df = pd.read_csv("data/result/probe/point_main_probe_calibra.csv", header=0)
+df = pd.read_csv("data/result/point_main_floating.csv", header=0)
 point = df.to_numpy()
 # print(point[0])
-
-savePlotPath = 'data/result/point_path_plot/marker_plot_3d' + '.png'
 
 # point = point[600:]
 print(len(point), point[0,:])
 point = point[(point[:,8] < 3)]
+
+print(np.min(point[:,1]))
+print(np.max(point[:,1]))
+print(np.min(point[:,2]))
+print(np.max(point[:,2]))
+print(np.min(point[:,3]))
+print(np.max(point[:,3]))
+print(np.min(point[:,4]))
+print(np.max(point[:,4]))
+print(np.min(point[:,5]))
+print(np.max(point[:,5]))
+print(np.min(point[:,6]))
+print(np.max(point[:,6]))
+print(np.min(point[:,8]))
+print(np.max(point[:,8]))
+
 
 ######################################################################
 # show all
@@ -71,6 +87,3 @@ plt.show()
 #         ax.scatter(point[i,0+j*3], point[i,1+j*3], point[i,2+j*3], label='Point'+str(i))
 #     ax.legend()
 #     plt.show()
-
-
-# plt.savefig(savePlotPath)

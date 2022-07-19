@@ -30,7 +30,8 @@ class Main():
 
         ######################################### load data
         self.data_file = open("data/result/point_main.csv", "w") # open point_data
-        text =  "id, x, y, z, roll, pitch, yaw, mse, rmse, mae, mape"
+        text =  "id,x,y,z,roll,pitch,yaw,mse,rmse,mae,mape,id2,x,y,z,roll,pitch,yaw,mse,rmse,mae,mape"
+        # text =  "id,x,y,z,ux1,uy1,uz1,ux2,uy2,uz2,ux3,uy3,uz3,roll,pitch,yaw,mse,rmse,mae,mape,id2,x,y,z,ux1,uy1,uz1,ux2,uy2,uz2,ux3,uy3,uz3,roll,pitch,yaw,mse,rmse,mae,mape"
         text += "\n"
         self.data_file.write(text) # write point_data
 
@@ -58,13 +59,14 @@ class Main():
 
             markerID, point3dSeg, count, pc = self.ps.pointSegment(points3d)
             axisVector = np.zeros((2,4,3))
+            unitVector = np.zeros((2,4,3), np.float32) # b,x,y,z
             angle = np.zeros((2,3))
             msePoint = np.zeros((2))
             rmsePoint = np.zeros((2))
             maePoint = np.zeros((2))
             mapePoint = np.zeros((2))
             for i in range(count):
-                axisVector[i], angle[i], msePoint[i], rmsePoint[i], maePoint[i], mapePoint[i] = self.fb.findBody(point3dSeg[i],table=int(markerID[i]))
+                axisVector[i], unitVector[i], angle[i], msePoint[i], rmsePoint[i], maePoint[i], mapePoint[i] = self.fb.findBody(point3dSeg[i],table=int(markerID[i]))
 
             ########################## end
             text =  ""
@@ -105,17 +107,18 @@ class Main():
 
         markerID, point3dSeg, count, pc = self.ps.pointSegment(points3d)
         axisVector = np.zeros((2,4,3))
+        unitVector = np.zeros((2,4,3), np.float32) # b,x,y,z
         angle = np.zeros((2,3))
         msePoint = np.zeros((2))
         rmsePoint = np.zeros((2))
         maePoint = np.zeros((2))
         mapePoint = np.zeros((2))
         for i in range(count):
-            axisVector[i], angle[i], msePoint[i], rmsePoint[i], maePoint[i], mapePoint[i] = self.fb.findBody(point3dSeg[i],table=int(markerID[i]))
+            axisVector[i], unitVector[i], angle[i], msePoint[i], rmsePoint[i], maePoint[i], mapePoint[i] = self.fb.findBody(point3dSeg[i],table=int(markerID[i]))
 
         ########################## end
         text =  ""
-        if(axisVector[0][0][0] and msePoint[0] < 50):
+        if(axisVector[0][0][0] and rmsePoint[0] < 1):
         # if(1):
             pass
             # print("--- total %s seconds ---" % (time.time() - start_time))
@@ -131,11 +134,15 @@ class Main():
                 int(markerID[1]),np.round(axisVector[1][0][0],2),np.round(axisVector[1][0][1],2),np.round(axisVector[1][0][2],2),np.round(rmsePoint[1],2)), end="\r")
 
             # print("get", np.round(axisVector[0][0][2],2))
+            # print("unitVector",unitVector[i][1][0])
 
             for i in range(2):
-                text += str(int(markerID[i]))+","+str(np.round(axisVector[i][0][0],2))+","+str(np.round(axisVector[i][0][1],2))+","+str(np.round(axisVector[i][0][2],2))+","
-                text += str(np.round(angle[i][0],2))+","+str(np.round(angle[i][1],2))+","+str(np.round(angle[i][2],2))+","
-                text += str(np.round(msePoint[i],2))+","+str(np.round(rmsePoint[i],2))+","+str(np.round(maePoint[i],2))+","+str(np.round(mapePoint[i],2))+","
+                text += str(int(markerID[i]))+","+str(axisVector[i][0][0])+","+str(axisVector[i][0][1])+","+str(axisVector[i][0][2])+","
+                # text += str(unitVector[i][1][0])+","+str(unitVector[i][1][1])+","+str(unitVector[i][1][2])+","
+                # text += str(unitVector[i][2][0])+","+str(unitVector[i][2][1])+","+str(unitVector[i][2][2])+","
+                # text += str(unitVector[i][3][0])+","+str(unitVector[i][3][1])+","+str(unitVector[i][3][2])+","
+                text += str(angle[i][0])+","+str(angle[i][1])+","+str(angle[i][2])+","
+                text += str(msePoint[i])+","+str(rmsePoint[i])+","+str(maePoint[i])+","+str(mapePoint[i])+","
             text += "\n"
             self.data_file.write(text) # write point_data
 
@@ -154,12 +161,13 @@ if __name__ == '__main__':
 
     while 1:
         m.run()
+        # input()
 
     # while(1):
     #     print("===========")
     #     while(1):
     #         m.run()
-    #         if(m.mainCounter > 20):
+    #         if(m.mainCounter > 10):
     #             m.mainCounter = 0
     #             break 
     #     print("Get finish! press key...")

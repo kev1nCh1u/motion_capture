@@ -142,11 +142,12 @@ if __name__ == '__main__':
 
         markerID, point3dSeg, count, pc = ps.pointSegment(points3d)
         axisVector = np.zeros((2,4,3))
+        unitVector = np.zeros((2,4,3), np.float32) # b,x,y,z
         angleDeg = np.zeros((2,3))
         msePoint = np.zeros((2))
         rmsePoint = np.zeros((2))
         for j in range(count):
-            axisVector[j], angleDeg[j], msePoint[j], rmsePoint[j] = fb.findBody(point3dSeg[j],table=int(markerID[j]))
+            axisVector[j], unitVector[i], angleDeg[j], msePoint[j], rmsePoint[j] = fb.findBody(point3dSeg[j],table=int(markerID[j]))
 
 
         print(markerID)
@@ -171,11 +172,12 @@ if __name__ == '__main__':
 
     #     markerID, point3dSeg, count, pc = ps.pointSegment(points3d)
     #     axisVector = np.zeros((2,4,3))
+    #     unitVector = np.zeros((2,4,3), np.float32) # b,x,y,z
     #     angleDeg = np.zeros((2,3))
     #     msePoint = np.zeros((2))
     #     rmsePoint = np.zeros((2))
     #     for j in range(count):
-    #         axisVector[j], angleDeg[j], msePoint[j], rmsePoint[j] = fb.findBody(point3dSeg[j],table=int(markerID[j]))
+    #         axisVector[j], unitVector[i], angleDeg[j], msePoint[j], rmsePoint[j] = fb.findBody(point3dSeg[j],table=int(markerID[j]))
 
     #     print(markerID)
     # print("%s ms ---" % ((time.time() - start_time) / len(point_data[:]) * 1000))
@@ -188,10 +190,11 @@ if __name__ == '__main__':
 
     #     markerID, point3dSeg, count, pc = ps.pointSegment(points3d)
     #     axisVector = np.zeros((2,4,3))
+    #     unitVector = np.zeros((2,4,3), np.float32) # b,x,y,z
     #     angleDeg = np.zeros((2,3))
     #     msePoint = np.zeros((2))
     #     rmsePoint = np.zeros((2))
     #     for j in range(count):
-    #         axisVector[j], angleDeg[j], msePoint[j], rmsePoint[j] = fb.findBody(point3dSeg[j],table=int(markerID[j]))
+    #         axisVector[j], unitVector[i], angleDeg[j], msePoint[j], rmsePoint[j] = fb.findBody(point3dSeg[j],table=int(markerID[j]))
 
     #     ps.showImage()

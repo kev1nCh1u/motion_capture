@@ -1,25 +1,32 @@
 
 import numpy as np
 
-import numpy as np
+# a = [[1,0,1], [0,1,2], [0,1,2]]
+a = np.random.random(27)
+a = np.reshape(a,(9,3))
+print("a",a)
 
-arr = np.array([41, 42, 43, 44])
+b = np.random.random(3)
+b = np.reshape(b,(3,1))
+print("b",b)
 
-filter_arr = arr > 42
+# c = np.dot(a, b)
+# print("c",c)
 
-newarr = arr[filter_arr]
+c = np.random.random(9)
+c = np.reshape(c,(9,1))
+print("c",c)
 
-print(filter_arr)
-print(newarr)
+# bs = np.dot(a, c)
+# print("bs",bs)
 
-from scipy.spatial.transform import Rotation as R
+# ainv = np.linalg.inv(a)
+# bs = np.dot(ainv,c)
+# print("bs",bs)
 
-r = R.from_rotvec([0, 0, np.pi/2])
-print(r.as_euler('zxy', degrees=True))
+bs = np.linalg.lstsq(a,c, rcond=None)[0]
 
-r = R.from_rotvec([
-[0, 0, np.pi/2],
-[0, -np.pi/3, 0],
-[np.pi/4, 0, 0]])
+print("bs",bs)
 
-print(r.as_euler('zxy', degrees=True))
+# (k_inferred, m0_inferred), residuals, rank, s = np.linalg.lstsq(a, c)
+# print((k_inferred, m0_inferred))
