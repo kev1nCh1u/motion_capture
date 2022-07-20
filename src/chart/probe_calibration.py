@@ -8,17 +8,21 @@ import sys
 sys.path.append(os.getcwd())
 from lib.kevin import kevincv
 
+df = pd.read_csv("data/result/point_main.csv", header=0)
 # df = pd.read_csv("data/result/probe/point_main_probe_calibra.csv", header=0)
-df = pd.read_csv("data/result/point_main_probe_calibra.csv", header=0)
+# df = pd.read_csv("data/result/point_main_probe_calibra.csv", header=0)
 point = df.to_numpy()
 # print(point[0])
 
-point = point[::50]
+# point = point[::50]
 print(len(point))
 point = point[(point[:,8] < 1)]
 point_high_accuracy = point[(point[:,8] < 0.7)]
 # point = point[(point[:,17] < 1)]
 # point_high_accuracy = point[(point[:,17] < 0.7)]
+
+size = len(point)
+print(size)
 
 ######################################################################
 # show all
@@ -92,8 +96,8 @@ print("x",x)
 ######################################################################
 # calculate probe
 ######################################################################
-probe = np.zeros((20,3))
-for i in range(20):
+probe = np.zeros((size,3))
+for i in range(size):
     # probeMarkerPos = np.reshape(pos[i],(3,1))
     # probeMarkerRota = rota[i]
 
@@ -114,8 +118,8 @@ for i in range(20):
 ######################################################################
 # calculate probe
 ######################################################################
-# probe = np.zeros((20,3))
-# for i in range(20):
+# probe = np.zeros((size,3))
+# for i in range(size):
 #     # probeMarkerPos = np.reshape(pos[i],(3,1))
 #     # probeMarkerRota = rota[i]
 

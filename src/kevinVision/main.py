@@ -30,7 +30,7 @@ class Main():
 
         ######################################### load data
         self.data_file = open("data/result/point_main.csv", "w") # open point_data
-        text =  "id,x,y,z,roll,pitch,yaw,mse,rmse,mae,mape,id2,x,y,z,roll,pitch,yaw,mse,rmse,mae,mape"
+        text =  "id,x,y,z,roll,pitch,yaw,mse,rmse,mae,mape,id2,x,y,z,roll,pitch,yaw,mse,rmse,mae,mape,"
         # text =  "id,x,y,z,ux1,uy1,uz1,ux2,uy2,uz2,ux3,uy3,uz3,roll,pitch,yaw,mse,rmse,mae,mape,id2,x,y,z,ux1,uy1,uz1,ux2,uy2,uz2,ux3,uy3,uz3,roll,pitch,yaw,mse,rmse,mae,mape"
         text += "\n"
         self.data_file.write(text) # write point_data
@@ -160,8 +160,8 @@ if __name__ == '__main__':
     # m.runData()
 
     while 1:
+        input()
         m.run()
-        # input()
 
     # while(1):
     #     print("===========")

@@ -8,8 +8,9 @@ import sys
 sys.path.append(os.getcwd())
 from lib.kevin import kevincv
 
+df = pd.read_csv("data/result/point_main.csv", header=0)
 # df = pd.read_csv("data/result/probe/point_main_probe_calibra.csv", header=0)
-df = pd.read_csv("data/result/point_main_probe_circle.csv", header=0)
+# df = pd.read_csv("data/result/point_main_probe_circle.csv", header=0)
 point = df.to_numpy()
 # print(point[0])
 
@@ -23,48 +24,6 @@ point_high_accuracy = point[(point[:,8] < 0.7)]
 
 size = len(point)
 print(size)
-
-######################################################################
-# show all
-######################################################################
-# # show plot 3d
-# fig = plt.figure()
-# # ax = fig.gca(projection='3d')
-# ax = fig.add_subplot(projection='3d')
-# ax.set_xlabel('X(mm)')
-# ax.set_ylabel('Y(mm)')
-# ax.set_zlabel('Z(mm)')
-# # ax.set_xlim(-200,200)
-# # ax.set_ylim(450,600)
-# # ax.set_zlim(-200,200)
-# sc = ax.scatter(point[:,1], point[:,2], point[:,3], s=20, label='Marker', c=point[:,8], cmap='jet',vmin=0, vmax=3)
-# # sc = ax.scatter(point[:,1], point[:,2], point[:,3], s=20, label='Marker', c=point[:,17], cmap='jet',vmin=0, vmax=3)
-# ax.legend()
-# cbar = plt.colorbar(sc)
-# cbar.set_label('RMSE(mm)')
-# plt.show()
-
-######################################################################
-# show all 2d
-######################################################################
-# # show plot 3d
-# fig = plt.figure()
-# ax = fig.add_subplot()
-# ax.set_xlabel('X(mm)')
-# ax.set_ylabel('Y(mm)')
-
-# # ax.set_xlim(-200,200)
-# # ax.set_ylim(200,-200)
-# plt.gca().invert_yaxis()
-
-# # sc = ax.scatter(point[:,1], point[:,2], s=20, label='Marker', c=point[:,8], cmap='jet',vmin=0, vmax=3)
-# sc = ax.scatter(point[:,1], point[:,2], s=20, label='Marker', c=point[:,17], cmap='jet',vmin=0, vmax=3)
-# # ax.set_title('Distance '+ str(round(point[0,3]))+ "mm")
-# ax.legend()
-# cbar = plt.colorbar(sc)
-# cbar.set_label('RMSE(mm)')
-# plt.show()
-
 
 ######################################################################
 # calibration
@@ -126,7 +85,7 @@ ax.set_zlabel('Z(mm)')
 # ax.set_xlim(-200,200)
 # ax.set_ylim(450,600)
 # ax.set_zlim(-200,200)
-# sc = ax.scatter(point[:,1], point[:,2], point[:,3], s=20, label='Marker',)
+sc = ax.scatter(point[:,1], point[:,2], point[:,3], s=20, label='Marker',)
 sc2 = ax.scatter(probe[:,0], probe[:,1], probe[:,2], s=20, label='Probe')
 ax.legend()
 plt.show()
@@ -144,7 +103,7 @@ ax.set_ylabel('Y(mm)')
 # ax.set_ylim(200,-200)
 plt.gca().invert_yaxis()
 
-# sc = ax.scatter(point[:,1], point[:,2], s=20, label='Marker')
+sc = ax.scatter(point[:,0], point[:,2], s=20, label='Marker')
 sc2 = ax.scatter(probe[:,0], probe[:,2], s=20, label='Probe')
 # ax.set_title('Distance '+ str(round(point[0,3]))+ "mm")
 ax.legend()
