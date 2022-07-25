@@ -10,19 +10,23 @@ from lib.kevin import kevincv
 
 df = pd.read_csv("data/result/point_main.csv", header=0)
 # df = pd.read_csv("data/result/probe/point_main_probe_calibra.csv", header=0)
-# df = pd.read_csv("data/result/point_main_probe_calibra.csv", header=0)
+df = pd.read_csv("data/result/point_main_probe_calibra_0725.csv", header=0)
 point = df.to_numpy()
 # print(point[0])
 
 # point = point[::50]
-print(len(point))
+print("point all size:",len(point))
 point = point[(point[:,8] < 1)]
+
 point_high_accuracy = point[(point[:,8] < 0.7)]
+point_high_accuracy = point_high_accuracy[::50]
+
 # point = point[(point[:,17] < 1)]
 # point_high_accuracy = point[(point[:,17] < 0.7)]
 
+print("point high size:",len(point_high_accuracy))
 size = len(point)
-print(size)
+print("point size:",size)
 
 ######################################################################
 # show all

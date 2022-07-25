@@ -8,9 +8,10 @@ import sys
 sys.path.append(os.getcwd())
 from lib.kevin import kevincv
 
-# df = pd.read_csv("data/result/point_main.csv", header=0)
+df = pd.read_csv("data/result/point_main.csv", header=0)
 # df = pd.read_csv("data/result/probe/point_main_probe_calibra.csv", header=0)
-df = pd.read_csv("data/result/point_main_probe_circle.csv", header=0)
+# df = pd.read_csv("data/result/point_main_probe_circle_0725.csv", header=0)
+# df = pd.read_csv("data/result/probe/point_main_probe_circle_0725.csv", header=0)
 point = df.to_numpy()
 # print(point[0])
 
@@ -18,9 +19,6 @@ point = df.to_numpy()
 size = len(point)
 print(size)
 point = point[(point[:,8] < 1)]
-point_high_accuracy = point[(point[:,8] < 0.7)]
-# point = point[(point[:,17] < 1)]
-# point_high_accuracy = point[(point[:,17] < 0.7)]
 
 size = len(point)
 print(size)
@@ -28,8 +26,8 @@ print(size)
 ######################################################################
 # calibration
 ######################################################################
-
-x = np.array([[13.34559791],[201.89268775],[38.79749708]])
+# x = np.array([[13.34559791],[201.89268775],[38.79749708]])
+x = np.array([[100.58224725],[257.4466134],[13.29701482]])
 print("x",x)
 
 ######################################################################
@@ -53,6 +51,8 @@ for i in range(size):
     # probeAns = np.array([probeMarkerPos[0]-xr[0],probeMarkerPos[1]+xr[1],probeMarkerPos[2]+xr[2]])
     probe[i] = np.reshape(probeAns,(1,3))
     # print("probe",probe[i])
+    
+    probe[i] = point[i,1:4] # test
 
 ######################################################################
 # calculate probe
@@ -75,9 +75,28 @@ for i in range(size):
 ######################################################################
 # rt
 ######################################################################
-rota = kevincv.eulerToRotation(90,20,0,"xyz")
+rota = kevincv.eulerToRotation(110,0,0,"xyz")
 for i in range(size):
     probe[i,0:3] = np.dot(rota,probe[i,0:3])
+
+######################################################################
+# calculate center
+######################################################################
+center = np.zeros(2)
+center[0] = (np.max(probe[:,0]) - np.min(probe[:,0]))/2 + np.min(probe[:,0])
+center[1] = (np.max(probe[:,1]) - np.min(probe[:,1]))/2 + np.min(probe[:,1])
+print("center",center)
+
+######################################################################
+# calculate error
+######################################################################
+dis = np.zeros((size))
+for i in range(size):
+    dis[i] = kevincv.euclideanDistances3d(center,probe[i,0:2])
+    # print("dis",dis[i])
+print("error_rmse:",kevincv.rmseFuc(50,dis))
+# print("error_rmse:",kevincv.rmseFuc(65,dis))
+print("error_std:",np.std(dis))
 
 ######################################################################
 # show all 3d
@@ -106,10 +125,13 @@ ax = fig.add_subplot()
 ax.set_xlabel('X(mm)')
 ax.set_ylabel('Y(mm)')
 
-# ax.set_xlim(-200,200)
-# ax.set_ylim(200,-200)
 plt.gca().invert_yaxis()
 
+ax.add_patch(plt.Circle((center),50,color='r',alpha=1,fill=False))
+ax.add_patch(plt.Circle((center),65,color='r',alpha=1,fill=False))
+
+sc_ = ax.scatter(0, 0, s=20, color='r', label='True')
+sc3 = ax.scatter(center[0], center[1], s=20, label='Center')
 # sc = ax.scatter(point[:,0], point[:,2], s=20, label='Marker')
 sc2 = ax.scatter(probe[:,0], probe[:,1], s=20, label='Probe')
 # ax.set_title('Distance '+ str(round(point[0,3]))+ "mm")

@@ -12,9 +12,10 @@ from lib.kevin import kevincv
 ######################################################################
 # load kevin data
 ######################################################################
-# df = pd.read_csv("data/result/point_main.csv", header=0)
+df = pd.read_csv("data/result/point_main.csv", header=0)
 # df = pd.read_csv("data/result/probe/point_main_probe_calibra.csv", header=0)
-df = pd.read_csv("data/result/point_main_probe_circle.csv", header=0)
+# df = pd.read_csv("data/result/point_main_probe_circle.csv", header=0)
+# df = pd.read_csv("data/result/probe/point_main_probe_circle_0725.csv", header=0)
 point = df.to_numpy()
 
 point = point[(point[:,8] < 1)]
@@ -39,7 +40,9 @@ print("size_ndi",size_ndi)
 ######################################################################
 # calibration
 ######################################################################
-x = np.array([[13.34559791],[201.89268775],[38.79749708]])
+# x = np.array([[13.34559791],[201.89268775],[38.79749708]])
+x = np.array([[100.58224725],[257.4466134 ],[ 13.29701482]])
+
 print("x",x)
 
 ######################################################################
@@ -55,10 +58,13 @@ for i in range(size):
     probe[i] = np.reshape(probeAns,(1,3))
     # print("probe",probe[i])
 
+    probe[i] = point[i,1:4] # test
+
 ######################################################################
 # rt
 ######################################################################
-rota = kevincv.eulerToRotation(130,-5,0,"xyz")
+# rota = kevincv.eulerToRotation(130,-5,0,"xyz")
+rota = kevincv.eulerToRotation(110,0,0,"xyz")
 for i in range(size):
     probe[i,0:3] = np.dot(rota,probe[i,0:3])
 

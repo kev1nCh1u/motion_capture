@@ -160,7 +160,8 @@ if __name__ == '__main__':
     # m.runData()
 
     while 1:
-        input()
+        # print("press key capture...")
+        # input()
         m.run()
 
     # while(1):
