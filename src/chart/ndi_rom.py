@@ -3,7 +3,7 @@ import pandas as pd
 
 import numpy as np
 
-df = pd.read_csv("data/result/walk/point_main_walk_50.csv", header=0)
+df = pd.read_csv("data/result/ndi/walk_30.csv", header=0)
 # df = pd.read_csv("data/result/point_main_robot_rom_2.csv", header=0)
 # df = pd.read_csv("data/result/point_main_human_rom_30.csv", header=0)
 point = df.to_numpy()
