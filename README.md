@@ -31,6 +31,9 @@ V: 3V
 ## run start
     kevin_start_main.bash
 
+## create markers
+    kevin_start_create_markers.bash
+
 ## install matlab engine
 https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html
 ```
@@ -56,6 +59,9 @@ python setup.py install
     python src/image_processing/ir_track/src/ros_point_record.py
 
 ## fpga track point
+### calibration quick start
+    kevin_start_capture.bash
+    kevin_start_calibration.bash
 ### calibration
     python3.8 src/image_processing/capture/double_capture.py
     python3.8 src/matlab/start_stero_calib.py
